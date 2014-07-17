@@ -1,0 +1,37 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist is defined %}
+	<h1>Ajouter une affiliation</h1>
+{% else %}
+	<h1>Modifier une affiliation</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist is not defined %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une affiliation">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une affiliation"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimer l'affiliation {{ infonom }} ?</p>
+						<a href="{{ path('_Dashboard_deleteaffiliation', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler"></a>
+				    </div>	
+				    {% endif %}					
+				    {{ form_label(form.nom_fr, "Nom fr", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom en", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.image_doctrine, "Image", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_doctrine, {'attr':{'class':'txt_add_state'}}) }}                                
+				    {% if infoimg is defined %}
+				    	<img class="affiliation classaffiliation" src="{{ asset('uploads/affiliations') }}/{{infoid}}/{{ infoimg }}" />
+				    {% endif %}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_affiliationshebergement') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

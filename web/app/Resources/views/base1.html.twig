@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+	 <head>
+		 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+         <meta name="robots" content="noindex,nofollow"/>
+       	 {% if nocache is defined %} {{ nocache }} {% endif %}
+    	 <title>Global Réservation - Administration</title>
+    	 {% block stylesheets %}
+    	 	<link rel="shortcut icon" href="{{ asset('bundles/myappglobal/images/favicon.ico') }}" />
+    	 	<link rel="stylesheet" href="{{ asset('bundles/myappadmin/css/gestion.css') }}" type="text/css" media="all" />
+    	 	<link rel="stylesheet" href="{{ asset('bundles/myappadmin/css/jquery-ui.css') }}" type="text/css" media="all" />
+    	 	<link rel="stylesheet" href="{{ asset('bundles/myappglobal/js/jquery-te-1.4.0.css') }}" type="text/css" media="all">
+    	 {% endblock %}
+    	 {% block javascripts %} 
+    	 	<script type="text/javascript" src="{{ asset('bundles/myappglobal/js/jquery.js') }}" ></script>
+    	 	<script type="text/javascript" src="{{ asset('bundles/myappadmin/js/custom.js') }}" ></script>	
+    	 	<script type="text/javascript" src="{{ asset('bundles/myappadmin/js/jquery-ui-1.9.1.custom.js') }}"></script>
+    	 	<script type="text/javascript" src="{{ asset('bundles/myappglobal/js/jquery-te-1.4.0.min.js') }}"></script>
+    	 	<script type="text/javascript" src="{{ asset('bundles/myappadmin/js/ckeditor.js') }}"></script>
+    	 	<script type="text/javascript" src="{{ asset('bundles/myappadmin/js/jquery.Jcrop.js') }}"></script>
+    	 	<script type="text/javascript" src="{{ asset('bundles/myappadmin/js/jquery-upload.js') }}"></script>
+    	 	<script type="text/javascript" src="{{ asset('bundles/myappadmin/js/jquery.validate.js') }}"></script>
+    	 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    	 <!--[if IE]>
+    	 <script>
+  			/*! HTML5 Shiv pre3.5 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed 
+    		Uncompressed source: https://github.com/aFarkas/html5shiv */
+			(function(a,b){function h(a,b){var c=a.createElement("p"),d=a.getElementsByTagName("head")[0]||a.documentElement;return c.innerHTML="x<style>"+b+"</style>",d.insertBefore(c.lastChild,d.firstChild)}function i(){var a=l.elements;return typeof a=="string"?a.split(" "):a}function j(a){var b={},c=a.createElement,f=a.createDocumentFragment,g=f();a.createElement=function(a){l.shivMethods||c(a);var f;return b[a]?f=b[a].cloneNode():e.test(a)?f=(b[a]=c(a)).cloneNode():f=c(a),f.canHaveChildren&&!d.test(a)?g.appendChild(f):f},a.createDocumentFragment=Function("h,f","return function(){var n=f.cloneNode(),c=n.createElement;h.shivMethods&&("+i().join().replace(/\w+/g,function(a){return b[a]=c(a),g.createElement(a),'c("'+a+'")'})+");return n}")(l,g)}function k(a){var b;return a.documentShived?a:(l.shivCSS&&!f&&(b=!!h(a,"article,aside,details,figcaption,figure,footer,header,hgroup,nav,section{display:block}audio{display:none}canvas,video{display:inline-block;*display:inline;*zoom:1}[hidden]{display:none}audio[controls]{display:inline-block;*display:inline;*zoom:1}mark{background:#FF0;color:#000}")),g||(b=!j(a)),b&&(a.documentShived=b),a)}function p(a){var b,c=a.getElementsByTagName("*"),d=c.length,e=RegExp("^(?:"+i().join("|")+")$","i"),f=[];while(d--)b=c[d],e.test(b.nodeName)&&f.push(b.applyElement(q(b)));return f}function q(a){var b,c=a.attributes,d=c.length,e=a.ownerDocument.createElement(n+":"+a.nodeName);while(d--)b=c[d],b.specified&&e.setAttribute(b.nodeName,b.nodeValue);return e.style.cssText=a.style.cssText,e}function r(a){var b,c=a.split("{"),d=c.length,e=RegExp("(^|[\\s,>+~])("+i().join("|")+")(?=[[\\s,>+~#.:]|$)","gi"),f="$1"+n+"\\:$2";while(d--)b=c[d]=c[d].split("}"),b[b.length-1]=b[b.length-1].replace(e,f),c[d]=b.join("}");return c.join("{")}function s(a){var b=a.length;while(b--)a[b].removeNode()}function t(a){var b,c,d=a.namespaces,e=a.parentWindow;return!o||a.printShived?a:(typeof d[n]=="undefined"&&d.add(n),e.attachEvent("onbeforeprint",function(){var d,e,f,g=a.styleSheets,i=[],j=g.length,k=Array(j);while(j--)k[j]=g[j];while(f=k.pop())if(!f.disabled&&m.test(f.media)){for(d=f.imports,j=0,e=d.length;j<e;j++)k.push(d[j]);try{i.push(f.cssText)}catch(l){}}i=r(i.reverse().join("")),c=p(a),b=h(a,i)}),e.attachEvent("onafterprint",function(){s(c),b.removeNode(!0)}),a.printShived=!0,a)}var c=a.html5||{},d=/^<|^(?:button|form|map|select|textarea|object|iframe)$/i,e=/^<|^(?:a|b|button|code|div|fieldset|form|h1|h2|h3|h4|h5|h6|i|iframe|img|input|label|li|link|ol|option|p|param|q|script|select|span|strong|style|table|tbody|td|textarea|tfoot|th|thead|tr|ul)$/i,f,g;(function(){var c=b.createElement("a");c.innerHTML="<xyz></xyz>",f="hidden"in c,f&&typeof injectElementWithStyles=="function"&&injectElementWithStyles("#modernizr{}",function(b){b.hidden=!0,f=(a.getComputedStyle?getComputedStyle(b,null):b.currentStyle).display=="none"}),g=c.childNodes.length==1||function(){try{b.createElement("a")}catch(a){return!0}var c=b.createDocumentFragment();return typeof c.cloneNode=="undefined"||typeof c.createDocumentFragment=="undefined"||typeof c.createElement=="undefined"}()})();var l={elements:c.elements||"abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video",shivCSS:c.shivCSS!==!1,shivMethods:c.shivMethods!==!1,type:"default",shivDocument:k};a.html5=l,k(b);var m=/^$|\b(?:all|print)\b/,n="html5shiv",o=!g&&function(){var c=b.documentElement;return typeof b.namespaces!="undefined"&&typeof b.parentWindow!="undefined"&&typeof c.applyElement!="undefined"&&typeof c.removeNode!="undefined"&&typeof a.attachEvent!="undefined"}();l.type+=" print",l.shivPrint=t,t(b)})(this,document)
+		 </script>
+		   <![endif]-->	
+    	 {% endblock %}	 
+       	 
+    </head>
+	<body>
+	<div id="connexion">
+	{#	{% include "MyAppAdminBundle::connexion.html.twig" %} #}
+	</div>
+		<div id="global">			
+			<div id="Container">
+				<div id="entete">
+				    <img src="{{ asset('bundles/myappadmin/images/logo_global-reservation.jpg') }}" width="250" height="106" alt="Logo de Global Réservation" />
+				    {% if display is not defined %}
+				    		<a href="{{ path('logout') }}" title="Me déconnecter du système" class="deconnexion">{{ "session.unset" | trans }}</a>
+							{% if role == "ROLE_SUPER_ADMIN" and adminClient is defined %}
+								{% for p in listOption %}
+                                                                    {% if redirect is defined %}
+                                                                        {% if redirect == "menu_hebergement" %}
+                                                                            <a href="{{ path('_Dashboard_updatehebergement',{'id':id}) }}">Revenir dans les hébergements</a>
+                                                                        {% else %}
+                                                                            <a href="{{ path('_Dashboard_updateattrait',{'id':id}) }}">Revenir dans les attraits</a>
+                                                                        {% endif %}
+                                                                    {% else %}
+									<a href="{{ path('_Dashboard_clients') }}">Revenir à la gestion des clients</a>
+                                                                    {% endif %}
+									<p><strong><mark>{{ "connexion.compte" | trans }} {{ p.nom }} </mark></strong></p>
+								{% endfor %}
+							{% endif %}
+						<p><strong> {% if role == "ROLE_SUPER_ADMIN" %}{{ "Bonjour" | trans}} {{ name_admin }} {% else %} {% for w in listOption %} <mark>{{ w.nom }}</mark> {% endfor %} {% endif %} </strong></p>					
+					{% endif %}
+			    </div>
+			    <div class="menu_top">
+			    {% if display is not defined %}
+				
+				{% if role == "ROLE_SUPER_ADMIN" and adminClient is not defined %}
+					{% block menu %}
+				    	<div class="menuprincipal">
+							<ul id="menu">
+							{% if menu_general_actif is defined %}
+								<li class="{{ menu }}">
+							{% else %}
+								<li>
+							{% endif %}
+									<a href="{{  path('_Dashboard_general') }}" class="nodePricipal">+ Général</a>
+									<ul class="sousmenu">
+										<li><a href="{{ path('_Dashboard_pays') }}" class="nodeChild {% if mp is defined %}{{ pointeur }}{% endif %}">Pays</a></li>
+										<li><a href="{{ path('_Dashboard_provinces') }}" class="nodeChild {% if mpe is defined %}{{ pointeur }}{% endif %}">Provinces / états</a></li>
+										<li><a href="{{ path('_Dashboard_regions') }}" class="nodeChild {% if mpr is defined %}{{ pointeur }}{% endif %}">Régions touristiques</a></li>
+										<li><a href="{{ path('_Dashboard_zones') }}" class="nodeChild {% if mz is defined %}{{ pointeur }}{% endif %}">Zones</a></li>
+										<li><a href="{{ path('_Dashboard_villes') }}" class="nodeChild {% if mv is defined %}{{ pointeur }}{% endif %}">Villes</a></li>
+										<li><a href="{{ path('_Dashboard_modes_paiements') }}" class="nodeChild {% if mpa is defined %}{{ pointeur }}{% endif %}">Modes de paiements</a></li>
+										<li><a href="{{ path('_Dashboard_devises') }}" class="nodeChild {% if md is defined %}{{ pointeur }}{% endif %}">Devises</a></li>
+										<li><a href="{{ path('_Dashboard_acompte') }}" class="nodeChild {% if ma is defined %}{{ pointeur }}{% endif %}">Acomptes</a></li>
+										<li><a href="{{ path('_Dashboard_forfaits') }}" class="nodeChild {% if mf is defined %}{{ pointeur }}{% endif %}">Forfaits</a></li>
+										<li><a href="{{ path('_Dashboard_cotations') }}" class="nodeChild {% if mco is defined %}{{ pointeur }}{% endif %}">Cotations</a></li>
+										<li><a href="{{ path('_Dashboard_classifications') }}" class="nodeChild {% if mcla is defined %}{{ pointeur }}{% endif %}">Classifications</a></li>
+										<li><a href="{{ path('_Dashboard_clients') }}" class="nodeChild {% if mcl is defined %}{{ pointeur }}{% endif %}">Clients</a></li>
+										<li><a href="{{ path('_Dashboard_gestionTexteAccueil') }}" class="nodeChild {% if mtx is defined %}{{ pointeur }}{% endif %}">Gestion des textes d'accueil</a></li>
+                                                                           
+                                                                        </ul>
+								</li>
+							{% if menu_hebergement_actif is defined %}
+								<li class="{{ menu }}">
+							{% else %}
+								<li>
+							{% endif %}
+									<a href="{{  path('_Dashboard_hebergements') }}" class="nodePricipal">+ Hébergements</a>
+									<ul class="sousmenu">
+										<li><a href="{{ path('_Dashboard_hebergement') }}" class="nodeChild {% if heb is defined %}{{ pointeur }}{% endif %}">Hébergements</a></li>
+										<li><a href="{{ path('_Dashboard_categoriehebergement') }}" class="nodeChild {% if catheb is defined %}{{ pointeur }}{% endif %}">Catégories</a></li>
+										<li><a href="{{ path('_Dashboard_activiteshebergement') }}" class="nodeChild {% if actheb is defined %}{{ pointeur }}{% endif %}">Activités</a></li>
+										<li><a href="{{ path('_Dashboard_serviceshebergement') }}" class="nodeChild {% if serheb is defined %}{{ pointeur }}{% endif %}">Services</a></li>
+										<li><a href="{{ path('_Dashboard_styleshebergement') }}" class="nodeChild {% if styheb is defined %}{{ pointeur }}{% endif %}">Styles</a></li>
+										<li><a href="{{ path('_Dashboard_typechambreshebergement') }}" class="nodeChild {% if chamheb is defined %}{{ pointeur }}{% endif %}">Types de chambres</a>
+											<ul class="soussoumenu">
+												<li><a href="{{ path('_Dashboard_chambreshebergement') }}" class="nodeChild {% if chamheb is defined and chamhebUnder is defined %}{{ pointeur }}{% endif %}">Chambres</a></li>
+												<li><a href="{{ path('_Dashboard_litshebergement') }}" class="nodeChild {% if chamheb is defined and chamLitUnder is defined %}{{ pointeur }}{% endif %}">Lits</a></li>
+											</ul>
+										</li>
+										<li><a href="{{ path('_Dashboard_occupationshebergement') }}" class="nodeChild {% if occuheb is defined %}{{ pointeur }}{% endif %}">Types d'occupations</a></li>
+										<li><a href="{{ path('_Dashboard_equipementshebergement') }}" class="nodeChild {% if equiheb is defined %}{{ pointeur }}{% endif %}">Équipements</a></li>
+										<li><a href="{{ path('_Dashboard_affiliationshebergement') }}" class="nodeChild {% if affiheb is defined %}{{ pointeur }}{% endif %}">Affiliations</a></li>
+										<li><a href="{{ path('_Dashboard_servicecorporatifhebergement') }}" class="nodeChild {% if corpheb is defined %}{{ pointeur }}{% endif %}">Services corporatifs</a></li>
+										{#}<li><a href="{{ path('_Dashboard_sallescorporativeshebergement') }}" class="nodeChild {% if dispoheb is defined %}{{ pointeur }}{% endif %}">Salles corporatives</a></li>#}
+										<li><a href="{{ path('_Dashboard_evenementscoporatifshebergement') }}" class="nodeChild {% if evenheb is defined %}{{ pointeur }}{% endif %}">Événements corporatifs</a></li>
+									</ul>
+								</li>
+							{% if menu_attrait_actif is defined %}
+								<li class="{{ menu }}">
+							{% else %}
+								<li>
+							{% endif %}
+									<a href="{{  path('_Dashboard_attraits') }}" class="nodePricipal">+ Attraits</a>
+									<ul class="sousmenu">
+										<li><a href="{{ path('_Dashboard_attrait') }}" class="nodeChild {% if addatt is defined %}{{ pointeur }}{% endif %}">Attraits</a></li>
+										<li><a href="{{ path('_Dashboard_attraitcategories') }}" class="nodeChild {% if cat is defined %}{{ pointeur }}{% endif %}">Catégories attraits</a></li>
+										<li><a href="{{ path('_Dashboard_attraitsouscategorie') }}" class="nodeChild {% if soucat is defined %}{{ pointeur }}{% endif %}">Sous catégories</a></li>
+										<li><a href="{{ path('_Dashboard_attraittypesoins') }}" class="nodeChild {% if typesoinat is defined %}{{ pointeur }}{% endif %}">Types soins santé</a></li>
+										<li><a href="{{ path('_Dashboard_attraitsoins') }}" class="nodeChild {% if soinat is defined %}{{ pointeur }}{% endif %}">Soins santé</a></li>
+										<li><a href="{{ path('_Dashboard_attraitactivites') }}" class="nodeChild {% if actat is defined %}{{ pointeur }}{% endif %}">Activités</a></li>
+										<li><a href="{{ path('_Dashboard_attraitservices',{'page':1}) }}" class="nodeChild {% if serat is defined %}{{ pointeur }}{% endif %}">Services</a></li>
+										<li><a href="{{ path('_Dashboard_attraitcusines') }}" class="nodeChild {% if cuisiat is defined %}{{ pointeur }}{% endif %}">Cuisines</a></li>
+									</ul>
+								</li>
+							{% if menu_quebec_actif is defined %}
+								<li class="{{ menu }}">
+							{% else %}
+								<li>
+							{% endif %}
+									<a href="{{  path('_Dashboard_quebec_saison') }}" class="nodePricipal">+ Québec en saison</a>
+									<ul class="sousmenu">
+										<li><a href="{{ path('_Dashboard_typessaison') }}" class="nodeChild">Types de saison</a></li>
+										<li><a href="{{ path('_Dashboard_typespagessaisons') }}" class="nodeChild">Types de pages de saisons</a></li>
+										<li><a href="{{ path('_Dashboard_pagesstatiques') }}" class="nodeChild">Pages statiques</a></li>
+										<li><a href="{{ path('_Dashboard_saisons') }}" class="nodeChild">Saisons</a></li>
+										<li><a href="{{ path('_Dashboard_previewfrench') }}" class="nodeChild">Aperçu en français</a></li>
+										<li><a href="{{ path('_Dashboard_previewenglish') }}" class="nodeChild">Aperçu en anglais</a></li>
+									</ul>
+								</li>
+							{% if menu_statistique_actif is defined %}
+								<li class="{{ menu }}">
+							{% else %}
+								<li>
+							{% endif %}
+									<a href="{{  path('_Dashboard_statistiques') }}" class="nodePricipal">+ Statistiques</a>
+									<ul class="sousmenu">
+										<li><a href="{{ path('_Dashboard_statistiquesclients') }}" class="nodeChild {% if statcust is defined %}{{ pointeur }}{% endif %}">Statistiques Clients</a></li>
+										<li><a href="{{ path('_Dashboard_statistiquesmois') }}" class="nodeChild {% if statmois is defined %}{{ pointeur }}{% endif %}">Statistiques pour le mois</a></li>
+										<li><a href="{{ path('_Dashboard_statistiquesannee') }}" class="nodeChild {% if statann is defined %}{{ pointeur }}{% endif %}">Statistiques pour l'année</a></li>
+										<li><a href="{{ path('_Dashboard_archivesstatistiques') }}" class="nodeChild {% if statarch is defined %}{{ pointeur }}{% endif %}">Statistiques archives</a></li>
+									</ul>
+								</li>
+							{% if menu_info_actif is defined %}
+								<li class="{{ menu }}">
+							{% else %}
+								<li>
+							{% endif %}
+									<a href="{{  path('_Dashboard_informations') }}" class="nodePricipal">+ Informations diverses</a>
+									<ul class="sousmenu">
+										<li><a href="{{ path('_Dashboard_utilisateursSysteme') }}" class="nodeChild {% if infouser is defined %}{{ pointeur }}{% endif %}">Liste des utilisateurs du système</a></li>
+										<li><a href="{{ path('_Dashboard_clientSysteme') }}" class="nodeChild {% if infoclient is defined %}{{ pointeur }}{% endif %}">Liste des clients du système</a></li>
+										{# }<li><a href="{{ path('_Dashboard_logsanomalies') }}" class="nodeChild {% if infolog is defined %}{{ pointeur }}{% endif %}">Logs et anomalies</a></li>#}
+									</ul>
+								</li>
+								<li><a href="todo.global-reservation.com" target="_blank" class="nodePricipal">+ Todo list</a></li>
+							</ul>
+						</div>
+				    {% endblock %}
+				{% endif %} 
+			{# FERMETURE DE LA CONDITION DES RÔLES POUR QUE LE CLIENT N'EST PAS ACCÉS AU MENU DE LA GESTION #}
+			
+			{# MENU DE LA GESTION DU COMPTE CLIENT #}	{# TEMPORAIRE À CORRIGÉ POUR UN CODE PLUS LISIBLE ETS PLUS PERFORMANT #}
+				{% if adminClient is defined %}
+					<div class="menuprincipal">
+						<ul id="menu">
+						{% if app.request.locale == "fr" %}
+								{% if hebergementExiste is defined and hebergementExiste is not empty %}
+									{# HÉBERGEMENT #}
+									{% for p in hebergementExiste %}  
+                                                                            {% if role == "ROLE_ADMIN" and p.actif == true or role == "ROLE_ADMIN" and p.aprouver == true  %}
+                                                                                {% if loop.index == 1 %}
+                                                                                    <li id="hebergementmenuclient" style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal {% if pointerHeb is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px; cursor:default;"> {{ "information.concernant.etablissement" | trans }} {{ p.nomfr }}</a>                                                                                     
+                                                                                            <ul class="sousmenu">                                                                    
+                                                                                                <li><a href="{{ path('MyAppTextHebergement',{'id':p.id, 'name':p.repertoirefr, 'redirect': redirect} ) }}">{{ "hebergement" | trans }}</a></li>
+                                                                                            {# CHAMBRES #}
+                                                                                               {% for p in hebergementExiste %}                                                                                                 
+                                                                                                    {% if p.acompteid.id == 2 %} 
+                                                                                                        {% if loop.index == 1 %}
+                                                                                                         <li><a href="{{ path('MyAppChambre',{'id':p.id , 'name':p.repertoirefr, 'redirect':redirect}) }}">{{ "type.de.chambre.pour" | trans }}</a></li>
+                                                                                                        {% endif %}
+                                                                                                    {% endif %}
+                                                                                               {% endfor %}
+                                                                                            {# CORPORATIF #}
+                                                                                                {% if p.corporatif == 1 %}
+                                                                                                        <li class="nodeChild {% if mp is defined %}{{ pointeurcorpo }}{% endif %}"><a href="{{ path('MyAppCorporatif',{'id':p.id , 'name':p.repertoirefr, 'redirect':redirect}) }}">{{ "corporatif" | trans }}</a></li>
+                                                                                                {% endif %}
+                                                                                            </ul>                                                                                    
+                                                                                    </li>
+                                                                                {% elseif loop.index == 2 %}
+                                                                                    <li id="hebergementmenuclient" style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal {% if pointerHeb is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px; cursor:default;"> {{ "information.concernant.etablissement" | trans }} {{ p.nomfr }}</a>                                                                                     
+                                                                                            <ul class="sousmenu">                                                                    
+                                                                                                <li><a href="{{ path('MyAppTextHebergement',{'id':p.id, 'name':p.repertoirefr, 'redirect': redirect} ) }}">{{ "hebergement" | trans }}</a></li>
+                                                                                            {# CHAMBRES #}
+                                                                                               {% for p in hebergementExiste %}                                                                                                 
+                                                                                                    {% if p.acompteid.id == 2 %}
+                                                                                                        {% if loop.index == 2 %}
+                                                                                                         <li><a href="{{ path('MyAppChambre',{'id':p.id , 'name':p.repertoirefr, 'redirect':redirect}) }}">{{ "type.de.chambre.pour" | trans }}</a></li>
+                                                                                                        {% endif %}
+                                                                                                    {% endif %}
+                                                                                               {% endfor %}
+                                                                                            {# CORPORATIF #}
+                                                                                                {% if p.corporatif == 1 %}
+                                                                                                        <li class="nodeChild {% if mp is defined %}{{ pointeurcorpo }}{% endif %}"><a href="{{ path('MyAppCorporatif',{'id':p.id , 'name':p.repertoirefr, 'redirect':redirect}) }}">{{ "corporatif" | trans }}</a></li>
+                                                                                                {% endif %}
+                                                                                            </ul>                                                                                    
+                                                                                    </li>
+                                                                                {% endif %}
+                                                                            {% elseif role == "ROLE_SUPER_ADMIN" %}
+                                                                                {% if loop.index == 1 %}
+                                                                                    <li id="hebergementmenuclient" style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal {% if pointerHeb is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px; cursor:default;"> {{ "information.concernant.etablissement" | trans }} {{ p.nomfr }}</a>                                                                                     
+                                                                                            <ul class="sousmenu">                                                                    
+                                                                                                <li><a href="{{ path('MyAppTextHebergement',{'id':p.id, 'name':p.repertoirefr, 'redirect': redirect} ) }}">{{ "hebergement" | trans }}</a></li>
+                                                                                            {# CHAMBRES #}
+                                                                                               {% for p in hebergementExiste %}
+                                                                                                   {% if p.acompteid.id == 2 %} 
+                                                                                                        {% if loop.index == 1 %}
+                                                                                                        <li><a href="{{ path('MyAppChambre',{'id':p.id , 'name':p.repertoirefr, 'redirect':redirect}) }}">{{ "type.de.chambre.pour" | trans }}</a></li>
+                                                                                                        {% endif %}
+                                                                                                    {% endif %}
+                                                                                               {% endfor %}
+                                                                                            {# CORPORATIF #}
+                                                                                                {% if p.corporatif == 1 %}
+                                                                                                        <li class="nodeChild {% if mp is defined %}{{ pointeurcorpo }}{% endif %}"><a href="{{ path('MyAppCorporatif',{'id':p.id , 'name':p.repertoirefr, 'redirect':redirect}) }}">{{ "corporatif" | trans }}</a></li>
+                                                                                                {% endif %}
+                                                                                            </ul>                                                                                    
+                                                                                    </li>
+                                                                                {% elseif loop.index == 2 %}
+                                                                                     <li id="hebergementmenuclient" style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal {% if pointerHeb is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px; cursor:default;"> {{ "information.concernant.etablissement" | trans }} {{ p.nomfr }}</a>                                                                                     
+                                                                                        <ul class="sousmenu">                                                                    
+                                                                                            <li><a href="{{ path('MyAppTextHebergement',{'id':p.id, 'name':p.repertoirefr, 'redirect': redirect} ) }}">{{ "hebergement" | trans }}</a></li>
+											{# CHAMBRES #}
+                                                                                           {% for p in hebergementExiste %}
+                                                                                               {% if p.acompteid.id == 2 %} 
+                                                                                                    {% if loop.index == 2 %}
+                                                                                                    <li><a href="{{ path('MyAppChambre',{'id':p.id , 'name':p.repertoirefr, 'redirect':redirect}) }}">{{ "type.de.chambre.pour" | trans }}</a></li>
+                                                                                                    {% endif %}
+                                                                                               {% endif %}
+                                                                                           {% endfor %}
+                                                                                        {# CORPORATIF #}
+                                                                                            {% if p.corporatif == 1 %}
+                                                                                                    <li class="nodeChild {% if mp is defined %}{{ pointeurcorpo }}{% endif %}"><a href="{{ path('MyAppCorporatif',{'id':p.id , 'name':p.repertoirefr, 'redirect':redirect}) }}">{{ "corporatif" | trans }}</a></li>
+                                                                                            {% endif %}
+											</ul>                                                                                    
+                                                                                     </li>
+                                                                                {% endif %}
+                                                                            {% endif %}
+									{% endfor %}
+								{% endif %}
+							{#	{% if attraitExist is defined and attraitExist is not empty %}
+									{# ATTRAITS #}
+							{#			<li style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal deletecursor {% if pointerAtt is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px;"> {{ "attrait" | trans }}</a> 
+											<ul>
+                                                                                            {% for w in attraitExist %}
+                                                                                                    <li style="margin:0;"><a href="{{ path('MyAppTextAttrait',{'id':w.id, 'name':w.repertoirefr, 'redirect':redirect} ) }}" {% if pointerAtt is defined %} nodePrincipalCustomer {% endif %}"> {{ w.nomfr }}</a></li>
+                                                                                            {% endfor %}	
+											</ul>
+										</li>	
+                                                                {% endif %}#}
+                                                                {# FORFAITS #}
+                                                                {% if hebergementExiste is defined and hebergementExiste is not empty %}
+                                                                    {% for p in hebergementExiste %}
+                                                                        {% if p.acompteid.id == 2 %}   
+                                                                            {% if loop.index == 1 %}
+                                                                            <li style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal deletecursor {% if pointerforfait is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px;"> {{ "forfait" | trans }}</a> 
+                                                                                {% endif %}
+                                                                                <ul class=sousmenu">
+                                                                                    {% for w in hebergementExiste %}
+                                                                                        {% if loop.index == 1 %}
+                                                                                            <li style="margin:0;"> <a href="{{ path('MyAppForfait',{'id':w.id, 'name':w.repertoirefr, 'redirect':redirect} ) }}" > {{ "forfait" | trans }}</a> </li>
+                                                                                        {% endif %}
+                                                                                    {% endfor %}
+                                                                                </ul>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                   {% endfor %}
+                                                                {% endif %}
+                                                                {#<li style="margin:0;"> <a href="{{ path('MyAppCouponRabais',{'id':w.id,'name':w.repertoirefr} ) }}" class="nodePricipal {% if pointerCoupon is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px;"> {{ "coupon.rabais" | trans }}</a> </li>#}
+						{% else %} {# VERSION ANGLAISE #}
+								{% if hebergementExiste is defined and hebergementExiste is not empty %}
+									{# HÉBERGEMENT #}
+									{% for p in hebergementExiste %}
+                                                                            {% if role == "ROLE_ADMIN" and p.actif == true %}
+                                                                                {% if loop.index == 1 %}
+                                                                                    <li id="hebergementmenuclient" style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal {% if pointerHeb is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px; cursor:default;"> {{ "information.concernant.etablissement" | trans }} {{ p.nomen }}</a> 
+                                                                                            <ul class="sousmenu">
+                                                                                                    <li><a href="{{ path('MyAppTextHebergement',{'id':p.id, 'name':p.repertoireen} ) }}">{{ "hebergement" | trans }}</a></li>
+                                                                                            {# CHAMBRES #}
+                                                                                                    {% for p in hebergementExiste %} 
+                                                                                                        {% if p.acompteid.id == 2 %}   
+                                                                                                            {% if loop.index == 1 %}
+                                                                                                            <li><a href="{{ path('MyAppChambre',{'id':p.id , 'name':p.repertoireen, 'redirect':redirect}) }}">{{ "type.de.chambre.pour" | trans }}</a></li>                                                                                                  
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                            {# CORPORATIF #}
+                                                                                                    {% if p.corporatif == 1 %}
+                                                                                                            <li class="nodeChild {% if mp is defined %}{{ pointeurcorpo }}{% endif %}"><a href="{{ path('MyAppCorporatif',{'id':p.id , 'name':p.repertoireen, 'redirect':redirect}) }}">{{ "corporatif" | trans }}</a></li>
+                                                                                                    {% endif %}
+                                                                                            </ul>
+                                                                                    </li>
+                                                                                {% elseif loop.index == 2 %}
+                                                                                    <li id="hebergementmenuclient" style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal {% if pointerHeb is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px; cursor:default;"> {{ "information.concernant.etablissement" | trans }} {{ p.nomen }}</a> 
+											<ul class="sousmenu">
+                                                                                                <li><a href="{{ path('MyAppTextHebergement',{'id':p.id, 'name':p.repertoireen} ) }}">{{ "hebergement" | trans }}</a></li>
+											{# CHAMBRES #}
+                                                                                                {% for p in hebergementExiste %} 
+                                                                                                    {% if p.acompteid.id == 2 %} 
+                                                                                                        {% if loop.index == 2 %}
+                                                                                                        <li><a href="{{ path('MyAppChambre',{'id':p.id , 'name':p.repertoireen, 'redirect':redirect}) }}">{{ "type.de.chambre.pour" | trans }}</a></li>                                                                 
+                                                                                                        {% endif %}
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                        {# CORPORATIF #}
+												{% if p.corporatif == 1 %}
+													<li class="nodeChild {% if mp is defined %}{{ pointeurcorpo }}{% endif %}"><a href="{{ path('MyAppCorporatif',{'id':p.id , 'name':p.repertoireen, 'redirect':redirect}) }}">{{ "corporatif" | trans }}</a></li>
+												{% endif %}
+											</ul>
+                                                                                    </li>
+                                                                                {% endif %}
+                                                                            {% elseif role == "ROLE_SUPER_ADMIN" %}
+                                                                                {% if loop.index == 1 %}
+                                                                                    <li id="hebergementmenuclient" style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal {% if pointerHeb is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px; cursor:default;"> {{ "information.concernant.etablissement" | trans }} {{ p.nomen }}</a> 
+                                                                                            <ul class="sousmenu">
+                                                                                                    <li><a href="{{ path('MyAppTextHebergement',{'id':p.id, 'name':p.repertoireen} ) }}">{{ "hebergement" | trans }}</a></li>
+                                                                                            {# CHAMBRES #}
+                                                                                                    {% for p in hebergementExiste %}
+                                                                                                        {% if p.acompteid.id == 2 %} 
+                                                                                                            {% if loop.index == 1 %}
+                                                                                                            <li><a href="{{ path('MyAppChambre',{'id':p.id , 'name':p.repertoireen, 'redirect':redirect}) }}">{{ "type.de.chambre.pour" | trans }}</a></li>                                                                                                
+                                                                                                            {% endif %}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                            {# CORPORATIF #}
+                                                                                                    {% if p.corporatif == 1 %}
+                                                                                                            <li class="nodeChild {% if mp is defined %}{{ pointeurcorpo }}{% endif %}"><a href="{{ path('MyAppCorporatif',{'id':p.id , 'name':p.repertoireen, 'redirect':redirect}) }}">{{ "corporatif" | trans }}</a></li>
+                                                                                                    {% endif %}
+                                                                                            </ul>
+                                                                                    </li>
+                                                                                {% elseif loop.index == 2 %}
+                                                                                    <li id="hebergementmenuclient" style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal {% if pointerHeb is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px; cursor:default;"> {{ "information.concernant.etablissement" | trans }} {{ p.nomen }}</a> 
+											<ul class="sousmenu">
+                                                                                                <li><a href="{{ path('MyAppTextHebergement',{'id':p.id, 'name':p.repertoireen} ) }}">{{ "hebergement" | trans }}</a></li>
+											{# CHAMBRES #}
+                                                                                                {% for p in hebergementExiste %}
+                                                                                                    {% if p.acompteid.id == 2 %}  
+                                                                                                        {% if loop.index == 2 %}
+                                                                                                        <li><a href="{{ path('MyAppChambre',{'id':p.id , 'name':p.repertoireen, 'redirect':redirect}) }}">{{ "type.de.chambre.pour" | trans }}</a></li>                                                                                              
+                                                                                                        {% endif %}
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                        {# CORPORATIF #}
+												{% if p.corporatif == 1 %}
+													<li class="nodeChild {% if mp is defined %}{{ pointeurcorpo }}{% endif %}"><a href="{{ path('MyAppCorporatif',{'id':p.id , 'name':p.repertoireen, 'redirect':redirect}) }}">{{ "corporatif" | trans }}</a></li>
+												{% endif %}
+											</ul>
+                                                                                    </li>
+                                                                                {% endif %}
+                                                                            {% endif %}
+									{% endfor %}
+								{% endif %}
+							{#	{% if attraitExist is defined and attraitExist is not empty %}
+                                                                        {# ATTRAITS #}
+                                                        {#               <li style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal deletecursor {% if pointerAtt is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px;"> {{ "attrait" | trans }}</a> 
+                                                                            <ul>
+                                                                                {% for w in attraitExist %}
+                                                                                        <li style="margin:0;"><a href="{{ path('MyAppTextAttrait',{'id':w.id, 'name':w.repertoireen, 'redirect':redirect} ) }}" {% if pointerAtt is defined %} nodePrincipalCustomer {% endif %}"> {{ w.nomen }}</a></li>
+                                                                                {% endfor %}	
+                                                                            </ul>
+                                                                        </li>	
+                                                                {% endif %} #}
+                                                                {# FORFAITS #}
+                                                                {% if hebergementExiste is defined and hebergementExiste is not empty %}
+                                                                    {% for p in hebergementExiste %}
+                                                                        {% if p.acompteid.id == 2 %}  
+                                                                            {% if loop.index == 1 %}
+                                                                            <li style="margin:0;"> <a href="javascript:void(0);" class="nodePricipal deletecursor {% if pointerforfait is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px;"> {{ "forfait" | trans }} </a> 
+                                                                            {% endif %}
+                                                                                <ul>
+                                                                                    {% for w in hebergementExiste %}
+                                                                                        {% if loop.index == 1 %}
+                                                                                          <li style="margin:0;"> <a href="{{ path('MyAppForfait',{'id':w.id, 'name':w.repertoireen, 'redirect':redirect} ) }}"> {{ "forfait" | trans }}</a> </li>
+                                                                                        {% endif %}
+                                                                                    {% endfor %}
+                                                                                </ul>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% endif %}							
+                                                                {#<li style="margin:0;"> <a href="{{ path('MyAppCouponRabais',{'id':w.id,'name':w.repertoireen} ) }}" class="nodePricipal {% if pointerCoupon is defined %} nodePrincipalCustomer {% endif %}" style="padding:0 15px;"> {{ "coupon.rabais" | trans }}</a> </li>#}
+						{% endif %}
+						</ul>
+						<script>
+						$("ul.sousmenu").css({"margin-left":"50px"});
+						</script>
+					</div>	
+						<ul>
+							<li>
+							{% for p in listOption %}
+								<ul class="sousmenu compt_customer">
+									{% if app.request.locale == "fr" %}
+									<li><a href="{{ path('_Dashboard_compteCustomer',{'id':p.id, 'redirect':redirect} ) }}" class="nodeChild {% if infouser is defined %}{{ pointeur }}{% endif %}">{{ "return.home" | trans }}</a></li>
+                                                                        <li><a class="guideClient" href="{{ asset('uploads/documentation_client/guide-gestion-fiche-client-FR.pdf') }}" target="_blank">Guide gestion fiche client</a></li>
+                                                                        <li><a href="{{ path('_langue_admin_client', {'langue':'en', 'id':p.id }) }}" class="nodeChild {% if infouser is defined %}{{ pointeur }}{% endif %}" style="float:right; margin:15px 25px 0 0;"><img src="{{ asset('bundles/myappadmin/images/EN.png') }}" title="Translate" class="transaction"></a></li>
+									{% else %}
+									<li><a href="{{ path('_Dashboard_compteCustomer',{'id':p.id, 'redirect':redirect} ) }}" class="nodeChild {% if infouser is defined %}{{ pointeur }}{% endif %}">{{ "return.home" | trans }}</a></li>
+                                                                        <li><a class="guideClient" href="{{ asset('uploads/documentation_client/guide-gestion-fiche-client-EN.pdf') }}" target="_blank">Customer record management guide</a></li>
+                                                                        <li><a href="{{ path('_langue_admin_client', {'langue':'fr', 'id':p.id }) }}" class="nodeChild {% if infouser is defined %}{{ pointeur }}{% endif %}" style="float:right; margin:15px 25px 0 0;"><img src="{{ asset('bundles/myappadmin/images/FR.png') }}" title="Traduire" class="transaction"></a></li>
+									{% endif %}
+								</ul>
+							{% endfor %}
+							</li>
+						</ul>
+					{% endif %}
+			    </div>
+			    {% endif %}
+			    <div id="coldroit">
+				{% block content %}
+
+				{% endblock %}
+				</div>
+				<br class="clearfloat" />
+				<div id="pieddepage">
+				    <p>&copy; {{ annee }} Global Réservation inc.</p>	
+				</div>
+			</div>
+		</div>
+    </body>
+</html>

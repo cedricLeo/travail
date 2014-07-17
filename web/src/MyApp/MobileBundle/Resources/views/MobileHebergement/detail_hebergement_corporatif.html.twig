@@ -1,0 +1,260 @@
+{% extends "::base_mobile.html.twig" %}
+
+{% block body %}
+        {% include '::navigation_fiche_client_mobile.html.twig' %}
+
+        <div id="container"> 
+        {% for p in retourDetail %}
+            <h1>{{ p.nomfr }}</h1>
+                   <h2>{{ "salle.capacite" | trans }}</h2>
+                    {# AFFICHE LES SALLES CORPORATIVES #}
+                    <div class="fiche">
+                         {% for e in corpo %}
+                           <div>
+                             {% for x in e.galeriecorpo %}                
+                                     {% if x.image is not empty %}    
+                                         <img src="{{ asset('uploads/galerie_corporative') }}/{{ x.id }}/{{ x.image }}" class="img_liste_forfait" alt="{{ x.legendefr }}" />
+                                     {% else %}
+                                         <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="{{ x.legendefr }}" />
+                                     {% endif %}
+                             {% endfor %}
+                             <div>
+                               <h3><a name="corporatif1" id="corporatif1"></a>{{ e.nomfr }}</h3>
+                               <p>{{ e.textesallecorporativefr }}</p>
+                             </div>
+                             <table width="444" border="0" cellspacing="0" cellpadding="0">
+                               <tr>
+                                 <td width="148" class="tabgris">Dimensions(pi 2)</td>
+                                 <td colspan="4" align="left" class="tabgris">Disposition et capacité nombre de personne</td>
+                               </tr>
+                               <tr>
+                                 <td align="center" class="tabgris2">{% if e.largeur != "" and e.profondeur != "" %} {{ e.largeur * e.profondeur }} {% else %} - {% endif %}</td>
+                                 <td width="74" align="center" class="tabgris3">Banquet</td>
+                                 <td width="74" align="center"  class="tabgris3">Carré ouvert</td>
+                                 <td width="74" align="center" class="tabgris3">Chevrons<br /></td>
+                                 <td width="74" align="center" class="tabgris3">Conférence</td>
+                               </tr>
+                               <tr>
+                                 <td width="148" class="tabgris">Dimensions(m 2)</td>
+                                 <td align="center" class="tabgris2">{% if e.banquet != "" %} {{ e.banquet }} {% else %} - {% endif %}</td>
+                                 <td align="center"  class="tabgris2">{% if e.carreouvert != "" %} {{ e.carreouvert }} {% else %} - {% endif %}</td>
+                                 <td align="center" class="tabgris2">{% if e.chevron != "" %} {{ e.chevron }} {% else %} - {% endif %}</td>
+                                 <td align="center" class="tabgris2">{% if e.conference != "" %} {{ e.conference }} {% else %} - {% endif %}</td>
+                               </tr>
+                               <tr>
+                                 <td align="center" class="tabgris2">{% if e.largeurmetre != "" and e.profondeurmetre != "" %} {{ e.largeurmetre * e.profondeurmetre }} {% else %} - {% endif %}</td>
+                                 <td align="center" class="tabgris3">Demi-lune</td>
+                                 <td align="center"  class="tabgris3">École</td>
+                                 <td align="center" class="tabgris3">En T</td>
+                                 <td align="center" class="tabgris3">En U</td>
+                               </tr>
+                               <tr>
+                                 <td>&nbsp;</td>
+                                 <td align="center" class="tabgris2">{% if e.demilune != "" %} {{ e.demilune }} {% else %} - {% endif %}</td>
+                                 <td align="center"  class="tabgris2">{% if e.ecole != "" %} {{ e.ecole }} {% else %} - {% endif %}</td>
+                                 <td align="center" class="tabgris2">{% if e.ent != "" %} {{ e.ent }} {% else %} - {% endif %}</td>
+                                 <td align="center"  class="tabgris2">{% if e.enu != "" %} {{ e.enu }} {% else %} - {% endif %}</td>
+                               </tr>
+                               <tr>
+                                 <td>&nbsp;</td>
+                                 <td align="center" class="tabgris3">Salon commercial</td>
+                                 <td align="center"  class="tabgris3">Théâtre</td>
+                                 <td align="center">&nbsp;</td>
+                                 <td align="center">&nbsp;</td>
+                               </tr>
+                               <tr>
+                                 <td>&nbsp;</td>
+                                 <td align="center" class="tabgris2">{% if e.saloncommercial != "" %} {{ e.saloncommercial }} {% else %} - {% endif %}</td>
+                                 <td align="center" class="tabgris2">{% if e.theatre != "" %} {{ e.theatre }} {% else %} - {% endif %}</td>
+                                 <td align="center">&nbsp;</td>
+                                 <td align="center">&nbsp;</td>
+                               </tr>
+                               </table>
+                             <br class="clearfloat" />
+                           </div> 
+                           {% endfor %}
+                     </div>   
+
+                   {% if forfaitAffaire is not empty %}
+                           <br class="clearfloat" />
+                           {# AFFICHE LES FORFAITS AFFAIRES #}
+                           <h2>Forfaits affaires <a href="#">{{ "haut" | trans }}</a></h2>	
+                                   <div class="fiche">
+                                   {% for m in forfaitAffaire %}
+                                           <div>
+                                             {% for w in m.galerieforfaits %}
+                                                 <a href="{{ asset('uploads/galerie_forfaits') }}/{{ w.id }}/{{ w.image }}" title="{{ w.legendefr }}"><img src="{{ asset('uploads/galerie_forfaits') }}/{{ w.id }}/{{ w.image }}" class="img_liste_forfait" alt="Forfait affaire" title="{{ w.legendefr }}"/></a>
+                                             {% endfor %}
+                                             <h3><a name="forfait3" id="forfait3"></a><strong>{{ m.forfaitclientid.nomfr }}</strong></h3>
+                                             <div>
+                                               <h4>Ce forfait comprend:</h4>
+                                               <p>{{ m.textefr }}</p>
+
+                                               <div>
+                                                 <p>Tarif à partir de <strong>{{ m.tarif|replace({"%$%":""}) }} $</strong></p>
+                                                 <p>Valide du {{ m.datedebut|date('d') }} 
+                                                     {# On convertie les mois en fançais #}
+                                                     {% if m.datedebut|date('m') == '01' %} jan
+                                                     {% elseif m.datedebut|date('m') == '02' %} fév
+                                                     {% elseif m.datedebut|date('m') == '03' %} mars
+                                                     {% elseif m.datedebut|date('m') == '04' %} avr
+                                                     {% elseif m.datedebut|date('m') == '05' %} mai
+                                                     {% elseif m.datedebut|date('m') == '06' %} juin
+                                                     {% elseif m.datedebut|date('m') == '07' %} juil
+                                                     {% elseif m.datedebut|date('m') == '08' %} août
+                                                     {% elseif m.datedebut|date('m') == '09' %} sep
+                                                     {% elseif m.datedebut|date('m') == '10' %} oct
+                                                     {% elseif m.datedebut|date('m') == '11' %} nov
+                                                     {% else %}déc
+                                                     {% endif %} 
+                                                     {{ m.datedebut|date('Y') }} au
+                                                     {{ m.datedefin|date('d') }} 
+                                                     {# On convertie les mois en fançais #}
+                                                     {% if m.datedefin|date('m') == '01' %} jan 
+                                                     {% elseif m.datedefin|date('m') == '02' %} fév
+                                                     {% elseif m.datedefin|date('m') == '03' %} mars
+                                                     {% elseif m.datedefin|date('m') == '04' %} avr
+                                                     {% elseif m.datedefin|date('m') == '05' %} mai
+                                                     {% elseif m.datedefin|date('m') == '06' %} juin
+                                                     {% elseif m.datedefin|date('m') == '07' %} juil
+                                                     {% elseif m.datedefin|date('m') == '08' %} août
+                                                     {% elseif m.datedefin|date('m') == '09' %} sep
+                                                     {% elseif m.datedefin|date('m') == '10' %} oct
+                                                     {% elseif m.datedefin|date('m') == '11' %} nov
+                                                     {% else %}déc
+                                                     {% endif %} 
+                                                     {{ m.datedefin|date('Y') }} </p>
+                                               </div>
+                                             </div>
+                                             <span><strong>Forfaits affaires</strong></span> <br class="clearfloat" />
+                                           </div>
+                                   {% endfor %}
+                                   </div>
+                                   <div class="condition">
+                                  <p><span>Politique d’annulation</span> : Aucune pénalité si annulation 24 h avant l’arrivée</p>
+                                  <p><span>Prix sujets à changements sans préavis</span></p>
+                                  <p><span>Prix à titre indicatif seulement</span></p>
+                            </div>
+                           <p>&nbsp;</p>	  
+                   {% endif %}
+
+                   {# FORMULAIRE DE DEMANDE D'INFORMATION #}
+                   <br class="clearfloat" />
+                   <h2 class="titleDemandeInformation">{{ "formulaire.demande.information.corpo" | trans }} <a href="#">{{ "haut" | trans }}</a></h2>
+                   <form action="" method="post" {{ form_enctype(formCorpo) }} class="renseignements_coorporatif" id="formuSugg">	
+                         {{ form_label(formCorpo.salle, "salle" | trans, {'attr':{'class':'lbldemandeinformationradiosallehebergement modifmarginsalle'}}) }}
+                         {{ form_widget(formCorpo.salle, {'attr':{'class':'radiosallehebergement','checked':'checked'}}) }}	
+                         {{ form_label(formCorpo.hebergement, "hebergement" | trans, {'attr':{'class':'lbldemandeinformationradiosallehebergement'}}) }}
+                         {{ form_widget(formCorpo.hebergement, {'attr':{'class':'radiosallehebergement'}}) }}		
+                         {{ form_label(formCorpo.salle_hebergement, "salle.hebergement" | trans, {'attr':{'class':'lbldemandeinformationradiosallehebergement'}}) }}
+                         {{ form_widget(formCorpo.salle_hebergement, {'attr':{'class':'radiosallehebergement'}}) }}	
+                         <div class="arrierePlanBleu">1 <span>{{ "renseignements.personnels" | trans }}</span></div>
+                         {{ form_label(formCorpo.prenom, "prenom" | trans, {'attr':{'class':'lblrenseignementpersonnel modifmarginsalle obligatoire'}}) }}
+                         {{ form_errors(formCorpo.prenom) }}
+                         {{ form_widget(formCorpo.prenom, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+                         {{ form_label(formCorpo.nom, "nom" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+                         {{ form_errors(formCorpo.nom) }}
+                         {{ form_widget(formCorpo.nom, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+                         {{ form_label(formCorpo.courriel, "Courriel" | trans, {'attr':{'class':'lblrenseignementpersonnel modifmarginsalle obligatoire'}}) }}
+                         {{ form_errors(formCorpo.courriel) }}
+                         {{ form_widget(formCorpo.courriel, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+                         {{ form_label(formCorpo.nom_entreprise, "nom.d.entreprise" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                         {{ form_widget(formCorpo.nom_entreprise, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                         {{ form_label(formCorpo.adresse, "adresse" | trans, {'attr':{'class':'lblrenseignementpersonnel modifmarginsalle'}}) }}
+                         {{ form_widget(formCorpo.adresse, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+                         {{ form_label(formCorpo.ville, "ville" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                         {{ form_widget(formCorpo.ville, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+                         {{ form_label(formCorpo.code_postal, "code.postal" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                         {{ form_widget(formCorpo.code_postal, {'attr':{'class':'input_renseignement_personnel', 'maxlength': '7'}}) }}				
+                         {{ form_label(formCorpo.telephone, "telephone" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+                         {{ form_errors(formCorpo.telephone) }}
+                         {{ form_widget(formCorpo.telephone, {'attr':{'class':'input_renseignement_personnel', 'maxlength': '22'}}) }}		
+                         {{ form_label(formCorpo.telecopieur, "telecopieur" | trans, {'attr':{'class':'lblrenseignementpersonnel modifmarginsalle'}}) }}
+                         {{ form_widget(formCorpo.telecopieur, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+                         <div class="arrierePlanBleu renseignementHebergement">2 <span>{{ "renseignements.hebergement" | trans }}</span></div>
+                         {{ form_label(formCorpo.nombre_chambre, "nombre.de.chambre" | trans, {'attr':{'class':'lblselectrenseignementhebergement modifmarginsalle'}}) }}
+                         {{ form_widget(formCorpo.nombre_chambre, {'attr':{'class':'selectrenseignementhebergement'}}) }}	
+                         {{ form_label(formCorpo.simple, "Simple" | trans, {'attr':{'class':'lblradiorenseignementhebergement'}}) }}
+                         {{ form_widget(formCorpo.simple, {'attr':{'class':'radiorenseignementhebergement radiogauche', 'checked':'checked'}}) }}	
+                         {{ form_label(formCorpo.simple_double, "simple.double" | trans, {'attr':{'class':'lblradiorenseignementhebergement'}}) }}
+                         {{ form_widget(formCorpo.simple_double, {'attr':{'class':'radiorenseignementhebergement radiodroit'}}) }}	
+                         {{ form_label(formCorpo.double, "Double" | trans, {'attr':{'class':'lblradiorenseignementhebergement lblradioajustemarginleft'}}) }}
+                         {{ form_widget(formCorpo.double, {'attr':{'class':'radiorenseignementhebergement radiogauche '}}) }}	
+                         {{ form_label(formCorpo.suite, "Suite" | trans, {'attr':{'class':'lblradiorenseignementhebergement'}}) }}
+                         {{ form_widget(formCorpo.suite, {'attr':{'class':'radiorenseignementhebergement radiodroit'}}) }}	
+                         {{ form_label(formCorpo.demandes_specifiques, "demandes.specifiques" | trans, {'attr':{'class':'lbltextarearenseignementhebergement modifmarginsalle'}}) }}
+                         {{ form_widget(formCorpo.demandes_specifiques, {'attr':{'class':'textarearenseignementhebergement'}}) }}	
+                         <div class="arrierePlanBleu renseignementHebergement">3 <span>{{ "renseignements.sur.salle" | trans }}</span></div>
+                         {{ form_label(formCorpo.nom_reunion, "nom.reunion" | trans, {'attr':{'class':'lblrenseignementsalle modifmarginsalle'}}) }}
+                         {{ form_widget(formCorpo.nom_reunion, {'attr':{'class':'input_renseignement_salle'}}) }}	
+                         {{ form_label(formCorpo.nombre_personne, "nombre.personne" | trans, {'attr':{'class':'lblrenseignementsalle obligatoire'}}) }}
+                         {{ form_widget(formCorpo.nombre_personne, {'attr':{'class':'input_renseignement_salle ajusteinputrenseignementsalle', 'required':'required'}}) }}	
+                         {{ form_label(formCorpo.type_evenement, "type.d.evenement" | trans, {'attr':{'class':'lblrenseignementsalle modifmarginsalle'}}) }}
+                         {{ form_widget(formCorpo.type_evenement, {'attr':{'class':'selectrenseignementsalle'}}) }}	
+                         {{ form_label(formCorpo.date_arrivee, "date.arrivee" | trans, {'attr':{'class':'lblrenseignementsalle modifmarginsalle obligatoire'}}) }}
+                         {{ form_errors(formCorpo.date_arrivee) }}
+                         {{ form_widget(formCorpo.date_arrivee, {'attr':{'class':'input_renseignement_salle'}}) }}	
+                         {{ form_label(formCorpo.date_depart, "date.du.depart" | trans, {'attr':{'class':'lblrenseignementsalle obligatoire'}}) }}
+                         {{ form_errors(formCorpo.date_depart) }}
+                         {{ form_widget(formCorpo.date_depart, {'attr':{'class':'input_renseignement_salle'}}) }}	
+                         {{ form_label(formCorpo.vos_dates_flexibles, "vos.dates.flexibles" | trans, {'attr':{'class':'lblrenseignementsalle modifmarginsalle'}}) }}
+                         {{ form_widget(formCorpo.vos_dates_flexibles, {'attr':{'class':'selectrenseignementsalle'}}) }}	
+                         {{ form_label(formCorpo.disposition_salle, "disposition.salle" | trans, {'attr':{'class':'lblrenseignementsalle modifmarginsalle'}}) }}
+                         {{ form_widget(formCorpo.disposition_salle, {'attr':{'class':'selectrenseignementsalle'}}) }}
+                         {{ form_label(formCorpo.decrire_equipement, "decrire.equipement" | trans, {'attr':{'class':'lbltextarearenseignementsalle modifmarginsalle'}}) }}
+                         {{ form_widget(formCorpo.decrire_equipement, {'attr':{'class':'textarearenseignementhebergement'}}) }}		
+                         {#{% form_theme form 'MyAppGlobalBundle:Hebergement:Captcha.html.twig' %}
+                         {{ form_widget(form.captcha) }}#}
+                         {{ form_rest(formCorpo) }}	
+                         <input type="submit" value="{{ "envoyer.la.demande" | trans }}" class="submit_demandeinfo_corpo" />
+                         {% if messageEnvoye is defined %} <p class="confirm_msg">{{ "message.demande.information.corpo.envoye" | trans }}: {{ nomClientfr }}</p> {% endif %}
+                   </form>
+
+                         <script>
+                           $(function() {
+                                 $( "#add_demande_information_date_arrivee" ).datepicker();//date d'arrivée
+                                 $( "#add_demande_information_date_depart" ).datepicker(); //date départ
+
+                                 minDate = new Date();
+                                 today = minDate.getDate(); 
+
+                                 // Disable all dates till today
+                                 $('#add_demande_information_date_arrivee').datepicker({
+                                         minDate: minDate,
+                                         beforeShowDay: enabledDay
+
+                                 });
+
+                                 function enabledDay(date)
+                                 {
+                                         var day = date.getDate();
+                                         return [day <= today, ''];
+                                 }                                            		
+                           });
+                           jQuery(function($){
+                                     $.datepicker.regional['fr'] = {
+                                             closeText: 'Fermer',
+                                             prevText: 'Précédent',
+                                             nextText: 'Suivant',
+                                             currentText: 'Aujourd\'hui',
+                                             monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
+                                             'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+                                             monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin',
+                                             'Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
+                                             dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+                                             dayNamesShort: ['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'],
+                                             dayNamesMin: ['D','L','M','M','J','V','S'],
+                                             weekHeader: 'Sem.',
+                                             dateFormat: 'dd/mm/yy',
+                                             firstDay: 1,
+                                             isRTL: false,
+                                             showMonthAfterYear: false,
+                                             yearSuffix: ''};
+                                     $.datepicker.setDefaults($.datepicker.regional['fr']);
+                             });
+                         </script>  	  
+        {% endfor %}    
+        </div>
+
+{% endblock %}
+

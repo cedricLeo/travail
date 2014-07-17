@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Demande d'information / Request Information</title>
+	</head>
+	<body style="background-color:#dcdcdc;">
+		<header>		
+			<ul style="list-style-type:none;">
+				<li>{{ prenom }} {{ nom }} vous a envoyé une demande d'information</li>
+				<li>Courriel: {{ email }}</li>
+				<li>Téléphone: {{ telephone }}</li>	
+				<li>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</li>
+				<li>{{ prenom }} {{ nom }} you send a request for information</li>
+				<li>Email: {{ email }}</li>
+				<li>Phone: {{ telephone }}</li>	
+			</ul>
+			<nav>
+				<ul style="list-style-type:none;">
+					<li><a href="#french" >Français</a></li>
+					<li><a href="#english">English</a></li>
+				</ul>
+			</nav>
+		</header>
+		<section>
+			<article >
+				<header>
+					<div style="margin:0 15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;" >
+					<h2 style="font-size:18px;"><a name="french">Renseignements personnels</a></h2>
+					<p>Prénom : {{ prenom }}</p>
+					<p>Nom : {{ nom }}</p>
+					<p>Courriel:  <a href="mailTo:{{ email }}">{{ email }}</a></p>
+					<p>{% if entreprise != "" %}Nom d'entreprise {{ entreprise }} {% endif %} </p>
+					{% if adresse is not empty %}<p>Adresse : {{ adresse }}</p>{% endif %}
+					{% if ville is not empty %}<p>Ville : {{ ville }}</p>{% endif %}
+					{% if province is not empty %}<p>Province: {{ province }}</p>{% endif %}
+					{% if codepostal is not empty %}<p>Code-postal : {{ codepostal|upper }}</p>{% endif %}
+					{% if pays is not empty %}<p>Pays : {{ pays }}</p>{% endif %}
+					<p>Téléphone : {{ telephone }}</p>
+					{% if telecopieur is not empty %}<p>Télécopieur : {{ telecopieur }}</p>{% endif %}
+					</div>
+				</header>
+			</article>
+			<article>
+				<header>
+					<div style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+					<h2 style="font-size:18px;">Renseignements sur l'hébergement</h2>
+					{% if salle is not empty %}<p> Salle </p>{% endif %}
+					{% if hebergement is not empty %}<p> Hébergement </p>{% endif %}
+					{% if sallehebergement is not empty %}<p> Salle d'hébergement </p>{% endif %}
+					{% if nbChambre is not empty %}<p>Nombre de chambres : {{ nbChambre }} </p>{% endif %}
+					<p>Chambres : {% if chambresimple is not empty %} simple, {% endif %}
+								  {% if chambresimpledouble is not empty %} simple et double, {% endif %}
+								  {% if chambredouble is not empty %} double, {% endif %}
+								  {% if chambresuite is not empty %} suite {% endif %}
+					</p>
+					</div>
+				</header>
+				<div style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+				{% if demandespecifique is not empty %}<p>Demandes spécifiques pour l'hébergement : </p>
+				<p>{{ demandespecifique }}</p>{% endif %}
+				</div>
+			</article>
+			<article>
+				<header>
+					<div style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+					<h2 style="font-size:18px;">Renseignements sur la salle</h2>
+					{% if reunion is not empty %}<p>Nom de la réunion : {{ reunion }}</p>{% endif %}
+					<p>Nombre de personnes : {{ nbPersonne }}</p>
+					{% if typeEvent is not empty %}<p>Type d'événement : {{ typeEvent }}</p>{% endif %}
+					<p>Date d'arrivée : {{ datebegin }}</p>
+					<p>Date de départ : {{ dateend }}</p>
+					{% if flexibledate is not empty %}<p>Dates flexibles : {{ flexibledate }}</p>{% endif %}
+					{% if dispositionSalle is not empty %}<p>Disposition de la salle : {{ dispositionSalle }}</p>{% endif %}
+					</div>
+				</header>
+				<div style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+				{% if descriptionEquipement is not empty %}<p>Description des équipements demandés</p>
+				<p>{{ descriptionEquipement }}</p>{% endif %}
+				</div>
+			</article>
+		</section>
+		
+		<section>
+			<article>
+				<header>
+					<div style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+					<h2 style="font-size:18px;"><a name="english">Personal information</a></h2>
+					<p>Firstname : {{ prenom }}</p>
+					<p>Lastname : {{ nom }}</p>
+					<p>Email :  <a href="mailTo:{{ email }}">{{ email }}</a></p>
+					<p>{% if entreprise != "" %}Company name {{ entreprise }} {% endif %} </p>
+					{% if adresse is not empty %}<p>Adress : {{ adresse }}</p>{% endif %}
+					{% if ville is not empty %}<p>City : {{ ville }}</p>{% endif %}
+					{% if province is not empty %}<p>Province: {{ province }}</p>{% endif %}
+					{% if codepostal is not empty %}<p>Zip code : {{ codepostal|upper }}</p>{% endif %}
+					{% if pays is not empty %}<p>Country : {{ pays }}</p>{% endif %}
+					<p>Phone : {{ telephone }}</p>
+					{% if telecopieur is not empty %}<p>Fax machine : {{ telecopieur }}</p>{% endif %}
+					</div>
+				</header>
+			</article>
+			<article style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+				<header>
+					<div style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+					<h2 style="font-size:18px;">Information on accommodation</h2>
+					{% if salle is not empty %}<p> Room </p>{% endif %}
+					{% if hebergement is not empty %}<p> Accommodation </p>{% endif %}
+					{% if sallehebergement is not empty %}<p> Room accommodation </p>{% endif %}
+					{% if nbChambre is not empty %}<p>Number of rooms : {{ nbChambre }} </p>{% endif %}
+					<p>Rooms : {% if chambresimple is not empty %} single, {% endif %}
+							   {% if chambresimpledouble is not empty %} single and double, {% endif %}
+							   {% if chambredouble is not empty %} double, {% endif %}
+							   {% if chambresuite is not empty %} suite {% endif %}
+					</p>
+					</div>
+				</header>
+				<div style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+				{% if demandespecifique is not empty %}<p>Specific requests for accommodation : </p>
+				<p>{{ demandespecifique }}</p>{% endif %}
+				</div>
+			</article>
+			<article style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+				<header>
+					<div style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+					<h2 style="font-size:18px;">Venue Information</h2>
+					{% if reunion is not empty %}<p>Name of the meeting : {{ reunion }}</p>{% endif %}
+					<p>Number of people : {{ nbPersonne }}</p>
+					{% if typeEvent is not empty %}<p>Event Type : {{ typeEvent }}</p>{% endif %}
+					<p>Date of arrival : {{ datebegin }}</p>
+					<p>Date of departure : {{ dateend }}</p>
+					{% if flexibledate %}<p>Flexible dates : {{ flexibledate }}</p>{% endif %}
+					{% if dispositionSalle is not empty %}<p>Room layout : {{ dispositionSalle }}</p>{% endif %}
+					</div>
+				</header>
+				<div style="margin-left:15px; background-color:white; border-radius:10px; width:600px; padding-left:10px;">
+				{% if descriptionEquipement is not empty %}<p>Description of equipment requested</p>
+				<p>{{ descriptionEquipement }}</p>{% endif %}
+				</div>
+			</article>
+		</section>
+		
+		<footer>
+			<p style="text-align:center;">Copyright {{ dateYear }} Global réservation</p>
+		</footer>
+	</body>
+</html>
+
+

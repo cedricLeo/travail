@@ -1,0 +1,69 @@
+{% for x in infoComplementaire %}
+
+	{# SI L'ATTRAIT À DES HORAIRES DIFFÉRENTS L'ÉTÉ ET L'HIVER #}
+	{% if x.periodepourattrait != "" %}
+		{# OUVERTURE #}
+		{% if  x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.mardimatinete|date('H:i') and 
+			   x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.mercredimatinete|date('H:i') and 
+			   x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.jeudimatinete|date('H:i') and 
+			   x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.vendredimatinete|date('H:i') and 
+			   x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.samedimatinete|date('H:i') and 
+			   x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.dimanchematinete|date('H:i') 
+		%} 
+		     <p>{{ "haute.saison" | trans }}    {{ x.lundimatinete.lundimatinete|date('H:i') }}
+		{% endif %}
+		{# FERMETURE #}
+		{% if  x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.mardisoirete|date('H:i') and
+		 	   x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.mercredisoirete|date('H:i') and
+		 	   x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.jeudisoirete|date('H:i') and 
+		 	   x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.vendredisoirete|date('H:i') and 
+		 	   x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.samedisoirete|date('H:i') and
+		 	   x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.dimanchesoirete|date('H:i') 
+		 %}
+		 	  {{ x.lundimatinete.lundisoirete|date('H:i') }}</p>
+		{% endif %}
+	{% else %}
+		{# OUVERTURE ÉTÉ #}
+		{% if  x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.mardimatinete|date('H:i') and 
+			   x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.mercredimatinete|date('H:i') and 
+			   x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.jeudimatinete|date('H:i') and 
+			   x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.vendredimatinete|date('H:i') and 
+			   x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.samedimatinete|date('H:i') and 
+			   x.lundimatinete.lundimatinete|date('H:i') == x.lundimatinete.dimanchematinete|date('H:i') 
+		%} 
+			<p>{{ "haute.saison" | trans }}   {{ x.lundimatinete.lundimatinete|date('H:i') }} {{ "resultat.a" | trans }}
+		{% endif %}
+		{# FERMETURE ÉTÉ #}
+		{% if  x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.mardisoirete|date('H:i') and
+		 	   x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.mercredisoirete|date('H:i') and
+		 	   x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.jeudisoirete|date('H:i') and 
+		 	   x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.vendredisoirete|date('H:i') and 
+		 	   x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.samedisoirete|date('H:i') and
+		 	   x.lundimatinete.lundisoirete|date('H:i') == x.lundimatinete.dimanchesoirete|date('H:i') 
+		 %}
+			{{ x.lundimatinete.lundisoirete|date('H:i') }}</p>
+		{% endif %}
+		{# OUVERTURE HIVER #}
+		{% if  x.lundimatinete.lundimatinhiver|date('H:i') == x.lundimatinete.mardimatinhiver|date('H:i') and 
+			   x.lundimatinete.lundimatinhiver|date('H:i') == x.lundimatinete.mercredimatinhiver|date('H:i') and 
+			   x.lundimatinete.lundimatinhiver|date('H:i') == x.lundimatinete.jeudimatinhiver|date('H:i') and 
+			   x.lundimatinete.lundimatinhiver|date('H:i') == x.lundimatinete.vendredimatinhiver|date('H:i') and 
+			   x.lundimatinete.lundimatinhiver|date('H:i') == x.lundimatinete.samedimatinhiver|date('H:i') and 
+			   x.lundimatinete.lundimatinhiver|date('H:i') == x.lundimatinete.dimanchematinhiver|date('H:i') 
+		%} 
+			<p>{{ "basse.saison" | trans }}   {{ x.lundimatinete.lundimatinhiver|date('H:i') }} {{ "resultat.a" | trans }}
+		{% endif %}
+		{# FERMETURE HIVER #}
+		{% if  x.lundimatinete.lundisoirhiver|date('H:i') == x.lundimatinete.mardisoirhiver|date('H:i') and
+		 	   x.lundimatinete.lundisoirhiver|date('H:i') == x.lundimatinete.mercredisoirhiver|date('H:i') and
+		 	   x.lundimatinete.lundisoirhiver|date('H:i') == x.lundimatinete.jeudisoirhiver|date('H:i') and 
+		 	   x.lundimatinete.lundisoirhiver|date('H:i') == x.lundimatinete.vendredisoirhiver|date('H:i') and 
+		 	   x.lundimatinete.lundisoirhiver|date('H:i') == x.lundimatinete.samedisoirhiver|date('H:i') and
+		 	   x.lundimatinete.lundisoirhiver|date('H:i') == x.lundimatinete.dimanchesoirhiver|date('H:i') 
+		 %}
+			{{ x.lundimatinete.lundisoirhiver|date('H:i') }}</p>
+		{% endif %}
+	{% endif %}
+	
+	
+{% endfor %}

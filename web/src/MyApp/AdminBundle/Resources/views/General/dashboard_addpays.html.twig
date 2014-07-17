@@ -1,0 +1,41 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist == "false" %}
+	<h1>Ajouter un pays</h1>
+{% else %}
+	<h1>Modifier le pays « {{ infonom|upper }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist == "true" %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer le pays {{ infonom }}">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer le pays {{ infonom }}"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	Voulez vous supprimez le pays {{ infonom }} ?
+						<a href="{{ path('_Dashboard_deletepays', {'id':infoid, 'name':infonom}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler"></a>
+				    </div>	
+				    {% endif %}					
+				    {{ form_label(form.nomfr, "Nom FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nomfr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nomen, "Nom EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nomen, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.reservitId, "Reservit ID", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.reservitId, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.affiche, "Affiche", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.affiche, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.image_doctrine, "Image", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_doctrine, {'attr':{'class':'txt_add_state '}}) }}
+				    {% if exist == "true" %}
+				    	<img class="img_paiement_update" src="{{ asset('uploads/pays') }}/{{ infoid }}/{{ infoimg }}" style="width:100px; height:60px;" alt="drapeau du pays {{ infonom }}" title="drapeau du pays {{ infonom }}"/>
+				    {% endif %}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_pays') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% block navigation %}
+<div class="gauche">
+    <nav class="menuMain">
+        <ul class="menuNavigation">        
+            <li {% if section == "accueil" %} class="choice" {% endif %}> <a href="{{ path('mobile_generic_detail',{"section": linkaccueil, "id":repertoire}) }}" id="menuhome">{{ "presentation" | trans }}</a></li>   
+            {% if typeAcompte == 2 %}
+            <li {% if  section == "chambres-tarifs" %} class="choice" {% endif %}> <a href="{{ path('mobile_generic_detail',{"section": linkchambre, "id": repertoire}) }}" id="menuroom">{{ "chambre.tarif" | trans }}</a></li>   
+                {% if forfait is not empty %}
+                <li {% if section == "forfait-promotion" %} class="choice" {% endif %}> <a href="{{ path('mobile_generic_detail',{"section": linkforfait, "id": repertoire}) }}" id="menupackage">{{ "forfait.promotion" | trans }}</a></li>
+                {% endif %}
+            {% endif %}
+            <li {% if section == "activites-services" %} class="choice" {% endif %}> <a href="{{ path('mobile_generic_detail',{"section": linkactivite, "id": repertoire}) }}" id="menuactivities">{{ "activite.service" | trans }}</a></li>
+            {% if corporatif == 1 %}
+            <li {% if section == "corporatif-evenement" %} class="choice" {% endif %}> <a href="{{ path('mobile_generic_detail',{"section": linkcorporatif, "id": repertoire}) }}" id="menucorporate">{{ "corporatif" | trans }}</a></li>
+            {% endif %} 
+            {#<li> <a href="" id="menugallery">{{ "galerie.photo" | trans }}</a></li>#}
+            {% if typeAcompte == 10 %}
+            <li {% if section == "menusante" %} class="choice" {% endif %}> <a href="" id="menusante">{{ "centre.sante.spa" | trans }}</a></li>
+            <li {% if section == "menurestaurant" %} class="choice" {% endif %}> <a href="" id="menurestaurant">{{ "restaurant" | trans }}</a></li>
+            {% endif %}
+            <li {% if section == "information-reservation" %} class="choice" {% endif %}> <a href="{{ path('mobile_generic_detail',{"section": linkreservation, "id": repertoire}) }}" id="menuinformation">{{ "reservation" | trans }}</a></li>
+            <li {% if section == "directions-routieres" %} class="choice" {% endif %}> <a href="{{ path('mobile_generic_detail',{"section": linkdirection, "id": repertoire}) }}" id="menudirection">{{ "direction.routiere" | trans }}</a></li>       
+        </ul>
+    </nav>    
+    <div class="forfaitConcurrent">
+    {% if forfaitDisponible is not empty %}
+        {% if app.request.locale == "fr" %}
+            {% for e in forfaitDisponible %}
+                <p> {{ e.hebergementid.nomfr }}<br />
+                <strong>{{ e.nomfr }} {{ e.tarif }}</strong></p>
+                <p></p>
+            {% endfor %}
+        {% else %}
+            {% for e in forfaitDisponible %}
+                <p> {{ e.hebergementid.nomen }}<br />
+                <strong>{{ e.nomen }} {{ e.tarif }}</strong></p>
+                <p></p>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

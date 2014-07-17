@@ -1,0 +1,421 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}
+			{% for x in clientAleatoire.categoriehebergementid %}
+				<p class="legendeHome">{{ "hebergement" | trans }} {% if app.request.locale == "fr" %} {{ x.nomfr|lower }} {% else %} {{ x.nomen|lower }} {% endif %} </p>
+				{# div qui va contenir la photo principal du sujet de la section #}
+				<div id="photoprincipale">	
+					<div class="nomSousCategorie">
+                                        {% if app.request.locale == "fr" %}
+                                                <h1>{{ "hebergement" | trans }} {{ x.nomfr|lower }} </h1>
+						<h3><a href="{{ path('_hebergementinfoclient',{'name':clientAleatoire.repertoirefr|lower} ) }}" target="_blank" title="{{ x.nomfr }} {{ clientAleatoire.nomfr }}">{{ clientAleatoire.nomfr }} - région {{ clientAleatoire.regionid.nomfr }}</a></h3>
+					</div>
+						{% if clientAleatoire.photopayante is not empty %}
+				  			<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="Hébergement - {{ clientAleatoire.nomfr }}" />
+						{% else %}
+							<img src="{{ asset('bundles/myappglobal/images/PhotoHebNouveauSite.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} ">
+						{% endif %}
+					{% else %}
+						<h1>{{ "hebergement" | trans }} {{ x.nomen|lower }} </h1>	
+						<h3><a href="{{ path('_hebergementinfoclient',{'name':clientAleatoire.repertoireen|lower} ) }}" target="_blank" title="{{ x.nomen }} {{ clientAleatoire.nomen }}">{{ clientAleatoire.nomen }} - region {{ clientAleatoire.regionid.nomen }} </a></h3>
+					</div>
+						{% if clientAleatoire.photopayante is not empty %}
+				 			<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomen }} - accommodation " />
+						{% else %}
+							<img src="{{ asset('bundles/myappglobal/images/PhotoHebNouveauSite.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} ">
+						{% endif %}
+					{% endif %}
+				</div>
+			{% endfor %}
+		{% endblock %}	
+		
+		{# TEXTE D'ACCUEIL #}
+		{% block texte_accueil %}
+                    {% if app.request.locale == "fr" %}
+                            <p>{{ texte_accueilfr|striptags|nl2br }}</p>
+                    {% else %}	
+                            <p>{{ texte_accueilen|striptags|nl2br }}</p>
+                    {% endif %}
+		{% endblock %}
+		
+		{% block body %} 	
+			<div class="colonnes2 region">
+				{% for x in clientAleatoire.categoriehebergementid %}
+					  {% if app.request.locale == "fr" %}
+					  <h2>{{ "choisir.la.province" | trans }} {{ x.nomfr|lower }}</h2>
+						  <ul>		
+					  		{% for nomprovinceqc in regionqc %}
+					  		{% if loop.index == 1 %}
+					        	<li class="province"><a href="{{path('_hebergementtypeprovincefr',{'name':x.repertoirefr|lower, 'province': nomprovinceqc.provinceid.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} - {{ nomprovinceqc.provinceid.nomfr }}">{{ nomprovinceqc.provinceid.nomfr }}</a></li>
+					        	{% endif %}
+						        <li><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':nomprovinceqc.regionid.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} - {{ nomprovinceqc.regionid.nomfr }}">{{nomprovinceqc.regionid.nomfr }}</a></li>
+						        {% endfor %}
+					      </ul>
+					      <ul>	
+					      		{% for nomprovinceon in regionon %}
+					      		{% if loop.index == 1 %}
+						        <li class="province"><a href="{{path('_hebergementtypeprovincefr',{'name':x.repertoirefr|lower, 'province': nomprovinceon.provinceid.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} - {{ nomprovinceon.provinceid.nomfr }}">{{ nomprovinceon.provinceid.nomfr }}</a></li>
+						        {% endif %}
+						        <li><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':nomprovinceon.regionid.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} - {{ nomprovinceon.regionid.nomfr}}">{{ nomprovinceon.regionid.nomfr }}</a></li>
+						        {% endfor %}
+					      </ul>
+					      <ul>
+					      		{% for nomprovincenb in regionnb %}
+					      		{% if loop.index == 1 %}
+						        <li class="province"><a href="{{path('_hebergementtypeprovincefr',{'name':x.repertoirefr|lower, 'province': nomprovincenb.provinceid.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} - {{ nomprovincenb.provinceid.nomfr }}">{{ nomprovincenb.provinceid.nomfr }}</a></li>
+						        {% endif %}
+						        <li><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':nomprovincenb.regionid.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} - {{ nomprovincenb.regionid.nomfr }}">{{ nomprovincenb.regionid.nomfr}}</a></li>
+						        {% endfor %}
+					      </ul>
+					{% else %}
+					<h2>{{ "choisir.la.region" | trans }} {{ x.nomen|lower }}</h2>
+						 <ul>		
+					  		{% for nomprovinceqc in regionqc %}
+					  		{% if loop.index == 1 %}
+					        	<li class="province"><a href="{{path('_hebergementtypeprovinceen',{'name':x.repertoireen|lower, 'province': nomprovinceqc.provinceid.repertoireen|lower})}}" title="{{ "hebergement" | trans }} - {{ nomprovinceqc.provinceid.nomen }}">{{ nomprovinceqc.provinceid.nomen }}</a></li>
+					        	{% endif %}
+						        <li><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':nomprovinceqc.regionid.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} - {{ nomprovinceqc.regionid.nomen }}">{{nomprovinceqc.regionid.nomen }}</a></li>
+						        {% endfor %}
+					      </ul>
+					      <ul>	
+					      		{% for nomprovinceon in regionon %}
+					      		{% if loop.index == 1 %}
+						        <li class="province"><a href="{{path('_hebergementtypeprovinceen',{'name':x.repertoireen|lower, 'province': nomprovinceon.provinceid.repertoireen|lower})}}" title="{{ "hebergement" | trans }} - {{ nomprovinceon.nomen }}">{{ nomprovinceon.provinceid.nomen }}</a></li>
+						        {% endif %}
+						        <li><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':nomprovinceon.regionid.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} - {{ nomprovinceon.regionid.nomen }}">{{ nomprovinceon.regionid.nomen }}</a></li>
+						        {% endfor %}
+					      </ul>
+					      <ul>
+					      		{% for nomprovincenb in regionnb %}
+					      		{% if loop.index == 1 %}
+						        <li class="province"><a href="{{path('_hebergementtypeprovinceen',{'name':x.repertoireen|lower, 'province': nomprovincenb.provinceid.repertoireen|lower})}}" title="{{ "hebergement" | trans }} - {{ nomprovincenb.nomen }}">{{ nomprovincenb.provinceid.nomen }}</a></li>
+						        {% endif %}
+						        <li><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':nomprovincenb.regionid.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} - {{ nomprovincenb.regionid.nomen }}">{{ nomprovincenb.regionid.nomen}}</a></li>
+						        {% endfor %}
+					      </ul>
+					{% endif %}
+				<br class="clearfloat" />	
+				{% endfor %}
+			</div>
+			{# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait hackPub" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+			  <br class="clearfloat" />
+			{# LISTE DES CATÉGORIES DES HÉBERGEMENTS #}
+			<div class="colonnes4">
+			{% if valideSuggBottom1 is not empty or valideSuggBottom2 is not empty or valideSuggBottom3 is not empty or valideSuggBottom4 is not empty %}
+				{% for x in clientAleatoire.categoriehebergementid %}
+				   <h4>{{ "nos.suggestions" | trans }} {% if app.request.locale == "fr" %} {{ x.nomfr|lower }} {% else %} {{ x.nomen|lower }} {% endif %}</h4>
+				{% endfor %}
+			{% endif %}
+            	{% if app.request.locale == "fr" %}
+	            	{% for x in clientAleatoire.categoriehebergementid %}
+	            		{% if valideSuggBottom1 is not empty %}
+	            		{# REGION 1 POUR LES SUGGESTIONS #}
+	            			<div>
+	            			{% for e in listeSuggestion1 %}
+	            				{% if loop.index == 1 %}
+                                                        {% for w in e %}
+                                                                {% if loop.index == 1 %}
+                                                        <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" target="_blank" title="{{ x.nomfr }} {{ w.hebergement.nomfr }}">
+                                                                {% if w.hebergement.photocategoriepayante != "" %} 
+                                                                        <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergement.id }}/{{ w.hebergement.photocategoriepayante }}" width="151" height="109" alt="{{ x.nomfr }} " />
+                                                                {% else %}
+                                                                        {% for q in w.hebergement.categoriehebergementid %}
+                                                                            {% if idcategorie == q.id %}
+                                                                            <img src="{{ asset('uploads/categorie_hebergement/images_') }}{{ q.id }}/{{ imageColBas1 }}" width="151" height="109" alt="{{ w.hebergement.nomfr }} " />
+                                                                            {% endif %}
+                                                                        {% endfor %}
+
+                                                                {% endif %}
+                                                        </a>
+				            			{% endif %}
+		            				{% endfor %}
+		            			{% endif %}
+	            			{% endfor %}
+					            <h3><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':regionSugg1.regionid.repertoirefr|lower}) }}" title="{{ x.nomfr }} région {{ regionSugg1.regionid.nomfr }}">{{ regionSugg1.regionid.nomfr }}</a></h3>
+						         <ul>
+                                                            {% for e in listeSuggestion1 %}
+                                                                    {% for w in e %}
+                                                                    <li><a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" target="_blank" title="">{{ w.hebergement.nomfr }}</a></li>						     
+                                                                           {% if w.tarifminbassesaison is not empty %}
+                                                                           <li>à partir de  {{ w.tarifminbassesaison|replace({"%$%": ""}) }} $</li>
+                                                                           {% endif %}
+                                                                   {% endfor %}
+                                                            {% endfor %}
+						         </ul>
+						        <h2><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':regionSugg1.regionid.repertoirefr|lower}) }}" title="{{ x.nomfr }} région {{ regionSugg1.regionid.nomfr }}">{{ numberHebRegionBottom1|length }} {% for x in clientAleatoire.categoriehebergementid %} {{ x.nomfr|lower}} {% endfor %}  - {{ regionSugg1.regionid.nomfr }}</a></h2>
+					        </div>
+					    {% endif %}
+					    {% if valideSuggBottom2 is not empty %}    
+					    {# REGION 2 POUR LES SUGGESTIONS #}
+	            			<div>
+	            			{% for e in listeSuggestion2 %}
+	            				{% if loop.index == 1 %}
+                                                        {% for w in e %}
+                                                                {% if loop.index == 1 %}
+                                                        <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" target="_blank" title="{{ x.nomfr }} {{ w.hebergement.nomfr }}">
+                                                                {% if w.hebergement.photocategoriepayante != "" %}
+                                                                        <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergement.id }}/{{ w.hebergement.photocategoriepayante }}" width="151" height="109" alt="{{ x.nomfr }}" />
+                                                                {% else %}
+                                                                        {% for q in w.hebergement.categoriehebergementid %}
+                                                                            {% if idcategorie == q.id %}
+                                                                            <img src="{{ asset('uploads/categorie_hebergement/images_') }}{{ q.id }}/{{ imageColBas2 }}" width="151" height="109" alt="{{ w.hebergement.nomfr }} " />
+                                                                            {% endif %}
+                                                                        {% endfor %}
+
+                                                                {% endif %}
+                                                        </a>
+				            			{% endif %}
+		            				{% endfor %}
+		            			{% endif %}
+	            			{% endfor %}
+					            <h3><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':regionSugg2.regionid.repertoirefr|lower}) }}" title="{{ x.nomfr }} région {{ regionSugg2.regionid.nomfr }}">{{ regionSugg2.regionid.nomfr }}</a></h3>
+						         <ul>
+                                                                {% for e in listeSuggestion2 %}
+                                                                        {% for w in e %}
+                                                                <li><a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" target="_blank" title="">{{ w.hebergement.nomfr }} </a></li>
+                                                                                {% if w.tarifminbassesaison is not empty %}
+                                                                                <li>à partir de  {{ w.tarifminbassesaison|replace({"%$%": ""}) }} $</li>
+                                                                                {% endif %}
+							           {% endfor %}
+									{% endfor %}
+						         </ul>
+						        <h2><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':regionSugg2.regionid.repertoirefr|lower}) }}" title="{{ x.nomfr }} région {{ regionSugg2.regionid.nomfr }}">{{ numberHebRegionBottom2|length }}  {% for x in clientAleatoire.categoriehebergementid %} {{ x.nomfr|lower}} {% endfor %}  - {{ regionSugg2.regionid.nomfr }}</a></h2>
+					        </div>
+					    {% endif %}    
+					    {% if valideSuggBottom3 is not empty %}
+					    {# REGION 3 POUR LES SUGGESTIONS #}
+	            			<div>
+	            			{% for e in listeSuggestion3 %}
+	            				{% if loop.index == 1 %}
+                                                        {% for w in e %}
+                                                                {% if loop.index == 1 %}
+                                                        <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" target="_blank" title="{{ x.nomfr }} {{ w.hebergement.nomfr }}">
+                                                                {% if w.hebergement.photocategoriepayante != "" %}
+                                                                        <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergement.id }}/{{ w.hebergement.photocategoriepayante }}" width="151" height="109" alt="{{ x.nomfr }}" />
+                                                                {% else %}
+                                                                        {% for q in w.hebergement.categoriehebergementid %}
+                                                                            {% if idcategorie == q.id %}
+                                                                            <img src="{{ asset('uploads/categorie_hebergement/images_') }}{{ q.id }}/{{ imageColBas3 }}" width="151" height="109" alt="{{ w.hebergement.nomfr }} " />
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                {% endif %}
+                                                        </a>
+				            			{% endif %}
+		            				{% endfor %}
+		            			{% endif %}
+	            			{% endfor %}
+					            <h3><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':regionSugg3.regionid.repertoirefr|lower}) }}" title="{{ x.nomfr }} région {{ regionSugg3.regionid.nomfr }}">{{ regionSugg3.regionid.nomfr }}</a></h3>
+						         <ul>
+                                                                {% for e in listeSuggestion3 %}
+                                                                        {% for w in e %}
+                                                                <li><a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" target="_blank" title="">{{ w.hebergement.nomfr }}</a></li>
+                                                                                {% if w.tarifminbassesaison is not empty %}
+                                                                                <li>à partir de  {{ w.tarifminbassesaison|replace({"%$%": ""}) }} $</li>
+                                                                                {% endif %}
+							           {% endfor %}
+									{% endfor %}
+						         </ul>
+						        <h2><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':regionSugg3.regionid.repertoirefr|lower}) }}" title="{{ x.nomfr }} région {{ regionSugg3.regionid.nomfr }}">{{ numberHebRegionBottom3|length }}  {% for x in clientAleatoire.categoriehebergementid %} {{ x.nomfr|lower}} {% endfor %}  - {{ regionSugg3.regionid.nomfr }}</a></h2>
+					        </div>
+					    {% endif %}
+                                        {% if valideSuggBottom4 is not empty and listeSuggestion4 is not empty %}    
+                                        {# REGION 4 POUR LES SUGGESTIONS #}
+	            			<div>
+                                            {% for e in listeSuggestion4 %}
+                                                    {% if loop.index == 1 %}
+                                                            {% for w in e %}
+                                                                    {% if loop.index == 1 %}
+                                                                        <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" target="_blank" title="{{ x.nomfr }} {{ w.hebergement.nomfr }}">
+                                                                            {% if w.hebergement.photocategoriepayante != "" %}
+					            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergement.id }}/{{ w.hebergement.photocategoriepayante }}" width="151" height="109" alt="{{ x.nomfr }}" />
+                                                                            {% else %}
+                                                                                {% for q in w.hebergement.categoriehebergementid %}
+                                                                                    {% if idcategorie == q.id %}
+                                                                                    <img src="{{ asset('uploads/categorie_hebergement/images_') }}{{ q.id }}/{{ imageColBas4 }}" width="151" height="109" alt="{{ w.hebergement.nomfr }} " />
+                                                                                    {% endif %}
+                                                                                {% endfor %}
+                                                                            {% endif %}
+                                                                        </a>
+                                                                    {% endif %}
+                                                            {% endfor %}
+                                                    {% endif %}
+                                            {% endfor %}
+					            <h3><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':regionSugg4.regionid.repertoirefr|lower}) }}" title="{{ x.nomfr }} région {{ regionSugg4.regionid.nomfr }}">{{ regionSugg4.regionid.nomfr }}</a></h3>
+						         <ul>
+                                                            {% for e in listeSuggestion4 %}
+                                                                    {% for w in e %}
+                                                                            <li><a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" target="_blank" title="">{{ w.hebergement.nomfr }} </a></li>
+                                                                            {% if w.tarifminbassesaison is not empty %}
+                                                                            <li>à partir de  {{ w.tarifminbassesaison|replace({"%$%": ""}) }} $</li>
+                                                                            {% endif %}
+                                                                     {% endfor %}
+                                                            {% endfor %}
+						         </ul>
+						        <h2><a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':regionSugg4.regionid.repertoirefr|lower}) }}" title="{{ x.nomfr }} région {{ regionSugg4.regionid.nomfr }}">{{ numberHebRegionBottom4|length }}  {% for x in clientAleatoire.categoriehebergementid %} {{ x.nomfr|lower}} {% endfor %}  - {{ regionSugg4.regionid.nomfr }}</a></h2>
+					        </div>
+					     {% endif %}
+					 {% endfor %}
+				{% else %} {# VERSION ANGLAISE #}
+	            	{% for x in clientAleatoire.categoriehebergementid %}
+	            		{% if valideSuggBottom1 is not empty %}
+	            		{# REGION 1 POUR LES SUGGESTIONS #}
+	            			<div>
+	            			{% for e in listeSuggestion1 %}
+	            				{% if loop.index == 1 %}
+                                                        {% for w in e %}
+                                                                {% if loop.index == 1 %}
+                                                        <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" target="_blank" title="{{ x.nomfr }} {{ w.hebergement.nomen }}">
+                                                                {% if w.hebergement.photocategoriepayante != "" %}
+                                                                        <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergement.id }}/{{ w.hebergement.photocategoriepayante }}" width="151" height="109" alt="{{ x.nomen }}" />
+                                                                {% else %}
+                                                                        {% for q in w.hebergement.categoriehebergementid %}
+                                                                            {% if idcategorie == q.id %}
+                                                                            <img src="{{ asset('uploads/categorie_hebergement/images_') }}{{ q.id }}/{{ imageColBas1 }}" width="151" height="109" alt="{{ w.hebergement.nomen }} " />
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                {% endif %}
+                                                        </a>
+				            			{% endif %}
+		            				{% endfor %}
+		            			{% endif %}
+	            			{% endfor %}
+					            <h3><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':regionSugg1.regionid.repertoireen|lower}) }}" title="{{ x.nomen }} region {{ regionSugg1.regionid.nomen }}">{{ regionSugg1.regionid.nomen }}</a></h3>
+						         <ul>
+                                                            {% for e in listeSuggestion1 %}
+                                                                    {% for w in e %}
+                                                             <li><a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" target="_blank" title="">{{ w.hebergement.nomen }}</a></li>						     
+                                                                    {% if w.tarifminbassesaison is not empty %}
+                                                                    <li>from  {{ w.tarifminbassesaison|replace({"%$%": ""}) }} $</li>
+                                                                    {% endif %}
+                                                            {% endfor %}
+                                                            {% endfor %}
+						         </ul>
+						        <h2><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':regionSugg1.regionid.repertoireen|lower}) }}" title="{{ x.nomen }} region {{ regionSugg1.regionid.nomen }}">{{ numberHebRegionBottom1|length }}  {% for x in clientAleatoire.categoriehebergementid %} {{ x.nomen|lower}} {% endfor %}  - {{ regionSugg1.regionid.nomen }}</a></h2>
+					        </div>
+					    {% endif %}
+					    {% if valideSuggBottom2 is not empty %}    
+					    {# REGION 2 POUR LES SUGGESTIONS #}
+	            			<div>
+	            			{% for e in listeSuggestion2 %}
+	            				{% if loop.index == 1 %}
+                                                        {% for w in e %}
+                                                                {% if loop.index == 1 %}
+                                                        <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" target="_blank" title="{{ x.nomfr }} {{ w.hebergement.nomen }}">
+                                                                {% if w.hebergement.photocategoriepayante != "" %}
+                                                                        <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergement.id }}/{{ w.hebergement.photocategoriepayante }}" width="151" height="109" alt="{{ x.nomen }}" />
+                                                                {% else %}
+                                                                        {% for q in w.hebergement.categoriehebergementid %}
+                                                                            {% if idcategorie == q.id %}
+                                                                            <img src="{{ asset('uploads/categorie_hebergement/images_') }}{{ q.id }}/{{ imageColBas2 }}" width="151" height="109" alt="{{ w.hebergement.nomen }} " />
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                {% endif %}
+                                                        </a>
+				            			{% endif %}
+		            				{% endfor %}
+		            			{% endif %}
+	            			{% endfor %}
+					            <h3><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':regionSugg2.regionid.repertoireen|lower}) }}" title="{{ x.nomen }} region {{ regionSugg2.regionid.nomen }}">{{ regionSugg2.regionid.nomen }}</a></h3>
+						         <ul>
+                                                            {% for e in listeSuggestion2 %}
+                                                                {% for w in e %}
+                                                                        <li><a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" target="_blank" title="">{{ w.hebergement.nomen }} </a></li>
+                                                                    {% if w.tarifminbassesaison is not empty %}
+                                                                        <li>from  {{ w.tarifminbassesaison|replace({"%$%": ""}) }} $</li>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endfor %}
+						         </ul>
+						        <h2><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':regionSugg2.regionid.repertoireen|lower}) }}" title="{{ x.nomen }} region {{ regionSugg2.regionid.nomen }}">{{ numberHebRegionBottom2|length }}  {% for x in clientAleatoire.categoriehebergementid %} {{ x.nomen|lower}} {% endfor %}  - {{ regionSugg2.regionid.nomen }}</a></h2>
+					        </div>
+					    {% endif %}    
+					    {% if valideSuggBottom3 is not empty %}
+					    {# REGION 3 POUR LES SUGGESTIONS #}
+	            			<div>
+	            			{% for e in listeSuggestion3 %}
+	            				{% if loop.index == 1 %}
+                                                        {% for w in e %}
+                                                                {% if loop.index == 1 %}
+                                                        <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" target="_blank" title="{{ x.nomen }} {{ w.hebergement.nomen }}">
+                                                                    {% if w.hebergement.photocategoriepayante != "" %}
+                                                                            <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergement.id }}/{{ w.hebergement.photocategoriepayante }}" width="151" height="109" alt="{{ x.nomen }}" />
+                                                                    {% else %}
+                                                                            {% for q in w.hebergement.categoriehebergementid %}
+                                                                                {% if idcategorie == q.id %}
+                                                                                <img src="{{ asset('uploads/categorie_hebergement/images_') }}{{ q.id }}/{{ imageColBas3 }}" width="151" height="109" alt="{{ w.hebergement.nomen }} " />
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                    {% endif %}
+                                                        </a>
+				            			{% endif %}
+		            				{% endfor %}
+		            			{% endif %}
+	            			{% endfor %}
+					            <h3><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':regionSugg3.regionid.repertoireen|lower}) }}" title="{{ x.nomen }} region {{ regionSugg3.regionid.nomen }}">{{ regionSugg3.regionid.nomen }}</a></h3>
+						         <ul>
+                                                                {% for e in listeSuggestion3 %}
+                                                                        {% for w in e %}
+                                                                <li><a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" target="_blank" title="">{{ w.hebergement.nomen }}</a></li>
+                                                                        {% if w.tarifminbassesaison is not empty %}
+                                                                        <li>from  {{ w.tarifminbassesaison|replace({"%$%": ""}) }} $</li>
+                                                                        {% endif %}
+							           {% endfor %}
+								{% endfor %}
+						         </ul>
+						        <h2><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':regionSugg3.regionid.repertoireen|lower}) }}" title="{{ x.nomen }} region {{ regionSugg3.regionid.nomen }}">{{ numberHebRegionBottom3|length }}  {% for x in clientAleatoire.categoriehebergementid %} {{ x.nomen|lower}} {% endfor %}  - {{ regionSugg3.regionid.nomen }}</a></h2>
+					        </div>
+					    {% endif %}
+					    {% if valideSuggBottom4 is not empty %}    
+					    {# REGION 4 POUR LES SUGGESTIONS #}
+	            			<div>
+	            			{% for e in listeSuggestion4 %}
+	            				{% if loop.index == 1 %}
+                                                        {% for w in e %}
+                                                                {% if loop.index == 1 %}
+                                                        <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" target="_blank" title="{{ x.nomen }} {{ w.hebergement.nomen }}">
+                                                                {% if w.hebergement.photocategoriepayante != "" %}
+                                                                        <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ x.hebergement.id }}/{{ w.hebergement.photocategoriepayante }}" width="151" height="109" alt="{{ x.nomen }}" />
+                                                                {% else %}
+                                                                        {% for q in w.hebergement.categoriehebergementid %}
+                                                                            {% if idcategorie == q.id %}
+                                                                            <img src="{{ asset('uploads/categorie_hebergement/images_') }}{{ q.id }}/{{ imageColBas4 }}" width="151" height="109" alt="{{ w.hebergement.nomen }} " />
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                {% endif %}
+                                                        </a>
+				            			{% endif %}
+		            				{% endfor %}
+		            			{% endif %}
+	            			{% endfor %}
+					            <h3><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':regionSugg4.regionid.repertoireen|lower}) }}" title="{{ x.nomen }} region {{ regionSugg4.regionid.nomen }}">{{ regionSugg4.regionid.nomen }}</a></h3>
+						         <ul>
+                                                            {% for e in listeSuggestion4 %}
+                                                                    {% for w in e %}
+                                                            <li><a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" target="_blank" title="">{{ w.hebergement.nomen }} </a></li>
+                                                                            {% if w.tarifminbassesaison is not empty %}
+                                                                            <li>from  {{ w.tarifminbassesaison|replace({"%$%": ""}) }} $</li>
+                                                                            {% endif %}
+                                                               {% endfor %}
+                                                            {% endfor %}
+						         </ul>
+						        <h2><a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':regionSugg4.regionid.repertoireen|lower}) }}" title="{{ x.nomen }} region {{ regionSugg4.regionid.nomen }}">{{ numberHebRegionBottom4|length }}  {% for x in clientAleatoire.categoriehebergementid %} {{ x.nomfr|lower}} {% endfor %}  - {{ regionSugg4.regionid.nomen }}</a></h2>
+					        </div>
+					     {% endif %}
+					 {% endfor %} 
+				{% endif %}
+                         <br class="clearfloat" />
+			</div>
+		{% endblock %}
+
+		{% block gauche %}
+			{# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %}
+			{# NOS SUGGESTIONS SOUS LA RECHERCHE AVEC LA CARTE #}
+			{% include 'MyAppGlobalBundle:Hebergement:suggestionColonneGauche.html.twig' %}	
+		{%endblock%}
+		

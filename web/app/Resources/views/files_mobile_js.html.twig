@@ -1,0 +1,26 @@
+    <script type="text/javascript" src="{{ asset('bundles/myappmobile/js/jquery.js') }}"></script>     
+    <script type="text/javascript" src="{{ asset('bundles/myappmobile/js/bootstrap.min.js') }}"></script> 
+    <script type="text/javascript" src="{{ asset('bundles/myappmobile/js/reservation_ligne.js') }}"></script>     
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACKcE9ixEXmpRIIvIfwBryfUX_7AJOVd4&sensor=true"></script>       
+    <script>
+        var provinceExiste = categorieExiste = regionExiste = villeExiste = idProvince = idRegion = idVille = idCategorie = ""; 
+        var language = "{{ app.request.locale }}";
+        $(function(){
+            //force le rechargement de la carte
+            $("#menudirection").on("click", function(){
+                if(gmap_init == 0){
+                    gmap_init = 1;
+                    initialize();
+                }
+            });
+            
+            $(".calculItineraire").on("click", function(){
+                if($("#origin").val() != ""){
+                    $(".imprimerItineraire").show();
+                }
+            });
+            
+            
+        });
+    </script>
+  

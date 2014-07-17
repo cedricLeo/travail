@@ -1,0 +1,201 @@
+{# }<p>{{ "reservation.en.ligne" }}</p>#} 
+	<form name="grpaidbooking_form" id="grpaidbooking_form" method="post" action="http://reservation.global-reservation.com/reservit/reserhotel.php?action=list-avail" rel="nofollow" target="_blank">				
+		<div class="titlereservation">{% if app.request.locale == "fr" %} <p>Réservation en ligne</p> {% else %} <p>Online reservation</p> {% endif %}</div>
+		<label>{{ "pays" | trans }}</label>
+		{% if app.request.locale == "fr" %}
+		<select name="reservationpays" class="reservationpays">
+			{% for x in reservationPays %}			
+				<option value="{{ x.id }}" >{{ x.nom_fr }}</option>				
+			{% endfor %}
+		</select>
+		{% else %}
+		<select name="reservationpays" class="reservationpays">
+			{% for x in reservationPays %}
+				<option value="{{ x.id }}" >{{ x.nom_en }}</option>
+			{% endfor %}
+		</select>
+		{% endif %}
+		<label>Province</label>
+			{% include 'MyAppGlobalBundle:Corpo_&_events:reservationprovince.html.twig' %}
+		<label>{{ "region" | trans }}</label>
+			{% include 'MyAppGlobalBundle:Corpo_&_events:reservationregion.xml.twig' with{'reservationRegionAjax' : reservationRegionAjax} %}
+		<label class="labelTemp">{{ "ville" | trans }}</label>
+			{% include 'MyAppGlobalBundle:Corpo_&_events:reservationville.xml.twig' with{'reservationVilleAjax' : reservationVilleAjax} %}
+		{% if app.request.locale == "fr" %}
+			<label>{{ "date.arrivee" | trans }}</label>
+			<select id="jourReservation" name="jourReservation">
+				<script>
+					for(i = 1; i <= 31; i++){
+						document.write("<option value='" + i + "' >" + i + "</option>");
+					}
+				</script>
+			</select>
+			<select id="moisReservation" name="moisReservation">
+				<script> 
+					for(i = 1; i <= 12; i++){
+						if(i == 1){document.write("<option value='" + i + "' > janvier </option>"); }
+						else if(i == 2){document.write("<option value='" + i + "' > février </option>"); }
+						else if(i == 3){document.write("<option value='" + i + "' > mars </option>"); }
+						else if(i == 4){document.write("<option value='" + i + "' > avril </option>"); }
+						else if(i == 5){document.write("<option value='" + i + "' > mai </option>"); }
+						else if(i == 6){document.write("<option value='" + i + "' > juin </option>"); }
+						else if(i == 7){document.write("<option value='" + i + "' > juillet </option>"); }
+						else if(i == 8){document.write("<option value='" + i + "' > août </option>"); }
+						else if(i == 9){document.write("<option value='" + i + "' > septembre </option>"); }
+						else if(i == 10){document.write("<option value='" + i + "' > octobre </option>"); }
+						else if(i == 11){document.write("<option value='" + i + "' > novembre </option>"); }
+						else if(i == 12){document.write("<option value='" + i + "' > décembre </option>"); }		 
+					}
+				</script>
+			</select>
+			<select id="anneeReservation" name="anneeReservation">
+				<script>
+				var today = new Date();
+				y = today.getFullYear();
+					for(y = today.getFullYear(); y <= (today.getFullYear() + 15); y++){
+						document.write("<option value='" + y + "' >" + y + "</option>");
+					}
+				</script>
+			</select>
+		{% else %}
+			<label>{{ "date.arrivee" | trans }}</label>
+			<select id="moisReservation" name="moisReservation">
+				<script> 
+					for(i = 1; i <= 12; i++){
+						if(i == 1){document.write("<option value='" + i + "' > january </option>"); }
+						else if(i == 2){document.write("<option value='" + i + "' > february </option>"); }
+						else if(i == 3){document.write("<option value='" + i + "' > march </option>"); }
+						else if(i == 4){document.write("<option value='" + i + "' > april </option>"); }
+						else if(i == 5){document.write("<option value='" + i + "' > may </option>"); }
+						else if(i == 6){document.write("<option value='" + i + "' > june </option>"); }
+						else if(i == 7){document.write("<option value='" + i + "' > jully </option>"); }
+						else if(i == 8){document.write("<option value='" + i + "' > august </option>"); }
+						else if(i == 9){document.write("<option value='" + i + "' > september </option>"); }
+						else if(i == 10){document.write("<option value='" + i + "' > october </option>"); }
+						else if(i == 11){document.write("<option value='" + i + "' > november </option>"); }
+						else if(i == 12){document.write("<option value='" + i + "' > december </option>"); }		 
+					}
+				</script>
+			</select>
+			<select id="jourReservation" name="jourReservation">
+				<script>
+					for(i = 1; i <= 31; i++){
+						document.write("<option value='" + i + "' >" + i + "</option>");
+					}
+				</script>
+			</select>
+			<select id="anneeReservation" name="anneeReservation">
+				<script>
+				var today = new Date();
+				var y = today.getFullYear();
+					for(y = today.getFullYear(); y <= (today.getFullYear() + 15); y++){
+						document.write("<option value='" + y + "' >" + y + "</option>");
+					}
+				</script>
+			</select>
+		{% endif %}
+		<label class="nombrenuit">{{ "nombre.de.nuits" | trans }}</label>
+		<select id="nombrenuit" name="numbernight">
+			<script>
+				for(var i = 1; i <= 20; i++){
+					document.write("<option value='" + i + "' >" + i + "</option>");
+				}
+			</script>
+		</select>
+                <div>
+                <a class="linkVMobile" rel="nofollow"  href="http://reservation.global-reservation.com/jreservit/welcomeXml.do?langcode={{ app.request.locale|upper }}" title="{{ "version.mobile" | trans }}" >{{ "version.mobile" | trans }}</a> 
+                <a href="http://reservation.global-reservation.com/reservit/reserhotel.php?partid=6&action=adv-avail&langcode={{ app.request.locale }}" target="_blank" id="submitReservit" rel="nofollow" >{{ "reserver" | trans }}</a> <br />
+                <a href="http://reservation.global-reservation.com/reservit/reserhotel.php?partid=6&action=adv-avail&langcode={{ app.request.locale }}" target="_blank" id="submitReservitGeneral" rel="nofollow" >{{ "rechercher.par.critere" | trans }}</a>              
+                </div>
+	</form>
+	<div class="reservationglobal">
+		<img src="{{ asset('bundles/myappglobal/images/pictoTelephone.gif') }}" width="37" height="29" />
+		<p>{{ "sans.frais" | trans }} : <a href="callTo:18777788977" class="callTel" title="N 1 877 778 8977" > 1 877 778-8977</a></p>
+                <p>Local : <a href="callTo:14182662165" class="callTel" title="N° 1-418-266-2165" > 1-418-266-2165</a></p>
+		<p class="hacktelInternational">International : <a href="callTo:0014182662165" class="callTel" title="N 001-418-266-2165" > 001-418-266-2165</a></p>
+	</div>
+	<script>      
+                if($("#formtopregion option").length > 1)
+                {
+                    $("#formtopprovince option:first").attr("selected", "selected");
+                }
+		document.getElementById("jourReservation").selectedIndex = (today.getDate() - 1);
+		document.getElementById("moisReservation").selectedIndex = today.getMonth();
+		$(function(){
+			  if($("#moisReservation option:selected").val() < 10){
+                                $("#dtbegin").attr('value', $("#anneeReservation option:selected").val()+'0'+$("#moisReservation option:selected").val()+$("#jourReservation option:selected").val());
+			  }
+			  else{
+				$("#dtbegin").attr('value', $("#anneeReservation option:selected").val()+$("#moisReservation option:selected").val()+$("#jourReservation option:selected").val());
+			  }                                                     
+		});
+                
+                var zoneIdMain = "";
+                
+                function ajusteDate(zone){                                                
+                        var tab = new Array();
+                        tab[0] = zone;
+                        tab[1] = $("#nombrenuit option:selected").val(); 
+                        tab[2] = $("#jourReservation").val();
+                        tab[3] = $("#moisReservation").val();
+                        tab[4] = $("#anneeReservation").val();   
+                        return tab;
+                }               
+                //Province
+                $("#formtopprovince").on("change", function(){
+                    zoneIdMain = $("#formtopprovince").val();
+                    updatelink(ajusteDate($("#formtopprovince").val()));
+                });
+                //Région
+                $("#formtopregion").on("change", function(){
+                    zoneIdMain = $("#formtopregion").val();
+                    updatelink(ajusteDate(zoneIdMain));
+                });
+                //Ville
+                $("#formtopville").on("change", function(){
+                    zoneIdMain = $("#formtopville").val();                     
+                    updatelink(ajusteDate(zoneIdMain));
+                });
+                              
+                $("#jourReservation").on("change", function(){                      
+                    updatelink(ajusteDate(zoneIdMain));                
+                });
+                $("#moisReservation").on("change", function(){                      
+                    updatelink(ajusteDate(zoneIdMain));                
+                });
+                $("#anneeReservation").on("change", function(){                      
+                    updatelink(ajusteDate(zoneIdMain));                
+                });
+                $("#nombrenuit").on("change", function(){                      
+                    updatelink(ajusteDate(zoneIdMain));                
+                });
+                
+                var updatelink = function(tabresult)
+                {   
+                    var lang = "{{ app.request.locale|upper }}";   
+                    var zoneid2 = tabresult[0];
+                    var nbnuit2 = tabresult[1];
+                    var jour = tabresult[2];
+                    var mois = tabresult[3];
+                    var annee = tabresult[4];
+                    $("#submitReservit").attr("href","http://reservation.global-reservation.com/reservit/reserhotel.php?action=list-avail&lang="+lang+"&zoneid="+zoneid2+"&nbnights="+nbnuit2+"&fday="+jour+"&fmonth="+mois+"&fyear="+annee);                    
+                }
+                	
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

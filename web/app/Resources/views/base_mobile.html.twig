@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}" >
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+        <link rel="canonical" href="http://www.global-reservation.com/mobile"> 
+        <meta name="robots" content="index, follow" />
+        <meta content="ca" name="COUNTRY">
+        <meta http-equiv="content-language" content="{{ app.request.locale }}" />
+        <title>{% block title %}API MOBILE{% endblock %}</title>
+        {% block stylesheets %} {% include "::files_mobile_style.html.twig" %} {% endblock %}
+        {% block javascripts %} {% include "::files_mobile_js.html.twig" %} {% endblock %}
+    </head>
+    <body >
+        <div id="entete">
+            {% if app.request.locale == "fr" %}
+                <a href="{{ path('MyAppMobileBundle_homepage') }}" title="Accueil"><img class="logoGlobal" src="{{ asset('bundles/myappmobile/images/logoglobal.jpg') }}" alt="logo Global Réservation" /></a>
+                <img src="{{ asset('bundles/myappmobile/images/flag_en.png') }}" alt="English" class="versionLang"/>   
+            {% else %}
+                <a href="{{ path('MyAppMobileBundle_homepage') }}" title="Home"><img class="logoGlobal" src="{{ asset('bundles/myappmobile/images/logoglobal.jpg') }}" alt="logo Global Réservation" /></a>
+                <img src="{{ asset('bundles/myappmobile/images/flag_fr.png') }}" alt="Français" class="versionLang"/>
+            {% endif %} 
+        </div>
+        <div class="telephone" style="border:1px solid red;">
+               {# {% if app.request.locale == "fr" %}		 		
+                    <a style="margin-top:0;" class="btreservation hackbtn" href="http://reservation.global-reservation.com/reservit/reserhotel.php?partid=6&action=adv-avail&langcode=fr" target="_blank" title="Réservation en ligne">{{ "reservation.ligne" | trans }}</a>
+                {% else %}				
+                    <a style="margin-top:0;" class="btreservation hackbtn" href="http://reservation.global-reservation.com/reservit/reserhotel.php?partid=6&action=adv-avail&langcode=en" target="_blank" title="Online Booking">{{ "reservation.ligne" | trans }}</a>
+                {% endif %}#}
+		<img src="{{ asset('bundles/myappmobile/images/pictoTelephone.gif') }}" alt="picto_téléphone" />
+		<p>{{ "sans.frais" | trans }} : <a href="callTo:18777788977" class="callTel" title="N° 1 877 778 8977" > 1 877 778-8977</a></p>
+                <p>Local : <a href="callTo:14182662165" class="callTel" title="N° 1-418-266-2165" > 1-418-266-2165</a></p>
+		<p>International : <a href="callTo:0014182662165" class="callTel" title="N° 001-418-266-2165" > 001-418-266-2165</a></p>               
+	 </div>                
+        {% block body %}{% endblock %}    
+        {% block footer %}{% endblock %} 
+    </body>
+</html>

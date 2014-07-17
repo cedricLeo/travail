@@ -1,0 +1,35 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist is defined %}
+	<h1>Ajouter un lit</h1>
+{% else %}
+	<h1>Modifier le lit « {{ infonom }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+                                    {% if exist is not defined %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer un lit">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer un lit"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    <p>Voulez vous supprimez le lit {{ infonom }} ?</p>
+                                        <a href="{{ path('_Dashboard_deletelit', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+                                        <a href="#reset" class="boutonannuler ajuste_btn_cancel"></a>
+				    </div>	
+				    {% endif %}	
+				   {# {{ form_label(form.chambre_id, "Chambre", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.chambre_id, {'attr':{'class':'txt_add_state'}}) }}#}
+				    <p class="resize_p_form">&nbsp;</p>				
+				    {{ form_label(form.nom_fr, "Nom FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}                                   
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_litshebergement') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

@@ -1,0 +1,127 @@
+<h2>{{ "type.de.chambre.pour" | trans }} - {{ p.nomfr }} </h2>
+{% for q in chambre %} 
+        <div class="fiche">
+              {% if q.typechambreid is not empty %}					  	
+                   <div>                                                                                                                                                 
+                        {% if q.photo1 is not empty %}
+                            <img src="{{ asset('uploads/chambres') }}/{{ q.id }}/{{ q.photo1 }}" class="imgPresentationChambre photoChambre" alt="{{ q.nomfr }}" />					     	 	
+                        {% else %}
+                            <img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image de remplacement pour {{ q.nomfr }}" /> 
+                        {% endif %}
+                        {# DESCRIPTIF DE LA CHAMBRE #}	
+                          <div>
+                              {% for e in q.typechambreid %}                                                                  
+                                  {% if loop.index == 1 %}
+                                  <h3><a id="{{ q.id }}" class="repere"></a>{{ q.nomfr }}</h3> 
+                                  {% if q.nomfr is not empty %}<p>{{ q.nomfr }}</p>{% endif %}
+                                  <p>{% if q.descriptionfr is not empty %} {{ q.descriptionfr|convert_encoding('UTF-8', 'UTF-8')|striptags }} {% else %} {{ pqtextepresentationfr|convert_encoding('UTF-8', 'UTF-8')|striptags }} {% endif %}</p>
+                                  <ul>
+                                      {% for e in q.litid %}<li>{{ e.nomfr }}</li>{% endfor %}
+                                      {% for w in q.equipementid %}<li>{{ w.nomfr }}</li>{% endfor %}
+                                  </ul>
+                                  {% endif %}
+                              {% endfor %}
+                          </div>                                                                                         					  	 
+               {% else %}
+                    <div>                                           
+                       {% for r in q.galeriechambre %}
+                        <a  href="{{ asset('uploads/galerie_chambres') }}/{{ q.id }}/{{ q.image }}"  title="{{ q.legendefr }}" >
+                               {% if q.image is defined and q.image != "" %}
+                                       <img src="{{ asset('uploads/galerie_chambres') }}/{{ q.id }}/{{ q.image }}" class="imgPresentationChambre " alt="{{ p.nomfr }}" />
+                               {% else %}
+                                       <img src="{{ asset('uploads/chambres') }}/{{ p.id }}/{{ p.photo1 }}" class="imgPresentationChambre photoChambre" alt="{{ p.nomfr }}" />
+                               {% endif %}
+                        </a>
+                       {% endfor %}
+                       {# DESCRIPTIF DE LA CHAMBRE FR #}	
+                         <div>
+                                <h3><a id="{{ p.id }}" class="repere"></a></h3>
+                                 {% if p.nomfr is not empty %}<p>{{ p.nomfr }}</p>{% endif %}
+                                 <p>{% if p.descriptionfr is not empty %} {{ p.descriptionfr|convert_encoding('UTF-8', 'UTF-8')|striptags }} {% else %} {{ p.textepresentationfr|convert_encoding('UTF-8', 'UTF-8')|striptags }} {% endif %}</p>
+                                 <ul>
+                                         {% for w in p.equipementid %}<li>{{ w.nomfr }}</li>{% endfor %}
+                                 </ul>
+                         </div>                                                                                   
+               {% endif %}
+                   {% if q.dejeunercontinental != "" %}
+                    <p class="dejeunerType">*** {{ "dejeuner.continental" | trans }} ***</p>
+                   {% elseif q.dejeuneramericain != "" %}
+                    <p class="dejeunerType">*** {{ "dejeuner.americain" | trans }} ***</p>
+                   {% elseif q.dejeunerbuffet != "" %}
+                    <p class="dejeunerType">*** {{ "dejeuner.buffet" | trans }} ***</p>
+                   {% elseif q.dejeunernoncompris != "" %}
+                    <p class="dejeunerType">*** {{ "dejeuner.non.compris" | trans }} ***</p>
+                   {% endif %}
+               </div>
+               {# TABLEAU POUR LES INFORMATIONS DE LA CHAMBRE EX (lits, unité(s), saisons, etc) #}
+               <table width="444" border="0" cellspacing="0" cellpadding="0">
+                       <tr>
+                         <td width="148" class="tabgris">{{ "lit" | trans }}</td>
+                         <td width="50" align="center" class="tabgris2">{{ q.nombrelit }}</td>
+                         <td width="104" class="tabgris3">{{ "saison" | trans }}</td>
+                         <td width="79" align="center" class="tabgris">{{ "a.partir" | trans }} </td>
+                         <td width="63" align="center" class="tabgris">{{ "jusqua" | trans }}</td>
+                       </tr>
+                       <tr>
+                         <td class="tabgris">{{ "unite" | trans }}</td>
+                         <td align="center" class="tabgris2">{{ q.quantite }}</td>
+                         {% if q.tarifminhautesaison != "" and q.tarifmaxhautesaison != "" %}
+                         <td  class="tabgris">{{ "haute.saison" | trans }}</td>
+                         <td align="center">{{ q.tarifminhautesaison|replace({"%$%": " "})|number_format(2, '.', ',') }} $</td>
+                         <td align="center">{{ q.tarifmaxhautesaison|replace({"%$%": " "})|number_format(2, '.', ',') }} $</td>
+                         {% endif %}
+                       </tr>
+                       <tr>
+                         <td class="tabgris">{{ "max.personne" | trans }}</td>
+                         <td align="center" class="tabgris2">{{ q.maxpersonne }}</td>
+                         {% if q.tarifminbassesaison != "" and q.tarifmaxbassesaison != "" %}
+                         <td  class="tabgris">{{ "basse.saison" | trans }}</td>
+                         <td align="center">{{ q.tarifminbassesaison|replace({"%$%": " "})|number_format(2, '.', ',') }} $</td>
+                         <td align="center">{{ q.tarifmaxbassesaison|replace({"%$%": " "})|number_format(2, '.', ',') }} $</td>
+                         {% endif %}
+                       </tr>							 
+                        {% if q.hebergement.calendrier is not empty %}
+                             {% for x in q.typeprix %}
+                               <tr > 
+                                   <td>&nbsp;</td>
+                                   <td>&nbsp;</td>						  	    										    	
+                                   <td  class="tabgris">{{ "autre" | trans }}<sup>{{ x.calendrierid }}</sup></td>
+                                   <td align="center">{{ x.prixmin }} $</td>
+                                   <td align="center">{{ x.prixmax }} $</td>			    		
+                               </tr>							    	
+                             {% endfor %}
+                         {% endif %}
+               </table>
+               <span>                                        
+                   {% if p.reservitid is not empty and q.reserverchambreenligne is not empty  %}
+                           <a href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ p.reservitid }}&lang=fr" target="_blank" rel="nofollow" title="réserver cette chambre en ligne">{{ "reserver.cette.chambre" | trans}}</a>
+                   {% endif %}                                      
+                   {% if q.tarifpreferentiel is not empty %} {{ "tarif.preferentiel" | trans }} {% endif %} 
+               </span> 
+                   <br class="clearfloat" />                                    
+       </div> 
+        <br class="clearfloat"/>
+        {# CADRE DES POLITIQUES DE L'ÉTABLISSEMENT #}
+              {% if p.politiquehebergementfr.politiqueannulationfr is not empty or p.politiquehebergementfr.politiquetariffr is not empty %}
+                      <div class="condition">
+                       {% if p.politiquehebergementfr.politiqueannulationfr is not empty %} 
+                              <p><span>{{ "politique.annulation" | trans }}</span> : {{ p.politiquehebergementfr.politiqueannulationfr|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+                       {% endif %}
+                       {% if p.politiquehebergementfr.politiquetariffr is not empty %}
+                          <p><span>{{ p.politiquehebergementfr.politiquetariffr|convert_encoding('UTF-8', 'UTF-8')|striptags }}</span></p>  
+                       {% endif %}
+                      </div>
+              {% endif %}
+              {% if p.calendrier is not empty %}
+                  {% for q in p.calendrier %}
+                      {% if q.datefinsaison >= datetoday and loop.index == 1 %}
+                          <div class="condition"> 
+                      {% endif %}
+                          {% if q.datefinsaison >= datetoday %}<p ><span>{{ q.id }}</span> : {{ q.titrehautesaisonfr }} {{ q.datedebutsaison }} - {{ q.datefinsaison }}</p>	{% endif %}
+                      {% if q.datefinsaison >= datetoday and loop.index == 1 %}
+                          </div>
+                      {% endif %}
+                   {% endfor %}
+              {% endif %}                          
+        <br class="clearfloat" />                         
+{% endfor %}

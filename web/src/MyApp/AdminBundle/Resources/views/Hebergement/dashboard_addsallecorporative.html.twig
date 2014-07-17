@@ -1,0 +1,55 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist is defined %}
+	<h1>Ajouter une salle corporative</h1>
+{% else %}
+	<h1>Modifier la salle corporative « infoname »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist is not defined %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une salle corporative">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une salle corporative"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimez une salle corporative {{ id }} ?</p>
+						<a href="{{ path('_Dashboard_deletesallecorporative', {'id':id}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler"></a>
+				    </div>	
+				    {% endif %}	
+				    {{ form_label(form.salle_corporative_hebergement, "Hebergement", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.salle_corporative_hebergement, {'attr':{'class':'txt_add_state'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>				
+				    {{ form_label(form.texte_salle_corporative_fr, "Texte salle FR", {'attr':{'class':'lblnompays flag_fr '}}) }}
+				    {{ form_widget(form.texte_salle_corporative_fr, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				    <textarea id="editor1" name="editor1" ></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace( 'editor1' );
+						{% if txthomefr is defined %}
+						document.getElementById('editor1').innerHTML = "{{ txthomefr }}";
+						{% endif %}
+					</script>
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_salle_corporative_en, "Texte salle EN", {'attr':{'class':'lblnompays flag_en '}}) }}
+				    {{ form_widget(form.texte_salle_corporative_en, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				    <textarea id="editor2" name="editor2" ></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace( 'editor2' );
+						{% if txthomeen is defined %}
+						document.getElementById('editor2').innerHTML = "{{ txthomeen }}";
+						{% endif %}
+					</script>
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_capacite_salle_corporative_fr, "Capacite de la salle FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_capacite_salle_corporative_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.texte_capacite_salle_corporative_en, "Capacite de la salle EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_capacite_salle_corporative_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_sallescorporativeshebergement') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

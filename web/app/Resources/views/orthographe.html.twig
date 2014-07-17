@@ -1,0 +1,101 @@
+{% block orthographe %}
+	{% if regionOrthographe is defined %}
+		{% if app.request.locale == "fr" %}
+			{% if viewsfr is defined %}
+				{% set views = viewsfr %}
+			{% endif %}
+			{% if views == "Québec" %}
+				région de {{ views }}
+			{% elseif views == "Duplessis" %}
+				région de {{ views }}
+			{% elseif views == "Baie-James" %}
+				région de la {{ views }}
+			{% elseif views == "Abitibi-Témiscamingue" %}
+				région d'{{ views }}
+			{% elseif views == "Bas-Saint-Laurent" %}
+				région du {{ views }}
+			{% elseif views == "Cantons-de-l'Est" %}
+				région des {{views}}
+			{% elseif views == 'Centre-du-Québec' or views == 'Centre-du-québec' %}
+				région du {{ views }}
+			{% elseif views == 'Gaspésie' %}
+				région de la {{ views }}
+			{% elseif views == 'Îles de la Madeleine' %}
+				région des {{ views }}
+			{% elseif views == 'Lanaudière' %}
+				région de {{ views }}
+			{% elseif views == 'Laurentides' %}
+				région des {{ views }}
+			{% elseif views == 'Laval' %}
+				région de {{ views }}
+			{% elseif views == 'Manicouagan' %}
+				région du {{ views }}
+			{% elseif views == 'Mauricie' %}
+				région de la {{ views }}
+			{% elseif views == 'Montérégie' %}
+				région de la {{ views }}
+			{% elseif views == 'Montréal' %}
+				région de {{ views }}
+			{% elseif views == 'Nunavik' %}
+				région du {{ views }}
+			{% elseif views == 'Outaouais' %}
+				région de l'{{ views }}
+			{% elseif views == 'Chaudière-Appalaches' %}
+				région des {{ views }}
+			{% elseif views == 'Saguenay - Lac-Saint-Jean' %}
+				région du {{ views }}
+			{% elseif views == 'Charlevoix' %}
+				région de {{ views }}
+			{% endif %}
+		{% else %}
+			{% if viewsen is defined %}
+				{% set views = viewsen %}
+			{% endif %}
+			{% if views == "Quebec City" %}
+			 	{{ views }} region
+			{% elseif views == "Duplessis" %}
+			    {{ views }} region
+			{% elseif views == "James Bay" %}
+				{{ views }} region
+			{% elseif views == "Abitibi-Témiscamingue" %}
+				{{ views }} region
+			{% elseif views == "Bas-Saint-Laurent" %}
+				{{ views }} region
+			{% elseif views == 'Eastern Townships' %}
+				{{ views }} region
+			{% elseif views == 'Centre-du-Québec' or views == 'Centre-du-québec' %}
+				{{ views }} region
+			{% elseif views == 'Gaspésie' %}
+				{{ views }} region
+			{% elseif views == 'Îles de la Madeleine' %}
+				{{ views }} region
+			{% elseif views == 'Lanaudière' %}
+				{{ views }} region
+			{% elseif views == 'Laurentides' %}
+				{{ views }} region
+			{% elseif views == 'Laval' %}
+				{{ views }} region
+			{% elseif views == 'Manicouagan' %}
+				{{ views }} region
+			{% elseif views == 'Mauricie' %}
+				{{ views }} region
+			{% elseif views == 'Montérégie' %}
+				{{ views }} region
+			{% elseif views == 'Montréal' %}
+				{{ views }} region
+			{% elseif views == 'Nunavik' %}
+				{{ views }} region
+			{% elseif views == 'Outaouais' %}
+				{{ views }} region
+			{% elseif views == 'Chaudière-Appalaches' %}
+				{{ views }} region
+			{% elseif views == 'Saguenay - Lac-Saint-Jean' %}
+				{{ views }} region
+			{% elseif views == 'Charlevoix' %}
+				{{ views }} region
+			{% endif %}
+		{% endif %}
+	{% endif %}
+	
+	
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends '::base1.html.twig' %}
+
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+				    <form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+						{{ form_label(form.logo_doctrine, "logo" | trans, {'attr':{'class':'lblnompays'}}) }}	   
+					    {{ form_widget(form.logo_doctrine, {'attr':{'class':'txt_add_state'}}) }}	
+					    {{ form_errors(form.logo_doctrine) }}
+					    {% if imgLogoH != "" %}
+					    	{% if logoValue == "H" %}
+					    	<img src="{{ asset('uploads/hebergement/logos/logo') }}{{ idHebergement }}/{{ imgLogoH }}" alt="{{ "logo" | trans }}" class="sectionPhotoClient logoH"/>
+					    	{% else %}
+					    	<img src="{{ asset('uploads/attrait/') }}{{ id }}/{{ imgLogoH }}" alt="{{ "logo" | trans }}" class="sectionPhotoClient logoH"/>
+					    	{% endif %}
+					    {% endif %}
+						{{ form_label(form.image_doctrine, "photo.categorie" | trans, {'attr':{'class':'lblnompays'}}) }}	   
+					    {{ form_widget(form.image_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+					    {{ form_errors(form.image_doctrine) }}		
+					    {% if imgCatH != "" %}
+					    	<img src="{{ asset('uploads/attrait/') }}{{ id }}/{{ imgCatH }}" alt="{{ "logo" | trans }}" class="sectionPhotoClient logoH"/>
+					    {% endif %}	
+					    {{ form_label(form.photo_payante_doctrine, "photo.grande" | trans, {'attr':{'class':'lblnompays'}}) }}
+					    {{ form_widget(form.photo_payante_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+					    {{ form_errors(form.photo_payante_doctrine) }}   
+					    {% if imgGrandeH != "" %}
+					    	<img src="{{ asset('uploads/attrait/') }}{{ id }}/{{ imgGrandeH }}" alt="{{ "logo" | trans }}" class="sectionPhotoClient logoH"/>
+					    {% endif %}
+				    				    
+					    <div class="galeryHclient">
+					    {{ form_label(form.galery_id, "Galerie" | trans, {'attr':{'class':'lblnompays'}}) }}
+					    {{ form_widget(form.galery_id, {'attr':{'class':'txt_add_state'}}) }}
+					    {% for w in listePhoto %}
+					    	<img src="{{ asset('uploads/Galerie') }}/{{ w.id }}/{{ w.image }}" style="width:154px; height:97px;"/>
+					    {% endfor %}
+					    {{ form_errors(form.galery_id ) }}
+					    {{ form_rest(form) }}
+					    </div>
+					    <input type="submit" value="" class="boutonvalidenregistrer"/>
+					    <a href="{{ path('_Dashboard_compteCustomer') }}" class="boutonannuler"></a>	        
+					</form>				    					    
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

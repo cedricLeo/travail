@@ -1,0 +1,361 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist is defined %}
+	<h1>Ajouter un attrait</h1>
+{% else %}
+	<h1>Modifier l'attrait « {{ infonom }} »</h1>
+{% endif %}   
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist is not defined and infonom != "0" %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer l'attrait" {{ infonom }}>Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une province"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimez l'attrait {{ infonom }} ?</p>
+						<a href="{{ path('_Dashboard_deleteattrait', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler ajuste_btn_cancel"></a>
+				    </div>	
+				    {% endif %}
+				    {% if exist is not defined and infonom != "0" %}
+				    	<a href="{{ path('_Dashboard_compteCustomer',{'id':utilisateur ,'name':repertoirefr, 'redirect':addatt}) }}" class="accesministe">Accéder au mini site de ce client</a>
+				    {% endif %}
+				    <p class="resize_p_form">&nbsp;</p>
+				    <br />
+				    <p>Tous les champs en rouge sont obligatoires</p>
+				   {# Vérifie si on doit faire afficher le nom du client qui possède cet attrait. #}
+				   {% if form_client is defined and form_client != "" %}
+				    	{{ form_label(form_client.nom, "Client", {'attr':{'class':'lblnompays'}}) }}
+				    	{{ form_widget(form_client.nom, {'attr':{'class':'txt_add_state'}}) }}
+				   {% endif %}	
+				     <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.actif, "Actif", {'attr':{'class':'lblnompays  '}}) }}
+				    {{ form_widget(form.actif, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.approuve, "Approuver ce client pour publier sa fiche", {'attr':{'class':'lblnompays lblcheckbox label_warning'}}) }}
+				    {{ form_widget(form.approuve, {'attr':{'class':'checkbox'}}) }}	
+				    {{ form_label(form.utilisateur, "Client", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.utilisateur, {'attr':{'class':'txt_add_state'}}) }}	
+				    {{ form_label(form.province_id, "Province", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.province_id, {'attr':{'class':'txt_add_state'}}) }}		
+				    {% include 'MyAppAdminBundle:Hebergement:sortRegionAdmin.xml.twig' %}	
+				    {% include 'MyAppAdminBundle:Hebergement:sortZoneAdmin.xml.twig' %}
+				    {{ form_label(form.hebergement_id, "Hébergement", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.hebergement_id, {'attr':{'class':'txt_add_state'}}) }}	
+				    {{ form_label(form.categorie_attrait, "Catégorie de l'attrait * ", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.categorie_attrait, {'attr':{'class':'txt_add_state'}}) }}				    				 	
+				    <p class="resize_p_form">&nbsp;</p> 
+				    {{ form_label(form.nom_fr, "Nom fr * ", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom en * ", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.adresse, "Adresse * ", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.adresse, {'attr':{'class':'txt_add_state'}}) }}	
+				    {{ form_label(form.code_postal, "Code postal * ", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.code_postal, {'attr':{'class':'txt_add_state code_postal_upper','maxlength': '7'}}) }}    
+				    {% include 'MyAppAdminBundle:Hebergement:sortVilleAdmin.xml.twig' %}			     
+				    {{ form_label(form.telephone, "Téléphone * ", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.telephone, {'attr':{'class':'txt_add_state', 'maxlength':'20'}}) }}
+				    {% if lat is not defined and long is not defined %}
+					    <p>Si la latitude et la longitude ne sont pas renseignées inscrire <span class="valeurZero">0</span> dans le champ latitude et longitude</p>
+					{% endif %}
+				    <a href="{{ path('_google_maps') }}" target="_blank"><img src="{{ asset("bundles/myappadmin/images/googlemaps.gif") }}" class="icongooglemap" title="Recherche les coordonnées latitude et longitude pour cet hébergement" alt="Google maps"/></a>
+				    {{ form_label(form.latitude, "Latitude * ", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.latitude, {'attr':{'class':'txt_add_state'}}) }}   
+				    {{ form_label(form.longitude, "Longitude * ", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.longitude, {'attr':{'class':'txt_add_state'}}) }}
+				    <br />
+				    {% if exist is not defined %}
+						<script>
+							function initCarte(){
+							//Création de la carte
+								  var latLng = new google.maps.LatLng({{ lat }}, {{ long }}); 
+					    	      var myOptions = {
+					  	    	        zoom      : 14, // Zoom par défaut
+					  	    	        center    : latLng, // Coordonnées de départ de la carte de type latLng 
+					  	    	        mapTypeId : google.maps.MapTypeId.ROADMAP, // Type de carte, différentes valeurs possible HYBRID, ROADMAP, SATELLITE, TERRAIN
+					  	    	       // maxZoom   : 20
+					  	    	      };				  	    	      
+					  	    	      map      = new google.maps.Map(document.getElementById('map'), myOptions);
+					  	    	      panel    = document.getElementById('panel');				  	    	      
+					  	    	      var marker = new google.maps.Marker({
+					  	    	        position : latLng,
+					  	    	        map      : map,
+					  	    	      });						  	 
+					  	    	      var contentMarker = [
+					  	    	          '<div id="containerTabs">',
+					  	    	          '<p style="font-weight:bold;">{{ infonom }}</p>',
+					  	    	          {% if infologo is not empty %}
+					  	    	          '<img src="{{ asset('uploads/hebergement/logos/logo') }}{{ infoid }}/{{ infologo }}" alt="{{ infonom }}" style="width:150px; height:100px;"/>',
+					  	    	          {% endif %}
+						  	    	      '</div>'
+					  	    	      ].join('');	
+					  	    	      var infoWindow = new google.maps.InfoWindow({
+					  	    	        content  : contentMarker,
+					  	    	        position : latLng
+					  	    	      });				  	    	      
+					  	    	      google.maps.event.addListener(marker, 'mouseover', function() {
+					  	    	        infoWindow.open(map,marker);
+					  	    	      });			  	    	      
+					  	    	      google.maps.event.addListener(infoWindow, 'domready', function(){ // infoWindow est biensûr notre info-bulle
+					  	    	        jQuery("#tabs").tabs();
+					  	    	      });
+					  	    	      direction = new google.maps.DirectionsRenderer({
+					  	    	        map   : map,
+					  	    	        panel : panel // Dom element pour afficher les instructions d'itinéraire
+					  	    	      });
+					  	    	    };  
+								google.maps.event.addDomListener(window, 'load', initCarte);
+						</script>
+						{# Carte Google Map #}
+						{% if lat != 0 and long != 0 %}
+						<div id="map" class="centremapgoogle">
+							<p class="load"> 
+								{{ "chargement" | trans }}
+							</p>
+						</div>	
+						{% endif %}
+				    {% endif %}	
+				    <p></p>
+				    <h3 id="voir_plus">Voir plus d'informations sur l'attrait {% if infonom is defined %} « {{infonom  }} » {% endif %} </h3>    
+				    <div id="see_more">		 
+                                    <p class="resize_p_form">&nbsp;</p>				    	    
+				   {# SECTION DU FORMULAIRE VOIR PLUS D'INFORMATIONS SUR L'ATTRAIT #}
+				    {{ form_label(form.telephone2, "Téléphone 2", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.telephone2, {'attr':{'class':'txt_add_state', 'maxlength':'20'}}) }}
+				    {{ form_label(form.telephone_poste, "Téléphone avec poste", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.telephone_poste, {'attr':{'class':'txt_add_state', 'maxlength':'20'}}) }}
+				    {{ form_label(form.sans_frais, "Téléphone sans frais", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.sans_frais, {'attr':{'class':'txt_add_state', 'maxlength':'30'}}) }}
+				    {{ form_label(form.telecopieur, "Télécopieur", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.telecopieur, {'attr':{'class':'txt_add_state', 'maxlength':'20'}}) }}
+				    {{ form_label(form.siteweb, "Site web", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.siteweb, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.courriel, "Courriel", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.courriel, {'attr':{'class':'txt_add_state'}}) }}				    
+				    {{ form_label(form.soins_sante_id, "Soins de santé", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.soins_sante_id, {'attr':{'class':'txt_add_state'}}) }}	
+				     <p class="resize_p_form">&nbsp;</p>	
+				    {{ form_label(form.cuisine_id, "Cuisines", {'attr':{'class':'lblnompays'}}) }}
+                                    {{ form_widget(form.cuisine_id, {'attr':{'class':'txt_add_state'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>	
+                                    {{ form_label(form.devise_id, "Devise monnétaire * ", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.devise_id, {'attr':{'class':'txt_add_state'}}) }}
+				    {# <p class="resize_p_form">&nbsp;</p>													
+				    {{ form_label(form.paiement_id, "Modes de paiements * ", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.paiement_id, {'attr':{'class':'txt_add_state'}}) }}	#}	
+				     <p class="resize_p_form">&nbsp;</p> 	
+				    {{ form_label(form.attrait_service_id, "Attraits services", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.attrait_service_id, {'attr':{'class':'txt_add_state'}}) }}	
+				     <p class="resize_p_form">&nbsp;</p>	
+                                    {{ form_label(form.attrait_activite_id, "Attrait activité", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.attrait_activite_id, {'attr':{'class':'txt_add_state'}}) }}	
+				     <p class="resize_p_form">&nbsp;</p>
+                                    {{ form_label(form.qcs_thematique_attrait_id, " QC thématique attrait", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.qcs_thematique_attrait_id, {'attr':{'class':'txt_add_state'}}) }}	
+				     <p class="resize_p_form">&nbsp;</p>	
+                                    {{ form_label(form.qcs_echo_attrait_id, "QC écho attrait", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.qcs_echo_attrait_id, {'attr':{'class':'txt_add_state'}}) }}	
+				     <p class="resize_p_form">&nbsp;</p>	
+				    {{ form_label(form.qcs_festival_attrait_id, "QC festival attrait", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.qcs_festival_attrait_id, {'attr':{'class':'txt_add_state'}}) }}	
+				     <p class="resize_p_form">&nbsp;</p>		    		   					   
+				    {# Réseaux sociaux #}		
+				    {{ form_label(form.page_facebook_fr, "Page Facebook FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_facebook_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_facebook_en, "Page Facebook EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_facebook_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.twitter_fr, "Page Twitter FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.twitter_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.twitter_en, "Page Twitter EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.twitter_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.google_plus_fr, "Page Google+ FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.google_plus_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.google_plus_en, "Page Google+ EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.google_plus_en, {'attr':{'class':'txt_add_state'}}) }}			    
+				    {{ form_label(form.repertoire_fr, "Répertoire FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.repertoire_en, "Répertoire EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.repertoire_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.metadescription_fr, "Meta description FR * ", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.metadescription_fr, {'attr':{'class':'txt_add_state'}}) }}
+				      <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.metadescription_en, "Meta description EN * ", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.metadescription_en, {'attr':{'class':'txt_add_state'}}) }}
+				      <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.metakeywords_fr, "Mots clé FR * ", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.metakeywords_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.metakeywords_en, "Mots clé EN * ", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.metakeywords_en, {'attr':{'class':'txt_add_state'}}) }}	
+				    {{ form_label(form.meta_titre_fr, "Meta titre FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.meta_titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.meta_titre_en, "Meta titre EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.meta_titre_en, {'attr':{'class':'txt_add_state'}}) }}
+				   {# {{ form_label(form.texte_description_fr, "Texte description FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_description_fr, {'attr':{'class':'txt_add_state txt_hidden'}}) }} 
+					<script type="text/javascript">
+						CKEDITOR.replace( 'add_attrait_texte_description_fr' );
+					</script>
+					{% if txtFr is defined %}
+						<script>
+							document.getElementById('add_attrait_texte_description_fr').innerHTML = "{{ txtFr }}";
+						</script>
+					{% endif %}
+				    {{ form_label(form.texte_description_en, "Texte description EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_description_en, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+					<script type="text/javascript">
+						CKEDITOR.replace( 'add_attrait_texte_description_en' );
+					</script>
+					{% if txtEn is defined %}
+						<script>
+							document.getElementById('add_attrait_texte_description_en').innerHTML = "{{ txtEn }}";
+						</script>
+					{% endif %}#}
+				    <div class="politique-hebergement-fr">
+				    	{{ form_row(form.politique_attrait_fr, {'attr':{'class':'txt_add_state'}} ) }}
+				    	 <p class="resize_p_form">&nbsp;</p>
+				    </div>
+				    <div class="politique-hebergement-en">
+				    	{{ form_row(form.politique_attrait_en, {'attr':{'class':'txt_add_state'}} ) }}
+				    	 <p class="resize_p_form">&nbsp;</p>
+				    </div>
+				    <div class="politique-attrait-fr">
+				    	{{ form_row(form.description_attrait_fr, {'attr':{'class':'txt_add_state'}} ) }}
+				    	 <p class="resize_p_form">&nbsp;</p>
+				    </div>
+				    <div class="politique-attrait-en">
+				    	{{ form_row(form.description_attrait_en, {'attr':{'class':'txt_add_state'}} ) }}
+				    	 <p class="resize_p_form">&nbsp;</p>
+				    </div>
+				   {# {{ form_label(form.emplacements_0_service_camping, "Camping 0 service", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.emplacements_0_service_camping, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.emplacements_1_service_camping, "Camping 1 service", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.emplacements_1_service_camping, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.emplacements_2_services_camping, "Camping 2 services", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.emplacements_2_services_camping, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.emplacements_3_services_camping, "Camping 3 services", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.emplacements_3_services_camping, {'attr':{'class':'txt_add_state'}}) }}	#}
+				    {{ form_label(form.capacite, "Capacité en personne", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.capacite,{'attr':{'class':'txt_add_state', "maxlength":4}}) }}	 
+				    {{ form_label(form.tarif_attrait, "Tarif à partir", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_attrait,{'attr':{'class':'txt_add_state', "maxlength":7}}) }}
+				   {# {{ form_label(form.prix_id, "À partir de", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.prix_id, {'attr':{'class':'txt_add_state'}}) }}	#}
+				      <p class="resize_p_form">&nbsp;</p>	   	    
+				    {{ form_label(form.express, "Express", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.express, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.payant, "Payant", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.payant, {'attr':{'class':'checkbox'}}) }}				    
+				    {{ form_label(form.adresse_web_cliquable, "Adresse web cliquable", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.adresse_web_cliquable, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.optvisibilite_grande_photo, "Option visibilité grande photo", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_grande_photo, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.optvisibilite_photo_categorie, "Option visibilité photo catégorie", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_photo_categorie, {'attr':{'class':'checkbox'}}) }}				    
+				    {{ form_label(form.optvisibilite_nos_suggestions, "Option visibilité nos suggestions", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_nos_suggestions, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.optvisibilite_proximite, "Option visibilité proximité", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_proximite, {'attr':{'class':'checkbox'}}) }}				    
+				    {{ form_label(form.optvisibilite_lien_hebergement, "Option visibilité lien hébergement", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_lien_hebergement, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.optvisibilite_incontournables, "Option visibilité incontournable", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_incontournables, {'attr':{'class':'checkbox'}}) }}				    
+				    {{ form_label(form.periode_pour_attrait, " L\'attrait a t\'il une periode", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.periode_pour_attrait, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.afficher_restaurant, " Afficher les cuisines dans admin client", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.afficher_restaurant, {'attr':{'class':'checkbox'}}) }}
+				    </div>	
+				    <p class="resize_p_form">&nbsp;</p>	    
+				    {# SECTION DU FORMULAIRE POUR LES PHOTOS DU SITE ET LE LOGO #}
+				   {# <h3 id="photoAttr">Photos et logo pour le mini site </h3>
+				  	<div id="thumbnailPhotoPreview" >
+						{{ form_label(form.image_doctrine, "Photo de la catégorie 154 x 113", {'attr':{'class':'lblnompays'}}) }}
+					    {{ form_widget(form.image_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+					    {% if infoimg is defined and infoimg != "" %}
+					    	<img src="{{ asset('uploads/attrait') }}/{{ infoid }}/{{ infoimg }}"  class="categorieClient" />
+					    {% endif %}                
+                                            {{ form_label(form.photo_payante_doctrine, "Photo principale 594 x 328", {'attr':{'class':'lblnompays'}}) }}
+					    {{ form_widget(form.photo_payante_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+					    {% if infoGrandePhoto is defined and infoGrandePhoto != "" %}
+					    	<img src="{{ asset('uploads/attrait') }}/{{ infoid }}/{{ infoGrandePhoto }}"  class="big_picture" />
+					    {% endif %}
+					    {{ form_label(form.logo_doctrine, "Logo de l'attrait", {'attr':{'class':'lblnompays'}}) }}
+					    {{ form_widget(form.logo_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+					    {% if infologo is defined and infologo != "" %}
+					    	<img src="{{ asset('uploads/attrait') }}/{{ infoid }}/{{ infologo }}"  class="imgAttraitAdmin" />
+					    {% endif %}			    
+				    </div>
+				    <p class="resize_p_form">&nbsp;</p>   #}  	
+				    {# SECTION GALERIE PHOTO #}
+				   {# <h3 id="galleriePhotoAttr">Galerie photo</h3>
+				  	<div id="galeriePhotoPreview" >
+				    	<ul class="tags" data-prototype="{{ form_widget(form.galerie_attraits.vars.prototype)|e }}"> </ul>
+				    	{% include '::galerie_photo.html.twig' %}
+						{# AFFICHAGE ET SUPPRÉSSION DES THUMBNAILS #}
+						{#{% include 'MyAppAdminBundle:Attrait:display_gallery_attrait_admin.xml.twig' %}
+				    </div>#}
+				    {# SECTION DU FORMULAIRE POUR LES HORAIRES #}
+				    <h3 id="Hour_summer">Horaire</h3>
+				    <div id="Open_summer">
+					    {{ form_widget(form.lundi_matin_ete, {'attr':{'class':'txt_add_state select_horaire'}}) }}
+					    <p>&nbsp;</p>
+					    <script>
+							$(function(){
+								//On sélectionne les selectbox et on les redimensionnes
+								var $select = $("#Open_summer #add_attrait_lundi_matin_ete div  div > select").addClass('resize_select_hour'); //on redimensionne les selectbox							
+								//Labels 
+								var $lbl = $("#Open_summer div div label").addClass('lblnompays ').css({"width":"150px", "float":"left"});
+							});
+					    </script>
+				    </div>
+					<p class="resize_p_form">&nbsp;</p>
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="Enregistrer" class=" Btn_form_submit_fixed "/>
+				    <a href="{{ path('_Dashboard_attrait') }}" class="boutonannuler" style="margin-top:25px;"></a>
+				</form>
+				
+				<script>
+					var cp = document.getElementById('add_attrait_code_postal');
+					cp.onkeyup = function(){
+							this.value = this.value.toUpperCase();
+							if(cp.value.length == 3){
+								this.value = this.value.toUpperCase()+" ";
+							}
+					}
+					//Ajoute l'attribut selected sur la devise CAN
+					$("#add_attrait_devise_id option[value='1']").attr("selected", "selected");
+					
+					$(function(){
+						$("div.politique-hebergement-fr div label:first, div.politique-hebergement-en div label:first, div.politique-attrait-fr div label:first, div.politique-attrait-en div label:first").css({"display":"none"});
+						$("#add_attrait_politique_attrait_fr label, #add_attrait_politique_attrait_en label, #add_attrait_description_attrait_fr label, #add_attrait_description_attrait_en label").addClass("lblnompays");
+						$("#add_attrait_politique_attrait_fr textarea, #add_attrait_politique_attrait_en textarea, #add_attrait_description_attrait_fr textarea, #add_attrait_description_attrait_en textarea").addClass("addTexteAttrait");
+						//Dépile les accordéons qui ont des champs required qui ne sont pas renseignés
+						$("#voir_plus").css({"display":"block"});
+						//Ajoute une checkbox pour la suppréssion des périodes de haute saison 
+						$("#add_attrait_galerie_attraits > div").append("<input type='checkbox' class='checkboxdeletegalerie'></input> <label class='labeldynamique'> {{ 'supprimer' | trans }}</label>");			
+						//Enleve le premier label de chaque div pour la galerie photo
+						$("#add_attrait_galerie_attraits > div > label:first").remove();
+						$("#Open_summer").hide();
+						$("#Hour_summer").click(function(){
+							$("#Open_summer").slideToggle();
+						});
+						var $gallery = $("#add_attrait_galerie_attraits");
+						$("#galeriePhotoPreview").append($gallery);
+						$("form.update_state_form div").last().remove();
+						//
+						{% if exist is defined %}
+							if(localStorage.getItem("soins") == null ){
+								$('#add_attrait_soins_sante_id option[value='+126+']').attr("selected", "selected");
+							}
+						{% endif %}
+						//
+						$("#add_attrait_galerie_attraits > div > label.required").remove();
+					});
+				</script>
+				{# Persistance des champs en local #}
+				{% include 'MyAppAdminBundle:Attrait:persistance_localstorage.html.twig' %}
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+
+{% endblock %}

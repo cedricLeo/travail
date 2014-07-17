@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>Global-reservation_DOC: Symfony Standard Edition</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Global-reservation_DOC
+   &#160;<span id="projectnumber">0.1</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.1.2 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Page&#160;principale</span></a></li>
+      <li class="current"><a href="pages.html"><span>Pages&#160;associées</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Recherche" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('md__r_e_a_d_m_e.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Tout</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Fichiers</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Symfony Standard Edition </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p>Welcome to the Symfony Standard Edition - a fully-functional Symfony2 application that you can use as the skeleton for your new app. If you want to learn more about the features included, see the "What's Inside?" section.</p>
+<p>This document contains information on how to download and start using Symfony. For a more detailed explanation, see the <a href="http://symfony.com/doc/current/book/installation.html">Installation chapter</a> of the Symfony Documentation.</p>
+<h1>1) Download the Standard Edition</h1>
+<p>If you've already downloaded the standard edition, and unpacked it somewhere within your web root directory, then move on to the "Installation" section.</p>
+<p>To download the standard edition, you have two options:</p>
+<h2>Download an archive file (<em>recommended</em>)</h2>
+<p>The easiest way to get started is to download an archive of the standard edition (<a href="http://symfony.com/download">http://symfony.com/download</a>). Unpack it somewhere under your web server root directory and you're done. The web root is wherever your web server (e.g. Apache) looks when you access <code><a href="http://localhost">http://localhost</a></code> in a browser.</p>
+<h2>Clone the git Repository</h2>
+<p>We highly recommend that you download the packaged version of this distribution. But if you still want to use Git, you are on your own.</p>
+<p>Run the following commands: </p>
+<pre class="fragment">git clone http://github.com/symfony/symfony-standard.git
+cd symfony-standard
+rm -rf .git
+</pre><h1>2) Installation</h1>
+<p>Once you've downloaded the standard edition, installation is easy, and basically involves making sure your system is ready for Symfony.</p>
+<h2>a) Check your System Configuration</h2>
+<p>Before you begin, make sure that your local system is properly configured for Symfony. To do this, execute the following: </p>
+<pre class="fragment">php app/check.php
+</pre><p>If you get any warnings or recommendations, fix these now before moving on.</p>
+<h2>b) Install the Vendor Libraries</h2>
+<p>If you downloaded the archive "without vendors" or installed via git, then you need to download all of the necessary vendor libraries. If you're not sure if you need to do this, check to see if you have a <code>vendor/</code> directory. If you don't, or if that directory is empty, run the following: </p>
+<pre class="fragment">php bin/vendors install
+</pre><p>Note that you <b>must</b> have git installed and be able to execute the <code>git</code> command to execute this script. If you don't have git available, either install it or download Symfony with the vendor libraries already included.</p>
+<h2>c) Access the Application via the Browser</h2>
+<p>Congratulations! You're now ready to use Symfony. If you've unzipped Symfony in the web root of your computer, then you should be able to access the web version of the Symfony requirements check via: </p>
+<pre class="fragment">http://localhost/Symfony/web/config.php
+</pre><p>If everything looks good, click the "Bypass configuration and go to the Welcome page" link to load up your first Symfony page.</p>
+<p>You can also use a web-based configurator by clicking on the "Configure your
+Symfony Application online" link of the <code>config.php</code> page.</p>
+<p>To see a real-live Symfony page in action, access the following page: </p>
+<pre class="fragment">web/app_dev.php/demo/hello/Fabien
+</pre><h1>3) Learn about Symfony!</h1>
+<p>This distribution is meant to be the starting point for your application, but it also contains some sample code that you can learn from and play with.</p>
+<p>A great way to start learning Symfony is via the <a href="http://symfony.com/doc/current/quick_tour/the_big_picture.html">Quick Tour</a>, which will take you through all the basic features of Symfony2 and the test pages that are available in the standard edition.</p>
+<p>Once you're feeling good, you can move onto reading the official <a href="http://symfony.com/doc/current/">Symfony2 book</a>.</p>
+<h1>Using this Edition as the Base of your Application</h1>
+<p>Since the standard edition is fully-configured and comes with some examples, you'll need to make a few changes before using it to build your application.</p>
+<p>The distribution is configured with the following defaults:</p>
+<ul>
+<li>Twig is the only configured template engine;</li>
+<li>Doctrine ORM/DBAL is configured;</li>
+<li>Swiftmailer is configured;</li>
+<li>Annotations for everything are enabled.</li>
+</ul>
+<p>A default bundle, <code>AcmeDemoBundle</code>, shows you Symfony2 in action. After playing with it, you can remove it by following these steps:</p>
+<ul>
+<li>delete the <code>src/Acme</code> directory;</li>
+<li>remove the routing entries referencing AcmeBundle in <code>app/config/routing_dev.yml</code>;</li>
+<li>remove the AcmeBundle from the registered bundles in <code>app/AppKernel.php</code>;</li>
+</ul>
+<h1>What's inside?</h1>
+<p>The Symfony Standard Edition comes pre-configured with the following bundles:</p>
+<ul>
+<li><b>FrameworkBundle</b> - The core Symfony framework bundle</li>
+<li><b>SensioFrameworkExtraBundle</b> - Adds several enhancements, including template and routing annotation capability (<a href="http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html">documentation</a>)</li>
+<li><b>DoctrineBundle</b> - Adds support for the Doctrine ORM (<a href="http://symfony.com/doc/current/book/doctrine.html">documentation</a>)</li>
+<li><b>TwigBundle</b> - Adds support for the Twig templating engine (<a href="http://symfony.com/doc/current/book/templating.html">documentation</a>)</li>
+<li><b>SecurityBundle</b> - Adds security by integrating Symfony's security component (<a href="http://symfony.com/doc/current/book/security.html">documentation</a>)</li>
+<li><b>SwiftmailerBundle</b> - Adds support for Swiftmailer, a library for sending emails (<a href="http://symfony.com/doc/2.0/cookbook/email.html">documentation</a>)</li>
+<li><b>MonologBundle</b> - Adds support for Monolog, a logging library (<a href="http://symfony.com/doc/2.0/cookbook/logging/monolog.html">documentation</a>)</li>
+<li><b>AsseticBundle</b> - Adds support for Assetic, an asset processing library (<a href="http://symfony.com/doc/2.0/cookbook/assetic/asset_management.html">documentation</a>)</li>
+<li><b>JMSSecurityExtraBundle</b> - Allows security to be added via annotations (<a href="http://symfony.com/doc/current/bundles/JMSSecurityExtraBundle/index.html">documentation</a>)</li>
+<li><b>WebProfilerBundle</b> (in dev/test env) - Adds profiling functionality and the web debug toolbar</li>
+<li><b>SensioDistributionBundle</b> (in dev/test env) - Adds functionality for configuring and working with Symfony distributions</li>
+<li><b>SensioGeneratorBundle</b> (in dev/test env) - Adds code generation capabilities (<a href="http://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html">documentation</a>)</li>
+<li><b>AcmeDemoBundle</b> (in dev/test env) - A demo bundle with some example code</li>
+</ul>
+<p>Enjoy! </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Généré le Lundi Juillet 23 2012 08:35:16 pour Global-reservation_DOC par
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.2 </li>
+  </ul>
+</div>
+</body>
+</html>

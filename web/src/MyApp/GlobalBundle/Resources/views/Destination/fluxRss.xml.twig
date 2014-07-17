@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+{% if app.request.locale == "fr" %}
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+    <channel>
+        <title><![CDATA[Global-Reservation.com]]></title>
+        <link>
+            http://www.global-reservation.com/rss_promotions.xml
+        </link>
+        <description>
+            Global-Réservation vous donne la possibilité de pouvoir vous offrir une panoplie de séjour à petit prix.
+        </description>
+        <copyright>Copyright: (C) Global Réservation inc.</copyright>
+        <image>
+            <url>http://www.global-reservation.com/bundles/myappglobal/images/favicon.ico</url>
+            <title><![CDATA[Global-Reservation.com]]></title>
+            <link>http://www.global-reservation.com/rss_promotions.xml</link>
+        </image>
+        <generator>www.global-reservation.com</generator>
+        <language>fr</language>
+        {% for w in rss %}
+            <item>   
+                {% if w.titrederniereminutefr is not empty %}
+                <title>{{ w.titrederniereminutefr }} </title>
+                {% else %}
+                <title>{{ w.nomfr }} </title>
+                {% endif %}
+                <link>http://www.global-reservation.com/forfait_promotion_{{ w.hebergementid.repertoirefr|lower }}.html</link>
+                <guid isPermaLink="true">http://www.global-reservation.com/tarifs_derniere_minute_et_promotions.html</guid>
+                <description>
+                    <imagearticle>
+                    {% if w.imageprincipale is not empty %}                      
+                        <![CDATA[<img src="http://www.global-reservation.com/uploads/forfaits-client/image_principale/{{ w.id }}/{{ w.imageprincipale }}" width="320" height="240"/>]]>      
+                    {% elseif w.hebergementid.photocategoriepayante is not empty %}
+                        <![CDATA[<img src="http://www.global-reservation.com/uploads/hebergement/photo_categorie_payante/photo_categorie_payante{{ w.hebergementid.id }}/{{ w.hebergementid.photocategoriepayante }}"  width="320" height="240"/>]]>                 
+                    {% else %}
+                        <![CDATA[<img src="http://www.global-reservation.com//bundles/myappglobal/images/manicouagan2.jpg"  width="171" height="112"/>]]>                 
+                    {% endif %}
+                    </imagearticle>
+                    <br />
+                   <![CDATA[{{ w.textefr|convert_encoding('UTF-8', 'UTF-8')|striptags }}]]>                
+                </description>    
+                <author>Global Réservation</author>                
+                <pubDate>{{ w.publication|date("d M Y H:i") }}</pubDate>                    
+            </item>   
+        {% endfor %}
+    </channel>
+</rss>	
+{% else %}
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+    <channel>
+        <title><![CDATA[Global-Reservation.com]]></title>
+        <link>
+            http://www.global-reservation.com/rss_promotions-en.xml
+        </link>
+        <description>
+            Global-Reservation makes it possible to offer yourself lots of different stays at a small price.
+        </description>
+        <copyright>Copyright: (C) Global Réservation inc.</copyright>
+        <image>
+             <url>http://www.global-reservation.com/bundles/myappglobal/images/favicon.ico</url>
+            <title><![CDATA[Global-Reservation.com]]></title>
+            <link>http://www.global-reservation.com/rss_promotions-en.xml</link>
+        </image>
+        <generator>www.global-reservation.com</generator>
+        <language>en</language>
+        {% for w in rss %}
+            <item>                                
+                {% if w.titrederniereminuteen is not empty %}
+                <title>{{ w.titrederniereminuteen }} </title>
+                {% else %}
+                <title>{{ w.nomen }} </title>
+                {% endif %}
+                <link>http://www.global-reservation.com/package_promotion_{{ w.hebergementid.repertoireen|lower }}.html</link>
+                <guid isPermaLink="true">http://www.global-reservation.com/last_minute_rates_and_promotions.html</guid>
+                <description>
+                    <imagearticle>
+                    {% if w.imageprincipale is not empty %}                      
+                        <![CDATA[<img src="http://www.global-reservation.com/uploads/forfaits-client/image_principale/{{ w.id }}/{{ w.imageprincipale }}" width="320" height="240"/>]]>
+                    {% elseif w.hebergementid.photocategoriepayante is not empty %}
+                        <![CDATA[<img src="http://www.global-reservation.com/uploads/hebergement/photo_categorie_payante/photo_categorie_payante{{ w.hebergementid.id }}/{{ w.hebergementid.photocategoriepayante }}"  width="320" height="240"/>]]>                 
+                    {% else %}
+                        <![CDATA[<img src="http://www.global-reservation.com//bundles/myappglobal/images/manicouagan2.jpg"  width="171" height="112"/>]]>                 
+                    {% endif %}
+                    </imagearticle>
+                    <br />
+                    <![CDATA[{{ w.texteen|convert_encoding('UTF-8', 'UTF-8')|striptags }}]]>
+                </description>               
+                <author>Global Réservation</author>                
+                <pubDate>{{ w.publication|date("M d Y H:i") }}</pubDate>
+            </item>   
+        {% endfor %}
+    </channel>
+</rss>	
+{% endif %}

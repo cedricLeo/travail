@@ -1,0 +1,28 @@
+<script>
+    /**
+     * Passe la valeur de la province en mémoire à la liste au dropdownliste
+     */
+    $(function(){
+        {% if app.request.locale == "fr" %}
+               if(typeof(Storage) !== "undefined")
+               {
+                    console.log(localStorage.getItem("nomProvince"));
+                    $("#idprovince-button span").addClass("titleprovince").text(localStorage.getItem("nomProvince")); 
+               }
+               else
+               {
+                   console.log("Local storage non supporté");
+               }
+        {% else %}
+               if(typeof(Storage) !== "undefined")
+               {
+                    console.log(localStorage.getItem("nomProvince"));
+                    $("#idprovince-button span").addClass("titleprovince").text(localStorage.getItem("nomProvince"));
+               }
+               else
+               {
+                   console.log("Local storage not supported");
+               }
+        {% endif %}
+    });    
+</script>

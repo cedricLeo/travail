@@ -1,0 +1,159 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}
+		<p class="legendeHome">Restaurants {% for x in clientAleatoire.cuisineid %} {% if app.request.locale == "fr" %} {{ x.nomfr|lower }} {% else %} {{ x.nomen|lower }} {% endif %} {% endfor %}</p>
+	<!-- div qui va contenir la photo principal du sujet de la section -->
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+			{% if app.request.locale == "fr" %}
+				{% for x in clientAleatoire.cuisineid %}
+					<h1>Restaurants {{ x.nomfr|lower }}</h1>
+					<h3><a href="{{ clientAleatoire.regionid.urlfr }}/{{ clientAleatoire.zoneid.repertoirefr }}/{{ clientAleatoire.repertoirefr|lower }}" target="_blank" title="Restaurant {{ x.nomfr }} - {{ clientAleatoire.nomfr }}">{{ clientAleatoire.nomfr }} région {{ clientAleatoire.regionid.nomfr }}</a></h3>
+				</div>
+					{% if clientAleatoire.photopayante is not empty %}
+			  			<img src="{{ asset('uploads/attrait/') }}{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomfr }} région {{ clientAleatoire.regionid.nomfr }}" />
+					{% else %}
+						<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+					{% endif %}
+				{% endfor %}
+			{% else %}
+				{% for x in clientAleatoire.cuisineid %}
+					<h1>Restaurants {{ x.nomen|lower }} </h1>
+					<h3><a href="{{ clientAleatoire.regionid.urlen }}/{{ clientAleatoire.zoneid.repertoireen }}/{{ clientAleatoire.repertoireen|lower }}" target="_blank" title="Restaurant {{ x.nomen }} - {{ clientAleatoire.nomen }}">{{ clientAleatoire.nomen }} region {{ clientAleatoire.regionid.nomen }}</a></h3>
+				</div>
+					{% if clientAleatoire.photopayante is not empty %}
+			  			<img src="{{ asset('uploads/attrait/') }}{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomen }} region {{ clientAleatoire.regionid.nomen }}" />
+					{% else %}
+						<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		</div>	
+		{% endblock %}
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		{% block body %} 			
+			<div class="region">
+				  <h2>{{ "choisir.specialite.restaurant" | trans }} {% for x in clientAleatoire.cuisineid %} {% if app.request.locale == "fr" %} {{ x.nomfr|lower }} {% else %} {{ x.nomen|lower }} restaurant {% endif %} {% endfor %}</h2>
+				  {% if app.request.locale == "fr" %}
+				  {# LISTE QUÉBEC FR #}
+				  <ul>
+				  	{% for r in provinceQC %}
+                                            {% for w in clientAleatoire.cuisineid %}
+                                                    <li class="province"><a href="{{ path('_restaurantprovincenationalite',{'nationalite':w.provincefr|lower , 'name':r.provinceid.provincefr|lower}) }}">{{ r.provinceid.nomfr }}</a></li>
+                                            {% endfor %}
+				  	{% endfor %}
+				    {% for r in listeQC %}
+				    	{% for w in r.cuisineid %}
+                                            <li><a href="{{ path('_listespecialiteregion',{'name'::r.cuisineid.repertoirefr|lower , 'region':r.regionid.provincefr|lower}) }}">{{ r.regionid.nomfr }}</a></li>
+                                        {% endfor %}
+				    {% endfor %}
+				  </ul>
+				  {# LISTE ONTARIO FR #}
+				   <ul>
+				  	{% for r in provinceON %}
+                                            {% for w in clientAleatoire.cuisineid %}
+                                                <li class="province"><a href="{{ path('_restaurantprovincenationalite',{'nationalite':w.provincefr|lower , 'name':r.provinceid.provincefr|lower}) }}">{{ r.provinceid.nomfr }}</a></li>
+                                            {% endfor %}
+				  	{% endfor %}
+				        {% for r in listeON %}
+				   	 	<li><a href="{{ path('_listespecialiteregion',{'name':r.cuisineid.repertoirefr|lower , 'region':r.regionid.provincefr|lower}) }}">{{ r.regionid.nomfr }}</a></li>
+				   	{% endfor %}
+				  </ul>
+				  {# LISTE NEW BRUNSWICK FR #}
+				   <ul>
+				  	{% for r in provinceNB %}
+				  		{% for w in clientAleatoire.cuisineid %}
+				    		<li class="province"><a href="{{ path('_restaurantprovincenationalite',{'nationalite':w.provincefr|lower , 'name':r.provinceid.repertoirefr|lower}) }}">{{ r.provinceid.nomfr }}</a></li>
+				    	{% endfor %}
+				  	{% endfor %}
+				    {% for r in listeNB %}
+				   	 	<li><a href="{{ path('_listespecialiteregion',{'name':r.cuisineid.repertoirefr|lower , 'region':r.regionid.repertoirefr|lower}) }}">{{ r.regionid.nomfr }}</a></li>
+				   	{% endfor %}
+				  </ul>
+				  {% else %}
+				  {# LISTE QUÉBEC EN #}
+				  <ul>
+				  	{% for r in provinceQC %}
+				  		{% for w in clientAleatoire.cuisineid %}
+				    		<li class="province"><a href="{{ path('_restaurantprovincenationalite',{'nationalite':w.repertoireen|lower , 'name':r.provinceid.repertoireen|lower}) }}">{{ r.provinceid.nomen }}</a></li>
+				    	{% endfor %}
+				  	{% endfor %}
+				    {% for r in listeQC %}
+				   	 	<li><a href="{{ path('_listespecialiteregion',{'name':r.cuisineid.repertoireen|lower , 'region':r.regionid.repertoireen|lower}) }}">{{ r.regionid.nomen }}</a></li>
+				   	{% endfor %}
+				  </ul>
+				  {# LISTE ONTARIO EN #}
+				   <ul>
+				  	{% for r in provinceON %}
+				  		{% for w in clientAleatoire.cuisineid %}
+				   		 	<li class="province"><a href="{{ path('_restaurantprovincenationalite',{'nationalite':w.repertoireen|lower , 'name':r.provinceid.repertoireen|lower}) }}">{{ r.provinceid.nomen }}</a></li>
+				    	{% endfor %}
+				  	{% endfor %}
+				    {% for r in listeON %}
+				   	 	<li><a href="{{ path('_listespecialiteregion',{'name':r.cuisineid.repertoireen|lower , 'region':r.regionid.repertoireen|lower}) }}">{{ r.regionid.nomen }}</a></li>
+				   	{% endfor %}
+				  </ul>
+				  {# LISTE NEW BRUNSWICK EN #}
+				   <ul>
+				  	{% for r in provinceNB %}
+				  		{% for w in clientAleatoire.cuisineid %}
+				    		<li class="province"><a href="{{ path('_restaurantprovincenationalite',{'nationalite':w.repertoireen|lower , 'name':r.provinceid.repertoireen|lower}) }}">{{ r.provinceid.nomen }}</a></li>
+				    	{% endfor %}
+				  	{% endfor %}
+				    {% for r in listeQNB %}
+				   	 	<li><a href="{{ path('_listespecialiteregion',{'name':r.cuisineid.repertoireen|lower , 'region':r.regionid.repertoireen|lower}) }}">{{ r.regionid.nomen }}</a></li>
+				   	{% endfor %}
+				  </ul>
+				  {% endif %}
+				  <br class="clearfloat" />
+			</div>
+				 {# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+				<div class="colonnes4">
+				  <h4>{{ "restaurant.au.quebec" | trans }} {% for x in clientAleatoire.cuisineid %} {% if app.request.locale == "fr" %} {{ x.nomfr|lower }} province {{ clientAleatoire.provinceid.nomfr }} {% else %} {{ x.nomen|lower }} province {{ clientAleatoire.provinceid.nomen }} {% endif %} {% endfor %}</h4>
+				  {% if app.request.locale == "fr" %}
+					  {% for w in resto %}
+					  <div> <a href="{{ w.regionid.urlfr|lower }}/{{ w.zoneid.repertoirefr|lower }}/{{ w.repertoirefr|lower }}" target="_blank" title="Restaurant {{ w.nomfr }}"><img src="{{ asset('uploads/attrait') }}/{{ w.id }}/{{ w.image }}" alt="{{ w.nomfr }}" class="img_categoie_portail" /></a>
+					    <div>
+					      <h3><a href="{{ w.regionid.urlfr|lower }}/{{ w.zoneid.repertoirefr|lower }}/{{ w.repertoirefr|lower }}" target="_blank" title="Restaurant {{ w.nomfr }}">{{ w.nomfr }}</a></h3>
+					      <p>{{ w.descriptionattraitfr.texteresumefr|striptags }}</p>
+					    </div>
+					    <h2><a href="{{ w.regionid.urlfr|lower }}/{{ w.zoneid.repertoirefr|lower }}/{{ w.repertoirefr|lower }}" target="_blank" title="Restaurant {{ w.nomfr }}">{{ w.nomfr }}</a></h2>
+					  </div>
+					  {% endfor %}
+				  {% else %}
+				  	{% for w in resto %}
+					  <div> <a href="{{ w.regionid.urlen|lower }}/{{ w.zoneid.repertoireen|lower }}/{{ w.repertoireen|lower }}" target="_blank" title="Restaurant {{ w.nomen }}"><img src="{{ asset('uploads/attrait') }}/{{ w.id }}/{{ w.image }}" alt="{{ w.nomen }}" class="img_categoie_portail" /></a>
+					    <div>
+					      <h3><a href="{{ w.regionid.urlen|lower }}/{{ w.zoneid.repertoireen|lower }}/{{ w.repertoireen|lower }}" target="_blank" title="Restaurant {{ w.nomen }}">{{ w.nomen }}</a></h3>
+					      <p>{{ w.descriptionattraiten.texteresumeen|striptags }}</p>
+					    </div>
+					    <h2><a href="{{ w.regionid.urlen|lower }}/{{ w.zoneid.repertoireen|lower }}/{{ w.repertoireen|lower }}" target="_blank" title="Restaurant {{ w.nomen }}">{{ w.nomen }}</a></h2>
+					  </div>
+					  {% endfor %}
+				  {% endif %}
+				  <br class="clearfloat" />
+				 </div>
+			
+		{% endblock %}				
+		{%block gauche%}
+			{# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %}
+			{# PUB GOOGLE #}
+			<div id="zone_02" class="styleBigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+		{%endblock%}	

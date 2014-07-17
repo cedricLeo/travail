@@ -1,0 +1,66 @@
+ <progress id="avancement" min="0" max="100" aria-valuemin="0" aria-value="100" class="hideprogression" style="margin-left:25px;"></progress>
+ <output id="infos" class="hideprogression" style="margin-left:25px;"></output>
+  {% if photoPrincipale is not empty %}
+     <div class="retourajax"> 
+        {% if msgerror is defined and msgerror is not empty %}<span class="errorDimension">{{ msgerror }}</span>{% endif %}
+        <img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ id }}/{{ photoPrincipale }}" class="imageCompteClientPrincipale imageCompteClient" id="imgprincipaleformdata"/>
+     </div>   
+  {% endif %}
+
+<script>
+                              
+	document.getElementById("add_hebergement_photo_payante").setAttribute("onchange", "loadFile()");
+        var progression = document.getElementById("avancement");
+        var infos = document.getElementById("infos");
+        
+        loadFile = function(){
+            if(window.FormData){
+                var fd = new FormData();                                                                                    
+            }else{
+                alert("Ce navigateur n'est pas compatible.");
+                return;
+            }
+            //affiche la barre de progression
+            progression.className = "showprogression";
+            infos.className = "showprogression";
+            //ignitialisation d'ajax
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "{{ path('_uploadimgprincipalehebergement') }}", true);
+            xhr.onreadystatechange = function(event){
+                if(this.readyState === 4){
+                    //imgprincipale.innerHTML = event.target.responseText;
+                    progression.className = "hideprogression";
+                    infos.className = "hideprogression";
+                    $(".retourajax img").remove();
+                    $(".retourajax").append(event.target.responseText);
+                    infos.innerHTML = "";
+                    //addPopupCrop();                   
+                }
+            };
+            //pendant la progression
+            xhr.onprogress = function(event){
+                if(event.lengthComputable){
+                    var pourcentage = Math.round(event.loaded*100/event.total);
+                    infos.innerHTML += pourcentage.toString()+" % <br />";
+                    progression.setAttribute("aria-valuenow",pourcentage);
+                    progression.value = pourcentage;
+                }
+            }
+            //terminé avec succès
+            xhr.onload = function(event){
+              infos.innerHTML += '<p style="color:green"> Chargement en cours </p>' ; 
+            };
+            //erreur pendant le chargement
+            xhr.onerror = function(event){
+              infos.innerHTML += '<p style="color:red"> Erreur de chargement </p>' ; 
+            };
+            //chargemnrt interrompu
+            xhr.onabort = function(event){
+              infos.innerHTML += '<p style="color:orange"> Annulation du chargement </p>' ; 
+            };
+            var imgprincipale = document.getElementById("add_hebergement_photo_payante").files[0];
+            fd.append("id", "{{ id }}");
+            fd.append("photoPrincipale", imgprincipale);
+            xhr.send(fd);
+        }      
+</script>

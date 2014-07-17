@@ -1,0 +1,799 @@
+<ul class="ulAriane">
+{# Premier noeud du fil d'ariane #}
+	<li><a href="{{ path('_accueil') }}" title="{{ "return.home" | trans }}" > {{ "global.reservation" | trans }} </a></li> 	
+			{# Deuxième noeud du fil d'ariane #}	
+			{# ACCUEIL #}
+			 	{% if urlaccueil is defined  %}
+					{% if province is defined and views is defined %}
+						<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0);" > {% if app.request.locale == "fr" %} {{ province.nomfr }} {% else %} {{ province.nomen }} {% endif %}</a></li>
+					{% else %}
+						{% if app.request.locale == "fr" %}
+							<li>&nbsp;&gt;&nbsp;<a href="{{path('_accueil_province',{'name':region.provinceetatid.repertoirefr|lower})}}" title="Province {{ region.provinceetatid.nomfr }}">  {{ region.provinceetatid.nomfr }} </a></li>
+						{% else %}
+							<li>&nbsp;&gt;&nbsp;<a href="{{path('_accueil_province',{'name':region.provinceetatid.repertoireen|lower})}}" title="Province {{ region.provinceetatid.nomen }}">  {{ region.provinceetatid.nomen }} </a></li>
+						{% endif %}
+					{% endif %}
+				{% endif %}
+			{# HÉBERGEMENT #}
+				{% if urlhebergement is defined %}
+					{% if views is not defined and arborecense is not defined  %}
+						<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0);" > {{ "hebergement" | trans }} </a></li>
+					{% else %}
+						{% if app.request.locale == "fr" %}
+							<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementfr')}}" title="{{ "hebergement" | trans }}"> {{ "hebergement" | trans }} </a></li>
+						{% else %}
+							<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementen')}}" title="{{ "hebergement" | trans }}"> {{ "hebergement" | trans }} </a></li>
+						{% endif %}
+					{% endif %}
+			{# FORFAITS #}
+				{% elseif urlforfaits is defined %}
+					{% if menuForfait is defined %}
+						{% if app.request.locale == "fr" %}
+							<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsfr')}}" title="{{ "forfait" | trans }}"> {{ "forfait" | trans }} </a></li>
+						{% else %}
+							<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsen')}}" title="{{ "forfait" | trans }}"> {{ "forfait" | trans }} </a></li>
+						{% endif %}
+					{% else %}
+					<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "forfait" | trans }} </a></li>
+					{% endif %}
+			{# CORPORATIF / ÉVÉNEMENTS #}
+				{% elseif urlcorpo is defined and urlcorpo == "index" %}
+					<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)"> {{ "corporatif.evenement.speciaux" | trans }} </a></li>
+				{% elseif urlcorpo is defined and urlcorpo != "index" %}
+					{% if app.request.locale == "fr" %}
+					<li>&nbsp;&gt;&nbsp;<a href="{{path('_corpoeventsfr')}}" title="{{ "corporatif.evenement.speciaux" | trans }}"> {{ "corporatif.evenement.speciaux" | trans }} </a></li>
+					{% else %}
+					<li>&nbsp;&gt;&nbsp;<a href="{{path('_corpoeventsen')}}" title="{{ "corporatif.evenement.speciaux" | trans }}" > {{ "corporatif.evenement.speciaux" | trans }} </a></li>
+					{% endif %}
+			{# CENTRE DE SANTÉ #}
+				{% elseif urlcentersante is defined %}
+					{% if views is not defined %}
+					<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "centre.sante.spa" | trans }} </a></li>
+					{% else %}
+					<li>&nbsp;&gt;&nbsp;<a href="{{path('_centersante')}}" title="{{ "centre.sante.spa" | trans }}" > {{ "centre.sante.spa" | trans }} </a></li>
+					{% endif %}
+			{# ATTRAITS / ACTIVITÉS #}
+				{% elseif urlattraitsactivity is defined %}
+					{% if app.request.locale == "fr" %}
+						<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsactivity')}}" title="{{ "attrait.activite" | trans }}" name="{{ "attrait.activite" | trans }}" {% if classCssFirstNode is defined %} class="{{ classCssFirstNode }}" {% endif %}> {{ "attrait.activite" | trans }} </a></li>
+					{% else %}
+						<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsactivityen')}}" title="{{ "attrait.activite" | trans }}" name="{{ "attrait.activite" | trans }}" {% if classCssFirstNode is defined %} class="{{ classCssFirstNode }}" {% endif %}> {{ "attrait.activite" | trans }} </a></li>
+					{% endif %}
+			{# PROMOTIONS #}
+				{% elseif urldestination is defined %}
+					{% if destination is defined  %}
+						{% if destinationprovince is not defined and destinationregion is not defined %}
+							<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "tarif.derniere.minute.promotion" | trans }} </a></li>
+						{% elseif destinationprovince is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_promotion')}}"  title=" {{ "tarif.derniere.minute.promotion" | trans }}"> {{ "tarif.derniere.minute.promotion" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ clientAleatoire.hebergementid.provinceid.repertoirefr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_promotionen')}}"  title=" {{ "tarif.derniere.minute.promotion" | trans }}"> {{ "tarif.derniere.minute.promotion" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ clientAleatoire.hebergementid.provinceid.repertoireen }} </a></li>
+							{% endif %}
+						{% elseif destinationregion is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_promotion')}}"  title="{{ "tarif.derniere.minute.promotion" | trans }}"> {{ "tarif.derniere.minute.promotion" | trans }}  </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_promotionstarifderniereminuteprovince',{'name':clientAleatoire.hebergementid.provinceid.repertoirefr|lower} )}}"  title="{{ "tarif.derniere.minute.promotion" | trans }} province {{ clientAleatoire.hebergementid.provinceid.nomfr }}"> {{ clientAleatoire.hebergementid.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ clientAleatoire.hebergementid.regionid.repertoirefr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_promotionen')}}"  title="{{ "tarif.derniere.minute.promotion" | trans }}"> {{ "tarif.derniere.minute.promotion" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_promotionstarifderniereminuteprovinceen',{'name':clientAleatoire.hebergementid.provinceid.repertoireen|lower} )}}"  title="{{ "tarif.derniere.minute.promotion" | trans }} province {{ clientAleatoire.hebergementid.provinceid.nomen }}"> {{ clientAleatoire.hebergementid.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ clientAleatoire.hebergementid.regionid.repertoireen }} </a></li>
+							{% endif %}
+						{% endif %}
+					{% endif %}
+			{# RESTAURANTS #}
+				{% elseif urlrestaurant is defined %}
+					{% if views is not defined %}
+						<li>&nbsp;&gt;&nbsp;<a  name="javascript:void(0)" > {{ "restaurant" | trans }} </a></li>
+					{% else %}
+						<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant')}}" title="{{ "restaurant" | trans }}" > {{ "restaurant" | trans }} </a></li>
+					{% endif %}
+			{# CONTACTEZ NOUS #}
+				{% elseif contacteznous is defined %}
+					<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)">{{ "contactez.nous" | trans }}</a></li>
+			{# QUI SOMMES NOUS #}
+				{% elseif quisommesnous is defined %}
+					<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)">{{ "qui.sommes.nous.ariane" | trans }}</a></li>	
+			{# FAQ #}
+				{% elseif faq is defined %}
+					<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)">{{ "FAQ" | trans }}</a></li>	
+			{# CONDITION UTILISATION #}
+				{% elseif conditionutilisation is defined %}
+					<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)">{{ "condition.utilisation" | trans }}</a></li>
+			{# PLAN DU SITE #}
+				{% elseif plandusite is defined %}
+					<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)">{{ "plan.site" | trans }}</a></li>
+				{% endif %}
+				
+					{# Accueil #}
+					{% if region is defined and urlaccueil is defined and provinceHome is not defined %}
+						{% if app.request.locale == "fr" %}							
+					 		<li>&nbsp;&gt;&nbsp;<a name="#" > {{ region.nomfr }} </a></li>
+						{% else %}
+					 		<li>&nbsp;&gt;&nbsp;<a name="#" > {{ region.nomen }} </a></li>
+						{% endif %}
+					{% endif %}
+					{# Hébergements #}
+					{% if menuHebergement is defined %}
+						{# HÉBERGEMENT SANS CATÉGORIE AVEC UNE PROVINCE #}
+						 {% if hebergementProvince is defined %}
+						 	{% if app.request.locale == "fr" %}					 		 
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ clientAleatoire.provinceid.nomfr }} </a></li>
+						 	{% else %}
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ clientAleatoire.provinceid.nomen }} </a></li> 
+						 	{% endif %}
+						 {# HÉBERGEMENT SANS CATÉGORIE AVEC UNE RÉGION #}
+						 {% elseif hebergementRegion is defined %}
+						 	{% if app.request.locale == "fr" %}	
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': clientAleatoire.provinceid.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} province {{ clientAleatoire.provinceid.nomfr }} " > {{ clientAleatoire.provinceid.nomfr }} </a></li>				 		 
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ clientAleatoire.regionid.nomfr }} </a></li>
+						 	{% else %}
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': clientAleatoire.provinceid.repertoireen|lower})}}" title="{{ "hebergement" | trans }} province {{ clientAleatoire.provinceid.nomen }} " > {{ clientAleatoire.provinceid.nomen }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ clientAleatoire.regionid.nomen }} </a></li> 
+						 	{% endif %}
+						 {# HÉBERGEMENT SANS CATÉGORIE AVEC UNE VILLE #}
+						 {% elseif hebergementVille is defined %}
+						 	{% if app.request.locale == "fr" %}	
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': clientAleatoire.provinceid.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} province {{ clientAleatoire.provinceid.nomfr }} " > {{ clientAleatoire.provinceid.nomfr }} </a></li>			
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecfr',{'name': clientAleatoire.regionid.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} région {{ clientAleatoire.regionid.nomfr }} " > {{ clientAleatoire.regionid.nomfr }} </a></li>				 		 	 		 
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ clientAleatoire.villeid.nomfr }} </a></li>
+						 	{% else %}
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': clientAleatoire.provinceid.repertoireen|lower})}}" title="{{ "hebergement" | trans }} province {{ clientAleatoire.provinceid.nomen }} " > {{ clientAleatoire.provinceid.nomen }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecen',{'name': clientAleatoire.regionid.repertoireen|lower})}}" title="{{ "hebergement" | trans }} region {{ clientAleatoire.regionid.nomen }} " > {{ clientAleatoire.regionid.nomen }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ clientAleatoire.villeid.nomen }} </a></li> 
+						 	{% endif %}
+						 {% elseif hebergementCate is defined %}
+						 	{% for x in clientAleatoire.categoriehebergementid %}
+							 	{% if app.request.locale == "fr" %}					 		 
+								 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ x.nomfr }} </a></li>
+							 	{% else %}
+								 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ x.nomen }} </a></li> 
+							 	{% endif %}
+							 {% endfor %}
+						 {# HÉBERGEMENT AVEC CATÉGORIE ET UNE PROVINCE #}
+						 {% elseif hebergementCateProvince is defined %}
+						 	{% if app.request.locale == "fr" %}
+						 		{% for x in clientAleatoire.categoriehebergementid %}  
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': x.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomfr|lower }} " > {{ x.nomfr }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ clientAleatoire.provinceid.repertoirefr }} </a></li>
+						 		{% endfor %} 
+						 	{% else %}
+						 		{% for x in clientAleatoire.categoriehebergementid %} 
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': x.repertoireen|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomen|lower }} " > {{ x.nomen }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.repertoireen }} </a></li>
+						 		{% endfor %} 
+						 	{% endif %}	
+						 {# HÉBERGEMENT AVEC CATÉGORIE ET UNE RÉGION #}
+						 {% elseif hebergementCateRegion is defined %}
+						 	{% if app.request.locale == "fr" %}
+						 		{% for x in clientAleatoire.categoriehebergementid %}  
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': x.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomfr|lower }} " > {{ x.nomfr }} </a></li>
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeprovincefr',{'name': x.repertoirefr|lower, 'province':clientAleatoire.provinceid.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomfr }} province {{ clientAleatoire.provinceid.nomfr }}" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ clientAleatoire.regionid.nomfr }} </a></li>
+						 		{% endfor %} 
+						 	{% else %}
+						 		{% for x in clientAleatoire.categoriehebergementid %} 
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': x.repertoireen|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomen|lower }} " > {{ x.nomen }} </a></li>
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeprovinceen',{'name': x.repertoireen|lower, 'province':clientAleatoire.provinceid.repertoireen|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomen }} province {{ clientAleatoire.provinceid.nomen }}" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomen }} </a></li>
+						 		{% endfor %} 
+						 	{% endif %}	
+						 {# HÉBERGEMENT AVEC CATÉGORIE ET UNE VILLE #}
+						 {% elseif hebergementCateVille is defined %}
+						 	{% if app.request.locale == "fr" %}
+						 		{% for x in clientAleatoire.categoriehebergementid %}  
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': x.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomfr|lower }} " > {{ x.nomfr }} </a></li>
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeprovincefr',{'name': x.repertoirefr|lower, 'province':clientAleatoire.provinceid.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomfr }} province {{ clientAleatoire.provinceid.nomfr }}" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtyperegionfr',{'name': x.repertoirefr|lower, 'region':clientAleatoire.regionid.repertoirefr|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomfr }} région {{ clientAleatoire.regionid.nomfr }}" > {{ clientAleatoire.regionid.nomfr }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" >{{ clientAleatoire.villeid.nomfr }} </a></li> 
+						 		{% endfor %} 
+						 	{% else %}
+						 		{% for x in clientAleatoire.categoriehebergementid %} 
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': x.repertoireen|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomen|lower }} " > {{ x.nomen }} </a></li>
+						 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeprovinceen',{'name': x.repertoireen|lower, 'province':clientAleatoire.provinceid.repertoireen|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomen }} province {{ clientAleatoire.provinceid.nomen }}" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtyperegionen',{'name': x.repertoireen|lower, 'region':clientAleatoire.regionid.repertoireen|lower})}}" title="{{ "hebergement" | trans }} {{ x.nomen }} region {{ clientAleatoire.regionid.nomen }}" > {{ clientAleatoire.regionid.nomen }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomen }} </a></li>
+						 		{% endfor %} 
+						 	{% endif %}	
+						 {% endif %}
+					{% endif %}
+					{# Attraits et activités #}
+					{% if noeudArianeAttrait is defined %}
+						{% if nodeAttraitProvince is defined %}
+							{% if app.request.locale == "fr" %}	
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+						{% if nodeAttraitRegion is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsprovince',{'name': clientAleatoire.provinceid.repertoirefr|lower})}}" title="Province - {{ clientAleatoire.provinceid.nomfr }}" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.repertoirefr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsprovince',{'name': clientAleatoire.provinceid.repertoireen|lower})}}" title="Province - {{ clientAleatoire.provinceid.nomen }}" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regioneid.repertoireen }} </a></li>
+							{% endif %}
+						{% endif %}
+						{% if nodeAttraitVille is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsprovince',{'name': clientAleatoire.regionid.provinceetatid.repertoirefr|lower})}}" title="Province - {{ clientAleatoire.regionid.provinceetatid.nomfr }}" > {{ clientAleatoire.regionid.provinceetatid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsIndex',{'name': clientAleatoire.regionid.repertoirefr|lower})}}" title="Région - {{ clientAleatoire.regionid.nomfr }}" > {{ clientAleatoire.regionid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsprovince',{'name': clientAleatoire.regionid.provinceetatid.repertoireen|lower})}}" title="Province - {{ clientAleatoire.regionid.provinceetatid.nomen }}" > {{ clientAleatoire.regionid.provinceetatid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsIndexen',{'name': clientAleatoire.regionid.repertoireen|lower})}}" title="Region - {{ clientAleatoire.regionid.nomen }}" > {{ clientAleatoire.regionid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+						{% if nodeAttraitActiviteDefault is defined %}
+							{% if app.request.locale == "fr" %}	
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.categorieattrait.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.categorieattrait.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+						{% if nodeAttraitActiviteProvince is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsactivitedefault',{'name': clientAleatoire.categorieattrait.repertoirefr|lower })}}" title="Attraits et activités - {{ clientAleatoire.categorieattrait.nomfr }}" > {{ clientAleatoire.categorieattrait.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsactivitedefaulten',{'name': clientAleatoire.categorieattrait.reppertoireen|lower })}}" title="Attractions and activities - {{ clientAleatoire.categorieattrait.nomen }}" > {{ clientAleatoire.categorieattrait.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+						{% if nodeAttraitActiviteRegion is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsactivitedefault',{'name': clientAleatoire.categorieattrait.repertoirefr|lower })}}" title="Attraits et activités - {{ clientAleatoire.categorieattrait.nomfr }}" > {{ clientAleatoire.categorieattrait.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsprovinceactivite',{'province':clientAleatoire.provinceid.repertoirefr|lower, 'name': clientAleatoire.categorieattrait.repertoirefr|lower })}}" title="Province {{ clientAleatoire.provinceid.nomfr }}  attraits et activités  {{ clientAleatoire.categorieattrait.nomfr }}" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsactivitedefaulten',{'name': clientAleatoire.categorieattrait.repertoireen|lower })}}" title="Attractions and activities - {{ clientAleatoire.categorieattrait.nomen }}" > {{ clientAleatoire.categorieattrait.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsprovinceactiviteen',{'province':clientAleatoire.provinceid.repertoireen|lower, 'name': clientAleatoire.categorieattrait.repertoireen|lower })}}" title="Province {{ clientAleatoire.provinceid.nomen }}  attractions and activities  {{ clientAleatoire.categorieattrait.nomen }}" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+						{% if nodeAttraitActiviteVille is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsactivitedefault',{'name': clientAleatoire.categorieattrait.repertoirefr|lower })}}" title="Attraits et activités - {{ clientAleatoire.categorieattrait.nomfr }}" > {{ clientAleatoire.categorieattrait.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsprovinceactivite',{'province':clientAleatoire.provinceid.repertoirefr|lower, 'name': clientAleatoire.categorieattrait.repertoirefr|lower })}}" title="Province {{ clientAleatoire.provinceid.nomfr }}  attraits et activités  {{ clientAleatoire.categorieattrait.nomfr }}" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsprovinceactivite',{'region':clientAleatoire.regionid.repertoirefr|lower, 'name': clientAleatoire.categorieattrait.repertoirefr|lower })}}" title="Region {{ clientAleatoire.regionid.nomfr }}  attraits et activités  {{ clientAleatoire.categorieattrait.nomfr }}" > {{ clientAleatoire.regionid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsactivitedefaulten',{'name': clientAleatoire.categorieattrait.repertoireen|lower })}}" title="Attractions and activities - {{ clientAleatoire.categorieattrait.nomen }}" > {{ clientAleatoire.categorieattrait.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsprovinceactiviteen',{'province':clientAleatoire.provinceid.repertoireen|lower, 'name': clientAleatoire.categorieattrait.repertoireen|lower })}}" title="Province {{ clientAleatoire.provinceid.nomen }}  attractions and activities  {{ clientAleatoire.categorieattrait.nomen }}" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_attraitsprovinceactiviteen',{'region':clientAleatoire.regionid.repertoireen|lower, 'name': clientAleatoire.categorieattrait.repertoireen|lower })}}" title="Region {{ clientAleatoire.regionid.nomen }}  attractions and activities  {{ clientAleatoire.categorieattrait.nomen }}" > {{ clientAleatoire.regionid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+					{% endif %}
+					{# Corporatif et événements #}
+				    {% if urlcorpo is defined  %}
+						{% if app.request.locale == "fr" %}
+							{% if noeudcorpoprovince is defined %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.provinceid.nomfr }} </a></li>
+							{% endif %}
+							{% if noeudcorporegion is defined %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_corpoeventsprovince',{'name': clientAleatoire.sallecorporativehebergement.provinceid.repertoirefr|lower })}}" title="Corporatif et événements province {{ clientAleatoire.sallecorporativehebergement.provinceid.nomfr }}" > {{ clientAleatoire.sallecorporativehebergement.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.provinceid.repertoirefr }} </a></li>
+							{% endif %}
+							{% if noeudcorpoville is defined %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_corpoeventsprovince',{'name': clientAleatoire.sallecorporativehebergement.provinceid.repertoirefr|lower })}}" title="Corporatif et événements province {{ clientAleatoire.sallecorporativehebergement.provinceid.nomfr }}" > {{ clientAleatoire.sallecorporativehebergement.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_corpoeventsregions',{'name': clientAleatoire.sallecorporativehebergement.regionid.repertoirefr|lower })}}" title="Corporatif et événements région {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }}" > {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }} </a></li>
+							{% endif %}
+						{% else %}
+							{% if noeudcorpoprovince is defined %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.provinceid.nomen }} </a></li>
+							{% endif %}
+							{% if noeudcorporegion is defined %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_corpoeteventsprovinceen',{'name': clientAleatoire.sallecorporativehebergement.provinceid.repertoireen|lower })}}" title="Corporate and events province {{ clientAleatoire.sallecorporativehebergement.provinceid.nomen }}" > {{ clientAleatoire.sallecorporativehebergement.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.provinceid.repertoireen }} </a></li>
+							{% endif %}
+							{% if nouedcorpoville is defined %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_corpoeventsprovince',{'name': clientAleatoire.sallecorporativehebergement.provinceid.repertoireen|lower })}}" title="Corporatif et événements province {{ clientAleatoire.sallecorporativehebergement.provinceid.nomen }}" > {{ clientAleatoire.sallecorporativehebergement.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_corpoeventsregionsen',{'name': clientAleatoire.sallecorporativehebergement.regionid.repertoireen|lower })}}" title="Corporatif et événements region {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }}" > {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+						{% if nodeappeloffre is defined %}
+							<li>&nbsp;&gt;&nbsp;<a name="#" > {{ "appeloffre" | trans}} </a></li>
+						{% endif %}
+						{% if metachambreAffaire is defined %}
+							<li>&nbsp;&gt;&nbsp;<a name="#" > {{ "chambreaffaire" | trans}} </a></li>
+						{% elseif metachambreAffaireProvince is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffairefr')}}" title=" {{ "chambreaffaire" | trans}}" >  {{ "chambreaffaire" | trans}} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergement.provinceid.repertoirefr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffaireen')}}" title=" {{ "chambreaffaire" | trans}}" >  {{ "chambreaffaire" | trans}} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergement.provinceid.repertoireen }} </a></li>
+							{% endif %}
+						{% elseif metachambreAffaireRegion is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffairefr')}}" title=" {{ "chambreaffaire" | trans}}" >  {{ "chambreaffaire" | trans}} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffaireprovincefr',{'name':clientAleatoire.hebergement.provinceid.repertoirefr|lower})}}" title=" {{ "chambreaffaire" | trans}} province {{ clientAleatoire.hebergement.provinceid.nomfr }}" >  {{ clientAleatoire.hebergement.provinceid.nomfr }}</a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergement.regionid.repertoirefr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffaireen')}}" title=" {{ "chambreaffaire" | trans}}" >  {{ "chambreaffaire" | trans}} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffaireprovinceen',{'name':clientAleatoire.hebergement.provinceid.repertoireen|lower})}}" title=" {{ "chambreaffaire" | trans}} province {{ clientAleatoire.hebergement.provinceid.nomen }}" >  {{ clientAleatoire.hebergement.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergement.regionid.repertoireen }} </a></li>
+							{% endif %}
+						{% elseif metachambreAffaireVille is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffairefr')}}" title=" {{ "chambreaffaire" | trans}}" >  {{ "chambreaffaire" | trans}} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffaireprovincefr',{'name':clientAleatoire.hebergement.provinceid.repertoirefr|lower})}}" title=" {{ "chambreaffaire" | trans}} province {{ clientAleatoire.hebergement.provinceid.nomfr }}" >  {{ clientAleatoire.hebergement.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffaireregionfr',{'name':clientAleatoire.hebergement.regionid.repertoirefr|lower})}}" title=" {{ "chambreaffaire" | trans}} région {{ clientAleatoire.hebergement.regionid.nomfr }}" >  {{ clientAleatoire.hebergement.regionid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergement.villeid.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffaireen')}}" title=" {{ "chambreaffaire" | trans}}" >  {{ "chambreaffaire" | trans}} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffaireprovinceen',{'name':clientAleatoire.hebergement.provinceid.repertoireen|lower})}}" title=" {{ "chambreaffaire" | trans}} province {{ clientAleatoire.hebergement.provinceid.nomen }}" >  {{ clientAleatoire.hebergement.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_chambreaffaireregionfr',{'name':clientAleatoire.hebergement.regionid.repertoireen|lower})}}" title=" {{ "chambreaffaire" | trans}} region {{ clientAleatoire.hebergement.regionid.nomen }}" >  {{ clientAleatoire.hebergement.regionid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergement.villeid.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+						{# Location de salle corporative #}
+						{% if corposalle is defined %}
+							<li>&nbsp;&gt;&nbsp;<a name="#" > {{ "locationsallereunion" | trans }} </a></li>
+						{% elseif corposalleprovince is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionfr')}}" title=" {{ "locationsallereunion" | trans }}" >  {{ "locationsallereunion" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.provinceid.repertoirefr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionen')}}" title=" {{ "locationsallereunion" | trans }}" >  {{ "locationsallereunion" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.provinceid.repertoireen }} </a></li>
+							{% endif %}
+						{% elseif corposalleregion is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionfr')}}" title=" {{ "locationsallereunion" | trans }}" >  {{ "locationsallereunion" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionprovincefr',{'name': clientAleatoire.sallecorporativehebergement.provinceid.repertoirefr|lower }) }}" title=" {{ "locationsallereunion" | trans }} province {{ clientAleatoire.sallecorporativehebergement.provinceid.nomfr }}" >  {{ clientAleatoire.sallecorporativehebergement.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionen')}}" title=" {{ "locationsallereunion" | trans }}" >  {{ "locationsallereunion" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionprovinceen',{'name': clientAleatoire.sallecorporativehebergement.provinceid.repertoireen|lower})}}" title=" {{ "locationsallereunion" | trans }} province {{ clientAleatoire.sallecorporativehebergement.provinceid.nomen }}" >  {{ clientAleatoire.sallecorporativehebergement.provinceid.nomen }}} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }} </a></li>
+							{% endif %}
+						{% elseif corposalleville is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionfr')}}" title=" {{ "locationsallereunion" | trans }}" >  {{ "locationsallereunion" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionprovincefr',{'name':clientAleatoire.sallecorporativehebergement.provinceid.repertoirefr|lower})}}" title=" {{ "locationsallereunion" | trans }} province {{ clientAleatoire.sallecorporativehebergement.provinceid.nomfr }}" >  {{ clientAleatoire.sallecorporativehebergement.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionregionfr',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoirefr|lower})}}" title=" {{ "locationsallereunion" | trans }} région {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }}" >  {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionen')}}" title=" {{ "locationsallereunion" | trans }}" >  {{ "locationsallereunion" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionprovinceen',{'name':clientAleatoire.sallecorporativehebergement.provinceid.repertoireen|lower})}}" title=" {{ "locationsallereunion" | trans }} province {{ clientAleatoire.sallecorporativehebergement.provinceid.nomen }}" >  {{ clientAleatoire.sallecorporativehebergement.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_locationsallereunionregionen',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoireen|lower})}}" title=" {{ "locationsallereunion" | trans }} region {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }}" >  {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+						{# Activités corporatives #}
+						{% if activitecorpo is defined %}
+							<li>&nbsp;&gt;&nbsp;<a name="#" > {{ "activitescorporative" | trans }} </a></li>
+						{% elseif activitecorpoprovince is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activiteCorporativeGroupefr')}}" title=" {{ "activitescorporative" | trans }}" >  {{ "activitescorporative" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.repertoirefr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activiteCorporativeGroupeen')}}" title=" {{ "activitescorporative" | trans }}" >  {{ "activitescorporative" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.repertoireen }} </a></li>
+							{% endif %}
+						{% elseif activitecorporegion is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activiteCorporativeGroupefr')}}" title=" {{ "activitescorporative" | trans }}" >  {{ "activitescorporative" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activitecorpoprovincefr',{'name':clientAleatoire.provinceid.repertoirefr|lower})}}" title=" {{ "activitescorporative" | trans }} province {{ clientAleatoire.provinceid.nomfr }}" >  {{ clientAleatoire.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activiteCorporativeGroupeen')}}" title=" {{ "activitescorporative" | trans }}" >  {{ "activitescorporative" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activitecorpoprovinceen',{'name':clientAleatoire.provinceid.repertoireen|lower})}}" title=" {{ "activitescorporative" | trans }} province {{ clientAleatoire.provinceid.nomen }}" >  {{ clientAleatoire.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomen }} </a></li>
+							{% endif %}
+						{% elseif activitecorpoville is defined %}
+							{% if app.request.locale == "fr" %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activiteCorporativeGroupefr')}}" title=" {{ "activitescorporative" | trans }}" >  {{ "activitescorporative" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activitecorpoprovincefr',{'name':clientAleatoire.provinceid.repertoirefr|lower})}}" title=" {{ "activitescorporative" | trans }} province {{ clientAleatoire.provinceid.nomfr }}" >  {{ clientAleatoire.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activitecorporegionfr',{'name':clientAleatoire.regionid.repertoirefr|lower})}}" title=" {{ "activitescorporative" | trans }} région {{ clientAleatoire.regionid.nomfr }}" >  {{ clientAleatoire.regionid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activiteCorporativeGroupeen')}}" title=" {{ "activitescorporative" | trans }}" >  {{ "activitescorporative" | trans }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activitecorpoprovinceen',{'name':clientAleatoire.provinceid.repertoireen|lower})}}" title=" {{ "activitescorporative" | trans }} province {{ clientAleatoire.provinceid.nomen }}" >  {{ clientAleatoire.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_activitecorporegionen',{'name':clientAleatoire.regionid.repertoireen|lower})}}" title=" {{ "activitescorporative" | trans }} region {{ clientAleatoire.regionid.nomen }}" >  {{ clientAleatoire.regionid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+					{% endif %}
+					{# Centres de santé et spas #}
+					{% if urlcentersante is defined %}
+						{% if app.request.locale == "fr" %}
+							{% if noeudsanteprovince is defined %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+							{% endif %}
+							{% if noeudsanteregion is defined %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_choisirprovincesoin',{'name': clientAleatoire.provinceid.repertoirefr|lower })}}" title="Centre de santé et spas province {{ clientAleatoire.provinceid.nomfr }}" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomfr }} </a></li>
+							{% endif %}
+							{% if noeudsanteville is defined %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_choisirprovincesoin',{'name': clientAleatoire.provinceid.repertoirefr|lower })}}" title="Centre de santé et spas province {{ clientAleatoire.provinceid.nomfr }}" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_choisirprovincesoin',{'name': clientAleatoire.regionid.repertoirefr|lower })}}" title="Centre de santé et spas région {{ clientAleatoire.regionid.nomfr }}" > {{ clientAleatoire.regionid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomfr }} </a></li>
+							{% endif %}
+							{# Type de soins choisi #}
+							{% if metatypesoin is defined %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {% for x in clientAleatoire.typesoinsid %} {{ x.nomfr }} {% endfor %}</a></li>
+							{% endif %}
+							{% if centresoinprovince is defined %}
+								{% for x in clientAleatoire.typesoinsid %}<li>&nbsp;&gt;&nbsp;<a href="{{path('_typesdesoins',{'name': x.repertoirefr|lower })}}" title="{{ "centre.sante.spa" | trans }} {{ x.nomfr|lower }}" > {{ x.nomfr }} </a></li>{% endfor %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.repertoirefr }} </a></li>
+							{% endif %}
+							{% if centresoinregion is defined %}
+								{% for x in clientAleatoire.typesoinsid %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_typesdesoins',{'name': x.repertoirefr|lower })}}" title="Centre de santé et spas {{ x.nomfr|lower }}" > {{ x.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_provincetypesoin',{'name': x.repertoirefr|lower, 'province':clientAleatoire.provinceid.repertoirefr|lower })}}" title="Centre de santé et spas {{ x.nomfr|lower }} province {{ clientAleatoire.provinceid.nomfr }}" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+								{% endfor %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.repertoirefr }} </a></li>
+							{% endif %}
+							{% if centresoinville is defined %}
+								{% for x in clientAleatoire.typesoinsid %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_typesdesoins',{'name': x.repertoirefr|lower })}}" title="Centre de santé et spas {{ x.nomfr|lower }}" > {{ x.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_provincetypesoin',{'name': x.repertoirefr|lower, 'province':clientAleatoire.provinceid.repertoirefr|lower })}}" title="Centre de santé et spas {{ x.nomfr|lower }} province {{ clientAleatoire.provinceid.nomfr }}" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_typedesoinregion',{'name': x.repertoirefr|lower, 'region':clientAleatoire.regionid.repertoirefr|lower })}}" title="Centre de santé et spas {{ x.nomfr|lower }} région {{ clientAleatoire.regionid.nomfr }}" > {{ clientAleatoire.regionid.nomfr }} </a></li>
+								{% endfor %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomfr }} </a></li>
+							{% endif %}
+						{% else %}
+							{% if noeudsanteprovince is defined %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+							{% endif %}
+							{% if noeudsanteregion is defined %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_choisirprovincesoinen',{'name': clientAleatoire.provinceid.repertoireen|lower })}}" title="Health centers spas province {{ clientAleatoire.provinceid.nomen }}" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomen }} </a></li>
+							{% endif %}
+							{% if noeudsanteville is defined %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_choisirprovincesoinen',{'name': clientAleatoire.provinceid.repertoireen|lower })}}" title="Health centers spas province {{ clientAleatoire.provinceid.nomen }}" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_choisirprovincesoinen',{'name': clientAleatoire.provinceid.repertoireen|lower })}}" title="Health centers spas region {{ clientAleatoire.regionid.nomen }}" > {{ clientAleatoire.regionid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomen }} </a></li>
+							{% endif %}
+							{# Type de soins choisi #}
+							{% if metatypesoin is defined %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {% for x in clientAleatoire.typesoinsid %} {{ x.nomen }} {% endfor %}</a></li>
+							{% endif %}
+							{% if centresoinprovince is defined %}
+								{% for x in clientAleatoire.typesoinsid %}<li>&nbsp;&gt;&nbsp;<a href="{{path('_typesdesoinsen',{'name': x.repertoireen|lower })}}" title="{{ "centre.sante.spa" | trans }} {{ x.nomen|lower }}" > {{ x.nomen }} </a></li>{% endfor %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+							{% endif %}
+							{% if centresoinregion is defined %}
+								{% for x in clientAleatoire.typesoinsid %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_typesdesoinsen',{'name':x.repertoireen|lower  })}}" title="Health centers spas {{ x.nomen|lower }} " > {{ x.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_provincetypesoinen',{'name':x.repertoireen|lower ,'province':clientAleatoire.provinceid.repertoireen|lower })}}" title="Health centers spas {{ x.nomen|lower }}  province {{ clientAleatoire.provinceid.nomen }}" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+								{% endfor %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomen }} </a></li>
+							{% endif %}
+							{% if centresoinville is defined %}
+								{% for x in clientAleatoire.typesoinsid %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_typesdesoinsen',{'name':x.repertoireen|lower  })}}" title="Health centers spas {{ x.nomen|lower }} " > {{ x.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_provincetypesoinen',{'name':x.repertoireen|lower ,'province':clientAleatoire.provinceid.repertoireen|lower })}}" title="Health centers spas {{ x.nomen|lower }}  province {{ clientAleatoire.provinceid.nomen }}" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_typedesoinregionen',{'name':x.repertoireen|lower ,'region':clientAleatoire.regionid.repertoireen|lower })}}" title="Health centers spas {{ x.nomen|lower }}  region {{ clientAleatoire.regionid.nomen }}" > {{ clientAleatoire.regionid.nomen }} </a></li>
+								{% endfor %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.villeid.nomen }} </a></li>
+							{% endif %}
+						{% endif %}
+					{% endif %}
+					{# Restaurants #}
+					{% if noeudAriane is defined %}
+						{% if app.request.locale == "fr" %}	
+					 		{% if restoProvince is defined %}
+					 			<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+					 		{% elseif restoRegion is defined %}
+					 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurantregion',{'name': clientAleatoire.provinceid.repertoirefr|lower})}}" title="{{ "restaurant" | trans }} région {{ clientAleatoire.regionid.nomfr }}"> {{ clientAleatoire.provinceid.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomfr }} </a></li>
+							{% elseif restoSpecialite is defined %}
+								{% for x in clientAleatoire.cuisineid %}<li>&nbsp;&gt;&nbsp;<a name="#" > {{ x.nomfr }} </a></li>{% endfor %}
+					 		{% elseif nodeSpecProvince is defined %}
+					 			{% for x in clientAleatoire.cuisineid %}<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurantspecialite',{'nationalite':x.repertoirefr|lower}) }}" title="{{ "restaurant" | trans }} spécialité {{ x.nomfr }}"> {{ x.nomfr }} </a></li>{% endfor %}
+					 			<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomfr }} </a></li>
+							{% elseif restoSpecRegion is defined %}
+								{% for x in clientAleatoire.cuisineid %}<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurantspecialite',{'nationalite':x.repertoirefr|lower}) }}" title="{{ "restaurant" | trans }} spécialité {{ x.nomfr }}"> {{ x.nomfr }} </a></li>
+					 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurantprovincenationalite',{'nationalite':x.nomfr|lower, 'name':clientAleatoire.provinceid.repertoirefr|lower}) }}" title="{{ "restaurant" | trans }} spécialité {{ x.nomfr }} province {{ clientAleatoire.provinceid.nomfr }}"> {{ clientAleatoire.provinceid.nomfr }} </a></li>
+					 			{% endfor %}
+					 			<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomfr }} </a></li>
+					 		{% endif %}
+						{% else %}
+					 		{% if restoProvince is defined %}
+					 			<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+					 		{% elseif restoRegion is defined %}
+					 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurantregion',{'name': clientAleatoire.provinceid.repertoireen|lower})}}" title="{{ "restaurant" | trans }} region {{ clientAleatoire.regionid.nomen }}"> {{ clientAleatoire.provinceid.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomen }} </a></li>
+							{% elseif restoSpecialite is defined %}
+								{% for x in clientAleatoire.cuisineid %}<li>&nbsp;&gt;&nbsp;<a name="#" > {{ x.nomen }} </a></li>{% endfor %}
+					 		{% elseif nodeSpecProvince is defined %}
+					 			{% for x in clientAleatoire.cuisineid %}<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurantspecialite',{'nationalite':x.repertoireen|lower}) }}" title="{{ "restaurant" | trans }} specialite {{ x.nomen }}"> {{ x.nomen }} </a></li>{% endfor %}
+					 			<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.provinceid.nomen }} </a></li>
+							{% elseif restoSpecRegion is defined %}
+								{% for x in clientAleatoire.cuisineid %}<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurantspecialite',{'nationalite':x.repertoireen|lower}) }}" title="{{ "restaurant" | trans }} specialite {{ x.nomen }}"> {{ x.nomen }} </a></li>
+					 			<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurantprovincenationalite',{'nationalite':x.nomen|lower, 'name':clientAleatoire.provinceid.repertoireen|lower}) }}" title="{{ "restaurant" | trans }} specialite {{ x.nomen }} province {{ clientAleatoire.provinceid.nomen }}"> {{ clientAleatoire.provinceid.nomen }} </a></li>
+					 			{% endfor %}
+					 			<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.regionid.nomen }} </a></li>
+					 		{% endif %}
+						{% endif %}
+					{% endif %}
+					
+					{# FIL D'ARIANE POUR LES MINI SITES #}
+					{# Présentation #}
+					{% if menuPresentation is defined and infoComplementaire is defined %}
+						{% for p in client %}
+							{% if app.request.locale == "fr" %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': categorieHebergement.repertoirefr|lower})}}" title="Catégorie - {{ categorieHebergement.nomfr }}" > {{ categorieHebergement.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': p.provinceid.repertoirefr|lower})}}" title="Hébergements province {{ p.provinceid.nomfr }}" >  {{ p.provinceid.nomfr }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecfr',{'name': p.regionid.repertoirefr|lower})}}" title="Hébergements région {{ p.regionid.nomfr }}" >  {{ p.regionid.nomfr }} </a></li>									
+						 		<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ p.nomfr }} </a></li>
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': categorieHebergement.repertoireen|lower})}}" title="Category - {{ categorieHebergement.nomen }}" > {{ categorieHebergement.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': p.provinceid.repertoireen|lower})}}" title="Accommodation province {{ p.provinceid.nomen }}" >  {{ p.provinceid.nomen }} </a></li>
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecen',{'name': p.regionid.repertoireen|lower})}}" title="Accommodation region {{ p.regionid.nomen }}" >  {{ p.regionid.nomen }} </a></li>
+						 		<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ p.nomen }} </a></li>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+					{# Chambres #}
+					{% if menuChambre is defined and infoComplementaire is defined %}
+						{% for p in client %}
+							{% if app.request.locale == "fr" %}		
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': categorieHebergement.repertoirefr|lower})}}" title="Catégorie - {{ categorieHebergement.nomfr }}" > {{ categorieHebergement.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': p.provinceid.repertoirefr|lower})}}" title="Hébergements province {{ p.provinceid.nomfr }}" >  {{ p.provinceid.nomfr }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecfr',{'name': p.regionid.repertoirefr|lower})}}" title="Hébergements région {{ p.regionid.nomfr }}" >  {{ p.regionid.nomfr }} </a></li>															
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoirefr|lower})}}" title="{{ p.nomfr }}"  > {{ p.nomfr }} </a></li>
+							{% else %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': categorieHebergement.repertoireen|lower})}}" title="Category - {{ categorieHebergement.nomen }}" > {{ categorieHebergement.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': p.provinceid.repertoireen|lower})}}" title="Accommodation province {{ p.provinceid.nomen }}" >  {{ p.provinceid.nomen }} </a></li>
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecen',{'name': p.regionid.repertoireen|lower})}}" title="Accommodation region {{ p.regionid.nomen }}" >  {{ p.regionid.nomen }} </a></li>								 		
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoireen|lower})}}" title="{{ p.nomen }}" > {{ p.nomen }} </a></li>
+							{% endif %}
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "chambre.tarif" | trans }} </a></li>
+						{% endfor %}
+					{% endif %}
+					{# Forfaits #}
+					{% if menuForfait is defined and infoComplementaire is defined %}
+						{% for p in client %}
+							{% if app.request.locale == "fr" %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': categorieHebergement.repertoirefr|lower})}}" title="Catégorie - {{ categorieHebergement.nomfr }}" > {{ categorieHebergement.nomfr }} </a></li>	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': p.provinceid.repertoirefr|lower})}}" title="Hébergements province {{ p.provinceid.nomfr }}" >  {{ p.provinceid.nomfr }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecfr',{'name': p.regionid.repertoirefr|lower})}}" title="Hébergements région {{ p.regionid.nomfr }}" >  {{ p.regionid.nomfr }} </a></li>															
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoirefr|lower})}}" title="{{ p.nomfr }}"  > {{ p.nomfr }} </a></li>
+							{% else %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': categorieHebergement.repertoireen|lower})}}" title="Category - {{ categorieHebergement.nomen }}" > {{ categorieHebergement.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': p.provinceid.repertoireen|lower})}}" title="Accommodation province {{ p.provinceid.nomen }}" >  {{ p.provinceid.nomen }} </a></li>
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecen',{'name': p.regionid.repertoireen|lower})}}" title="Accommodation region {{ p.regionid.nomen }}" >  {{ p.regionid.nomen }} </a></li>								 		
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoireen|lower})}}" title="{{ p.nomen }}" > {{ p.nomen }} </a></li>
+							{% endif %}
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "forfait.promotion" | trans }} </a></li>
+						{% endfor %}
+					{% endif %}
+					{# Activités et services #}
+					{% if menuService is defined and infoComplementaire is defined %}
+						{% for p in client %}
+							{% if app.request.locale == "fr" %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': categorieHebergement.repertoirefr|lower})}}" title="Catégorie - {{ categorieHebergement.nomfr }}" > {{ categorieHebergement.nomfr }} </a></li>	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': p.provinceid.repertoirefr|lower})}}" title="Hébergements province {{ p.provinceid.nomfr }}" >  {{ p.provinceid.nomfr }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecfr',{'name': p.regionid.repertoirefr|lower})}}" title="Hébergements région {{ p.regionid.nomfr }}" >  {{ p.regionid.nomfr }} </a></li>															
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoirefr|lower})}}" title="{{ p.nomfr }}" > {{ p.nomfr }} </a></li>						
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': categorieHebergement.repertoireen|lower})}}" title="Category - {{ categorieHebergement.nomen }}" > {{ categorieHebergement.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': p.provinceid.repertoireen|lower})}}" title="Accommodation province {{ p.provinceid.nomen }}" >  {{ p.provinceid.nomen }} </a></li>
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecen',{'name': p.regionid.repertoireen|lower})}}" title="Accommodation region {{ p.regionid.nomen }}" >  {{ p.regionid.nomen }} </a></li>		
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoireen|lower})}}" title="{{ p.nomen }}" > {{ p.nomen }} </a></li>							 			
+							{% endif %}
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "attrait.activite" | trans }} </a></li>
+						{% endfor %}
+					{% endif %}
+					{# Corporatifs #}
+					{% if menuCorporatif is defined and infoComplementaire is defined %}
+						{% for p in client %}
+							{% if app.request.locale == "fr" %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': categorieHebergement.repertoirefr|lower})}}" title="Catégorie - {{ categorieHebergement.nomfr }}" > {{ categorieHebergement.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': p.provinceid.repertoirefr|lower})}}" title="Hébergements province {{ p.provinceid.nomfr }}" >  {{ p.provinceid.nomfr }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecfr',{'name': p.regionid.repertoirefr|lower})}}" title="Hébergements région {{ p.regionid.nomfr }}" >  {{ p.regionid.nomfr }} </a></li>																
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoirefr|lower})}}" title="{{ p.nomfr }}" > {{ p.nomfr }} </a></li>						
+							{% else %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': categorieHebergement.repertoireen|lower})}}" title="Category - {{ categorieHebergement.nomen }}" > {{ categorieHebergement.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': p.provinceid.repertoireen|lower})}}" title="Accommodation province {{ p.provinceid.nomen }}" >  {{ p.provinceid.nomen }} </a></li>
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecen',{'name': p.regionid.repertoireen|lower})}}" title="Accommodation region {{ p.regionid.nomen }}" >  {{ p.regionid.nomen }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoireen|lower})}}" title="{{ p.nomen }}" > {{ p.nomen }} </a></li>							 		
+							{% endif %}
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "corporatif.speciaux" | trans }} </a></li>
+						{% endfor %}
+					{% endif %}
+					{# Galerie photo #}
+					{% if menuGalerie is defined and infoComplementaire is defined %}
+						{% for p in client %}
+							{% if app.request.locale == "fr" %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': categorieHebergement.repertoirefr|lower})}}" title="Catégorie - {{ categorieHebergement.nomfr }}" > {{ categorieHebergement.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': p.provinceid.repertoirefr|lower})}}" title="Hébergements province {{ p.provinceid.nomfr }}" >  {{ p.provinceid.nomfr }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecfr',{'name': p.regionid.repertoirefr|lower})}}" title="Hébergements région {{ p.regionid.nomfr }}" >  {{ p.regionid.nomfr }} </a></li>																
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoirefr|lower})}}" title="{{ p.nomfr }}" > {{ p.nomfr }} </a></li>						
+							{% else %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': categorieHebergement.repertoireen|lower})}}" title="Category - {{ categorieHebergement.nomen }}" > {{ categorieHebergement.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': p.provinceid.repertoireen|lower})}}" title="Accommodation province {{ p.provinceid.nomen }}" >  {{ p.provinceid.nomen }} </a></li>
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecen',{'name': p.regionid.repertoireen|lower})}}" title="Accommodation region {{ p.regionid.nomen }}" >  {{ p.regionid.nomen }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoireen|lower})}}" title="{{ p.nomen }}" > {{ p.nomen }} </a></li>							 		
+							{% endif %}
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "galerie.photo" | trans }} </a></li>
+						{% endfor %}
+					{% endif %}
+					{# Centres de santé #}
+					{% if menuSoinSante is defined and infoComplementaire is defined %}
+						{% for p in client %}
+							{% if app.request.locale == "fr" %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': categorieHebergement.repertoirefr|lower})}}" title="Catégorie - {{ categorieHebergement.nomfr }}" > {{ categorieHebergement.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': p.provinceid.repertoirefr|lower})}}" title="Hébergements province {{ p.provinceid.nomfr }}" >  {{ p.provinceid.nomfr }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecfr',{'name': p.regionid.repertoirefr|lower})}}" title="Hébergements région {{ p.regionid.nomfr }}" >  {{ p.regionid.nomfr }} </a></li>																
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoirefr|lower})}}" title="{{ p.nomfr }}" > {{ p.nomfr }} </a></li>						
+							{% else %}
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': categorieHebergement.repertoireen|lower})}}" title="Category - {{ categorieHebergement.nomen }}" > {{ categorieHebergement.nomen }} </a></li>	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': p.provinceid.repertoireen|lower})}}" title="Accommodation province {{ p.provinceid.nomen }}" >  {{ p.provinceid.nomen }} </a></li>
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecen',{'name': p.regionid.repertoireen|lower})}}" title="Accommodation region {{ p.regionid.nomen }}" >  {{ p.regionid.nomen }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoireen|lower})}}" title="{{ p.nomen }}" > {{ p.nomen }} </a></li>							 		
+							{% endif %}
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "centre.sante.spa" | trans }} </a></li>
+						{% endfor %}
+					{% endif %}
+					{# Restaurants #}
+					{% if menuRestaurant is defined and infoComplementaire != "" %}
+						{% for p in client %}
+							{% if p.hebergementid != "" %} {# AVEC HÉBERGEMENT #}
+								{% if app.request.locale == "fr" %}							
+									<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': categorieHebergement.repertoirefr|lower})}}" title="Catégorie - {{ categorieHebergement.nomfr }}" > {{ categorieHebergement.nomfr }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant_province_index',{'name': p.provinceid.repertoirefr|lower})}}" title="Province - {{ p.provinceid.nomfr }}" > {{ p.provinceid.nomfr }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant_province_index',{'name': p.regionid.repertoirefr|lower})}}" title="Région - {{ p.regionid.nomfr }}" > {{ p.regionid.nomfr }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant_province_index',{'name': p.hebergementid.repertoirefr|lower})}}" title="{{ p.hebergementid.nomfr }}" > {{ p.hebergementid.nomfr }} </a></li>
+								{% else %}
+									<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': categorieHebergement.repertoireen|lower})}}" title="Category - {{ categorieHebergement.nomen }}" > {{ categorieHebergement.nomen }} </a></li>
+									<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant_province_index',{'name': p.provinceid.repertoireen|lower})}}" title="Province - {{ p.provinceid.nomen }}" > {{ p.provinceid.nomen }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant_province_index',{'name': p.regionid.repertoireen|lower})}}" title="Region - {{ p.regionid.nomen }}" > {{ p.regionid.nomen }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant_province_index',{'name': p.hebergementid.repertoireen|lower})}}" title="{{ p.hebergementid.nomen }}" > {{ p.hebergementid.nomen }} </a></li>
+								{% endif %}
+							{% else %}
+								{% if app.request.locale == "fr" %}							
+							 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant_province_index',{'name': p.provinceid.repertoirefr|lower})}}" title="Hébergement - {{ p.provinceid.nomfr }}" > {{ p.provinceid.nomfr }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant_province_index',{'name': p.categorieattrait.repertoirefr|lower})}}" title="{{ p.categorieattrait.nomfr }}" > {{ p.categorieattrait.nomfr }} </a></li>
+								{% else %}
+									<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant_province_index',{'name': p.provinceid.repertoireen|lower})}}" title="Hébergement - {{ p.provinceid.nomen }}" > {{ p.provinceid.nomen }} </a></li>
+							 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_restaurant_province_index',{'name': p.categorieattrait.repertoireen|lower})}}" title="{{ p.categorieattrait.nomen }}" > {{ p.categorieattrait.nomen }} </a></li>
+								{% endif %}
+							{% endif %}
+									<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" title="Hébergement - {{ "restaurant" | trans }}" > {{ "restaurant" | trans }} </a></li>
+						 {% endfor %}
+					{% endif %}
+					{# Information / réservation #}
+					{% if menuReservation is defined and infoComplementaire is defined %}
+						{% for p in client %}
+							{% if app.request.locale == "fr" %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': categorieHebergement.repertoirefr|lower})}}" title="Catégorie - {{ categorieHebergement.nomfr }}" > {{ categorieHebergement.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': p.provinceid.repertoirefr|lower})}}" title="Hébergements province {{ p.provinceid.nomfr }}" >  {{ p.provinceid.nomfr }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecfr',{'name': p.regionid.repertoirefr|lower})}}" title="Hébergements région {{ p.regionid.nomfr }}" >  {{ p.regionid.nomfr }} </a></li>																
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoirefr|lower})}}" title="{{ p.nomfr }}" > {{ p.nomfr }} </a></li>						
+							{% else %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': categorieHebergement.repertoireen|lower})}}" title="Category - {{ categorieHebergement.nomen }}" > {{ categorieHebergement.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': p.provinceid.repertoireen|lower})}}" title="Accommodation province {{ p.provinceid.nomen }}" >  {{ p.provinceid.nomen }} </a></li>
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecen',{'name': p.regionid.repertoireen|lower})}}" title="Accommodation region {{ p.regionid.nomen }}" >  {{ p.regionid.nomen }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoireen|lower})}}" title="{{ p.nomen }}" > {{ p.nomen }} </a></li>							 		
+							{% endif %}
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "information.reservation" | trans }} </a></li>
+						{% endfor %}
+					{% endif %}
+					{# Directions routières #}
+					{% if menuDirectionRoutiere is defined and infoComplementaire is defined %}
+						{% for p in client %}
+							{% if app.request.locale == "fr" %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypefr',{'name': categorieHebergement.repertoirefr|lower})}}" title="Catégorie - {{ categorieHebergement.nomfr }}" > {{ categorieHebergement.nomfr }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': p.provinceid.repertoirefr|lower})}}" title="Hébergements province {{ p.provinceid.nomfr }}" >  {{ p.provinceid.nomfr }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecfr',{'name': p.regionid.repertoirefr|lower})}}" title="Hébergements région {{ p.regionid.nomfr }}" >  {{ p.regionid.nomfr }} </a></li>																
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoirefr|lower})}}" title="{{ p.nomfr }}" > {{ p.nomfr }} </a></li>						
+							{% else %}	
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementtypeen',{'name': categorieHebergement.repertoireen|lower})}}" title="Category - {{ categorieHebergement.nomen }}" > {{ categorieHebergement.nomen }} </a></li>
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': p.provinceid.repertoireen|lower})}}" title="Accommodation province {{ p.provinceid.nomen }}" >  {{ p.provinceid.nomen }} </a></li>
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementregionsquebecen',{'name': p.regionid.repertoireen|lower})}}" title="Accommodation region {{ p.regionid.nomen }}" >  {{ p.regionid.nomen }} </a></li>			
+								<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementinfoclient',{'name': p.repertoireen|lower})}}" title="{{ p.nomen }}" > {{ p.nomen }} </a></li>							 		
+							{% endif %}
+								<li>&nbsp;&gt;&nbsp;<a name="javascript:void(0)" > {{ "direction.routiere" | trans }} </a></li>
+						{% endfor %}
+					{% endif %}
+					{# FIN DES FILS D'ARIANE POUR LES MINI SITES #}
+					
+					{# Forfaits #}
+					{% if menuForfait is defined %}
+							{% if province is defined %} {# noeud ariane pour la recherche par province #} {# ex forfait > province  #}
+								{% for p in province %}
+									{% if app.request.locale == "fr" %}											
+								 		<li>&nbsp;&gt;&nbsp;<a name="#" > {{ p.nomfr }} </a></li>
+									{% else %}									 		
+								 		<li>&nbsp;&gt;&nbsp;<a name="#" > {{ p.nomen }} </a></li>
+									{% endif %}			
+								{% endfor %}
+							{% elseif region is defined %} {# noeud ariane pour la recherche avec la région #} {# ex forfait > province > région #}
+								{% for p in region %}
+									{% if app.request.locale == "fr" %}											
+								 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsprovincefr',{'name': p.provinceetatid.repertoirefr|lower})}}" title=" {{ "forfait" | trans }} province - {{ p.provinceetatid.nomfr }}" > {{ p.provinceetatid.nomfr }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a name="#" > {{ p.nomfr }} </a></li>
+									{% else %}									 		
+								 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsprovinceen',{'name': p.provinceetatid.repertoireen|lower})}}" title=" {{ "forfait" | trans }} province - {{ p.provinceetatid.nomen }}" > {{ p.provinceetatid.nomen }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a name="#" > {{ p.nomen }} </a></li>
+									{% endif %}
+								{% endfor %}
+							{% elseif titleVille is defined %}
+								{% if app.request.locale == "fr" %}
+									<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsprovincefr',{'name': clientAleatoire.hebergementid.provinceid.repertoirefr|lower})}}" title=" {{ "forfait" | trans }} province {{ clientAleatoire.hebergementid.provinceid.nomfr }}" > {{ clientAleatoire.hebergementid.provinceid.nomfr }} </a></li>
+									<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsregionsfr',{'name': clientAleatoire.hebergementid.regionid.repertoirefr|lower})}}" title=" {{ "forfait" | trans }} région {{ clientAleatoire.hebergementid.regionid.nomfr }}" > {{ clientAleatoire.hebergementid.regionid.nomfr }} </a></li>
+									<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergementid.villeid.nomfr }} </a></li>
+								{% else %}
+									<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsprovinceen',{'name': clientAleatoire.hebergementid.provinceid.repertoireen|lower})}}" title=" {{ "forfait" | trans }} province {{ clientAleatoire.hebergementid.provinceid.nomen }}" > {{ clientAleatoire.hebergementid.provinceid.nomen }} </a></li>
+									<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsregionsen',{'name': clientAleatoire.hebergementid.regionid.repertoireen|lower})}}" title=" {{ "forfait" | trans }} region {{ clientAleatoire.hebergementid.regionid.nomen }}" > {{ clientAleatoire.hebergementid.regionid.nomen }} </a></li>
+									<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergementid.villeid.nomen }} </a></li>
+								{% endif %}
+							{% elseif filarianeforfaitindex is defined %} {# noeud d'ariane pour l'index #} {# ex forfait > type de forfait #}
+									{% if app.request.locale == "fr" %}											
+								 		<li>&nbsp;&gt;&nbsp;<a name="#" > {{ filarianeforfaitindex.nom_fr }} </a></li>
+									{% else %}									 		
+								 		<li>&nbsp;&gt;&nbsp;<a name="#" > {{ filarianeforfaitindex.nom_en }} </a></li>
+									{% endif %}
+							{% elseif activite is defined %} {# noeud ariane pour la recherche par forfaits #} {# ex forfait > province > région > ville > type de forfait #}
+									{% if app.request.locale == "fr" %}											
+								 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': clientAleatoire.hebergementid.provinceid.repertoirefr|lower})}}" title=" Province - {{ clientAleatoire.hebergementid.provinceid.nomfr }}" > {{ clientAleatoire.hebergementid.provinceid.nomfr }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': clientAleatoire.hebergementid.regionid.repertoirefr|lower})}}" title=" Région - {{ clientAleatoire.hebergementid.regionid.nomfr }}" > {{ clientAleatoire.hebergementid.regionid.nomfr }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': clientAleatoire.hebergementid.villeid.repertoirefr|lower})}}" title=" Ville - {{ clientAleatoire.hebergementid.villeid.nomfr }}" > {{ clientAleatoire.hebergementid.villeid.nomfr }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.forfaitclientid.nomfr }} </a></li>
+									{% else %}									 		
+								 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': clientAleatoire.hebergementid.provinceid.repertoireen|lower})}}" title=" Province - {{ clientAleatoire.hebergementid.provinceid.nomen }}" > {{ clientAleatoire.hebergementid.provinceid.nomen }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': clientAleatoire.hebergementid.regionid.repertoireen|lower})}}" title=" Region - {{ clientAleatoire.hebergementid.regionid.nomen }}" > {{ clientAleatoire.hebergementid.regionid.nomen }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': clientAleatoire.hebergementid.villeid.repertoireen|lower})}}" title=" city - {{ clientAleatoire.hebergementid.villeid.nomen }}" > {{ clientAleatoire.hebergementid.villeid.nomen }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.forfaitclientid.nomen }} </a></li>
+									{% endif %}
+							{% elseif activiteProvince is defined %}
+									{% if app.request.locale == "fr" %}
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteindexfr',{'name': clientAleatoire.forfaitclientid.repertoirefr|lower})}}" title=" Forfaits - {{ clientAleatoire.forfaitclientid.nomfr|lower }}" > {{ clientAleatoire.forfaitclientid.nomfr }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergementid.provinceid.nomfr }} </a></li>
+									{% else %}
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteindexen',{'name': clientAleatoire.forfaitclientid.repertoireen|lower})}}" title=" Packages - {{ clientAleatoire.forfaitclientid.nomen|lower }}" > {{ clientAleatoire.forfaitclientid.nomen }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergementid.provinceid.nomen }} </a></li>
+									{% endif %}
+							{% elseif activiteRegion is defined %} 
+									{% if app.request.locale == "fr" %}
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteindexfr',{'name': clientAleatoire.forfaitclientid.repertoirefr|lower})}}" title=" Forfaits - {{ clientAleatoire.forfaitclientid.nomfr|lower }}" > {{ clientAleatoire.forfaitclientid.nomfr }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteprovincefr',{'activite': clientAleatoire.forfaitclientid.repertoirefr|lower, 'name':clientAleatoire.hebergementid.provinceid.nomfr|lower})}}" title=" Forfaits {{ clientAleatoire.forfaitclientid.nomfr|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomfr }}" > {{ clientAleatoire.hebergementid.provinceid.nomfr }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergementid.regionid.nomfr }} </a></li>
+									{% else %}
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteindexen',{'name': clientAleatoire.forfaitclientid.repertoireen|lower})}}" title=" Packages - {{ clientAleatoire.forfaitclientid.nomen|lower }}" > {{ clientAleatoire.forfaitclientid.nomen }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteprovinceen',{'activite': clientAleatoire.forfaitclientid.repertoireen|lower, 'name':clientAleatoire.hebergementid.provinceid.nomen|lower})}}" title=" Packages {{ clientAleatoire.forfaitclientid.nomen|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomen }}" > {{ clientAleatoire.hebergementid.provinceid.nomen }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergementid.regionid.nomen }} </a></li>
+									{% endif %}
+							{% elseif activiteVille is defined %}
+									{% if app.request.locale == "fr" %}
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteindexfr',{'name': clientAleatoire.forfaitclientid.repertoirefr|lower})}}" title=" Forfaits - {{ clientAleatoire.forfaitclientid.nomfr|lower }}" > {{ clientAleatoire.forfaitclientid.nomfr }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteprovincefr',{'activite': clientAleatoire.forfaitclientid.repertoirefr|lower, 'name':clientAleatoire.hebergementid.provinceid.nomfr|lower})}}" title=" Forfaits {{ clientAleatoire.forfaitclientid.nomfr|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomfr }}" > {{ clientAleatoire.hebergementid.provinceid.nomfr }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteregion',{'activite': clientAleatoire.forfaitclientid.repertoirefr|lower, 'name':clientAleatoire.hebergementid.regionid.nomfr|lower})}}" title=" Forfaits {{ clientAleatoire.forfaitclientid.nomfr|lower }} région {{ clientAleatoire.hebergementid.regionid.nomfr }}" > {{ clientAleatoire.hebergementid.regionid.nomfr }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergementid.villeid.nomfr }} </a></li>
+									{% else %}
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteindexen',{'name': clientAleatoire.forfaitclientid.repertoireen|lower})}}" title=" Packages - {{ clientAleatoire.forfaitclientid.nomen|lower }}" > {{ clientAleatoire.forfaitclientid.nomen }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteprovinceen',{'activite': clientAleatoire.forfaitclientid.repertoireen|lower, 'name':clientAleatoire.hebergementid.provinceid.nomen|lower})}}" title=" Packages {{ clientAleatoire.forfaitclientid.nomen|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomen }}" > {{ clientAleatoire.hebergementid.provinceid.nomen }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a href="{{path('_forfaitsactiviteregionen',{'activite': clientAleatoire.forfaitclientid.repertoireen|lower, 'name':clientAleatoire.hebergementid.regionid.nomen|lower})}}" title=" Packages {{ clientAleatoire.forfaitclientid.nomen|lower }} region {{ clientAleatoire.hebergementid.regionid.nomen }}" > {{ clientAleatoire.hebergementid.regionid.nomen }} </a></li>
+										<li>&nbsp;&gt;&nbsp;<a name="#" > {{ clientAleatoire.hebergementid.villeid.nomen }} </a></li>
+									{% endif %}
+							{% endif %}
+					{% endif %}
+					{# Galerie #}
+					{% if menuGalerie is defined and infoComplementaire is not defined%}
+						{% for p in client %}
+							{% if app.request.locale == "fr" %}
+								{% for w in p.categoriehebergementid %}
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovincefr',{'name': p.repertoirefr|lower})}}" title=" {{ w.nomfr }} - {{ p.nomfr }}" > {{ p.nomfr }} </a></li>
+								{% endfor %}
+							{% else %}	
+								{% for w in p.categoriehebergementid %}								 
+						 		<li>&nbsp;&gt;&nbsp;<a href="{{path('_hebergementprovinceen',{'name': p.repertoireen|lower})}}" title=" {{ w.nomen }} - {{ p.nomen }}" > {{ p.nomen }} </a></li>
+								{% endfor %}
+							{% endif %}
+								<li>&nbsp;&gt;&nbsp;<a name="#" > {{ "galerie.photo" | trans }} </a></li>
+						{% endfor %}
+					{% endif %}
+</ul>

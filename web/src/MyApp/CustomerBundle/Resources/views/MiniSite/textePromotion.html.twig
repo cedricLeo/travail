@@ -1,0 +1,22 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+	<h1>Descriptif pour les forfaits</h1>
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">		
+				    {{ form_label(form.texte_minisite_forfait_fr, "description.fr *" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_minisite_forfait_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.texte_minisite_forfait_fr ) }}				    
+				    {{ form_label(form.texte_minisite_forfait_en, "description.en *" | trans, {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_minisite_forfait_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.texte_minisite_forfait_en ) }}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer"/>
+				    <a href="{{ path('_Dashboard_zones') }}" class="boutonannuler"></a>
+				</form>
+			   <br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

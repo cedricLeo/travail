@@ -1,0 +1,125 @@
+{% block descriptifRestaurant %}	
+{# CARTE ROUTIÈRE DU RESTAURANT #}
+	<div class="google_apiV3">
+		<h2>{{ "direction.routiere" | trans }} </h2>
+                
+		{% for w in client %}
+			{% if app.request.locale == "fr" %}
+				{% if w.descriptionhebergementfr.textedirectionroutierepersofr is defined and w.descriptionhebergementfr.textedirectionroutierepersofr is not empty %}
+                                    <div class="textedirectionperso">{{ txtRoutierFr|raw }}</div>
+				{% endif %}
+			{% else %}
+				{% if w.descriptionhebergementen.textedirectionroutierepersoen is defined and w.descriptionhebergementen.textedirectionroutierepersoen is not empty %}
+                                    <div class="textedirectionperso">{{ txtRoutierEn|raw }}</div>
+				{% endif %}
+			{% endif %}
+		{% endfor %}                
+		{# CARTE GOOGLE MAP #}
+		<div id="map">
+			<p class="load"> 
+				{{ "chargement" | trans }}
+			</p>
+		</div>
+	</div>	
+	{# FORMULAIRE DE SAISIE POINT DE DÉPART ET D'ARRIVÉE #}
+     <form action="" method="get" name="direction" id="direction">
+     	 <br />
+         <label>{{ "depart" | trans }} :</label>
+         <input type="text" name="origin" id="origin">
+         <br />
+         <label>Destination :</label>
+         <input type="text" name="destination" id="destination" value="{% for w in client %} {{ w.adresse }}, {{ w.villeid.nomfr }} {% endfor %}">
+         <br />
+         <input type="button" value="{{ "calcul.initeraire" | trans }}" onclick="javascript:calculate()" class="calculItineraire"/>
+         <input type="button" value="{{ "imprimer" | trans }}" onclick="if (window.print) window.print();return false" class="imprimerItineraire" />
+     </form>
+	{# PUB GOOGLE #}
+		  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+		  	<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_01'); });
+			</script>
+		  </div>	
+		  
+	<div id="panel"></div>
+        
+	{% block javascripts %}			
+	    	   {% for w in client %}
+	    	    <script type="text/javascript">
+	    	    var map;
+	    	    var panel;
+	    	    var initialize;
+	    	    var calculate;
+	    	    var direction;
+
+	    	    initialize = function(){
+	    	    {% if w.latitude is defined and w.longitude is defined and w.latitude != 0 and w.longitude != 0 %}	//On regarde s'il existe des coordonnées pour l'attrait
+	    	       var latLng = new google.maps.LatLng({{ w.latitude }}, {{ w.longitude }}); 
+	    	    {% elseif w.hebergementid.latitude is defined and w.hebergementid.longitude is defined and w.hebergementid.latitude != 0 and w.hebergementid.longitude != 0 %}				//Sinon on regarde si l'hébergement en contient
+	    	       var latLng = new google.maps.LatLng({{ w.hebergementid.latitude }}, {{ w.hebergementid.longitude }}); 
+	    	    {% endif %}
+	    	      var myOptions = {
+	    	        zoom      : 14, // Zoom par défaut
+	    	        center    : latLng, // Coordonnées de départ de la carte de type latLng 
+	    	        mapTypeId : google.maps.MapTypeId.ROADMAP, // Type de carte, différentes valeurs possible HYBRID, ROADMAP, SATELLITE, TERRAIN
+	    	        maxZoom   : 20
+	    	      };
+	    	      
+	    	      map      = new google.maps.Map(document.getElementById('map'), myOptions);
+	    	      panel    = document.getElementById('panel');
+	    	      
+	    	      var marker = new google.maps.Marker({
+	    	        position : latLng,
+	    	        map      : map,
+	    	      });
+	    	      
+	    	      var contentMarker = [
+	    	          '<div id="containerTabs">',
+	    	          '<p style="font-weight:bold;">{{ w.nomfr }}</p>',
+	    	          {% if w.photocategoriepayante is not empty %}
+	    	          	'<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.id }}/{{ w.photocategoriepayante }}" alt="{{ w.nomfr }}" style="width:150px; height:100px;"/>',
+	    	          {% endif %}
+	    	          '</div>'
+	    	      ].join('');
+
+	    	      var infoWindow = new google.maps.InfoWindow({
+	    	        content  : contentMarker,
+	    	        position : latLng
+	    	      });
+	    	      
+	    	      google.maps.event.addListener(marker, 'mouseover', function() {
+	    	        infoWindow.open(map,marker);
+	    	      });
+	    	      
+	    	      google.maps.event.addListener(infoWindow, 'domready', function(){ // infoWindow est biensûr notre info-bulle
+	    	        jQuery("#tabs").tabs();
+	    	      });
+	    	      
+	    	      
+	    	      direction = new google.maps.DirectionsRenderer({
+	    	        map   : map,
+	    	        panel : panel // Dom element pour afficher les instructions d'itinéraire
+	    	      });
+	    	    };         
+
+	    	    calculate = function(){
+	    	        origin      = document.getElementById('origin').value; // Le point départ
+	    	        destination = document.getElementById('destination').value; // Le point d'arrivé
+	    	        if(origin && destination){
+	    	            var request = {
+	    	                origin      : origin,
+	    	                destination : destination,
+	    	                travelMode  : google.maps.DirectionsTravelMode.DRIVING // Mode de conduite
+	    	            }
+	    	            var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
+	    	            directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
+	    	                if(status == google.maps.DirectionsStatus.OK){
+	    	                    direction.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
+	    	                }
+	    	            });
+	    	        }
+	    	    };
+	    	    initialize();                                       
+                </script>
+           {% endfor %}  
+	{% endblock %}	
+{% endblock %}

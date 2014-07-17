@@ -1,0 +1,92 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+	<h1>Textes d'accueil pour les sections du site</h1> 
+		<a href="{{ path('_Dashboard_gestionTexteAccueil_en') }}" style="color: #0073AE; text-decoration:none; margin-left:10px;" title="Textes d'accueil des sections du portail pour la version anglaise" >Textes d'accueil version anglaise <span class="flag_en ajustelabelen"></span></a>
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+                                    {{ form_label(form.texte_complementaire.titre_accueil_fr, "Titre accueil FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.titre_accueil_fr, {'attr':{'class':'txt_add_state_title'}}) }}
+                                    {{ form_label(form.texte_complementaire.texte_accueil_meta_fr, "Meta accueil FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.texte_accueil_meta_fr, {'attr':{'class':'txt_add_state_txt'}}) }}	
+				    {{ form_label(form.texte_accueil_fr, "Texte section accueil FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_accueil_fr, {'attr':{'class':'txt_add_state_txt'}}) }}
+                                    {{ form_label(form.texte_complementaire.titre_hebergement_fr, "Titre hébergement FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.titre_hebergement_fr, {'attr':{'class':'txt_add_state_title'}}) }}
+				    {{ form_label(form.texte_complementaire.texte_accueil_hebergement_meta_fr, "Meta hébergemnt FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.texte_accueil_hebergement_meta_fr, {'attr':{'class':'txt_add_state_txt'}}) }}	
+                                    {{ form_label(form.texte_accueil_hebergement_fr, "Texte section hébergement FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_accueil_hebergement_fr, {'attr':{'class':'txt_add_state_txt'}}) }}
+                                    {{ form_label(form.texte_complementaire.titre_forfait_fr, "Titre forfait FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.titre_forfait_fr, {'attr':{'class':'txt_add_state_title'}}) }}
+                                    {{ form_label(form.texte_complementaire.texte_accueil_forfait_meta_fr, "Meta forfait FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.texte_accueil_forfait_meta_fr, {'attr':{'class':'txt_add_state_txt'}}) }}	
+				    {{ form_label(form.texte_accueil_forfait_fr, "Texte section forfait FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_accueil_forfait_fr, {'attr':{'class':'txt_add_state_txt'}}) }}
+                                    {{ form_label(form.texte_complementaire.titre_corporatif_fr, "Titre corporatif FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.titre_corporatif_fr, {'attr':{'class':'txt_add_state_title'}}) }}
+				    {{ form_label(form.texte_complementaire.texte_accueil_corporatif_meta_fr, "Meta corporatif FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.texte_accueil_corporatif_meta_fr, {'attr':{'class':'txt_add_state_txt'}}) }}	
+                                    {{ form_label(form.texte_accueil_corporatif_fr, "Texte section corporatif FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_accueil_corporatif_fr, {'attr':{'class':'txt_add_state_txt'}}) }}	
+                                    {{ form_label(form.texte_complementaire.titre_sante_fr, "Titre santé FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.titre_sante_fr, {'attr':{'class':'txt_add_state_title'}}) }}
+				    {{ form_label(form.texte_complementaire.texte_accueil_sante_meta_fr, "Meta sante FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.texte_accueil_sante_meta_fr, {'attr':{'class':'txt_add_state_txt'}}) }}	
+                                    {{ form_label(form.texte_accueil_sante_fr, "Texte section centre de santé FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_accueil_sante_fr, {'attr':{'class':'txt_add_state_txt'}}) }}    
+                                    {{ form_label(form.texte_complementaire.titre_attrait_fr, "Titre attrait FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.titre_attrait_fr, {'attr':{'class':'txt_add_state_title'}}) }}
+				    {{ form_label(form.texte_complementaire.texte_accueil_attrait_meta_fr, "Meta attrait FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.texte_accueil_attrait_meta_fr, {'attr':{'class':'txt_add_state_txt'}}) }}	
+                                    {{ form_label(form.texte_accueil_attrait_fr, "Texte section attrait FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_accueil_attrait_fr, {'attr':{'class':'txt_add_state_txt'}}) }}		
+                                    {{ form_label(form.texte_complementaire.titre_promotion_fr, "Titre promotion FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.titre_promotion_fr, {'attr':{'class':'txt_add_state_title'}}) }}
+				    {{ form_label(form.texte_complementaire.texte_accueil_promotion_meta_fr, "Meta promotion FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.texte_accueil_promotion_meta_fr, {'attr':{'class':'txt_add_state_txt'}}) }}	
+                                    {{ form_label(form.texte_accueil_promotion_fr, "Texte section promotions FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_accueil_promotion_fr, {'attr':{'class':'txt_add_state_txt'}}) }}
+                                    {{ form_label(form.texte_complementaire.titre_restaurant_fr, "Titre restaurant FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.titre_restaurant_fr, {'attr':{'class':'txt_add_state_title'}}) }}
+				    {{ form_label(form.texte_complementaire.texte_accueil_restaurant_meta_fr, "Meta restaurant FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_complementaire.texte_accueil_restaurant_meta_fr, {'attr':{'class':'txt_add_state_txt'}}) }}	
+                                    {{ form_label(form.texte_accueil_restaurant_fr, "Texte section restaurant FR", {'attr':{'class':'lblnompays_txt flag_fr'}}) }}
+				    {{ form_widget(form.texte_accueil_restaurant_fr, {'attr':{'class':'txt_add_state_txt'}}) }}	
+				    
+				    <script>
+						//Texte accueil fr
+					    	CKEDITOR.replace( 'add_texte_accueil_texte_accueil_fr' );
+					    	document.getElementById("add_texte_accueil_texte_accueil_fr").innerHTML = "{{ txtaccueilfr }}";                                                 
+					    	//Texte hébergement fr
+					    	CKEDITOR.replace( 'add_texte_accueil_texte_accueil_hebergement_fr' );
+					    	document.getElementById("add_texte_accueil_texte_accueil_hebergement_fr").innerHTML = "{{ txthebergementfr }}";
+					    	//Texte forfait fr
+					    	CKEDITOR.replace( 'add_texte_accueil_texte_accueil_forfait_fr' );
+					    	document.getElementById("add_texte_accueil_texte_accueil_forfait_fr").innerHTML = "{{ txtforfaitfr }}";
+					    	//Texte corporatif fr
+					    	CKEDITOR.replace( 'add_texte_accueil_texte_accueil_corporatif_fr' );
+					    	document.getElementById("add_texte_accueil_texte_accueil_corporatif_fr").innerHTML = "{{ txtcorporatiffr }}";
+					    	//Texte centre de santé fr
+					    	CKEDITOR.replace( 'add_texte_accueil_texte_accueil_sante_fr' );
+					    	document.getElementById("add_texte_accueil_texte_accueil_sante_fr").innerHTML = "{{ txtsantefr }}";
+					    	//Texte attrait fr
+					    	CKEDITOR.replace( 'add_texte_accueil_texte_accueil_attrait_fr' );
+					    	document.getElementById("add_texte_accueil_texte_accueil_attrait_fr").innerHTML = "{{ txtattraitfr }}";
+					    	//Texte promotion fr
+					    	CKEDITOR.replace( 'add_texte_accueil_texte_accueil_promotion_fr' );
+					    	document.getElementById("add_texte_accueil_texte_accueil_promotion_fr").innerHTML = "{{ txtpromotionfr }}";
+					    	//Texte restaurant fr
+					    	CKEDITOR.replace( 'add_texte_accueil_texte_accueil_restaurant_fr' );
+					    	document.getElementById("add_texte_accueil_texte_accueil_restaurant_fr").innerHTML = "{{ txtrestaurantfr }}";
+				    </script>		    
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_acompte') }}" class="boutonannuler"></a>
+				</form>
+			  <br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

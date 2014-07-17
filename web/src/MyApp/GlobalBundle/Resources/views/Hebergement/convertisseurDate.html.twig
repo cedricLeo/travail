@@ -1,0 +1,15 @@
+{% for w in listForfait %}
+	{% if w.datedebut|date('F') == "January" %} janvier 
+	{% elseif w.datedebut|date('F') == "February" %} février
+	{% elseif w.datedebut|date('F') == "March" %} mars
+	{% elseif w.datedebut|date('F') == "April" %} avril
+	{% elseif w.datedebut|date('F') == "May" %} mai
+	{% elseif w.datedebut|date('F') == "June" %} juin
+	{% elseif w.datedebut|date('F') == "Juillet" %} juillet
+	{% elseif w.datedebut|date('F') == "August" %} août
+	{% elseif w.datedebut|date('F') == "September" %} septembre
+	{% elseif w.datedebut|date('F') == "October" %} octobre
+	{% elseif w.datedebut|date('F') == "November" %} novembre
+	{% else %}décembre
+	{% endif %}
+{% endfor %}

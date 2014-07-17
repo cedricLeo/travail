@@ -1,0 +1,137 @@
+
+{# LISTE DES CLIENTS POUR LA RÉGION #}
+{% if app.request.locale == "fr" %} 
+       {% for w in listclient %}
+         <div itemscope itemtype="http://schema.org/LocalBusiness"> 
+          {# <div><a href="#"><img src="images/monItineraire.png" width="187" height="136" alt="Mon itinéraire" /></a></div>#}
+           <a href="{{ path('_hebergementinfoclient',{'name':w.repertoirefr|lower}) }}" title="{{ w.nomfr }} région {{ w.regionid.nomfr }}" target="_blank">
+           	{% if w.photocategoriepayante is not empty %}
+                    <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.id }}/{{ w.photocategoriepayante }}" class="imgListeRegion" alt="{{ w.nomfr }} région {{ w.regionid.nomfr }}" />
+                {% else %}
+                    <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="imgListeRegion" alt="{{ w.nomfr }} région {{ w.regionid.nomfr }}" />
+                {% endif %}
+           </a>
+           <div class="listetexte">
+           {% if  w.classificationid != "" %}
+                <img class="etoile" src="{{ asset('uploads/classifications') }}/{{ w.classificationid.id }}/{{ w.classificationid.image }}"  alt="{{ w.classificationid.valeur }}" />
+           {% endif %}
+             <h2 itemprop="name"><a itemprop="url" href="{{ path('_hebergementinfoclient',{'name':w.repertoirefr|lower}) }}" title="{{ w.nomfr }} région {{ w.regionid.nomfr }}" target="_blank">{{ w.nomfr }}</a></h2>
+                {% if w.texteresumefr is not empty %}
+                    {% if w.prixapartir is not empty %}
+                        <p itemprop="description">{{ w.texteresumefr|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(120, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.repertoirefr|lower }) }}" title="Plus d’information {{ w.nomfr }} " target="_blank">Plus d’information</a></p>
+                    {% else %}
+                        <p itemprop="description">{{ w.texteresumefr|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(180, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.repertoirefr|lower }) }}" title="Plus d’information {{ w.nomfr }} " target="_blank">Plus d’information</a></p>
+                    {% endif %}
+                {% else %}
+                    {% if w.prixapartir is not empty %}
+                        <p itemprop="description">{{ w.textedescriptionfr|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(120, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.repertoirefr|lower }) }}" title="Plus d’information {{ w.nomfr }} " target="_blank">Plus d’information</a></p>
+                    {% else %}
+                        <p itemprop="description">{{ w.textedescriptionfr|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(180, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.repertoirefr|lower }) }}" title="Plus d’information {{ w.nomfr }} " target="_blank">Plus d’information</a></p>
+                    {% endif %}
+                {% endif %}
+             <ul class="telephone">	
+             	{% if w.prixapartir is not empty %}	
+               		<li>Prix moyen : <a href="javascript:void(0)" rel="nofollow"> </a> {{ w.prixapartir|replace({"%$%" : " "}) }} $ <select>{% for s in w.deviseid %} <option>{{ s.abreviation }}</option> {% endfor %}</select></li>
+                {% endif %}
+                        <li itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">Ville de <span itemprop="addressLocality" class="microdataVille">{{ w.villeid.nomfr }}</span> {%if w.latitude != 0 and w.longitude != 0 %}<br /> [ <a href="{{ path('_hebergementdirectionroutiere',{'name':w.repertoirefr|lower}) }}" target="_blank" title="{{ "direction.routiere" |trans }} {{ w.nomfr }}"> Voir sur la carte </a> ]{% endif %}</li>
+               {#<li>18 commentaires <img src="images/commentaire7.gif" width="81" height="11" alt="" /> 7/10</li>#}
+               {#<li  class="itineraire"><a href="#">Voir mon itinéraire</a></li>#}
+           	 </ul>
+           	    {% if w.reservitid is not empty %}
+	           	<a class="btreservation hackbtn" href="http://reservation.global-reservation.com/reservit/avail-info.php?hotelid={{ w.reservitid }}" target="_blank" rel="nofollow" title="Réservation en ligne pour {{ w.nomfr }}" >{{ "reservation.ligne" | trans }}</a>
+	            {% endif %}
+           </div>
+            <br />
+         </div> 
+       {% endfor %}
+{% else %}
+       {% for w in listclient %}
+         <div itemscope itemtype="http://schema.org/LocalBusiness">
+          {# <div><a href="#"><img src="images/monItineraire.png" width="187" height="136" alt="Mon itinéraire" /></a></div>#}
+           <a href="{{ path('_hebergementinfoclient',{'name':w.repertoireen|lower}) }}" title="{{ w.nomen }} region {{ w.regionid.nomen }}" target="_blank">
+               {% if w.photocategoriepayante is not empty %} 
+                    <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.id }}/{{ w.photocategoriepayante }}" class="imgListeRegion" alt="{{ w.nomen }} region {{ w.regionid.nomen }}" /></a>
+               {% else %}
+                    <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="imgListeRegion" alt="{{ w.nomen }} region {{ w.regionid.nomen }}" />
+               {% endif %}
+           <div class="listetexte">
+           {% if  w.classificationid != "" %}
+                <img class="etoile" src="{{ asset('uploads/classifications') }}/{{ w.classificationid.id }}/{{ w.classificationid.image }}"  alt="{{ w.classificationid.valeur }}" />
+           {% endif %}
+                         <h2 itemprop="name"><a itemprop="url" href="{{ path('_hebergementinfoclient',{'name':w.repertoireen|lower}) }}" title="{{ w.nomen }} region {{ w.regionid.nomen }}" target="_blank"> <strong> {{ w.nomen }} </strong> </a></h2>
+                {% if w.texteresumeen is not empty %}
+                    {% if w.prixapartir is not empty %}
+                        <p itemprop="description">{{ w.texteresumeen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(120, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.repertoireen|lower}) }}" title="More information{{ w.nomen }}" target="_blank">More information</a></p>
+                    {% else %}
+                        <p itemprop="description">{{ w.texteresumeen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(180, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.repertoireen|lower}) }}" title="More information{{ w.nomen }}" target="_blank">More information</a></p>
+                    {% endif %}
+                {% else %}
+                    {% if w.prixapartir is not empty %}
+                        <p itemprop="description">{{ w.textedescriptionen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(120, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.repertoireen|lower}) }}" title="More information{{ w.nomen }}" target="_blank">More information</a></p>
+                    {% else %}
+                        <p itemprop="description">{{ w.textedescriptionen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(180, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.repertoireen|lower}) }}" title="More information{{ w.nomen }}" target="_blank">More information</a></p>
+                    {% endif %}
+                {% endif %}
+             <ul class="telephone">
+             	{% if w.prixapartir is not empty %}				            
+               		<li>Average : <a href="javascript:void(0)" rel="nofollow"> </a> {{ w.prixapartir|replace({"%$%" : " "}) }} $ <select>{% for s in w.deviseid %} <option>{{ s.abreviation }}</option> {% endfor %}</select></li>
+                {% endif %}
+                        <li itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">City of <span itemprop="addressLocality" class="microdataVille">{{ w.villeid.nomen }}</span> {%if w.latitude != 0 and w.longitude != 0 %}<br /> [ <a href="{{ path('_hebergementdirectionroutiere',{'name':w.repertoireen|lower}) }}" target="_blank" title="{{ "direction.routiere" |trans }} {{ w.nomen }}"> View on map </a> ]{% endif %}</li>
+               {#<li>18 commentaires <img src="images/commentaire7.gif" width="81" height="11" alt="" /> 7/10</li>#}
+               {#<li  class="itineraire"><a href="#">Voir mon itinéraire</a></li>#}
+            </ul>
+	           {% if w.reservitid is not empty %}
+	           	<a class="btreservation hackbtn" href="http://reservation.global-reservation.com/reservit/avail-info.php?hotelid={{ w.reservitid }}" target="_blank" rel="nofollow" title="Online booking for {{ w.nomen }}" >{{ "reservation.ligne" | trans }}</a>
+	           {% endif %}
+           </div>
+           <br />
+         </div>
+       {% endfor %} 
+{% endif %}   
+   
+{# TRAITEMENT AJAX POUR LE CLASSEMENT #}
+<script>
+	$(function(){            
+		$(".imgclassement").hide();
+		$("select.classement ").change(function(){ 
+			var classement = $(".classement").val();
+			var style = {{ style }};
+			var region = {{ region }};
+			var page = {{ page }};
+			var total = {{ total }};
+			var displaypage = {{ displaypage }};
+                    
+			if(classement != 0){
+			    $(".imgclassement").show();
+			    var DATA = 'classement=' + classement + "&style=" + style + "&region=" + region + "&page=" + page + "&displaypage=" + displaypage + "&total=" + total ;
+			    $.ajax({
+			        type: "post",
+			    	url: "{{ path('_classementhebergementregionajax') }}",
+			        data: DATA,
+			        cache: false,
+			        success: function(data){
+			           $('.liste').html(data);
+			           $(".imgclassement").hide();
+
+                                   {% if app.request.locale == "fr" %}   
+                                        $("a.pageright").attr("href", "{{ path('_hebergementtyperegionfr',{'name': nomCategorie|convert_encoding('UTF-8', 'UTF-8')|lower, 'region':nomRegion|convert_encoding('UTF-8', 'UTF-8')|lower, 'page':page+1 }) }}/"+classement+"#target");
+                                        $("a.pageleft").attr("href", "{{ path('_hebergementtyperegionfr',{'name': nomCategorie|convert_encoding('UTF-8', 'UTF-8')|lower, 'region':nomRegion|convert_encoding('UTF-8', 'UTF-8')|lower, 'page':page-1}) }}/"+classement+"#target");
+                                   {% else %}
+                                        $("a.pageright").attr("href", "{{ path('_hebergementtyperegionen',{'name': nomCategorie|convert_encoding('UTF-8', 'UTF-8')|lower, 'region':nomRegion|convert_encoding('UTF-8', 'UTF-8')|lower, 'page':page+1}) }}/"+classement+"#target");
+                                        $("a.pageleft").attr("href", "{{ path('_hebergementtyperegionen',{'name': nomCategorie|convert_encoding('UTF-8', 'UTF-8')|lower, 'region':nomRegion|convert_encoding('UTF-8', 'UTF-8')|lower, 'page':page-1}) }}/"+classement+"#target");                                          
+                                   {% endif %}
+                                   //$("a.pagescolor").attr("id", $("select.classement option[value="+classement+"]").text() );
+			        }
+			    });  
+			    return false;
+			}
+		});
+              
+            {% if ordre != 0 %}
+
+                $("select.classement option[value="+{{ ordre }}+"]").attr("selected", "selected");
+            {% else %}
+                $("select.classement option[value=0]").attr("selected", "selected");    
+            {% endif %}
+	});
+</script>

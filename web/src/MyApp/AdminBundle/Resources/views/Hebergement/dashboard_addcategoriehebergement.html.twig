@@ -1,0 +1,84 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist is defined %}
+	<h1>Ajouter une catégorie</h1>
+{% else %}
+	<h1>Modifier la catégorie « {{ infonom|upper }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist is not defined %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une catégorie">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une catégorie {{ infonom }}"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimez la catégorie {{ infonom }} ?</p>
+						<a href="{{ path('_Dashboard_deletecategoriehebergement', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler retouchBtnCancel"></a>
+				    </div>	
+				    {% endif %}					
+				    {{ form_label(form.nom_fr, "Nom fr", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom en", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+                                    {{ form_label(form.repertoire_fr, "Répertoire fr", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.repertoire_en, "Répertoire en", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.repertoire_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_titre_fr, "Titre de la page FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_titre_en, "Titre de la page EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_titre_en, {'attr':{'class':'txt_add_state'}}) }}				    
+				    {{ form_label(form.page_metakeyword_fr, "Mots clé FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metakeyword_fr, {'attr':{'class':'txt_add_state'}}) }}			    
+				    {{ form_label(form.page_metakeyword_en, "Mots clé EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metakeyword_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metadescription_fr, "Metadescription FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metadescription_fr, {'attr':{'class':'txt_add_state'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.page_metadescription_en, "Metadescription EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metadescription_en, {'attr':{'class':'txt_add_state'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_fr, "Texte descriptif FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_fr, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				    <textarea id="editor1" name="editor1"></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace( 'editor1' );
+					</script>
+					{% if textFr is defined %}
+						<script type="text/javascript">
+                                                    document.getElementById("editor1").innerHTML = "{{ textFr }}";
+						</script>
+					{% endif %}
+				    {{ form_label(form.texte_en, "Texte descriptif EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_en, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				    <textarea id="editor2" name="editor2"></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace( 'editor2' );
+					</script>
+					{% if textEn is defined %}
+						<script type="text/javascript">
+                                                    document.getElementById("editor2").innerHTML = "{{ textEn }}";
+						</script>
+					{% endif %}
+                                    {{ form_label(form.resume_fr, "Texte résumé FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.resume_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.resume_en, "Texte résumé EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.resume_en, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.image_doctrine, "Image", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+				    {% if infoimg is defined and infoimg != ""%}
+				   	 <img class="categorie_hebergement" src="{{ asset('uploads/categorie_hebergement')}}/{{infoid}}/{{ infoimg }}" />
+				    {% endif %}				   
+				    {{ form_rest(form) }}
+                                    
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_categoriehebergement') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

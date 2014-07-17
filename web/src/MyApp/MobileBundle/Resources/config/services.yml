@@ -1,0 +1,13 @@
+parameters:
+#    my_app_mobile.example.class: MyApp\MobileBundle\Example
+    #my_app_mobile.email.class: MyApp\MobileBundle\Services\SendEmailCustomer
+    
+services:
+#    my_app_mobile.example:
+#        class: %my_app_mobile.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    my_app_mobile.email:
+        class: MyApp\MobileBundle\Services\SendEmailCustomer
+        #calls:
+        #    - [getEnvoyerEmailAGlobal, ["@sendEmailCustomer"]]
+        arguments: [%name%, %client%, %lang%]

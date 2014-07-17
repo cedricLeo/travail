@@ -1,0 +1,140 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+
+<div class="boiteinfo">
+{% if exist == "false" %}
+	<h1>Ajouter une région</h1>
+{% else %}
+	<h1>Modifier la région « {{ infonom|upper }} »</h1>
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_addtexteregioncategoriehebergement',{'id':infoid,'categorie':2 }) }}">Textes d'accueil pour les catégories d'hébergements région {{ infonom|upper }}</a><br />
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_texteregionforfait',{'id':infoid,'forfait':2 }) }}">Textes d'accueil des forfaits région {{ infonom|upper }}</a><br />
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_texteregionattrait',{'id':infoid, 'attrait':1 }) }}">Textes d'accueil pour les catégories d'attraits région {{ infonom|upper }}</a><br />
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_texteregionsante',{'id':infoid, 'sante':1}) }}">Textes d'accueil soins de santé région {{ infonom|upper }}</a><br />
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_texteregionrestaurant',{'id':infoid, 'resto':1}) }}">Textes d'accueil pour les types de restaurant région {{ infonom|upper }}</a><br />
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_addtexteregioncorporatif',{'id':infoid}) }}">Textes d'accueil pour le corporatif région {{ infonom|upper }}</a><br />
+{% endif %}
+        
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+                                    {% if exist == "true" %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer la région {{ infonom }}">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer la région {{ infonom }}"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+                                        <p>Voulez vous supprimez la région :  {{ infonom }} ?</p>
+						<a href="{{ path('_Dashboard_deleteregions', {'id':infoid, 'name':infonom}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler"></a>
+				    </div>	
+				    {% endif %}
+                                    {{ form_label(form.province_etat_id, "Province ou état", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.province_etat_id, {'attr':{'class':'txt_add_state'}}) }}			
+				    {{ form_label(form.nomfr, "Nom FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nomfr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nomen, "Nom EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nomen, {'attr':{'class':'txt_add_state'}}) }}
+                                    {{ form_label(form.repertoire_fr, "Répertoire FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.repertoire_en, "Répertoire EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.repertoire_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.titre_fr, "Titre FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.titre_en, "Titre EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.titre_en, {'attr':{'class':'txt_add_state'}}) }}                                    
+				    {{ form_label(form.reservit_id, "Reservit Id", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.reservit_id, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.affiche, "Affiche dans reservit", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.affiche, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.latitude, "Latitude", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.latitude, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.longitude, "Longitude", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.longitude, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metakeyword_fr, "Méta keywords FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metakeyword_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metakeyword_en, "Méta keywords EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metakeyword_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metadescription_fr, "Méta description FR", {'attr':{'class':'lblnompays lbl_txt_area flag_fr'}}) }}
+				    {{ form_widget(form.page_metadescription_fr, {'attr':{'class':'txt_add_state txt_area'}}) }}
+                                    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.page_metadescription_en, "Méta description EN", {'attr':{'class':'lblnompays lbl_txt_area flag_en'}}) }}
+				    {{ form_widget(form.page_metadescription_en, {'attr':{'class':'txt_add_state txt_area'}}) }} 
+				    <p class="resize_p_form">&nbsp;</p>
+                                    {{ form_label(form.texte_fr, "Texte FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_fr, {'attr':{'class':'txt_add_state txt_area txt_hidden'}}) }}
+				    <textarea id="editor1" name="editor1"></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace( 'editor1' );
+					</script>
+					{% if exist == "true" %}
+						<script type="text/javascript">
+							document.getElementById('editor1').innerHTML = "{{ txthomefr }}";
+						</script>
+					{% endif %}
+				    {{ form_label(form.texte_en, "Texte EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_en, {'attr':{'class':'txt_add_state txt_area txt_hidden'}}) }}
+				    <textarea id="editor2" name="editor2"></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace( 'editor2' );
+					</script>
+					{% if exist == "true" %}
+						<script type="text/javascript">
+							document.getElementById('editor2').innerHTML = "{{ txthomeen }}";
+						</script>
+					{% endif %}
+				    {{ form_label(form.image_doctrine, "Image nos suggestions", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+				    {% if exist == "true" %}
+				    	<img src="{{ asset('uploads/regions') }}/{{infoid}}/{{ infoimg }}" class="img_paiement_update" style="width:154px; height:105px;" />
+				    {% endif %}
+				    <p class="resize_p_form">&nbsp;</p>
+				     <h3><a href="#guide">Guide touristique.travel</a></h3>
+				    <div class="formu_cache">
+				    <a name="#guide"></a>
+				    {{ form_label(form.resume_fr_travel, "Résumé travel FR", {'attr':{'class':'lblnompays lbl_txt_area flag_fr'}}) }}
+				    {{ form_widget(form.resume_fr_travel, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.resume_en_travel, "Résumé travel EN", {'attr':{'class':'lblnompays lbl_txt_area flag_en'}}) }}
+				    {{ form_widget(form.resume_en_travel, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.image_travel_doctrine, "Image destination pour la région", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_travel_doctrine, {'attr':{'class':'txt_add_state'}}) }}  
+				    {% if exist == "true" %}
+				    	<img src="{{ asset('uploads/regions') }}/{{infoid}}/{{ imgDestination }}" class="img_paiement_update" style="width:311px; height:171px; margin-right:100px;" />
+				    {% endif %}
+				    <p class="resize_p_form">&nbsp;</p>
+				    </div>
+				    <h3><a href="#guide_touristique">Guide touristique</a></h3>
+				    <div class="formu_cache">
+				    <a nem="#guide_touristique"></a>
+				    {{ form_label(form.url_fr, "Url FR", {'attr':{'class':'lblnompays lbl_txt_area flag_fr'}}) }}
+				    {{ form_widget(form.url_fr, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.url_en, "Url_EN", {'attr':{'class':'lblnompays lbl_txt_area flag_en'}}) }}
+				    {{ form_widget(form.url_en, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				   
+				    {{ form_label(form.texte_fr_bas_page, "Texte bas page FR", {'attr':{'class':'lblnompays flag_fr lbl_txt_area'}}) }}
+				    {{ form_widget(form.texte_fr_bas_page, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p> 
+				    {{ form_label(form.texte_en_bas_page, "Texte bas page EN", {'attr':{'class':'lblnompays flag_en lbl_txt_area'}}) }}
+				    {{ form_widget(form.texte_en_bas_page, {'attr':{'class':'txt_add_state txt_area'}}) }}
+					<p class="resize_p_form">&nbsp;</p>
+					{{ form_label(form.image_haut_fr, "Image haut FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.image_haut_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.image_haut_en, "Image haut EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.image_haut_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.image_gauche, "Image gauche", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_gauche, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.image_centre, "Image centre", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_centre, {'attr':{'class':'txt_add_state'}}) }}
+				     </div>
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit" />
+				    <a href="{{ path('_Dashboard_regions') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+<script>
+    document.getElementById("add_region_nom_reservit").setAttribute("placeholder","pas d'accent et pas de tiret Ex Quebec");
+</script>
+{% endblock %}

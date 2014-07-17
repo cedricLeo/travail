@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Demande d'information / Request Information</title>
+		<style>
+			list-style-type:none;
+		</style>
+	</head>
+	<body style="background-color:#dcdcdc;">
+		<header>					
+			<ul>
+                            {% if app.request.locale == "fr" %}
+				<li>{{ prenom }} {{ nom }} vous a envoyé une demande d'information</li>
+				<li>Courriel: {{ email }}</li>
+				<li>Téléphone: {{ telephone }}</li>	
+				<li>Date d'arrivée {{ datebegin }} - date de départ {{ dateend }}</li>                                
+				<li>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</li>
+                            {% else %}
+				<li>{{ prenom }} {{ nom }} you send a request for information</li>
+				<li>Email: {{ email }}</li>
+				<li>Phone: {{ telephone }}</li>	
+				<li>Date of arrival {{ datebegin }} - departure date {{ dateend }}</li>
+                                <li>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</li>
+                            {% endif %}
+			</ul>
+		</header>
+                {% if app.request.locale == "fr" %}
+		<section>
+			<article>
+				<header>
+                                        <p>Date demande {{ dateNow|date("d-m-Y H:i") }}</p>
+                                        <p>Établissement: {{ etablissement }}</p>
+					<p>Prénom : {{ prenom }}</p>
+					<p>Nom : {{ nom }}</p>
+					<p>Courriel:  <a href="mailTo:{{ email }}">{{ email }}</a></p>
+					{% if adresse is not empty %}<p>Adresse : {{ adresse }}</p>{% endif %}
+					{% if ville is not empty %}<p>Ville : {{ ville }}</p>{% endif %}
+					{% if province is not empty %}<p>Province: {{ province }}</p>{% endif %}
+					{% if codepostal is not empty %}<p>Code-postal : {{ codepostal|upper }}</p>{% endif %}
+					{% if pays is not empty %}<p>Pays : {{ pays }}</p>{% endif %}
+					<p>Téléphone : {{ telephone }}</p>
+					{% if telecopieur is not empty %}<p>Télécopieur : {{ telecopieur }}</p>{% endif %}
+                                        {% if nbEnfant is not empty %} <p>Nombre d'enfant: {{ nbEnfant }}</p> {% endif %}
+                                        {% if ageEnfant is not empty %} <p>Age des anfants: {{ ageEnfant }}</p> {% endif %}
+				</header>
+                                <header>
+					<h2 style="font-size:18px;">Renseignements sur l'hébergement {{ etablissement }}</h2>					
+                                        {% if fumeur is not empty %}<p>Fumeur:  {{ fumeur }}  </p>{% endif %}                                        
+					<h2 style="font-size:18px;">Renseignements sur la chambre</h2>
+                                        <p>Nombre de chambres : {{ nbChambre }} </p>
+					<p>Nombre de personnes : {{ nbPersonne }}</p>
+					<p>Date d'arrivée : {{ datebegin }}</p>
+					<p>Date de départ : {{ dateend }}</p>
+                                        {% if demandespecifique is not empty %}<p>Commentaires : </p>
+                                        <p>{{ demandespecifique }}</p>{% endif %}
+                                </header>
+			</article>
+		</section>
+		{% else %}
+		<section>
+			<article>
+                                <header>
+                                        <p>Request Date {{ dateNow|date("Y-m-d H:i") }}</p>
+                                        <p>Establishment: {{ etablissement }}</p>
+					<p>First name : {{ prenom }}</p>
+					<p>Last name : {{ nom }}</p>
+					<p>Email:  <a href="mailTo:{{ email }}">{{ email }}</a></p>
+					{% if adresse is not empty %}<p>Adress : {{ adresse }}</p>{% endif %}
+					{% if ville is not empty %}<p>City : {{ ville }}</p>{% endif %}
+					{% if province is not empty %}<p>Province: {{ province }}</p>{% endif %}
+					{% if codepostal is not empty %}<p>Zip code : {{ codepostal|upper }}</p>{% endif %}
+					{% if pays is not empty %}<p>Country : {{ pays }}</p>{% endif %}
+					<p>Telephone : {{ telephone }}</p>
+					{% if telecopieur is not empty %}<p>Fax : {{ telecopieur }}</p>{% endif %}
+                                        {% if nbEnfant is not empty %} <p>Children: {{ nbEnfant }}</p> {% endif %}
+                                        {% if ageEnfant is not empty %} <p>Age of children: {{ ageEnfant }}</p> {% endif %}
+				</header>
+                                <header>			
+                                        {% if fumeur is not empty %}<p>Smoking:  {{ fumeur }}  </p>{% endif %}                                        				
+                                        <p>Rooms : {{ nbChambre }} </p>
+					<p>Adults : {{ nbPersonne }}</p>
+					<p>Arrival date : {{ datebegin }}</p>
+					<p>Date of departure : {{ dateend }}</p>
+                                        {% if demandespecifique is not empty %}<p>Comments : </p>
+                                        <p>{{ demandespecifique }}</p>{% endif %}
+                                </header>
+			</article>
+		</section>
+                {% endif %}
+	</body>
+</html>
+
+

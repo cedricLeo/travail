@@ -1,0 +1,75 @@
+{% extends "::base_mobile.html.twig" %}
+
+{% block body %}
+        {% include '::navigation_fiche_client_mobile.html.twig' %}
+
+        <div id="container"> 
+        {% for p in retourDetail %}
+            <h1>{{ p.nomfr }}</h1>
+            {# affichage de la présentation de l'hébergement #}
+            {% if section == "accueil" %}               
+                {% include 'MyAppMobileBundle:MobileHebergement:presentation.html.twig' %}                    
+            {% endif %}
+            {# fin de l'affichage de la présentation de l'hébergement #}
+            
+            {# affichage des chambres #}
+            {% if  section == "chambres-tarifs" %}
+                {% include 'MyAppMobileBundle:MobileHebergement:chambre.html.twig' %}
+            {% endif %}
+            {# fin de l'affichage des chambres #}
+            
+            {# affichage des forfaits #}
+            {% if forfait is not empty %}
+                {% if section == "forfait-promotion" %}
+                    {% include 'MyAppMobileBundle:MobileHebergement:forfait.html.twig' %}
+                {% endif %}
+            {% endif %}
+            {# fin de l'affichage des forfaits #}
+            
+            {# affichage des activités et services #}
+            {% if section == "activites-services" %}
+                {% include 'MyAppMobileBundle:MobileHebergement:activite.html.twig' %}
+            {% endif %}
+            {# fin de l'affichage des activités et services #}
+
+            {# affichage du corporatif #}
+            {% if corporatif is not empty %}
+                {% if section == "corporatif-evenement" %}
+                    {% include 'MyAppMobileBundle:MobileHebergement:corporatif.html.twig' %}
+                {% endif %}
+            {% endif %}
+            {# fin de l'affichage du corporatif #}
+            
+            {# affichage de la galerie photo #}
+            {#
+                {% include 'MyAppMobileBundle:MobileHebergement:galerie.html.twig' %}
+            #}
+            {# fin de l'affichage de la galerie photo #}
+            
+            {# affichage des soins santé #}
+            {#<div id="sante">
+                santé
+            </div>
+            {# fin des soins de santé #}
+
+            {# affichage du restaurant #}
+            {#<div id="restaurant">
+                restaurant
+            </div>
+            {# fin de l'affichage du restaurant #}
+
+            {# affichage des informations et réservation #}
+            {% if section == "information-reservation" %}
+                {% include 'MyAppMobileBundle:MobileHebergement:reservation.html.twig' %}
+            {% endif %}
+            {# fin des informations et réservation #}
+
+            {# affichage des directions routières #}
+            {% if section == "directions-routieres" %}                  
+                {% include 'MyAppMobileBundle:MobileHebergement:direction-en.html.twig' %}
+            {% endif %}
+            {# fin des directions routières #}
+        {% endfor %}    
+        </div>
+{% endblock %}
+

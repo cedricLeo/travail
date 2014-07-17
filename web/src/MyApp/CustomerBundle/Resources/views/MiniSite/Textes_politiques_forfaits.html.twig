@@ -1,0 +1,22 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+	<h1>{{ "textes.politique.forfait" | trans }}</h1>
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+				    {{ form_label(form.politique_annulation_fr, "politique.annulation.fr" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}	   
+				    {{ form_widget(form.politique_annulation_fr, {'attr':{'class':'txt_add_state'}}) }}		
+				    {{ form_label(form.politique_tarif_fr, "politique.tarif.fr" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.politique_tarif_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.description_promotion_fr, "description.promotion" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.description_promotion_fr, {'attr':{'class':'txt_add_state '}}) }} 
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer"/>
+				    <a href="{{ path('_Dashboard_compteCustomer') }}" class="boutonannuler"></a>
+				</form>
+			   <br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

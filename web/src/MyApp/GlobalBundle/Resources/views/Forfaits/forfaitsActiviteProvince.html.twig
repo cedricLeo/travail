@@ -1,0 +1,243 @@
+{% extends '::base2.html.twig'%}
+	
+		{% block picture %}	
+		<p class="legendeHome">{{ "forfait" | trans }}{% if app.request.locale == "fr" %} {{ clientAleatoire.forfaitclientid.nomfr|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomfr }} {% else %} {{ clientAleatoire.forfaitclientid.nomen|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomen }} {% endif %} </p>	
+	    {# photo principale qui va afficher le sujet de la section #}
+			<div id="photoprincipale">
+			{% if app.request.locale == "fr" %}
+				<div class="nomSousCategorie">
+					<h1>{{ "forfait" | trans }} {{ clientAleatoire.forfaitclientid.nomfr|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomfr }}</h1>
+					<h3><a href="{{ path('_hebergementforfait',{'name': clientAleatoire.hebergementid.repertoirefr|lower } ) }}" title="Forfait {{ clientAleatoire.forfaitclientid.nomfr|lower }} {{ clientAleatoire.nomfr }}" target="_blank">{{ clientAleatoire.nomfr }}, {{ clientAleatoire.hebergementid.nomfr }} région {{ clientAleatoire.hebergementid.regionid.nomfr }}</a></h3>
+				</div>
+				{% if clientAleatoire.imageprincipale is not empty %}
+                                        <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.imageprincipale }}" class="big_picture" alt="Forfait {{ clientAleatoire.forfaitclientid.nomfr }} {{ clientAleatoire.hebergementid.nomfr }}" />
+				{% else %}
+					<img src="{{ asset('uploads/forfaits/images_') }}{{ idActivite }}/{{ imgRandom }}" class="big_picture" alt="Forfait {{ clientAleatoire.forfaitclientid.nomfr }} {{ clientAleatoire.hebergementid.nomfr }}">
+				{% endif %}
+			{% else %}
+				<div class="nomSousCategorie">
+					<h1>{{ "forfait" | trans }} {{ clientAleatoire.forfaitclientid.nomen|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomen }}</h1>
+					<h3><a href="{{ path('_hebergementforfaiten',{'name': clientAleatoire.hebergementid.repertoireen|lower } ) }}" title="Package {{ clientAleatoire.forfaitclientid.nomen|lower }} {{ clientAleatoire.nomen }}" target="_blank">{{ clientAleatoire.nomen }}, {{ clientAleatoire.hebergementid.nomen }} region {{ clientAleatoire.hebergementid.regionid.nomen }}</a></h3>
+				</div>
+				{% if clientAleatoire.imageprincipale is not empty %}
+                                        <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.imageprincipale }}" class="big_picture" alt="Package {{ clientAleatoire.forfaitclientid.nomen }} {{ clientAleatoire.hebergementid.nomfr }}" />
+				{% else %}
+					<img src="{{ asset('uploads/forfaits/images_') }}{{ idActivite }}/{{ imgRandom }}" class="big_picture" alt="Replacement image for {{ clientAleatoire.hebergementid.nomen }} ">
+				{% endif %}
+			{% endif %}
+			</div>	
+	    {% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		
+		{% block body %}
+			<div>
+			    <div class="region">
+					    {% if app.request.locale == "fr" %}
+					     <h2>{{ "choisir.endroit.profiter" | trans }} - {{ clientAleatoire.forfaitclientid.nomfr|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomfr }}</h2>
+                                                      <ul>		
+                                                        {% for nomprovince in regionactivite %}
+                                                            {% if loop.index == 1 %}
+                                                                <li class="province"><a href="javascript:void(0);">{{ nomprovince.hebergementid.provinceid.nomfr }}</a></li>
+                                                            {% endif %}
+                                                                 <li><a href="{{ path('_forfaitsactiviteregion',{ 'activite':nomprovince.forfaitclientid.repertoirefr|lower, 'name':nomprovince.hebergementid.regionid.repertoirefr|lower}) }}" title="{{ "forfait" | trans }} {{ clientAleatoire.forfaitclientid.nomfr|lower }} {{nomprovince.hebergementid.regionid.nomfr }}">{{nomprovince.hebergementid.regionid.nomfr }}</a></li>
+                                                        {% endfor %}
+						      </ul>
+						 {% else %} {# VERSION EN #}
+						     <h2>{{ "choisir.endroit.profiter" | trans }} - {{ clientAleatoire.forfaitclientid.nomen|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomen }} </h2>
+						       <ul>	
+                                                        {% for nomprovince in regionactivite %}
+                                                            {% if loop.index == 1 %}
+                                                                <li class="province"><a href="javascript:void(0);">{{ nomprovince.hebergementid.provinceid.nomen }}</a></li>
+                                                            {% endif %}
+                                                                <li><a href="{{ path('_forfaitsactiviteregionen',{ 'activite':nomprovince.forfaitclientid.repertoireen|lower, 'name':nomprovince.hebergementid.regionid.repertoireen|lower}) }}" title="{{ "forfait" | trans }} {{ clientAleatoire.forfaitclientid.nomen|lower }} {{nomprovince.hebergementid.regionid.nomen }}">{{nomprovince.hebergementid.regionid.nomen }}</a></li>
+                                                        {% endfor %}
+						      </ul>				 
+					    {% endif %}
+			      <br class="clearfloat" />
+			    </div>
+			     {# PUB GOOGLE #}
+				  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+				  	<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('zone_01'); });
+					</script>
+				  </div>
+				  {# NOS SUGGESTIONS BAS DE PAGE #}
+					<div class="colonnes4">
+					{% if app.request.locale == "fr" %}
+				  		<h4>Nos suggestions - {{ clientAleatoire.forfaitclientid.nomfr|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomfr }}</h4>
+						{# région 1 #}
+					      <div> 
+					      		<a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion1.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion1.hebergementid.regionid.repertoirefr|lower }) }}" title="Forfaits {{ regionSuggestion1.forfaitclientid.nomfr }} - {{ regionSuggestion1.hebergementid.regionid.nomfr }}">
+                                                            {% if regionSuggestion1.imageprincipale is not empty %}
+                                                                <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ regionSuggestion1.id }}/{{ regionSuggestion1.imageprincipale }}" alt="Forfaits {{ regionSuggestion1.forfaitclientid.nomfr }} {{ regionSuggestion1.hebergementid.regionid.nomfr }}" class="img_categoie_portail" />
+                                                            {% else %}
+                                                                <img src="{{ asset('uploads/forfaits/images_') }}{{ regionSuggestion1.forfaitclientid.id }}/{{ imageColBas1 }}" alt="Forfaits {{ regionSuggestion1.forfaitclientid.nomfr }} {{ regionSuggestion1.hebergementid.regionid.nomfr }}" class="img_categoie_portail" />
+                                                            {% endif %}    
+                                                        </a>
+						        <h3><a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion1.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion1.hebergementid.regionid.repertoirefr|lower}) }}"> {{ regionSuggestion1.hebergementid.regionid.nomfr }} </a></h3>
+							        <ul>
+							        	{% for w in listeClient1 %}
+								          <li><a href="javascript:void(0):" >{{ w.nomfr }}</a></li>
+								          <dt><a href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr|lower } ) }}#{{w.id }}" target="_blank" title="Forfaits {{ w.hebergementid.nomfr }}">{{ w.hebergementid.nomfr }}</a></dt>
+								        {% endfor %}
+							        </ul>
+						        <h2><a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion1.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion1.hebergementid.regionid.repertoirefr|lower}) }}">{{ listeClient1|length }} {{ regionSuggestion1.forfaitclientid.nomfr }} - {{ regionSuggestion1.hebergementid.regionid.nomfr }}</a></h2>
+					      </div>
+					    {% if regionSuggestion2 is not empty %}
+					    {# région 2 #}
+					      <div> 
+					      		<a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion2.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion2.hebergementid.regionid.repertoirefr|lower}) }}" title="Forfaits {{ regionSuggestion2.forfaitclientid.nomfr }} - {{ regionSuggestion2.hebergementid.regionid.nomfr }}">
+                                                            {% if regionSuggestion1.imageprincipale is not empty %}   
+                                                                <img src="{{ asset('uploads/forfaits-client/image_principale') }}{{ regionSuggestion2.id }}/{{ regionSuggestion2.imageprincipale }}" alt="Forfaits {{ regionSuggestion2.forfaitclientid.nomfr }} {{ regionSuggestion2.hebergementid.regionid.nomfr }}" class="img_categoie_portail" />
+                                                            {% else %}
+                                                                <img src="{{ asset('uploads/forfaits/images_') }}/{{ regionSuggestion2.forfaitclientid.id }}/{{ imageColBas2 }}" alt="Forfaits {{ regionSuggestion2.forfaitclientid.nomfr }} {{ regionSuggestion2.hebergementid.regionid.nomfr }}" class="img_categoie_portail" />
+                                                            {% endif %} 
+                                                        </a>
+						        <h3><a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion2.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion2.hebergementid.regionid.repertoirefr|lower}) }}"> {{ regionSuggestion2.hebergementid.regionid.nomfr }} </a></h3>
+							        <ul>
+							        	{% for w in listeClient2 %}
+								          <li><a href="javascript:void(0);" >{{ w.nomfr }}</a></li>
+								          <dt><a href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr|lower } ) }}#{{w.id }}" target="_blank" title="Forfaits {{ w.hebergementid.nomfr }}">{{ w.hebergementid.nomfr }}</a></dt>
+								        {% endfor %}
+							        </ul>
+						        <h2><a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion2.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion2.hebergementid.regionid.repertoirefr|lower}) }}">{{ listeClient2|length }} {{ regionSuggestion2.forfaitclientid.nomfr }} - {{ regionSuggestion2.hebergementid.regionid.nomfr }}</a></h2>
+					      </div>
+					    {% endif %}
+					    {% if regionSuggestion3 is not empty %}
+					    {# région 3 #} 
+					      <div> 
+					      		<a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion3.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion3.hebergementid.regionid.repertoirefr|lower}) }}" title="Forfaits {{ regionSuggestion3.forfaitclientid.nomfr }} - {{ regionSuggestion3.hebergementid.regionid.nomfr }}">
+                                                            {% if regionSuggestion3.imageprincipale %}
+                                                                <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ regionSuggestion3.id }}/{{ regionSuggestion3.imageprincipale }}" alt="Forfaits {{ regionSuggestion3.forfaitclientid.nomfr }} {{ regionSuggestion3.hebergementid.regionid.nomfr }}" class="img_categoie_portail" />
+                                                            {% else %}
+                                                                <img src="{{ asset('uploads/forfaits/images_') }}{{ regionSuggestion3.forfaitclientid.id }}/{{ imageColBas3 }}" alt="Forfaits {{ regionSuggestion3.forfaitclientid.nomfr }} {{ regionSuggestion3.hebergementid.regionid.nomfr }}" class="img_categoie_portail" />
+                                                            {% endif %} 
+                                                        </a>
+						        <h3><a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion3.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion3.hebergementid.regionid.repertoirefr|lower}) }}"> {{ regionSuggestion3.hebergementid.regionid.nomfr }} </a></h3>
+							        <ul>
+							        	{% for w in listeClient3 %}
+								          <li><a href="javascript:void(0);" >{{ w.nomfr }}</a></li>
+								          <dt><a href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr|lower } ) }}#{{w.id }}" target="_blank" title="Forfaits {{ w.hebergementid.nomfr }}">{{ w.hebergementid.nomfr }}</a></dt>
+								        {% endfor %}
+							        </ul>
+						        <h2><a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion3.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion3.hebergementid.regionid.repertoirefr|lower}) }}">{{ listeClient3|length }} {{ regionSuggestion3.forfaitclientid.nomfr }} - {{ regionSuggestion3.hebergementid.regionid.nomfr }}</a></h2>
+					      </div>
+					    {% endif %}
+					    {% if regionSuggestion4 is not empty %}
+					    {# région 4 #}  
+					      <div> 
+					      		<a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion4.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion4.hebergementid.regionid.repertoirefr|lower }) }}" title="Forfaits {{ regionSuggestion4.forfaitclientid.nomfr }} - {{ regionSuggestion4.hebergementid.regionid.nomfr }}">
+                                                            {% if regionSuggestion4.imageprincipale is not empty %}
+                                                                <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ regionSuggestion4.id }}/{{ regionSuggestion4.imageprincipale }}" alt="Forfaits {{ regionSuggestion4.forfaitclientid.nomfr }} {{ regionSuggestion4.hebergementid.regionid.nomfr }}" class="img_categoie_portail" />
+                                                            {% else %}
+                                                                <img src="{{ asset('uploads/forfaits/images_') }}{{ regionSuggestion4.forfaitclientid.id }}/{{ imageColBas4 }}" alt="Forfaits {{ regionSuggestion4.forfaitclientid.nomfr }} {{ regionSuggestion4.hebergementid.regionid.nomfr }}" class="img_categoie_portail" />
+                                                            {% endif %} 
+                                                        </a>
+						        <h3><a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion4.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion4.hebergementid.regionid.repertoirefr|lower}) }}"> {{ regionSuggestion4.hebergementid.regionid.nomfr }} </a></h3>
+							        <ul>
+							        	{% for w in listeClient4 %}
+								          <li><a href="javascript:void(0);" >{{ w.nomfr }}</a></li>
+								          <dt><a href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr|lower } ) }}#{{w.id }}" target="_blank" title="Forfaits {{ w.hebergementid.nomfr }}">{{ w.hebergementid.nomfr }}</a></dt>
+								        {% endfor %}
+							        </ul>
+						        <h2><a href="{{ path('_forfaitsactiviteregion',{ 'activite':regionSuggestion4.forfaitclientid.repertoirefr|lower, 'name':regionSuggestion4.hebergementid.regionid.repertoirefr|lower}) }}">{{ listeClient4|length }} {{ regionSuggestion4.forfaitclientid.nomfr }} - {{ regionSuggestion4.hebergementid.regionid.nomfr }}</a></h2>
+					      </div>
+					    {% endif %}
+				    {% else %}
+				      <h4>Our suggestions - {{ clientAleatoire.forfaitclientid.nomen|lower }} province {{ clientAleatoire.hebergementid.provinceid.nomen|lower }}</h4>
+						{# région 1 #}
+					      <div> 
+					      		<a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion1.forfaitclientid.repertoireen|lower, 'name':regionSuggestion1.hebergementid.regionid.repertoireen|lower}) }}" title="Forfaits {{ regionSuggestion1.forfaitclientid.nomen }} - {{ regionSuggestion1.hebergementid.regionid.nomen }}">
+                                                           {% if regionSuggestion1.imageprincipale is not empty %}
+                                                                <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ regionSuggestion1.id }}/{{ regionSuggestion1.imageprincipale }}" alt="Forfaits {{ regionSuggestion1.forfaitclientid.nomen }} {{ regionSuggestion1.hebergementid.regionid.nomen }}" class="img_categoie_portail" />
+                                                           {% else %}
+                                                                <img src="{{ asset('uploads/forfaits/images_') }}{{ regionSuggestion1.forfaitclientid.id }}/{{ imageColBas1 }}" alt="Forfaits {{ regionSuggestion1.forfaitclientid.nomen }} {{ regionSuggestion1.hebergementid.regionid.nomen }}" class="img_categoie_portail" />
+                                                           {% endif %}
+                                                        </a>
+						        <h3><a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion1.forfaitclientid.repertoireen|lower, 'name':regionSuggestion1.hebergementid.regionid.repertoireen|lower}) }}"> {{ regionSuggestion1.hebergementid.regionid.nomen }} </a></h3>
+							        <ul>
+							        	{% for w in listeClient1 %}
+								          <li><a href="javascript:void(0);" >{{ w.nomen }}</a></li>
+								          <dt><a href="{{ path('_hebergementforfaiten',{'name':w.hebergementid.repertoireen|lower } ) }}#{{w.id }}" target="_blank" title="Packages {{ w.hebergementid.nomen }}">{{ w.hebergementid.nomen }}</a></dt>
+								        {% endfor %}
+							        </ul>
+						        <h2><a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion1.forfaitclientid.repertoireen|lower, 'name':regionSuggestion1.hebergementid.regionid.repertoireen|lower}) }}">{{ listeClient1|length }} {{ regionSuggestion1.forfaitclientid.nomen }} - {{ regionSuggestion1.hebergementid.regionid.nomen }}</a></h2>
+					      </div>
+					    {% if regionSuggestion2 is not empty %}
+					    {# région 2 #}
+					      <div> 
+					      		<a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion2.forfaitclientid.repertoireen|lower, 'name':regionSuggestion2.hebergementid.regionid.repertoireen|lower}) }}" title="Forfaits {{ regionSuggestion2.forfaitclientid.nomen }} - {{ regionSuggestion2.hebergementid.regionid.nomen }}">
+                                                           {% if regionSuggestion2.imageprincipale is not empty %}
+                                                                <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ regionSuggestion2.id }}/{{ regionSuggestion2.imageprincipale }}" alt="Forfaits {{ regionSuggestion2.forfaitclientid.nomen }} {{ regionSuggestion2.hebergementid.regionid.nomen }}" class="img_categoie_portail" />
+                                                           {% else %}
+                                                                <img src="{{ asset('uploads/forfaits/images_') }}{{ regionSuggestion2.forfaitclientid.id }}/{{ imageColBas2 }}" alt="Forfaits {{ regionSuggestion2.forfaitclientid.nomen }} {{ regionSuggestion2.hebergementid.regionid.nomen }}" class="img_categoie_portail" />
+                                                           {% endif %}
+                                                        </a>
+						        <h3><a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion2.forfaitclientid.repertoireen|lower, 'name':regionSuggestion2.hebergementid.regionid.repertoireen|lower}) }}"> {{ regionSuggestion2.hebergementid.regionid.nomen }} </a></h3>
+							        <ul>
+							        	{% for w in listeClient2 %}
+								          <li><a href="javascript:void(0);" >{{ w.nomen }}</a></li>
+								          <dt><a href="{{ path('_hebergementforfaiten',{'name':w.hebergementid.repertoireen|lower } ) }}#{{w.id }}" target="_blank" title="Packages {{ w.hebergementid.nomen }}">{{ w.hebergementid.nomen }}</a></dt>
+								        {% endfor %}
+							        </ul>
+						        <h2><a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion2.forfaitclientid.repertoireen|lower, 'name':regionSuggestion2.hebergementid.regionid.repertoireen|lower}) }}">{{ listeClient2|length }} {{ regionSuggestion2.forfaitclientid.nomen }} - {{ regionSuggestion2.hebergementid.regionid.nomen }}</a></h2>
+					      </div>
+					    {% endif %}
+					    {% if regionSuggestion3 is not empty %}
+					    {# région 3 #} 
+					      <div> 
+					      		<a href="{{ path('_forfaitsactiviteregionen',{'activite':regionSuggestion3.forfaitclientid.repertoireen|lower, 'name':regionSuggestion3.hebergementid.regionid.repertoireen|lower}) }}" title="Forfaits {{ regionSuggestion3.forfaitclientid.nomen }} - {{ regionSuggestion3.hebergementid.regionid.nomen }}">
+                                                           {% if regionSuggestion3.imageprincipale is not empty %}
+                                                                <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ regionSuggestion3.id }}/{{ regionSuggestion3.imageprincipale }}" alt="Forfaits {{ regionSuggestion3.forfaitclientid.nomen }} {{ regionSuggestion3.hebergementid.regionid.nomen }}" class="img_categoie_portail" />
+                                                           {% else %}
+                                                                <img src="{{ asset('uploads/forfaits/images_') }}{{ regionSuggestion3.forfaitclientid.id }}/{{ imageColBas3 }}" alt="Forfaits {{ regionSuggestion3.forfaitclientid.nomen }} {{ regionSuggestion3.hebergementid.regionid.nomen }}" class="img_categoie_portail" />
+                                                           {% endif %}
+                                                        </a>
+						        <h3><a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion3.forfaitclientid.repertoireen|lower, 'name':regionSuggestion3.hebergementid.regionid.repertoireen|lower}) }}"> {{ regionSuggestion3.hebergementid.regionid.nomen }} </a></h3>
+							        <ul>
+							        	{% for w in listeClient3 %}
+								          <li><a href="javascript:void(0);" >{{ w.nomen }}</a></li>
+								          <dt><a href="{{ path('_hebergementforfaiten',{'name':w.hebergementid.repertoireen|lower } ) }}#{{w.id }}" target="_blank" title="Packages {{ w.hebergementid.nomen }}">{{ w.hebergementid.nomen }}</a></dt>
+								        {% endfor %}
+							        </ul>
+						        <h2><a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion3.forfaitclientid.repertoireen|lower, 'name':regionSuggestion3.hebergementid.regionid.repertoireen|lower}) }}">{{ listeClient3|length }} {{ regionSuggestion3.forfaitclientid.nomen }} - {{ regionSuggestion3.hebergementid.regionid.nomen }}</a></h2>
+					      </div>
+					    {% endif %}
+					    {% if regionSuggestion4 is not empty %}
+					    {# région 4 #}  
+					      <div> 
+					      		<a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion4.forfaitclientid.repertoireen|lower, 'name':regionSuggestion4.hebergementid.regionid.repertoireen|lower}) }}" title="Forfaits {{ regionSuggestion4.forfaitclientid.nomen }} - {{ regionSuggestion4.hebergementid.regionid.nomen }}">
+                                                           {% if regionSuggestion4.imageprincipale is not empty %} 
+                                                                <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ regionSuggestion4.id }}/{{ regionSuggestion4.imageprincipale }}" alt="Forfaits {{ regionSuggestion4.forfaitclientid.nomen }} {{ regionSuggestion4.hebergementid.regionid.nomen }}" class="img_categoie_portail" />
+                                                           {% else %}
+                                                                <img src="{{ asset('uploads/forfaits/images_') }}{{ regionSuggestion4.forfaitclientid.id }}/{{ imageColBas4 }}" alt="Forfaits {{ regionSuggestion4.forfaitclientid.nomen }} {{ regionSuggestion4.hebergementid.regionid.nomen }}" class="img_categoie_portail" />
+                                                           {% endif %} 
+                                                        </a>
+						        <h3><a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion4.forfaitclientid.repertoireen|lower, 'name':regionSuggestion4.hebergementid.regionid.repertoireen|lower}) }}"> {{ regionSuggestion4.hebergementid.regionid.nomen }} </a></h3>
+							        <ul>
+							        	{% for w in listeClient4 %}
+								          <li><a href="javascript:void(0);" >{{ w.nomen }}</a></li>
+								          <dt><a href="{{ path('_hebergementforfaiten',{'name':w.hebergementid.repertoireen|lower } ) }}#{{w.id }}" target="_blank" title="Packages {{ w.hebergementid.nomen }}">{{ w.hebergementid.nomen }}</a></dt>
+								        {% endfor %}
+							        </ul>
+						        <h2><a href="{{ path('_forfaitsactiviteregionen',{ 'activite':regionSuggestion4.forfaitclientid.repertoireen|lower, 'name':regionSuggestion4.hebergementid.regionid.repertoireen|lower}) }}">{{ listeClient4|length }} {{ regionSuggestion4.forfaitclientid.nomen }} - {{ regionSuggestion4.hebergementid.regionid.nomen }}</a></h2>
+					      </div>
+					    {% endif %}
+				    {% endif %}		
+				      <br class="clearfloat" />
+				    </div>
+				  </div>
+		{% endblock %}
+		
+		{% block gauche %}
+			{% include 'MyAppGlobalBundle:Forfaits:suggestions.html.twig' %}
+		{% endblock %}
+		

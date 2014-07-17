@@ -1,0 +1,183 @@
+{% block suggestionBasDePage %} 
+	{# suggestion 1 #} {# FRANÇAIS #}
+	 <div itemscope itemtype="http://data-vocabulary.org/Organization" > 
+		{% if app.request.locale == "fr" %}
+			{% for s1 in suggestion1 %}
+			<a href="{{ path('_hebergementregionsquebecfr',{'name':s1.repertoirefr|lower}) }}" itemprop="url" title="Hôtels, motels et auberge {{ s1.nomfr }} ">
+				<img src="{{ asset('uploads/regions') }}/{{s1.id}}/{{ s1.imagesuggestion }}"  alt="Hôtels, motels et auberge {{ s1.nomfr }}" class="img_categoie_portail" />
+			</a>
+			<h3 id="title_suggestion_bottom1" itemprop="name"> {{ s1.nomfr }}</h3>
+			    <ul id="suggestion_bottom1">
+	            {% for etablissement in listClientBottom1 %}
+		           <li><a href="{{ path('_hebergementinfoclient',{'name':etablissement.repertoirefr|lower}) }}" title="Hébergement {{ etablissement.nomfr }} région {{ etablissement.regionid.nomfr }}" target="_blank">{{ etablissement.nomfr }}</a></li>
+		           {% if etablissement.prixapartir is not empty %}<li>{{ "a.partir" | trans }} {{ etablissement.prixapartir|replace({"%$%":''}) }}$</li>{% endif %}
+	            {% endfor %}
+			    </ul>
+			    <h2 class="numberHotelListBottom">
+			    	<a href="{{ path('_hebergementregionsquebecfr',{'name':s1.repertoirefr|lower}) }}" title="Voir tous les hôtels, motels et auberges région - {{ s1.nomfr }}">{% if listClientBottom1|length < nbHebergement1 %} {{ nbHebergement1 }} {% else %} {{ listClientBottom1|length }} {% endif %} hôtel{% if listClientBottom1|length > 1 %}s{% else %}{% endif %} - {{ s1.nomfr }}</a>
+			    </h2>
+		    {% endfor %}
+		{% else %} {# ANGLAIS #}
+			{% for s1 in suggestion1 %}
+                        <a href="{{ path('_hebergementregionsquebecen',{'name':s1.repertoireen|lower}) }}" itemprop="url" title="Hotels, motels and hostels {{ s1.nomen }}">
+                                <img src="{{ asset('uploads/regions/') }}{{ s1.id }}/{{ s1.imagesuggestion }}"  alt="Hotels, motels and hostels {{ s1.nomen }}" class="img_categoie_portail" />
+                        </a>
+			<h3 id="title_suggestion_bottom1" itemprop="name">{{ s1.nomen }}</h3>
+			    <ul id="suggestion_bottom1">
+	         	{% for etablissement in listClientBottom1 %}
+		           <li><a href="{{ path('_hebergementinfoclient',{'name':etablissement.repertoireen|lower}) }}" title="Accomodation {{ etablissement.nomen }} region {{ etablissement.regionid.nomen }}"  target="_blank">{{ etablissement.nomen }}</a></li>
+		           {% if etablissement.prixapartir is not empty %}<li>{{ "a.partir" | trans }} {{ etablissement.prixapartir|replace({"%$%":''}) }}$</li>{% endif %}
+                        {% endfor %}	
+			    </ul>
+			    <h2 class="numberHotelListBottom">
+			    	<a href="{{ path('_hebergementregionsquebecen',{'name':s1.repertoireen|lower}) }}" title="See all hotels, motels and inns region - {{ s1.nomen }}">{% if listClientBottom1|length < nbHebergement1 %} {{ nbHebergement1 }} {% else %} {{ listClientBottom1|length }} {% endif %} hotel{% if listClientBottom1|length > 1 %}s{% else %}{% endif %} - {{ s1.nomen }}</a>
+			    </h2>
+		   {% endfor %}
+	   {% endif %}
+	</div>
+	
+	{# suggestion 2 #} {# FRANÇAIS #}
+	<div itemscope itemtype="http://data-vocabulary.org/Organization" >
+		{% if app.request.locale == "fr" %}
+			{% for s2 in suggestion2 %}
+			<a href="{{ path('_hebergementregionsquebecfr',{'name':s2.repertoirefr|lower}) }}" itemprop="url" title="Hôtels, motels et auberge {{ s2.nomfr }}">
+				<img src="{{ asset('uploads/regions/') }}{{ s2.id }}/{{ s2.imagesuggestion }}" alt="Hôtels, motels et auberge {{ s2.nomfr }}"  class="img_categoie_portail" />
+			</a>
+			<h3 id="title_suggestion_bottom2" itemprop="name"> {{ s2.nomfr }}</h3>
+			    <ul id="suggestion_bottom2">
+	            {% for etablissement in listClientBottom2 %}
+		           <li><a href="{{ path('_hebergementinfoclient',{'name':etablissement.repertoirefr|lower}) }}" title="Hébergement {{ etablissement.nomfr }} région {{ etablissement.regionid.nomfr }}"  target="_blank">{{ etablissement.nomfr }}</a></li>
+		           {% if etablissement.prixapartir is not empty %}<li>{{ "a.partir" | trans }} {{ etablissement.prixapartir|replace({"%$%":''}) }}$</li>{% endif %}
+	            {% endfor %}	
+		       </ul>
+		       <h2 class="numberHotelListBottom">
+		    	<a href="{{ path('_hebergementregionsquebecfr',{'name':s2.repertoirefr|lower}) }}" title="Voir tous les hôtels, motels et auberges région- {{ s2.nomfr }}">{% if listClientBottom2|length < nbHebergement2 %} {{ nbHebergement2 }} {% else %} {{ listClientBottom2|length }} {% endif %} hôtel{% if listClientBottom2|length > 1 %}s{% else %}{% endif %} - {{ s2.nomfr }}</a>
+		       </h2>
+		   {% endfor %}
+	   {% else %} {# ANGLAIS #}
+	      {% for s2 in suggestion2 %}
+		    <a href="{{ path('_hebergementregionsquebecen',{'name':s2.repertoireen|lower}) }}" itemprop="url" title="Hotels, motels and hostels {{ s2.nomen }}">
+			    <img src="{{ asset('uploads/regions/') }}{{ s2.id }}/{{ s2.imagesuggestion }}"  alt="Hotels, motels and hostels {{ s2.nomen }}" class="img_categoie_portail" />
+		    </a>
+			<h3 id="title_suggestion_bottom2" itemprop="name">{{ s2.nomen }}</h3>
+			    <ul id="suggestion_bottom2">
+	            {% for etablissement in listClientBottom2 %}
+		           <li><a href="{{ path('_hebergementinfoclient',{ 'name':etablissement.repertoireen|lower}) }}" title="Acommodation {{ etablissement.nomen }} region {{ etablissement.regionid.nomen }}"  target="_blank">{{ etablissement.nomen }}</a></li>
+		           {% if etablissement.prixapartir is not empty %}<li>{{ "a.partir" | trans }} {{ etablissement.prixapartir|replace({"$":''}) }}$</li>{% endif %}
+	            {% endfor %}
+		       </ul>
+		       <h2 class="numberHotelListBottom">
+		    	<a href="{{ path('_hebergementregionsquebecen',{'name':s2.repertoireen|lower}) }}" title="See all hotels, motels and inns region - {{ s2.nomen }}"> {% if listClientBottom2|length < nbHebergement2 %} {{ nbHebergement2 }} {% else %} {{ listClientBottom2|length }} {% endif %} hotel{% if listClientBottom2|length > 1 %}s{% else %}{% endif %} - {{ s2.nomen }}</a>
+		       </h2>
+		   {% endfor %}
+	   {% endif %}
+	</div>
+	
+	{# suggestion 3 #} {# FRANÇAIS #}
+	<div itemscope itemtype="http://data-vocabulary.org/Organization" > 
+		{% if app.request.locale == "fr" %}
+			{% for s3 in suggestion3 %}
+			<a href="{{ path('_hebergementregionsquebecfr',{'name':s3.repertoirefr|lower}) }}" itemprop="url" title="Hôtels, motels et auberge {{ s3.nomfr }}">
+				<img src="{{ asset('uploads/regions/') }}{{ s3.id }}/{{ s3.imagesuggestion }}" alt="Hôtels, motels et auberge {{ s3.nomfr }}"  class="img_categoie_portail" />
+			</a>
+			<h3 id="title_suggestion_bottom3" itemprop="name"> {{ s3.nomfr }}</h3>
+			    <ul id="suggestion_bottom3">
+	            {% for etablissement in listClientBottom3 %}
+		           <li><a href="{{ path('_hebergementinfoclient',{'name':etablissement.repertoirefr|lower}) }}" title="Hébergement {{ etablissement.nomfr }} région {{ etablissement.regionid.nomfr }}"  target="_blank">{{ etablissement.nomfr }}</a></li>
+		           {% if etablissement.prixapartir is not empty %}<li>{{ "a.partir" | trans }} {{ etablissement.prixapartir|replace({"$":''}) }}$</li>{% endif %}
+	            {% endfor %}	
+		       </ul>
+		       <h2 class="numberHotelListBottom">
+		     	<a href="{{ path('_hebergementregionsquebecfr',{'name':s3.repertoirefr|lower}) }}" title="Voir tous les hôtels, motels et auberges région - {{ s3.nomfr }}">{% if listClientBottom3|length < nbHebergement3 %} {{ nbHebergement3 }} {% else %} {{ listClientBottom3|length }} {% endif %} hôtel{% if listClientBottom3|length > 1 %}s{% else %}{% endif %} - {{ s3.nomfr }}</a>
+		       </h2>
+		  {% endfor %}
+	  {% else %} {# ANGLAIS #}
+	 	  {% for s3 in suggestion3 %}
+		    <a href="{{ path('_hebergementregionsquebecfr',{'name':s3.repertoireen|lower}) }}" itemprop="url" title="Hotels, motels and hostels {{ s3.nomen }}">
+			   	<img src="{{ asset('uploads/regions/') }}{{ s3.id }}/{{ s3.imagesuggestion }}"  alt="Hotels, motels and hostels {{ s3.nomen }}" class="img_categoie_portail" />
+		   	</a>
+			<h3 id="title_suggestion_bottom3" itemprop="name">{{ s3.nomen }}</h3>
+			    <ul id="suggestion_bottom3">
+	            {% for etablissement in listClientBottom3 %}
+		           <li><a href="{{ path('_hebergementinfoclient',{'name':etablissement.repertoireen|lower}) }}" title="Acommodation {{ etablissement.nomen }} region {{ etablissement.regionid.nomen }}"  target="_blank">{{ etablissement.nomen }}</a></li>
+		           {% if etablissement.prixapartir is not empty %}<li>{{ "a.partir" | trans }} {{ etablissement.prixapartir|replace({"$":''}) }}$</li>{% endif %}
+	            {% endfor %}
+		       </ul>
+		       <h2 class="numberHotelListBottom">
+		    	<a href="{{ path('_hebergementregionsquebecen',{'name':s3.repertoireen|lower}) }}" title="See all hotels, motels and inns region - {{ s3.nomen }}">{% if listClientBottom3|length < nbHebergement3 %} {{ nbHebergement3 }} {% else %} {{ listClientBottom3|length }} {% endif %} hotel{% if listClientBottom3|length > 1 %}s{% else %}{% endif %} - {{ s3.nomen }}</a>
+		       </h2>
+		  {% endfor %}
+	 {% endif %}
+	</div>
+	
+	{# suggestion 4 #} {# FRANÇAIS #}
+	<div itemscope itemtype="http://data-vocabulary.org/Organization" > 
+		{% if app.request.locale == "fr" %}
+			{% for s4 in suggestion4 %}
+			 <a href="{{ path('_hebergementregionsquebecfr',{'name':s4.repertoirefr|lower}) }}" itemprop="url" title="Hôtels, motels et auberge {{ s4.nomfr }}">
+				<img src="{{ asset('uploads/regions/') }}{{ s4.id }}/{{ s4.imagesuggestion }}" alt="Hôtels, motels et auberge {{ s4.nomfr }}"  class="img_categoie_portail" />
+			 </a>  
+			 <h3 id="title_suggestion_bottom4" itemprop="name"> {{ s4.nomfr }}</h3>
+			    <ul id="suggestion_bottom4">
+	         	{% for etablissement in listClientBottom4 %}
+		           <li><a href="{{ path('_hebergementinfoclient',{ 'name':etablissement.repertoirefr|lower}) }}" title="Hébergement {{ etablissement.nomfr }} région {{ etablissement.regionid.nomfr }}"  target="_blank">{{ etablissement.nomfr }}</a></li>
+		           {% if etablissement.prixapartir is not empty %}<li>{{ "a.partir" | trans }} {{ etablissement.prixapartir|replace({"$":''}) }}$</li>{% endif %}
+	            {% endfor %}	
+		       </ul>
+		      <h2 class="numberHotelListBottom">
+		     	<a href="{{ path('_hebergementregionsquebecfr',{'name':s4.repertoirefr|lower}) }}" title="Voir tous les hôtels, motels et auberges région - {{ s4.nomfr }}">{% if listClientBottom4|length < nbHebergement4 %} {{ nbHebergement4 }} {% else %} {{ listClientBottom4|length }} {% endif %} hôtel{% if listClientBottom4|length > 1 %}s{% else %}{% endif %} - {{ s4.nomfr }}</a>
+		      </h2>
+		    {% endfor %}
+	   {% else %} {# ANGLAIS #}
+	   		{% for s4 in suggestion4 %}
+		     <a href="{{ path('_hebergementregionsquebecen',{'name':s4.repertoireen|lower}) }}" itemprop="url" title="Hotels, motels and hostels {{ s4.nomen }}">
+		    	<img src="{{ asset('uploads/regions/') }}{{ s4.id }}/{{ s4.imagesuggestion }}"  alt="Hotels, motels and hostels {{ s4.nomen }}" class="img_categoie_portail" />
+		     </a>
+			 <h3 id="title_suggestion_bottom4" itemprop="name">{{ s4.nomen }}</h3>
+			    <ul id="suggestion_bottom4">
+	         	{% for etablissement in listClientBottom4 %}
+		           <li><a href="{{ path('_hebergementinfoclient',{'name':etablissement.repertoireen|lower}) }}" title="Acommodation {{ etablissement.nomen }} region {{ etablissement.regionid.nomen }}"  target="_blank">{{ etablissement.nomen }}</a></li>
+		           {% if etablissement.prixapartir is not empty %}<li>{{ "a.partir" | trans }} {{ etablissement.prixapartir|replace({"$":''}) }}$</li>{% endif %}
+	            {% endfor %}
+			     </ul>
+			    <h2 class="numberHotelListBottom">
+			    	<a href="{{ path('_hebergementregionsquebecen',{'name':s4.repertoireen|lower}) }}" title="See all hotels, motels and inns region - {{ s4.nomen }}">{% if listClientBottom4|length < nbHebergement4 %} {{ nbHebergement4 }} {% else %} {{ listClientBottom4|length }} {% endif %} hotel{% if listClientBottom4|length > 1 %}s{% else %}{% endif %} - {{ s4.nomen }}</a>
+			    </h2>
+		   {% endfor %}
+	  {% endif %}
+	</div>
+	<script>
+	var obj1 = document.getElementById('title_suggestion_bottom1').offsetHeight;
+	if(obj1 >= 20)
+	{
+		$(function(){
+			$('ul#suggestion_bottom1').addClass('hackSuggestion');
+		});
+	}
+		
+	var obj2 = document.getElementById('title_suggestion_bottom2').offsetHeight;
+	if(obj2 >= 20)
+	{
+		$(function(){
+			$('ul#suggestion_bottom2').addClass('hackSuggestion');
+		});
+	}
+	
+	var obj3 = document.getElementById('title_suggestion_bottom3').offsetHeight;
+	if(obj3 >= 20)
+	{
+		$(function(){
+			$('ul#suggestion_bottom3').addClass('hackSuggestion');
+		});
+	}
+	
+	var obj4 = document.getElementById('title_suggestion_bottom4').offsetHeight;
+	if(obj4 >= 20)
+	{
+		$(function(){
+			$('ul#suggestion_bottom4').addClass('hackSuggestion');
+		});
+	}
+	</script>
+{% endblock %}
+

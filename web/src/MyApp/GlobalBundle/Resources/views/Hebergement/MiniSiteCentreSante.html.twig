@@ -1,0 +1,608 @@
+{# {% for z in client %}
+	{% if z.reservitid is not empty and z.reservit is not empty %}
+		{# Formulaire de reservation en ligne #}
+  	{#}	{% include 'MyAppGlobalBundle:Hebergement:Formulaire_reservation_en_ligne.html.twig' %}
+	{% endif %}
+{% endfor %}#}
+{% if hydro is not empty or masso is not empty or servicecomple is not empty or servicespec is not empty or soincorpo is not empty or soinesthe is not empty or thermo is not empty %}
+<h2>{{ "services.offerts" | trans }}</h2>
+{% endif %}
+<div class="fiche">
+	{% if app.request.locale == "fr" %}
+		{# Hydrothérapie #}
+		   <div class="hydro">
+			{% for p in hydro %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomfr }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image de remplacement pour {{ p.typessoinssanteid.nomfr }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomfr }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in hydro %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomfr }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>
+		{# Massothérapie #}	
+		   <div class="masso">
+			{% for p in masso %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomfr }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image de remplacement pour {{ p.typessoinssanteid.nomfr }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomfr }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in masso %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomfr }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>
+		{# Services complémentaires #}
+		  <div class="servicecomple">
+			{% for p in servicecomple %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomfr }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/Lmages/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image de remplacement pour {{ p.typessoinssanteid.nomfr }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomfr }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in servicecomple %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomfr }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>	
+		{# Services spéciaux #}
+			 <div class="servicespec">
+			{% for p in servicespec %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomfr }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image de remplacement pour {{ p.typessoinssanteid.nomfr }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomfr }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in servicespec %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomfr }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>		
+		{# Soins corporels #}
+		   <div class="soincorpo">
+			{% for p in soincorpo %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomfr }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image de remplacement pour {{ p.typessoinssanteid.nomfr }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomfr }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in soincorpo %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomfr }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>
+		 {# Soins esthétiques #}
+		   <div class="soinesthe">
+			{% for p in soinesthe %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomfr }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image de remplacement pour {{ p.typessoinssanteid.nomfr }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomfr }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in soinesthe %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomfr }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>
+		{# Thermothérapie #}
+		   <div class="thermo">
+			{% for p in thermo %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomfr }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image de remplacement pour {{ p.typessoinssanteid.nomfr }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomfr }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in thermo %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomfr }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>
+	{% else %}
+		{# Services complémentaires #}
+		  <div class="servicecomple">
+			{% for p in servicecomple %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomen }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Replacement image {{ p.typessoinssanteid.nomen }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomen }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in servicecomple %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomen }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>	
+		{# Soins esthétiques #}
+		   <div class="soinesthe">
+			{% for p in soinesthe %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomen }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Replacement image {{ p.typessoinssanteid.nomen }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomen }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in soinesthe %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomen }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>
+		{# Soins corporels #}
+		   <div class="soincorpo">
+			{% for p in soincorpo %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomen }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Replacement image {{ p.typessoinssanteid.nomen }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomen }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in soincorpo %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomen }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>
+		{# Hydrothérapie #}
+		   <div class="hydro">
+			{% for p in hydro %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomen }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Replacement image {{ p.typessoinssanteid.nomen }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomen }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in hydro %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomen }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>
+		{# Massothérapie #}	
+		   <div class="masso">
+			{% for p in masso %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomen }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Replacement image {{ p.typessoinssanteid.nomen }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomen }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in masso %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomen }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>	
+		{# Services spéciaux #}
+			 <div class="servicespec">
+			{% for p in servicespec %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomen }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Replacement image {{ p.typessoinssanteid.nomen }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomen }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in servicespec %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomen }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>			
+		{# Thermothérapie #}
+		   <div class="thermo">
+			{% for p in thermo %}
+			  {% if loop.index == 1 %}
+			  	 {% if p.typessoinssanteid.image is not empty %}
+			  		<img src="{{ asset('uploads/type_soin') }}/{{ p.typessoinssanteid.id }}/{{ p.typessoinssanteid.image }}" class="img_liste_forfait" alt="{{ p.typessoinssanteid.nomen }}" />
+			     {% else %}
+			     	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Replacement image {{ p.typessoinssanteid.nomen }}" />
+			     {% endif %}
+			    <div>
+			      <h3><a name="corporatif1" id="corporatif1"> {{ p.typessoinssanteid.nomen }} </a></h3>
+			    </div>
+			  {% else %}
+			  {% endif %}
+			{% endfor %}
+			{% for p in thermo %}
+			    <div>
+			      <table width="444" border="0" cellspacing="0" cellpadding="1" style="background-color:#eaeaea;">
+					  <tr>
+					    <td>{{ p.nomen }}</td>
+					  </tr>
+				  </table>
+			    </div>
+			 {% endfor %}
+			</div>
+	{% endif %}
+	<script>
+		$(function()
+		{
+			//On enlève les divs qui ne contiennent aucun soin 
+			var hydro = $.trim($("div.hydro").html());
+			var masso = $.trim($("div.masso").html());
+			var servicecomple = $.trim($("div.servicecomple").html());
+			var servicespec = $.trim($("div.servicespec").html());
+			var soincorpo = $.trim($("div.soincorpo").html());
+			var soinesthe = $.trim($("div.soinesthe").html());
+			var thermo = $.trim($("div.thermo").html()); 
+			if(hydro == "")
+			{
+				$("div.hydro").remove();
+			}
+			if(masso == "")
+			{
+				$("div.masso").remove();
+			}
+			if(servicecomple == "")
+			{
+				$("div.servicecomple").remove();
+			}
+			if(servicespec == "")
+			{
+				$("div.servicespec").remove();
+			}
+			if(soincorpo == "")
+			{
+				$("div.soincorpo").remove();
+			}
+			if(soinesthe == "")
+			{
+				$("div.soinesthe").remove();
+			}
+			if(thermo == "")
+			{
+				$("div.thermo").remove();
+			}
+			//Supprime le div condition siu il est vide
+			{% if app.request.locale == "fr" %}
+				{% for p in client %}
+			    	{% if p.politiquehebergementfr is defined and p.politiquehebergementfr.politiqueannulationfr is empty or p.politiquehebergementfr is defined and p.politiquehebergementfr.politiquetariffr is empty  %} 
+			    		$(".condition").remove();
+					{% elseif p.politiqueattraitfr is defined and p.politiqueattraitfr.politiqueannulationfr is empty or p.politiqueattraitfr is defined and p.politiqueattraitfr.politiquetariffr is empty %}
+						$(".condition").remove();
+					{% endif %}
+				{% endfor %}
+			{% else %}
+				{% for p in client %}
+			    	{% if p.politiquehebergementen is defined and p.politiquehebergementen.politiqueannulationen is empty or p.politiquehebergementen is defined and p.politiquehebergementen.politiquetarifen is empty  %} 
+			    		$(".condition").remove();
+					{% elseif p.politiqueattraiten is defined and p.politiqueattraiten.politiqueannulationen is empty or p.politiqueattraiten is defined and p.politiqueattraiten.politiquetarifen is empty %}
+						$(".condition").remove();
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+			
+		});
+	</script>
+</div>
+  <br class="clearfloat" />
+  <h2>
+  {% for w in listeForfaitSante %}
+  	{% if w is not empty %}
+  		{{ "forfait.detente" | trans }} 
+  	{% endif %}
+  {% endfor %}
+  {% if hydro is not empty or masso is not empty or servicecomple is not empty or servicespec is not empty or soincorpo is not empty or soinesthe is not empty or thermo is not empty %}
+	<a href="#">{{ "haut" | trans }}</a>
+  {% endif %}
+  </h2>
+  {% if app.request.locale == "fr" %}
+	  <div class="fiche">
+	   {% for w in listeForfaitSante %}
+	  	  <div>
+	  	   {% for x in w.galerieforfaits %}
+	  	   		{% if loop.index == 1 %}
+				<img src="{{ asset('uploads/galerie_forfaits') }}/{{ x.id }}/{{ x.image }}" class="img_liste_forfait" alt="{{ w.nomfr }}" />
+	            {% else %}
+	            {% endif %}
+	  	   {% endfor %}
+	          <h3><a name="forfait1" id="forfait1"></a>{{ w.nomfr }}</h3>
+	          <div>
+	          	<h4>Ce forfait comprend:</h4>
+		          <p>{{ w.textefr }}</p>
+		          <div>
+		          	<p>Tarif à partir de <strong>{{ w.tarif|replace({'%$%': ''}) }} $</strong></p>
+		          		<p> {{ w.datedebut|date("d ") }} 
+			          		 {# On convertie les mois en fançais #}
+							 {% if w.datedebut|date('m') == '01' %} jan
+							 {% elseif w.datedebut|date('m') == '02' %} fév
+							 {% elseif w.datedebut|date('m') == '03' %} mars
+							 {% elseif w.datedebut|date('m') == '04' %} avr
+							 {% elseif w.datedebut|date('m') == '05' %} mai
+							 {% elseif w.datedebut|date('m') == '06' %} juin
+							 {% elseif w.datedebut|date('m') == '07' %} juil
+							 {% elseif w.datedebut|date('m') == '08' %} août
+							 {% elseif w.datedebut|date('m') == '09' %} sep
+							 {% elseif w.datedebut|date('m') == '10' %} oct
+							 {% elseif w.datedebut|date('m') == '11' %} nov
+							 {% else %}déc
+							 {% endif %} 
+							 {{ w.datedebut|date('Y') }} 
+			          		 - {{ w.datedefin|date("d") }}
+							 {# On convertie les mois en fançais #}
+							 {% if w.datedefin|date('m') == '01' %} jan 
+							 {% elseif w.datedefin|date('m') == '02' %} fév
+							 {% elseif w.datedefin|date('m') == '03' %} mars
+							 {% elseif w.datedefin|date('m') == '04' %} avr
+							 {% elseif w.datedefin|date('m') == '05' %} mai
+							 {% elseif w.datedefin|date('m') == '06' %} juin
+							 {% elseif w.datedefin|date('m') == '07' %} juil
+							 {% elseif w.datedefin|date('m') == '08' %} août
+							 {% elseif w.datedefin|date('m') == '09' %} sep
+							 {% elseif w.datedefin|date('m') == '10' %} oct
+							 {% elseif w.datedefin|date('m') == '11' %} nov
+							 {% else %}déc
+					         {% endif %} 
+							 {{ w.datedefin|date('Y') }}
+		          		</p>
+		          </div>
+	          </div>
+	          <span>
+	          	{% for z in client %}
+	          		{% if z.reservitid is not empty %}
+	          			<a href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.reservitid }}&lang=fr" target="_blank" title="Réserver ce forfait en ligne">Réserver ce forfait en ligne</a>			
+	          		{% endif %}
+	          	{% endfor %}
+	          	<strong>Détente et soins de santé</strong>
+	          </span>
+	          <br class="clearfloat" />
+	      </div>
+	   {% endfor %}
+	  </div>   
+		{% for p in client %}
+	    	{% if p.politiquehebergementfr is defined %} 
+	    		{% if loop.index == 1 %}
+	    		<div class="condition hackopinion">
+	    		{% endif %}
+					{% if p.politiquehebergementfr.politiqueannulationfr is not empty %}<p><span>Politique d’annulation</span> : {{ p.politiquehebergementfr.politiqueannulationfr }}</p>{% endif %}
+					{% if p.politiquehebergementfr.politiquetariffr is not empty %}<p><span>{{ p.politiquehebergementfr.politiquetariffr }}</span></p>{% endif %}
+				{% if loop.index == 1 %}
+				</div>
+				{% endif %}
+			{% else %}
+				{% if loop.index == 1 %}
+				<div class="condition hackopinion">
+				{% endif %}
+					{% if p.politiqueattraitfr.politiqueannulationfr is not empty %}<p><span>Politique d’annulation</span> : {{ p.politiqueattraitfr.politiqueannulationfr }}</p>{% endif %}
+					{% if p.politiqueattraitfr.politiquetariffr is not empty %}<p><span>{{ p.politiqueattraitfr.politiquetariffr }}</span></p>{% endif %}
+				{% if loop.index == 1 %}
+				</div>
+				{% endif %}
+			{% endif %}
+	    {% endfor %}
+		  {# PUB GOOGLE #}
+		  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+		  	<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_01'); });
+			</script>
+		  </div>
+  {% else %}
+  	 <div class="fiche">
+	   {% for w in listeForfaitSante %}
+	  	  <div>
+	  	   {% for x in w.galerieforfaits %}
+	  	   		{% if loop.index == 1 %}
+	  	  	 	<img src="{{ asset('uploads/forfaits-client/image_categorie') }}/{{ x.id }}/{{ x.image }}" class="img_liste_forfait" alt="{{ w.nomen }}" />   
+	       		{% else %}
+	       		{% endif %}
+	  	   {% endfor %}
+	          <h3><a name="forfait1" id="forfait1"></a>{{ w.nomen }}</h3>
+	          <div>
+	          	<h4>This package includes:</h4>
+		          <p>{{ w.texteen }}</p>
+		          <div>
+		          	<p>Price from <strong>{{ w.tarif|replace({'%$%': ''}) }} $</strong></p>
+		          	<p>{% if w.aucunedate == 1 %}In the year {% else %} {{ w.datedebut|date("M d") }} - {{ w.datedefin|date("M d Y") }} {% endif %}</p>
+		          </div>
+	          </div>
+	          <span>
+	          	{% for z in client %}
+	          		{% if z.reservitid is not empty %}
+	          			<a href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.reservitid }}&lang=en" target="_blank" title="Reserve online package">Reserve online package</a>
+	          		{% endif %}
+	          	{% endfor %}
+	          	<strong>Relaxation and Health Care</strong>
+	          </span>
+	          <br class="clearfloat" />
+	      </div>
+	   {% endfor %}
+	  </div>
+			{% for p in client %}
+				{% if p.politiquehebergementen is defined %}
+					{% if loop.index == 1 %}
+					<div class="condition hackopinion">
+					{% endif %}
+						{% if p.politiquehebergementen.politiqueannulationen is not empty %}<p><span>Cancellation Policy</span> : {{ p.politiquehebergementen.politiqueannulationen }}</p>{% endif %}
+						{% if p.politiquehebergementen.politiquetarifen is not empty %}<p><span>{{ p.politiquehebergementen.politiquetarifen }}<</span></p>{% endif %}
+					{% if loop.index == 1 %}
+					</div>
+					{% endif %}
+				{% else %}
+					{% if loop.index == 1 %}
+					<div class="condition hackopinion">
+					{% endif %}
+						{% if p.politiqueattraiten.politiqueannulationen is not empty %}<p><span>Cancellation Policy</span> : {{ p.politiqueattraiten.politiqueannulationen }}</p>{% endif %}
+						{% if p.politiqueattraiten.politiquetarifen is not empty %}<p><span>{{ p.politiqueattraiten.politiquetarifen }}<</span></p>{% endif %}
+					{% if loop.index == 1 %}
+					</div>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		  {# PUB GOOGLE #}
+		  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+		  	<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_01'); });
+			</script>
+		  </div>
+  {% endif %}
+  {% for w in listeForfaitSante %}
+	  {% for x in w.galerieforfaits %}
+	  	  {% if x.image is not empty %}
+	  	  	  {% if loop.index == 1 %}
+				  <h2>{{ "galerie.photo.centre.sante" | trans }} <a href="#">{{ "haut" | trans }}</a></h2>
+				  <div class="photo">
+				  {% if app.request.locale == "fr" %}
+					  {% for w in listeForfaitSante %}
+					  	 {% for x in w.galerieforfaits %}
+					  		<a class="fancybox" rel="group" href="{{ asset('uploads/galerie_forfaits') }}/{{ x.id }}/{{ x.image }}" title="{{ x.legendefr }}"><img src="{{ asset('uploads/galerie_forfaits') }}/{{ x.id }}/{{ x.image }}" class="imgGalery" alt="{{ x.legendefr }}" /></a>
+					  	 {% endfor %}
+					  {% endfor %}
+				  {% else %}
+				      {% for w in listeForfaitSante %}
+					  	 {% for x in w.galerieforfaits %}
+					  		<a class="fancybox" rel="group" href="{{ asset('uploads/galerie_forfaits') }}/{{ x.id }}/{{ x.image }}" title="{{ x.legendeen }}"><img src="{{ asset('uploads/galerie_forfaits') }}/{{ x.id }}/{{ x.image }}" class="imgGalery" alt="{{ x.legendeen }}" /></a>
+					  	 {% endfor %}
+					  {% endfor %}
+				  {% endif %}
+				  </div>
+			 {% endif %}
+		  {% endif %}
+	  {% endfor %}
+  {% endfor %}

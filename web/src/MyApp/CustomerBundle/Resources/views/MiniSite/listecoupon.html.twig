@@ -1,0 +1,80 @@
+{% extends '::base1.html.twig' %}
+
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+				{% for p in listOption %}
+					<td>
+						<form method="POST" action="{{path('MyAppAddCouponRabais',{'id':p.id, 'name':p.repertoirefr})}}">
+							<input type="submit" value="{{ "ajouter.coupon" | trans }}" class="btnAddFicheClient"/>
+						</form>
+
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="270" colspan=1>{{ "nom.fr" | trans }}</td>
+								<td width="270">{{ "nom.en" | trans }}</td>
+							</tr>	
+						{% for w in coupons %}
+							<tr>
+								<td colspan=1 class="previewCoupon-fr"><span title="{{ "emule.apercu" | trans }}">{{ "apercu.fr" | trans }}</span><a title="{{ w.titrefr }}" href="{{path('MyAppUpdateCouponRabais',{'id':p.id, 'name':p.repertoirefr, 'couponid':w.id})}}" class="link_coupon">{{ w.titrefr }}</a>
+									<div class="dialog-modal_fr" title="{{ w.titrefr }}">
+											 <a title="{{ w.titrefr }}" href="{{path('MyAppUpdateCouponRabais',{'id':p.id, 'name':p.repertoirefr, 'couponid':w.id})}}" class="link_coupon">{{ w.titrefr }}</a>
+											 <img src="{{ asset('uploads/coupons-rabais') }}/{{ w.id }}/{{ w.imagefr }}" style="width:157px; height:109px;" /><br />
+											 <p>{{ w.descriptionfr }}</p><br />
+											 <p>{{ w.expirationfr }}</p><br />	
+											 <p>{{ w.specificationfr }}</p><br />
+											 <p>{{ w.creditphoto }}</p><br />
+											 <p>{{ w.dateexpiration|date('d/m/Y') }}</p><br />							
+									</div> 
+								</td>
+									<script>
+								 		$("td.previewCoupon-fr span").click(function(){
+								 			 $( "div.dialog-modal_fr" ).dialog({
+										            height: 450,
+										            width: 600,
+										            modal: true
+										       });
+								 		});
+								 		if($('.previewCoupon-fr').children().length == 1){
+											$('.previewCoupon-fr span').html("injection");
+										}
+								    </script>
+								 <td colspan=1 class="previewCoupon-en"><span title="{{ "emule.apercu" | trans }}">{{ "apercu.en" | trans }}</span> <a title="{{ w.titreen }}" href="{{path('MyAppUpdateCouponRabais',{'id':p.id, 'name':p.repertoireen, 'couponid':w.id})}}" class="link_coupon">{{ w.titreen }}</a>
+									 <div class="dialog-modal_en" title="{{ w.titreen }}">
+											 <a title="{{ w.titreen }}" href="{{path('MyAppUpdateCouponRabais',{'id':p.id, 'name':p.repertoireen, 'couponid':w.id})}}" class="link_coupon">{{ w.titreen }}</a>
+											 <img src="{{ asset('uploads/coupons-rabais') }}/{{ w.id }}/{{ w.imageen }}" style="width:157px; height:109px;" /><br />
+											 <p>{{ w.descriptionen }}</p><br />
+											 <p>{{ w.expirationen }}</p><br />	
+											 <p>{{ w.specificationen }}</p><br />
+											 <p>{{ w.creditphoto }}</p><br />
+											 <p>{{ w.dateexpiration|date('Y/m/d') }}</p><br />							
+									 </div> 
+								  </td>
+									 <script>
+								 		$("td.previewCoupon-en span").click(function(){
+								 			 $( "div.dialog-modal_en" ).dialog({
+										            height: 450,
+										            width: 600,
+										            modal: true
+										       });
+								 		});
+								    </script>
+							</tr>
+					    {% endfor %}
+					    	<tr>
+							{% if coupons is empty %}
+								<p class="searchnull emptySearch">{{ "aucun.resultat" | trans }}</p>
+							{% endif %}	
+							</tr>	
+							</tbody>
+						</table>
+					</td>
+				{% endfor %}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

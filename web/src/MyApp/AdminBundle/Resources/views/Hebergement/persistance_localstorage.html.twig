@@ -1,0 +1,658 @@
+<script>
+var reg=new RegExp(",", "g");
+if(typeof(Storage)!=="undefined"){
+	$(function(){
+			//Si un client est déjà créer
+			{% if exist is not defined %}
+				$idclient = {{ id }};
+				//meta description fr
+				$("#add_hebergement_meta_description_fr").live("keyup", function(){
+					localStorage.setItem("metadescriptionfr_"+$idclient , $(this).val() );
+				});
+				if($("#add_hebergement_meta_description_fr").val() == ""){
+					$("#add_hebergement_meta_description_fr").append(localStorage.getItem("metadescriptionfr_"+$idclient ));
+				}
+				//texte résume fr
+				$("#add_hebergement_texte_resume_fr").live("keyup", function(){
+					localStorage.setItem("texte_resume_fr_"+$idclient, $(this).val());
+				});
+				if($("#add_hebergement_texte_resume_fr").val() == ""){
+					$("#add_hebergement_texte_resume_fr").append(localStorage.getItem("texte_resume_fr_"+$idclient ));
+				}
+				//politique tarif fr
+				$("#add_hebergement_politique_hebergement_fr_politique_tarif_fr").live("keyup", function(){
+					localStorage.setItem("politique_tarif_fr_"+$idclient, $(this).val());
+				});
+				if($("#add_hebergement_politique_hebergement_fr_politique_tarif_fr").val() == ""){
+					$("#add_hebergement_politique_hebergement_fr_politique_tarif_fr").append(localStorage.getItem("politique_tarif_fr_"+$idclient ));
+				}
+			
+				//version anglaise
+				//meta description en
+				$("#add_hebergement_meta_description_en").live("keyup", function(){
+					localStorage.setItem("metadescriptionen_"+$idclient , $(this).val() );
+				});
+				if($("#add_hebergement_meta_description_en").val() == ""){
+					$("#add_hebergement_meta_description_en").append(localStorage.getItem("metadescriptionen_"+$idclient ));
+				}
+				//texte résume en
+				$("#add_hebergement_texte_resume_en").live("keyup", function(){
+					localStorage.setItem("texte_resume_en_"+$idclient, $(this).val());
+				});
+				if($("#add_hebergement_texte_resume_en").val() == ""){
+					$("#add_hebergement_texte_resume_en").append(localStorage.getItem("texte_resume_en_"+$idclient ));
+				}
+				//politique tarif en
+				$("#add_hebergement_politique_hebergement_en_politique_tarif_en").live("keyup", function(){
+					localStorage.setItem("politique_tarif_en_"+$idclient, $(this).val());
+				});
+				if($("#add_hebergement_politique_hebergement_en_politique_tarif_en").val() == ""){
+					$("#add_hebergement_politique_hebergement_en_politique_tarif_en").append(localStorage.getItem("politique_tarif_en_"+$idclient ));
+				}
+			
+			{% else %} //NOUVEL HÉBERGEMENT
+				//actif
+				$("#add_hebergement_actif").live("change", function(){
+					localStorage.setItem("actif", $(this).val() );
+				}); 
+				if($("#add_hebergement_actif option:selected").val() != localStorage.getItem("actif")){
+					$("#add_hebergement_actif option[value="+localStorage.getItem('actif')+"]").attr("selected","selected");
+				}
+				//approbation
+				$("#add_hebergement_aprouver").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("approuver", 1);
+					}else{  
+						localStorage.setItem("approuver", 0);
+					} 
+				});
+				if(localStorage.getItem("approuver") == 1){
+					$("#add_hebergement_aprouver").prop('checked', true);
+				}else{
+					$("#add_hebergement_aprouver").prop('checked', false);
+				}
+				//client
+				$("#add_hebergement_utilisateur").live("change", function(){
+					localStorage.setItem("client", $(this).val() );
+				});				
+				if($("#add_hebergement_utilisateur option:selected").val() != localStorage.getItem("client")){
+					$("#add_hebergement_utilisateur option[value="+localStorage.getItem("client")+"]").attr("selected", "selected");
+				}
+				//catégorie 
+				$("#add_hebergement_categorie_hebergement_id").live("change", function(){
+					localStorage.setItem("categorie", $(this).val());
+				});				
+				if($("#add_hebergement_categorie_hebergement_id").val() != localStorage.getItem("categorie")){
+					chainecat = localStorage.getItem("categorie");
+					tabcategorie = new Array();
+					contentcat = "";
+					//transforme la chaine en tableau et en même temps supprime les virgules de la chaine
+					for(var j =0; j < chainecat.length; j++){
+						contentcat += chainecat[j];
+						if(chainecat[j] == ","){
+							tabcategorie.push(contentcat.replace(reg, ""));
+							contentcat = "";
+						}
+					}
+					//console.log(tabcategorie);
+					for( i = 0; i < tabcategorie.length; i++){
+						$("#add_hebergement_categorie_hebergement_id option[value="+tabcategorie[i]+"]").attr("selected", "selected");
+					}
+				}
+				//province
+				$("#add_hebergement_province_id").live("click", function(){
+					localStorage.setItem("province", $(this).val() );
+				});
+				if($("#add_hebergement_province_id option:selected").val() != localStorage.getItem("province")){
+					$("#add_hebergement_province_id option[value="+localStorage.getItem("province")+"]").attr("selected", "selected");
+				}
+				//acompte
+				$("#add_hebergement_acompte_id").live("change", function(){
+					localStorage.setItem("acompte", $(this).val());
+				});
+				if($("#add_hebergement_acompte_id").val() != localStorage.getItem("acompte")){
+					$("#add_hebergement_acompte_id option[value="+localStorage.getItem("acompte")+"]").attr("selected", "selected");
+				}
+				//affiliations
+				$("#add_hebergement_affiliation_id").live("change", function(){
+					localStorage.setItem("affiliation", $(this).val());
+				});
+				if($("#add_hebergement_affiliation_id").val() != localStorage.getItem("affiliation")){
+					chaineaffil = localStorage.getItem("affiliation");
+					if(chaineaffil != null){
+						tabaffiliation = new Array();
+						contentaffil = "";
+						for(j = 0; j < chaineaffil.length; j++){
+							contentaffil += chaineaffil[j];
+							if(chaineaffil[j] == ","){
+								tabaffiliation.push(contentaffil.replace(reg, ""));
+								contentaffil = "";
+							}
+						}
+						for( i = 0; i < tabaffiliation.length; i++){
+							$("#add_hebergement_affiliation_id option[value="+tabaffiliation[i]+"]").attr("selected", "selected");
+						}
+					}
+				}
+				//nom fr
+				$("#add_hebergement_nom_fr").live("keyup", function(){
+					localStorage.setItem("nom_fr", $(this).val());
+				}); 
+				if(localStorage.getItem("nom_fr") != ""){
+					$("#add_hebergement_nom_fr").attr("value", localStorage.getItem("nom_fr"));
+				}
+				//nom en
+				$("#add_hebergement_nom_en").live("keyup", function(){
+					localStorage.setItem("nom_en", $(this).val());
+				});
+				if(localStorage.getItem("nom_en") != ""){
+					$("#add_hebergement_nom_en").attr("value", localStorage.getItem("nom_en"));
+				}
+				//adresse
+				$("#add_hebergement_adresse").live("keyup", function(){
+					localStorage.setItem("adresse", $(this).val());
+				});
+				if(localStorage.getItem("adresse") != ""){
+					$("#add_hebergement_adresse").attr("value", localStorage.getItem("adresse"));
+				}
+				//CP
+				$("#add_hebergement_code_postal").live("keyup", function(){
+					localStorage.setItem("cp", $(this).val());
+				});
+				if(localStorage.getItem("cp") != ""){
+					$("#add_hebergement_code_postal").attr("value", localStorage.getItem("cp"));
+				}
+				//téléphone
+				$("#add_hebergement_telephone").live("keyup", function(){
+					localStorage.setItem("telephone", $(this).val());
+				});
+				if(localStorage.getItem("telephone") != ""){
+					$("#add_hebergement_telephone").attr("value", localStorage.getItem("telephone"));
+				}
+				//latitude
+				$("#add_hebergement_latitude").live("keyup", function(){
+					localStorage.setItem("latitude", $(this).val());
+				});
+				if(localStorage.getItem("latitude") != ""){
+					$("#add_hebergement_latitude").attr("value", localStorage.getItem("latitude"));
+				}
+				//longitude
+				$("#add_hebergement_longitude").live("keyup", function(){
+					localStorage.setItem("longitude", $(this).val());
+				});
+				if(localStorage.getItem("longitude") != ""){
+					$("#add_hebergement_longitude").attr("value", localStorage.getItem("longitude"));
+				}
+				//téléphone 2
+				$("#add_hebergement_telephone2").live("keyup", function(){
+					localStorage.setItem("telephone2", $(this).val());
+				});
+				if(localStorage.getItem("telephone2") != ""){
+					$("#add_hebergement_telephone2").attr("value", localStorage.getItem("telephone2"));
+				}
+				//poste téléphone
+				$("#add_hebergement_telephone_poste").live("keyup", function(){
+					localStorage.setItem("telephone_poste", $(this).val());
+				});
+				if(localStorage.getItem("telephone_poste") != ""){
+					$("#add_hebergement_telephone_poste").attr("value", localStorage.getItem("telephone_poste"));
+				}
+				//sans frais
+				$("#add_hebergement_sans_frais").live("keyup", function(){
+					localStorage.setItem("sans_frais", $(this).val());
+				});
+				if(localStorage.getItem("sans_frais") != ""){
+					$("#add_hebergement_sans_frais").attr("value", localStorage.getItem("sans_frais"));
+				}
+				//télécopieur
+				$("#add_hebergement_telecopieur").live("keyup", function(){
+					localStorage.setItem("telecopieur", $(this).val());
+				});
+				if(localStorage.getItem("telecopieur") != ""){
+					$("#add_hebergement_telecopieur").attr("value", localStorage.getItem("telecopieur"));
+				}
+				//site web
+				$("#add_hebergement_siteweb").live("keyup", function(){
+					localStorage.setItem("siteweb", $(this).val());
+				});
+				if(localStorage.getItem("siteweb") != ""){
+					$("#add_hebergement_siteweb").attr("value", localStorage.getItem("siteweb"));
+				}
+				//email
+				$("#add_hebergement_courriel").live("keyup", function(){
+					localStorage.setItem("email", $(this).val());
+				});
+				if(localStorage.getItem("email") != ""){
+					$("#add_hebergement_courriel").attr("value", localStorage.getItem("email"));
+				}
+				//email corporatif
+				$("#add_hebergement_email_corporatif").live("keyup", function(){
+					localStorage.setItem("email_corpo", $(this).val());
+				});
+				if(localStorage.getItem("email_corpo") != ""){
+					$("#add_hebergement_email_corporatif").attr("value", localStorage.getItem("email_corpo"));
+				}
+				//classification
+				$("#add_hebergement_classification_id").live("change", function(){
+					localStorage.setItem("classification", $(this).val());
+				}); 
+				if($("#add_hebergement_classification_id").val() != localStorage.getItem("classification")){
+					$("#add_hebergement_classification_id option[value="+localStorage.getItem("classification")+"]").attr("selected", "selected");
+				}
+				//cotation
+				$("#add_hebergement_cotation_id").live("change", function(){
+					localStorage.setItem("cotation", $(this).val());
+				});
+				if($("#add_hebergement_cotation_id").val() != localStorage.getItem("cotation")){
+					$("#add_hebergement_cotation_id option[value="+localStorage.getItem("cotation")+"]").attr("selected", "selected");
+				}
+				//devises
+				$("#add_hebergement_devise_id").live("change", function(){
+					localStorage.setItem("devise", $(this).val());
+				}); 
+				if( $("#add_hebergement_devise_id").val() != localStorage.getItem("devise")){
+					chainedevise = localStorage.getItem("devise");
+					if(chainedevise != null){
+						tabdevise = new Array();
+						contentdevise = "";
+						for(j = 0; j < chainedevise.length; j++){
+							contentdevise += chainedevise[j];
+							if(chainedevise[j] == ","){
+								tabdevise.push(contentdevise.replace(reg, ""));
+								contentdevise = "";
+							}
+						}
+						for(var i = 0; i < tabdevise.length; i++){
+							$("#add_hebergement_devise_id option[value="+tabdevise[i]+"]").attr("selected", "selected");
+						}
+					}
+				}
+				//modes de paiements
+				/*$("#add_hebergement_hebergement_paiements_id").live("change", function(){
+					localStorage.setItem("paiement", $(this).val());
+				}); 
+				if($("#add_hebergement_hebergement_paiements_id").val() != localStorage.getItem("paiement")){
+					chainepaiement = localStorage.getItem("paiement");
+					if(chainepaiement != null){
+						tabpaiement = new Array();
+						contentpaiement = "";
+						//filtre la chaine de ses virgules et stocke chaque entier dans un tableau 
+						for(j = 0; j < chainepaiement.length; j++){
+							contentpaiement += chainepaiement[j];
+							if(chainepaiement[j] == ","){
+								tabpaiement.push(contentpaiement.replace(reg, ""));
+								contentpaiement = "";
+							}
+						}
+						for(var i = 0; i < tabpaiement.length; i++){
+							$("#add_hebergement_hebergement_paiements_id option[value="+tabpaiement[i]+"]").attr("selected", "selected");
+						}
+					}
+				}
+				// services
+				$("#add_hebergement_hebergement_service_id").live("change", function(){
+					localStorage.setItem("service", $(this).val());
+				});
+				if($("#add_hebergement_hebergement_service_id").val() != localStorage.getItem("service")){
+					chaineservice = localStorage.getItem("service");
+					if(chaineservice != null){
+						tabservice = new Array();
+						contentservice = "";
+						//filtre la chaine de ses virgules et stocke chaque entier dans un tableau 
+						for(j = 0; j < chaineservice.length; j++){
+							contentservice += chaineservice[j];
+							if(chaineservice[j] == ","){
+								tabservice.push(contentservice.replace(reg, ""));
+								contentservice = "";
+							}
+						}
+						for(i = 0; i < tabservice.length; i++){
+							$("#add_hebergement_hebergement_service_id option[value="+tabservice[i]+"]").attr("selected", "selected");
+						}
+					}
+				}
+				//activités
+				$("#add_hebergement_hebergement_activite_id").live("change", function(){
+					localStorage.setItem("activite", $(this).val());
+				});
+				if($("#add_hebergement_hebergement_activite_id").val() != localStorage.getItem("activite")){
+					chaineactivite = localStorage.getItem("activite");
+					if(chaineactivite != null){
+						tabactivite = new Array();
+						contentactivite = "";
+						//filtre la chaine de ses virgules et stocke chaque entier dans un tableau 
+						for(j = 0; j < chaineactivite.length; j++){
+							contentactivite += chaineactivite[j];
+							if(chaineactivite[j] == ","){
+								tabactivite.push(contentactivite.replace(reg, ""));
+								contentactivite = "";
+							}
+						}
+						for(var i = 0; i < tabactivite.length; i++){
+							$("#add_hebergement_hebergement_activite_id option[value="+tabactivite[i]+"]").attr("selected", "selected");
+						}
+					}
+				}
+				//styles pour l'hébergement
+				$("#add_hebergement_style_hebergement_id").live("change", function(){
+					localStorage.setItem("style", $(this).val());
+				});
+				if($("#add_hebergement_style_hebergement_id").val() != localStorage.getItem("style")){
+					chainestyle = localStorage.getItem("style");
+					if(chainestyle != null){
+						tabstyle = new Array();
+						contentstyle = "";
+						for(j = 0; j < chainestyle.length; j++){
+							contentstyle += chainestyle[j];
+							if(chainestyle[j] == ","){
+								tabstyle.push(contentstyle.replace(reg, ""));
+								contentstyle = "";
+							}
+						}
+						for(var i = 0; i < tabstyle.length; i++){
+							$("#add_hebergement_style_hebergement_id option[value="+tabstyle[i]+"]").attr("selected", "selected");
+						}
+					}
+				}*/
+				//facebook fr
+				$("#add_hebergement_facebook_fr").live("keyup", function(){
+					localStorage.setItem("facebook_fr", $(this).val());
+				});
+				if(localStorage.getItem("facebook_fr") != ""){
+					$("#add_hebergement_facebook_fr").attr("value", localStorage.getItem("facebook_fr"));
+				}
+				//facebook en
+				$("#add_hebergement_facebook_en").live("keyup", function(){
+					localStorage.setItem("facebook_en", $(this).val());
+				});
+				if(localStorage.getItem("facebook_en") != ""){
+					$("#add_hebergement_facebook_en").attr("value", localStorage.getItem("facebook_en"));
+				}
+				//twitter fr
+				$("#add_hebergement_twitter_fr").live("keyup", function(){
+					localStorage.setItem("twitter_fr", $(this).val());
+				});
+				if(localStorage.getItem("twitter_fr") != ""){
+					$("#add_hebergement_twitter_fr").attr("value", localStorage.getItem("twitter_fr"));
+				}
+				//twitter en
+				$("#add_hebergement_twitter_en").live("keyup", function(){
+					localStorage.setItem("twitter_en", $(this).val());
+				});
+				if(localStorage.getItem("twitter_en") != ""){
+					$("#add_hebergement_twitter_en").attr("value", localStorage.getItem("twitter_en"));
+				}
+				//google + fr
+				$("#add_hebergement_google_plus_fr").live("keyup", function(){
+					localStorage.setItem("google+fr", $(this).val());
+				});
+				if(localStorage.getItem("google+fr") != ""){
+					$("#add_hebergement_google_plus_fr").attr("value", localStorage.getItem("google+fr"));
+				}
+				//google + en
+				$("#add_hebergement_google_plus_en").live("keyup", function(){
+					localStorage.setItem("google+en", $(this).val());
+				});
+				if(localStorage.getItem("google+en") != ""){
+					$("#add_hebergement_google_plus_en").attr("value", localStorage.getItem("google+en"));
+				}
+				//repertoire fr
+				$("#add_hebergement_repertoire_fr").live("keyup", function(){
+					localStorage.setItem("reperfr", $(this).val());
+				});
+				if(localStorage.getItem("reperfr") != ""){
+					$("#add_hebergement_repertoire_fr").attr("value", localStorage.getItem("reperfr"));
+				}
+				//repertoire en
+				$("#add_hebergement_repertoire_en").live("keyup", function(){
+					localStorage.setItem("reperen", $(this).val());
+				});
+				if(localStorage.getItem("reperen") != ""){
+					$("#add_hebergement_repertoire_en").attr("value", localStorage.getItem("reperen"));
+				}
+				//metadescription fr  
+				$("#add_hebergement_meta_description_fr").live("keyup", function(){
+					localStorage.setItem("metadescripfr", $(this).val());
+				});
+				if(localStorage.getItem("metadescripfr") != ""){
+					$("#add_hebergement_meta_description_fr").attr("value", localStorage.getItem("metadescripfr"));
+				}
+				//metadescription en
+				$("#add_hebergement_meta_description_en").live("keyup", function(){
+					localStorage.setItem("metadescripen", $(this).val());
+				});
+				if(localStorage.getItem("metadescripen") != ""){
+					$("#add_hebergement_meta_description_en").attr("value", localStorage.getItem("metadescripen"));
+				}
+				//mots clé fr
+				$("#add_hebergement_meta_keywords_fr").live("keyup", function(){
+					localStorage.setItem("motclefr", $(this).val());
+				});
+				if(localStorage.getItem("motclefr") != ""){
+					$("#add_hebergement_meta_keywords_fr").attr("value", localStorage.getItem("motclefr"));
+				}
+				//mots cle en
+				$("#add_hebergement_meta_keywords_en").live("keyup", function(){
+					localStorage.setItem("motcleen", $(this).val());
+				});
+				if(localStorage.getItem("motcleen") != ""){
+					$("#add_hebergement_meta_keywords_en").attr("value", localStorage.getItem("motcleen"));
+				}
+				//meta titre fr
+				$("#add_hebergement_meta_titre_fr").live("keyup", function(){
+					localStorage.setItem("metatitrefr", $(this).val());
+				});
+				if(localStorage.getItem("metatitrefr") != ""){
+					$("#add_hebergement_meta_titre_fr").attr("value", localStorage.getItem("metatitrefr"));
+				}
+				//meta titre en
+				$("#add_hebergement_meta_titre_en").live("keyup", function(){
+					localStorage.setItem("metatitreen", $(this).val());
+				});
+				if(localStorage.getItem("metatitreen") != ""){
+					$("#add_hebergement_meta_titre_en").attr("value", localStorage.getItem("metatitreen"));
+				}
+				//nom abregé fr
+				$("#add_hebergement_nom_abrege_fr").live("keyup", function(){
+					localStorage.setItem("nomabregefr", $(this).val());
+				});
+				if(localStorage.getItem("nomabregefr") != ""){
+					$("#add_hebergement_nom_abrege_fr").attr("value", localStorage.getItem("nomabregefr"));
+				}
+				//nom abregé en
+				$("#add_hebergement_nom_abrege_en").live("keyup", function(){
+					localStorage.setItem("nomabregeen", $(this).val());
+				});
+				if(localStorage.getItem("nomabregeen") != ""){
+					$("#add_hebergement_nom_abrege_en").attr("value", localStorage.getItem("nomabregeen"));
+				}
+				//reservit
+				$("#add_hebergement_reservit_id").live("keyup", function(){
+					localStorage.setItem("reservit", $(this).val());
+				});
+				if(localStorage.getItem("reservit") != ""){
+					$("#add_hebergement_reservit_id").attr("value", localStorage.getItem("reservit"));
+				}
+				//nombre d'étage
+				$("#add_hebergement_nombre_etages").live("keyup", function(){
+					localStorage.setItem("nb_etage", $(this).val());
+				});
+				if(localStorage.getItem("nb_etage") != ""){
+					$("#add_hebergement_nombre_etages").attr("value", localStorage.getItem("nb_etage"));
+				}
+				//heure d'arrivée
+				$("#add_hebergement_checkin").live("keyup", function(){
+					localStorage.setItem("heure_arrive", $(this).val());
+				});
+				if(localStorage.getItem("heure_arrive") != ""){
+					$("#add_hebergement_checkin").attr("value", localStorage.getItem("heure_arrive"));
+				}
+				//heure de départ
+				$("#add_hebergement_checkout").live("keyup", function(){
+					localStorage.setItem("heure_depart", $(this).val());
+				});
+				if(localStorage.getItem("heure_depart") != ""){
+					$("#add_hebergement_checkout").attr("value", localStorage.getItem("heure_depart"));
+				}
+				//politique tarif fr
+				$("#add_hebergement_politique_hebergement_fr_politique_tarif_fr").live("keyup", function(){
+					localStorage.setItem("politiquefr", $(this).val());
+				});
+				if(localStorage.getItem("politiquefr") != ""){
+					$("#add_hebergement_politique_hebergement_fr_politique_tarif_fr").attr("value", localStorage.getItem("politiquefr"));
+				}
+				//politique tarif en
+				$("#add_hebergement_politique_hebergement_en_politique_tarif_en").live("keyup", function(){
+					localStorage.setItem("politiqueen", $(this).val());
+				});
+				if(localStorage.getItem("politiqueen") != ""){
+					$("#add_hebergement_politique_hebergement_en_politique_tarif_en").attr("value", localStorage.getItem("politiqueen"));
+				}
+				//texte résume fr
+				$("#add_hebergement_texte_resume_fr").live("keyup", function(){
+					localStorage.setItem("resumefr", $(this).val());
+				});
+				if(localStorage.getItem("resumefr") != ""){
+					$("#add_hebergement_texte_resume_fr").attr("value", localStorage.getItem("resumefr"));
+				}
+				//texte résume en
+				$("#add_hebergement_texte_resume_en").live("keyup", function(){
+					localStorage.setItem("resumeen", $(this).val());
+				});
+				if(localStorage.getItem("resumeen") != ""){
+					$("#add_hebergement_texte_resume_en").attr("value", localStorage.getItem("resumeen"));
+				}
+				//etablissement saisonnier
+				$("#add_hebergement_etablissement_saisonnier").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("saisonnier", 1);
+					}else{  
+						localStorage.setItem("saisonnier", 0);
+					}
+				});
+				if(localStorage.getItem("saisonnier") == 1){
+					$("#add_hebergement_etablissement_saisonnier").prop('checked', true);
+				}else{
+					$("#add_hebergement_etablissement_saisonnier").prop('checked', false);
+				}
+				//corporatif
+				$("#add_hebergement_corporatif").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("corpo", 1);
+					}else{  
+						localStorage.setItem("corpo", 0);
+					}
+				});
+				if(localStorage.getItem("corpo") == 1){
+					$("#add_hebergement_corporatif").prop('checked', true);
+				}else{
+					$("#add_hebergement_corporatif").prop('checked', false);
+				}
+				//tarif préférentiel
+				$("#add_hebergement_tarif_preferentiel").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("tarif pref", 1);
+					}else{  
+						localStorage.setItem("tarif pref", 0);
+					}
+				});
+				if(localStorage.getItem("tarif pref") == 1){
+					$("#add_hebergement_tarif_preferentiel").prop('checked', true);
+				}else{
+					$("#add_hebergement_tarif_preferentiel").prop('checked', false);
+				}
+				//option grande photo
+				$("#add_hebergement_optvisibilite_grande_photo").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optimg", 1);
+					}else{  
+						localStorage.setItem("optimg", 0);
+					}
+				});
+				if(localStorage.getItem("optimg") == 1){
+					$("#add_hebergement_optvisibilite_grande_photo").prop('checked', true);
+				}else{
+					$("#add_hebergement_optvisibilite_grande_photo").prop('checked', false);
+				}
+				//option photo categorie
+				$("#add_hebergement_optvisibilite_photo_categorie").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optcat", 1);
+					}else{  
+						localStorage.setItem("optcat", 0);
+					}
+				});
+				if(localStorage.getItem("optcat") == 1){
+					$("#add_hebergement_optvisibilite_photo_categorie").prop('checked', true);
+				}else{
+					$("#add_hebergement_optvisibilite_photo_categorie").prop('checked', false);
+				}
+				//option nos suggestions
+				$("#add_hebergement_optvisibilite_nos_suggestions").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optsugg", 1);
+					}else{  
+						localStorage.setItem("optsugg", 0);
+					}
+				});
+				if(localStorage.getItem("optsugg") == 1){
+					$("#add_hebergement_optvisibilite_nos_suggestions").prop('checked', true);
+				}else{
+					$("#add_hebergement_optvisibilite_nos_suggestions").prop('checked', false);
+				}
+				//option critère visibilité semblable
+				$("#add_hebergement_optvisibilite_criteres_semblables").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optcriteresemblable", 1);
+					}else{  
+						localStorage.setItem("optcriteresemblable", 0);
+					}
+				});
+				if(localStorage.getItem("optcriteresemblable") == 1){
+					$("#add_hebergement_optvisibilite_criteres_semblables").prop('checked', true);
+				}else{
+					$("#add_hebergement_optvisibilite_criteres_semblables").prop('checked', false);
+				}
+				//option nouveauté
+				$("#add_hebergement_optvisibilite_nouveautes").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optnouveaute", 1);
+					}else{  
+						localStorage.setItem("optnouveaute", 0);
+					}
+				});
+				if(localStorage.getItem("optnouveaute") == 1){
+					$("#add_hebergement_optvisibilite_nouveautes").prop('checked', true);
+				}else{
+					$("#add_hebergement_optvisibilite_nouveautes").prop('checked', false);
+				}
+				//option visibilie incoutournable
+				$("#add_hebergement_optvisibilite_incontournables").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optincont", 1);
+					}else{  
+						localStorage.setItem("optincont", 0);
+					}
+				});
+				if(localStorage.getItem("optincont") == 1){
+					$("#add_hebergement_optvisibilite_incontournables").prop('checked', true);
+				}else{
+					$("#add_hebergement_optvisibilite_incontournables").prop('checked', false);
+				}
+			
+			{% endif %}
+				//On vide la bd du navigateur si tous les champs obligatoires sont remplis
+				$(".Btn_form_submit_fixed").live("click", function(){
+					if($("#listeregion").val() != "" && $("#listezone").val() != "" && $("#add_hebergement_nom_fr").val() != "" && $("#add_hebergement_nom_en").val() != "" && +
+					   $("#add_hebergement_adresse").val() != "" && $("#listeville").val() != "" && $("#add_hebergement_code_postal").val() != "" && $("#add_hebergement_telephone").val() != "" &&	$("#add_hebergement_latitude").val() != "" && +
+					   $("#add_hebergement_longitude").val() != "" && $("#add_hebergement_repertoire_fr").val() != "" && $("#add_hebergement_repertoire_en").val() != "" && $("#add_hebergement_nombre_etages").val() != "" && +
+					   $("#add_hebergement_checkin").val() != "" && $("#add_hebergement_checkout").val() != ""){
+                                                localStorage.clear();
+					}else{$("#see_more").show();}
+				});	
+	});	
+}
+
+</script>
+			
+			

@@ -1,0 +1,881 @@
+
+_Dashboard:
+    pattern:  /
+    defaults: { _controller: MyAppAdminBundle:Dashboard:dashboard}
+
+_Dashboard_general:
+    pattern:  /general
+    defaults: { _controller: MyAppAdminBundle:Dashboard:general} 
+    
+_Dashboard_hebergements:
+    pattern:   /hebergements
+    defaults: { _controller: MyAppAdminBundle:Dashboard:hebergements} 
+    
+_Dashboard_attraits:
+    pattern:   /attraits
+    defaults: { _controller: MyAppAdminBundle:Dashboard:attraits}  
+    
+_Dashboard_quebec_saison:
+    pattern:   /Quebec_en_saison
+    defaults: { _controller: MyAppAdminBundle:Dashboard:quebec_saison} 
+    
+_Dashboard_statistiques:
+    pattern:   /Statistiques
+    defaults: { _controller: MyAppAdminBundle:Dashboard:statistiques} 
+    
+_Dashboard_informations:
+    pattern:   /Informations
+    defaults: { _controller: MyAppAdminBundle:Dashboard:informations} 
+#Routes pour la gestion des pays   
+_Dashboard_pays:
+    pattern:   /Gestion_des_pays/{province}/{region}/{zone}
+    defaults: { _controller: MyAppAdminBundle:General:pays, province:province, region:region, zone:zone} 
+       
+_Dashboard_addpays:
+    pattern:   /Ajouter_un_pays/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addPays, id:id} 
+    
+_Dashboard_updatepays:
+    pattern:   /Modifier_un_pays/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addPays, id:id} 
+
+_Dashboard_deletepays:
+    pattern:   /Supprimer_un_pays/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deletePays, id:id} 
+#Routes pour la gestion des provinces   
+_Dashboard_provinces:
+    pattern:   /Gestions_des_provinces_etats/{province}/{region}/{zone}
+    defaults: { _controller: MyAppAdminBundle:General:provinces, province:province, region:region, zone:zone} 
+
+_Dashboard_addprovinces:
+    pattern:   /Ajouter_une_province_etat/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addProvinces, id:id} 
+    
+_Dashboard_updateprovinces:
+    pattern:   /Modifier_une_province_etat/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addProvinces, id:id} 
+    
+_Dashboard_addtexteprovincecategoriehebergement:
+    pattern:   /Ajouter_texte_categorie_hebergement_pour_province/{id}/{categorie}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteProvinceCategorieHebergement, id:id, categorie:categorie} 
+    
+_Dashboard_addtexteprovincecorporatif:
+    pattern:   /Ajouter_texte_corporatif_pour_province/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteProvinceCorporatif, id:id} 
+    
+_Dashboard_addtexteprovinceappeldoffre:
+    pattern:   /Ajouter_texte_appel_offre_pour_province/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteProvinceAppelOffre, id:id} 
+    
+_Dashboard_addtexteprovincelocationsalle:
+    pattern:   /Ajouter_texte_location_salle_pour_province/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteProvinceLocationSalle, id:id} 
+    
+_Dashboard_addtexteprovinceactivitecorpo:
+    pattern:   /Ajouter_texte_activite_corporative_pour_province/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteProvinceActiviteCorpo, id:id} 
+    
+_Dashboard_addtexteprovincechambreaffaire:
+    pattern:   /Ajouter_texte_chambre_affaire_pour_province/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteProvincechambreaffaire, id:id} 
+    
+_Dashboard_addtexteprovinceforfaitaffaire:
+    pattern:   /Ajouter_texte_forfait_affaire_pour_province/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteProvinceforfaitaffaire, id:id} 
+    
+_Dashboard_texteprovinceforfait:
+    pattern:   /Texte_province_forfait/{id}/{forfait}
+    defaults: { _controller: MyAppAdminBundle:General:texteForfaitProvince, id:id, forfait:forfait} 
+    
+_Dashboard_texteprovinceattrait:
+    pattern:   /Texte_province_attrait/{id}/{attrait}
+    defaults: { _controller: MyAppAdminBundle:General:texteAttraitProvince, id:id, attrait:attrait}
+    
+_Dashboard_texteprovincesante:
+    pattern:   /Texte_province_sante/{id}/{sante}
+    defaults: { _controller: MyAppAdminBundle:General:texteSanteProvince, id:id, sante:sante}
+    
+_Dashboard_texteprovincerestaurant:
+    pattern:   /Texte_province_restaurant/{id}/{resto}
+    defaults: { _controller: MyAppAdminBundle:General:texteRestaurantProvince, id:id, resto:resto}
+    
+_Dashboard_deleteprovinces:
+    pattern:   /Supprimer_une_province_etat/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deleteProvinces, id:id}    
+#Routes pour la section des regions
+_Dashboard_regions:
+    pattern:   /Gestion_des_regions_touristiques/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:General:regions, page:page, letter:letter} 
+
+_Dashboard_addregions:
+    pattern:   /Ajouter_une_region_touristique/{id}/{page}
+    defaults: { _controller: MyAppAdminBundle:General:addRegions, id:id, page:page} 
+    
+_Dashboard_updateregions:
+    pattern:   /Modifier_une_region_touristique/{id}/{page}
+    defaults: { _controller: MyAppAdminBundle:General:addRegions, id:id, page:page} 
+    
+_Dashboard_texteregionattrait:
+    pattern:   /Texte_region_attrait/{id}/{attrait}
+    defaults: { _controller: MyAppAdminBundle:General:texteAttraitRegion, id:id, attrait:attrait}
+    
+_Dashboard_texteregionsante:
+    pattern:   /Texte_region_sante/{id}/{sante}
+    defaults: { _controller: MyAppAdminBundle:General:texteSanteRegion, id:id, sante:sante}
+    
+_Dashboard_texteregionrestaurant:
+    pattern:   /Texte_region_restaurant/{id}/{resto}
+    defaults: { _controller: MyAppAdminBundle:General:texteRestaurantRegion, id:id, resto:resto}
+    
+_Dashboard_addtexteregioncategoriehebergement:
+    pattern:   /Ajouter_texte_categorie_hebergement_pour_region/{id}/{categorie}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteRegionCategorieHebergement, id:id, categorie:categorie} 
+    
+_Dashboard_deleteregions:
+    pattern:   /Supprimer_une_region_touristique/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deleteRegions, id:id} 
+    
+_Dashboard_addtexteregioncorporatif:
+    pattern:   /Ajouter_texte_corporatif_par_region/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteRegionCorporatif, id:id} 
+    
+_Dashboard_addtexteregionappeldoffre:
+    pattern:   /Ajouter_texte_appel_offre_par_region/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteRegionAppelOffre, id:id} 
+    
+_Dashboard_addtexteregionlocationsalle:
+    pattern:   /Ajouter_texte_location_salle_par_region/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteRegionLocationSalle, id:id} 
+    
+_Dashboard_addtexteregionactivitecorpo:
+    pattern:   /Ajouter_texte_activite_corporative_par_region/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteRegionActiviteCorpo, id:id} 
+    
+_Dashboard_addtexteregionchambreaffaire:
+    pattern:   /Ajouter_texte_chambre_affaire_par_region/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteRegionchambreaffaire, id:id} 
+    
+_Dashboard_addtexteregionforfaitaffaire:
+    pattern:   /Ajouter_texte_forfait_affaire_par_region/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addTexteRegionforfaitaffaire, id:id}     
+    
+#Routes pour la section des zones   
+_Dashboard_zones:
+    pattern:   /Gestion_des_zones/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:General:zones, page:page, letter:letter} 
+    
+_Dashboard_addzones:
+    pattern:   /Ajouter_une_zone/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addZones, id:id} 
+    
+_Dashboard_updatezones:
+    pattern:   /Modifier_une_zone/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addZones, id:id} 
+    
+_Dashboard_deletezones:
+    pattern:   /Supprimer_une_zone/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deleteZones, id:id} 
+#Routes pour la section des villes     
+_Dashboard_villes:
+    pattern:   /Gestion_des_villes/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:General:villes, page:page, letter:letter} 
+    
+_Dashboard_addvilles:
+    pattern:   /Ajouter_une_ville/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addVilles, id:id} 
+    
+_Dashboard_updatevilles:
+    pattern:   /Modifier_une_ville/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addVilles, id:id} 
+    
+_Dashboard_deletevilles:
+    pattern:   /Supprimer_une_ville/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deleteVilles, id:id} 
+#Routes pour la section des modes de paiements     
+_Dashboard_modes_paiements:
+    pattern:   /Gestion_des_modes_paiements
+    defaults: { _controller: MyAppAdminBundle:General:paiements} 
+    
+_Dashboard_addmodes_paiements:
+    pattern:   /Ajouter_un_mode_paiement/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addPaiements, id:id} 
+    
+_Dashboard_updatemodes_paiements:
+    pattern:   /Modifier_un_mode_paiement/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addPaiements, id:id} 
+    
+_Dashboard_delete_paiements:
+    pattern:   /Supprimer_un_mode_paiement/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deletePaiements, id:id} 
+#Routes pour la section des devises    
+_Dashboard_devises:
+    pattern:   /Gestion_des_devises
+    defaults: { _controller: MyAppAdminBundle:General:devises} 
+    
+_Dashboard_adddevises:
+    pattern:   /Ajouter_une_devise/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addDevises, id:id}
+    
+_Dashboard_updatedevises:
+    pattern:   /Modifier_une_devise/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addDevises, id:id}
+    
+_Dashboard_deletedevises:
+    pattern:   /Supprimer_une_devise/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deleteDevises, id:id}
+#Routes pour la section des acomptes    
+_Dashboard_acompte:
+    pattern:   /Gestion_des_acomptes
+    defaults: { _controller: MyAppAdminBundle:General:acomptes} 
+    
+_Dashboard_addacompte:
+    pattern:   /Ajouter_un_acompte/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addAcomptes, id:id}
+    
+_Dashboard_updateacompte:
+    pattern:   /Modifier_un_acompte/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addAcomptes, id:id}
+    
+_Dashboard_deleteacompte:
+    pattern:   /Supprimer_un_acompte/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deleteAcomptes, id:id}
+#Routes pour la section des forfaits     
+_Dashboard_forfaits:
+    pattern:   /Gestion_des_forfaits
+    defaults: { _controller: MyAppAdminBundle:General:forfaits} 
+    
+_Dashboard_addforfaits:
+    pattern:   /Ajouter_un_forfait/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addForfaits, id:id} 
+    
+_Dashboard_updateforfaits:
+    pattern:   /Modifier_un_forfait/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addForfaits, id:id} 
+    
+_Dashboard_texteregionforfait:
+    pattern:   /Texte_region_forfait/{id}/{forfait}
+    defaults: { _controller: MyAppAdminBundle:General:texteForfaitRegion, id:id, forfait:forfait} 
+    
+_Dashboard_deleteforfaits:
+    pattern:   /Supprimer_un_forfait/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deleteForfaits, id:id} 
+#Routes pour la section des cotations     
+_Dashboard_cotations:
+    pattern:   /Gestion_des_cotations
+    defaults: { _controller: MyAppAdminBundle:General:cotations} 
+    
+_Dashboard_addcotations:
+    pattern:   /Ajouter_une_cotation/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addCotations, id:id} 
+    
+_Dashboard_updatecotations:
+    pattern:   /Modifier_une_cotation/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addCotations, id:id} 
+    
+_Dashboard_deletecotations:
+    pattern:   /Supprimer_une_cotation/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deleteCotations, id:id} 
+#Routes pour la section des classifications     
+_Dashboard_classifications:
+    pattern:   /Gestion_des_classification
+    defaults: { _controller: MyAppAdminBundle:General:classifications} 
+    
+_Dashboard_addclassifications:
+    pattern:   /Ajouter_une_classification/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addClassifications, id:id} 
+    
+_Dashboard_updateclassifications:
+    pattern:   /Modifier_une_classification/{id}
+    defaults: { _controller: MyAppAdminBundle:General:addClassifications, id:id} 
+    
+_Dashboard_deleteclassifications:
+    pattern:   /Supprimer_une_classification/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deleteClassifications, id:id}
+#Routes pour la section des clients     
+_Dashboard_clients:
+    pattern:   /Gestion_des_clients/{page}/{letter}/{statut}/{item}
+    defaults: { _controller: MyAppAdminBundle:General:clients, page:page, letter:letter, statut:statut, item:item}  
+
+_Dashboard_addclients:
+    pattern:   /Ajouter_un_client
+    defaults: { _controller: MyAppAdminBundle:General:addClients} 
+    
+_Dashboard_updateclients:
+    pattern:   /Modifier_un_client/{id}/{number}
+    defaults: { _controller: MyAppAdminBundle:General:updateClients, id:id, number:number}
+    
+_Dashboard_deleteclients:
+    pattern:   /Supprimer_un_client/{id}
+    defaults: { _controller: MyAppAdminBundle:General:deleteClients, id:id}    
+#Routes pour le controller Heberbergements
+#Section hebergement
+_Dashboard_hebergement:
+    pattern:  /Gestion_hebergement/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:hebergement, page:page, letter:letter}
+    
+_Dashboard_addhebergement:
+    pattern:  /Ajouter_un_hebergement
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addHebergement}
+    
+_Dashboard_updatehebergement:
+    pattern:  /Modifier_un_hebergement/{id}/{number}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateHebergement, id:id, number:number}
+    
+_Dashboard_deletehebergement:
+    pattern:  /Supprimer_un_hebergement/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteHebergement, id:id}
+#Section categorie
+_Dashboard_categoriehebergement:
+    pattern:  /Gestion_categorie_hebergement
+    defaults: { _controller: MyAppAdminBundle:Hebergement:categorieHebergement}
+    
+_Dashboard_addcategoriehebergement:
+    pattern:  /Ajouter_une_categorie_hebergement
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addCategorieHebergement}
+    
+_Dashboard_updatecategoriehebergement:
+    pattern:  /Modifier_une_categorie_hebergement/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateCategorieHebergement, id:id}
+    
+_Dashboard_deletecategoriehebergement:
+    pattern:  /Supprimer_une_categorie_hebergement/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteCategorieHebergement, id:id}
+#Section activites
+_Dashboard_activiteshebergement:
+    pattern:  /Gestion_des_activites
+    defaults: { _controller: MyAppAdminBundle:Hebergement:activite }
+    
+_Dashboard_addactivite:
+    pattern:  /Ajouter_une_activite_dans_hebergement
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addActivite }
+    
+_Dashboard_updateactivite:
+    pattern:  /Modifier_une_activite_dans_hebergement/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateActivite, id:id}
+    
+_Dashboard_deleteactivite:
+    pattern:  /Supprimer_une_activite_dans_hebergement/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteActivite, id:id}
+#Section services
+_Dashboard_serviceshebergement:
+    pattern:  /Gestion_des_services
+    defaults: { _controller: MyAppAdminBundle:Hebergement:service }
+    
+_Dashboard_addservice:
+    pattern:  /Ajouter_un_service_dans_hebergement
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addService }
+    
+_Dashboard_updateservice:
+    pattern:  /Modifier_un_service_dans_hebergement/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateService, id:id}
+    
+_Dashboard_deleteservice:
+    pattern:  /Supprimer_un_service_dans_hebergement/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteService, id:id}
+#Section Styles
+_Dashboard_styleshebergement:
+    pattern:  /Gestion_des_styles
+    defaults: { _controller: MyAppAdminBundle:Hebergement:style }
+    
+_Dashboard_addstyle:
+    pattern:  /Ajouter_un_style
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addStyle }
+    
+_Dashboard_updatestyle:
+    pattern:  /Modifier_un_style/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateStyle, id:id}
+    
+_Dashboard_deletestyle:
+    pattern:  /Supprimer_un_style/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteStyle, id:id}
+#Section Types de chambres
+_Dashboard_typechambreshebergement:
+    pattern:  /Gestion_types_des_chambres
+    defaults: { _controller: MyAppAdminBundle:Hebergement:typeChambre}
+    
+_Dashboard_addtypechambre:
+    pattern:  /Ajouter_un_type_de_chambre
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addTypeChambre }
+    
+_Dashboard_updatetypechambre:
+    pattern:  /Modifier_un_type_de_chambre/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateTypeChambre, id:id}
+    
+_Dashboard_deletetypechambre:
+    pattern:  /Supprimer_un_type_de_chambre/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteTypeChambre, id:id}
+#Section des chambres
+_Dashboard_chambreshebergement:
+    pattern:  /Gestion_des_chambres/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:chambre, page:page, letter:letter }
+    
+_Dashboard_addchambre:
+    pattern:  /Ajouter_une_chambre
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addChambre }
+    
+_Dashboard_updatechambre:
+    pattern:  /Modifier_une_chambre/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateChambre, id:id}
+    
+_Dashboard_deletechambre:
+    pattern:  /Supprimer_une_chambre/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteChambre, id:id}
+#Section lits
+_Dashboard_litshebergement:
+    pattern:  /Gestion_des_lits
+    defaults: { _controller: MyAppAdminBundle:Hebergement:lit }
+    
+_Dashboard_addlit:
+    pattern:  /Ajouter_un_lit
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addLit }
+    
+_Dashboard_updatelit:
+    pattern:  /Modifier_un_lit/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateLit, id:id}
+    
+_Dashboard_deletelit:
+    pattern:  /Supprimer_un_lit/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteLit, id:id}
+#Section occupation
+_Dashboard_occupationshebergement:
+    pattern:  /Gestion_des_occupations
+    defaults: { _controller: MyAppAdminBundle:Hebergement:occupation }
+    
+_Dashboard_addoccupation:
+    pattern:  /Ajouter_une_occupation
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addOccupation }
+    
+_Dashboard_updateoccupation:
+    pattern:  /Modifier_une_occupation/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateOccupation, id:id}
+    
+_Dashboard_deleteoccupation:
+    pattern:  /Supprimer_une_occupation/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteOccupation, id:id}
+#Section equipement
+_Dashboard_equipementshebergement:
+    pattern:  /Gestion_des_equipements
+    defaults: { _controller: MyAppAdminBundle:Hebergement:equipement }
+    
+_Dashboard_addequipement:
+    pattern:  /Ajouter_un_equipement
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addEquipement }
+    
+_Dashboard_updateequipement:
+    pattern:  /Modifier_un_equipement/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateEquipement, id:id}
+    
+_Dashboard_deleteequipement:
+    pattern:  /Supprimer_un_equipement/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteEquipement, id:id}
+#Section affiliations
+_Dashboard_affiliationshebergement:
+    pattern:  /Gestion_des_affiliations
+    defaults: { _controller: MyAppAdminBundle:Hebergement:affiliation }
+    
+_Dashboard_addaffiliation:
+    pattern:  /Ajouter_une_affiliation
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addAffiliation }
+    
+_Dashboard_updateaffiliation:
+    pattern:  /Modifier_une_affiliation/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateAffiliation, id:id}
+    
+_Dashboard_deleteaffiliation:
+    pattern:  /Supprimer_une_affiliation/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteAffiliation, id:id}
+#Section services corporatifs
+_Dashboard_servicecorporatifhebergement:
+    pattern:  /Gestion_des_services_corporatifs
+    defaults: { _controller: MyAppAdminBundle:Hebergement:serviceCorporatif }
+    
+_Dashboard_addservicecorporatif:
+    pattern:  /Ajouter_un_service_corporatif
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addServiceCorporatif }
+    
+_Dashboard_updateservicecorporatif:
+    pattern:  /Modifier_un_service_corporatif/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateServiceCorporatif, id:id}
+    
+_Dashboard_deleteservicecorporatif:
+    pattern:  /Supprimer_un_service_corporatif/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteServiceCorporatif, id:id}
+#Section salles corporatives
+_Dashboard_sallescorporativeshebergement:
+    pattern:  /Gestion_des_salles_corporatives
+    defaults: { _controller: MyAppAdminBundle:Hebergement:salleCorporative }
+    
+_Dashboard_addsallecorporative:
+    pattern:  /Ajouter_une_salle_corporative
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addSalleCorporative }
+    
+_Dashboard_updatesallecorporative:
+    pattern:  /Modifier_un_salle_corporative/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateSalleCorporative, id:id}
+    
+_Dashboard_deletesallecorporative:
+    pattern:  /Supprimer_un_salle_corporative/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteSalleCorporative, id:id}
+#Section evenement coporatif
+_Dashboard_evenementscoporatifshebergement:
+    pattern:  /Gestion_des_evenements_corporatifs
+    defaults: { _controller: MyAppAdminBundle:Hebergement:evenementCorporatif }
+    
+_Dashboard_addevenementcorporaif:
+    pattern:  /Ajouter_un_evenement_corporatif
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addEvenementCorporatif }
+    
+_Dashboard_updateevenementcorporatif:
+    pattern:  /Modifier_un_evenement_corporatif/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updateEvenementCorporatif, id:id}
+    
+_Dashboard_deleteevenementcorporatif:
+    pattern:  /Supprimer_un_evenement_corporatif/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deleteEvenementCorporatif, id:id}
+#Section photos hébergement
+_Dashboard_photohebergement:
+    pattern:  /Gestion_des_photos_pour_les_hebergements/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:photoHebergement, page:page, letter:letter }
+    
+_Dashboard_addphotohebergement:
+    pattern:  /Ajouter_une_photo_pour_hebergement
+    defaults: { _controller: MyAppAdminBundle:Hebergement:addPhotoHebergement }
+    
+_Dashboard_updatephotohebergement:
+    pattern:  /Modifier_une_photo_pour_hebergement/{id}/{id1}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:updatePhotoHebergement, id:id, id:id}
+    
+_Dashboard_deletephotohebergement:
+    pattern:  /Supprimer_une_photo_pour_hebergement/{id}
+    defaults: { _controller: MyAppAdminBundle:Hebergement:deletePhotoHebergement, id:id}
+#Routes pour le controller Attraits
+#Section ajout attrait
+_Dashboard_attrait:
+    pattern:  /Gestion_des_attraits/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:Attrait:attrait, page:page, letter:letter }
+    
+_Dashboard_addattrait:
+    pattern:  /Ajouter_un_attrait
+    defaults: { _controller: MyAppAdminBundle:Attrait:addAttrait }
+    
+_Dashboard_updateattrait:
+    pattern:  /Modifier_un_attrait/{id}/{number}/{page}/{lettre}
+    defaults: { _controller: MyAppAdminBundle:Attrait:updateAttrait, id:id, number:number, page:page, lettre:lettre}
+    
+_Dashboard_deleteattrait:
+    pattern:  /Supprimer_un_attrait/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:deleteAttrait, id:id}
+#Section categorie attrait
+_Dashboard_attraitcategories:
+    pattern:  /Gestion_des_categories_attraits
+    defaults: { _controller: MyAppAdminBundle:Attrait:categorieAttrait }
+    
+_Dashboard_addattraitcategories:
+    pattern:  /Ajouter_une_categorie_attrait
+    defaults: { _controller: MyAppAdminBundle:Attrait:addCategorieAttrait }
+    
+_Dashboard_updateattraitcategories:
+    pattern:  /Modifier_une_categorie_attrait/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:updateCategorieAttrait, id:id}
+    
+_Dashboard_deleteattraitcategories:
+    pattern:  /Supprimer_une_categorie_attrait/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:deleteCategorieAttrait, id:id}
+#Section sous categorie attrait
+_Dashboard_attraitsouscategorie:
+    pattern:  /Gestion_des_sous_categories_attraits
+    defaults: { _controller: MyAppAdminBundle:Attrait:sousCategorieAttrait }
+    
+_Dashboard_addattraitsouscategorie:
+    pattern:  /Ajouter_une_sous_categorie_attrait
+    defaults: { _controller: MyAppAdminBundle:Attrait:addSousCategorieAttrait }
+    
+_Dashboard_updateattraitsouscategorie:
+    pattern:  /Modifier_une_sous_categorie_attrait/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:updateSousCategorieAttrait, id:id}
+    
+_Dashboard_deleteattraitsouscategorie:
+    pattern:  /Supprimer_une_sous_categorie_attrait/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:deleteSousCategorieAttrait, id:id}
+#Section types soins sante attrait
+_Dashboard_attraittypesoins:
+    pattern:  /Gestion_des_types_soins_sante
+    defaults: { _controller: MyAppAdminBundle:Attrait:typeSoinsSante }
+    
+_Dashboard_addattraittypesoins:
+    pattern:  /Ajouter_un_type_soin_sante/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:addTypeSoinSante, id:id }
+    
+_Dashboard_updateattraittypesoins:
+    pattern:  /Modifier_un_type_soin_sante/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:addTypeSoinSante, id:id}
+    
+_Dashboard_deleteattraittypesoins:
+    pattern:  /Supprimer_un_type_soin_sante/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:updateTypeSoinSante, id:id}
+#Section types de soins
+_Dashboard_attraitsoins:
+    pattern:  /Gestion_des_soins_de_sante/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:Attrait:soinsSante, page:page, letter:letter }
+    
+_Dashboard_addattraitsoins:
+    pattern:  /Ajouter_un_soin_de_sante/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:addSoinSante, id:id }
+    
+_Dashboard_updateattraitsoins:
+    pattern:  /Modifier_un_soin_de_sante/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:addSoinSante, id:id}
+    
+_Dashboard_deleteattraitsoins:
+    pattern:  /Supprimer_un_soin_de_sante/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:deleteSoinSante, id:id}
+#Section activites attraits
+_Dashboard_attraitactivites:
+    pattern:  /Gestion_des_activites_pour_les_attraits/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:Attrait:activiteAttrait, page:page, letter:letter}
+    
+_Dashboard_addattraitactivites:
+    pattern:  /Ajouter_une_activite_dans_attrait
+    defaults: { _controller: MyAppAdminBundle:Attrait:addActiviteAttrait }
+    
+_Dashboard_updateattraitactivites:
+    pattern:  /Modifier_une_activite_dans_attrait/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:updateActiviteAttrait, id:id}
+    
+_Dashboard_deleteattraitactivites:
+    pattern:  /Supprimer_une_activite_dans_attrait/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:deleteActiviteAttrait, id:id}
+#Section service attraits
+_Dashboard_attraitservices:
+    pattern:  /Gestion_des_services_pour_les_attraits/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:Attrait:serviceAttrait, page:page, letter:letter }
+    
+_Dashboard_addattraitservices:
+    pattern:  /Ajouter_un_service_dans_attrait
+    defaults: { _controller: MyAppAdminBundle:Attrait:addServiceAttrait }
+    
+_Dashboard_updateattraitservices:
+    pattern:  /Modifier_un_service_dans_attrait/{id}/{page}
+    defaults: { _controller: MyAppAdminBundle:Attrait:updateServiceAttrait, id:id, page:page}
+    
+_Dashboard_deleteattraitservices:
+    pattern:  /Supprimer_un_service_dans_attrait/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:deleteServiceAttrait, id:id}
+#Section cuisines attraits
+_Dashboard_attraitcusines:
+    pattern:  /Gestion_des_services_pour_les_cuisines
+    defaults: { _controller: MyAppAdminBundle:Attrait:cusineAttrait }
+    
+_Dashboard_addattraitcuisines:
+    pattern:  /Ajouter_une_cuisine
+    defaults: { _controller: MyAppAdminBundle:Attrait:addCuisineAttrait }
+    
+_Dashboard_updateattraitcusines:
+    pattern:  /Modifier_une_cuisine/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:updateCuisineAttrait, id:id}
+    
+_Dashboard_deleteattraitcusines:
+    pattern:  /Supprimer_une_cuisine/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:deleteCuisineAttrait, id:id}
+#Section photos attraits
+_Dashboard_attraitphotos:
+    pattern:  /Gestion_des_photos/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:Attrait:photoAttrait, page:page, letter:letter }
+    
+_Dashboard_addattraitphotos:
+    pattern:  /Ajouter_des_photos
+    defaults: { _controller: MyAppAdminBundle:Attrait:addPhotoAttrait }
+    
+_Dashboard_updateattraitphotos:
+    pattern:  /Modifier_des_photos/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:updatePhotoAttrait, id:id}
+    
+_Dashboard_deleteattraitphotos:
+    pattern:  /Supprimer_une_photo/{id}
+    defaults: { _controller: MyAppAdminBundle:Attrait:deletePhotoAttrait, id:id}
+#Routes pour le controller Quebec en saison
+#Section type de saison
+_Dashboard_typessaison:
+    pattern:  /Gestion_des_types_de_saison
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:typeSaison }
+    
+_Dashboard_addtypessaison:
+    pattern:  /Ajouter_un_type_de_saison
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:addTypeSaison }
+    
+_Dashboard_updatetypessaison:
+    pattern:  /Modifier_un_type_de_saison/{id}
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:updateTypeSaison, id:id}
+    
+_Dashboard_deletetypessaison:
+    pattern:  /Supprimer_un_type_de_saison/{id}
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:deleteTypeSaison, id:id}
+#Section type page de saison
+_Dashboard_typespagessaisons:
+    pattern:  /Gestion_des_types_de_page_des_saisons
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:typePageSaison }
+    
+_Dashboard_addtypespagessaisons:
+    pattern:  /Ajouter_un_type_de_page
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:addTypePageSaison }
+    
+_Dashboard_updatetypespagessaisons:
+    pattern:  /Modifier_un_type_de_page/{id}
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:updateTypePageSaison, id:id}
+    
+_Dashboard_deletetypespagessaisons:
+    pattern:  /Supprimer_un_type_de_page/{id}
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:deleteTypePageSaison, id:id}
+#Section pages statiques
+_Dashboard_pagesstatiques:
+    pattern:  /Gestion_des_pages_statiques
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:pageStatique }
+    
+_Dashboard_addpagesstatiques:
+    pattern:  /Ajouter_une_page_statique
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:addPageStatique }
+    
+_Dashboard_updatepagesstatiques:
+    pattern:  /Modifier_une_page_statique/{id}
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:updatePageStatique, id:id}
+    
+_Dashboard_deletepagesstatiques:
+    pattern:  /Supprimer_une_page_statique/{id}
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:deletePageStatique, id:id}
+#Section saison
+_Dashboard_saisons:
+    pattern:  /Gestion_des_saisons
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:saison }
+    
+_Dashboard_addsaison:
+    pattern:  /Ajouter_une_saison
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:addSaison }
+    
+_Dashboard_updatesaison:
+    pattern:  /Modifier_une_saison/{id}
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:updateSaison, id:id}
+    
+_Dashboard_deletesaison:
+    pattern:  /Supprimer_une_saison/{id}
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:deleteSaison, id:id}
+#Section apercu en francais
+_Dashboard_previewfrench:
+    pattern:  /Apercu_francais
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:previewFrench }
+#Section apercu en anglais
+_Dashboard_previewenglish:
+    pattern:  /Apercu_anglais
+    defaults: { _controller: MyAppAdminBundle:Quebec_en_saison:previewAnglais }
+#Routes pour le controller Statistiques
+#Section statistiques
+_Dashboard_statistiquesclients:
+    pattern:  /Afficher_statistiques_clients/{id}/{page}
+    defaults: { _controller: MyAppAdminBundle:Statistique:statistiqueClient, id:id, page:page } 
+    
+_Dashboard_statistiquesmois:
+    pattern:  /Afficher_statistiques_mois/{id}
+    defaults: { _controller: MyAppAdminBundle:Statistique:statistiqueMois, id:id } 
+    
+_Dashboard_statistiquesannee: 
+    pattern:  /Afficher_statistiques_annee/{id}
+    defaults: { _controller: MyAppAdminBundle:Statistique:statistiqueAnnee, id:id } 
+    
+_Dashboard_archivesstatistiques:
+    pattern:  /Afficher_statistiques_archive/{id}
+    defaults: { _controller: MyAppAdminBundle:Statistique:statistiqueArchive, id:id } 
+#Routes pour le controller Information
+#Section informations diverses
+_Dashboard_utilisateursSysteme:
+    pattern:  /Afficher_utilisateurs_systeme/{id}
+    defaults: { _controller: MyAppAdminBundle:Information:utilisateur, id:id } 
+    
+_Dashboard_clientSysteme:
+    pattern:  /Afficher_client_systeme/{id}
+    defaults: { _controller: MyAppAdminBundle:Information:client, id:id } 
+    
+_Dashboard_clientSystemepassword:
+    pattern:  /Modifier_mot_de_passe_client.html/{id}
+    defaults: { _controller: MyAppAdminBundle:Information:clientpassword, id:id } 
+    
+_Dashboard_utilisateurSystemepassword:
+    pattern:  /Modifier_mot_de_passe_utilisateur.html/{id}
+    defaults: { _controller: MyAppAdminBundle:Information:utilisateurpassword, id:id } 
+    
+_Dashboard_addutilisateurssysteme:
+    pattern:  /Ajouter_utilisateur_au_systeme/{id}
+    defaults: { _controller: MyAppAdminBundle:Information:addUtilisateur, id:id } 	
+    
+_Dashboard_updateutilisateurssysteme:
+    pattern:  /Modifier_un_utilisateur_du_systeme/{id}
+    defaults: { _controller: MyAppAdminBundle:Information:addUtilisateur, id:id } 
+    
+_Dashboard_deleteutilisateurssysteme:
+    pattern:  /Supprimer_un_utilisateur_du_systeme/{id}
+    defaults: { _controller: MyAppAdminBundle:Information:deleteUtilisateur, id:id } 
+#Section pour les anomalies et log   
+_Dashboard_logsanomalies:
+    pattern:  /Afficher_log_et_anomalies/{page}/{letter}
+    defaults: { _controller: MyAppAdminBundle:Information:logAndAnomaly, page:page, letter:letter }  
+#Routes pour la gestion des textes d'accueil pour chaque section du site
+#texte section accueil
+_Dashboard_gestionTexteAccueil:
+    pattern: /texte_section_accueil.html
+    defaults: { _controller: MyAppAdminBundle:General:gestionTexteAccueil}
+#texte section accueil_en
+_Dashboard_gestionTexteAccueil_en:
+    pattern: /texte_section_accueil_en.html
+    defaults: { _controller: MyAppAdminBundle:General:gestionTexteAccueilEn}       
+#page google maps
+_google_maps:
+    pattern: /google_maps_API.html
+    defaults: { _controller: MyAppAdminBundle:Hebergement:googlemap}
+#tri des régions en ajax
+_triregionajax:
+    pattern: /tri_regions
+    defaults: { _controller: MyAppAdminBundle:Hebergement:getSortRegionAjaxAdmin}
+#tri des zones en ajax
+_trizoneajax:
+    pattern: /tri_zones
+    defaults: { _controller: MyAppAdminBundle:Hebergement:getSortZoneAjaxAdmin}
+#tri des villes en ajax
+_trivilleajax:
+    pattern: /tri_villes
+    defaults: { _controller: MyAppAdminBundle:Hebergement:getSortVilleAjaxAdmin} 
+#affichage des vignettes des images de la galerie pour les hébergements
+_displayvignettehebergementadmin:
+    pattern: /affichage_vignette_hebergemnt
+    defaults: { _controller: MyAppAdminBundle:Hebergement:getDisplayThumbnailHebergementAdmin} 
+#suppression des images pour la galerie de l'hébergement
+_galerieHebergementAdmindelete:
+    pattern: /suppression_image_galerie_hebergement
+    defaults: { _controller: MyAppAdminBundle:Hebergement:getGalerieHebergementAdminDelete} 
+#affichage des vignettes des images de la galerie pour les attraits
+_displayvignetteattraitadmin:
+    pattern: /affichage_vignette_attrait
+    defaults: { _controller: MyAppAdminBundle:Attrait:getDisplayThumbnailAttraitAdmin} 
+#suppression des images pour la galerie de l'attrait
+_galerieAttraitAdmindelete:
+    pattern: /suppression_image_galerie_attrait
+    defaults: { _controller: MyAppAdminBundle:Attrait:getGaleriePackageAttraitAdminDelete}  
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

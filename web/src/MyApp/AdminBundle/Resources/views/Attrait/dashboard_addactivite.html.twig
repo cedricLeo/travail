@@ -1,0 +1,58 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist is defined %}
+	<h1>Ajouter une activité</h1>
+{% else %}
+	<h1>Modifier une activité</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist is not defined %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une activité">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une province"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimez l'activité {{ infonom }} ?</p>
+						<a href="{{ path('_Dashboard_deleteattraitactivites', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler retouchBtnCancel"></a>
+				    </div>	
+				    {% endif %}					
+				    {{ form_label(form.nom_fr, "Nom fr", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom en", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.image, "Image", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image, {'attr':{'class':'txt_add_state'}}) }}
+				    {% if infoimg is defined %}
+				   	 	<img src="{{ asset('uploads/attrait_activite')}}/{{infoid}}/{{ infoimg }}" style="width:240px; height:160px; position:relative; left:600px; top:-50px;"/>
+				    {% endif %}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_attraitactivites') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% if listprovince is defined %}
+<div class="boiteinfo">
+	<h1>
+	<a id="lnkdivprovincesetats" href="#divprovincesetats">Sous cat�gories</a>
+	</h1>
+	<div class="soussectionderoulante" style="margin: 0px; position: static; overflow: hidden; height: 0px;"></div>
+		<div id="divprovincesetats">
+			{% for p in listprovince %}
+			<div class="gris">
+				<h2>
+					<a href="{{ path('_Dashboard_updateprovinces',{'id':p.id}) }}">
+						<img width="25px" border="0" height="16px" src="{{ asset('bundles/myappadmin/images/Provinces/')}}{{ p.image}}">
+						{{ p.nomfr }} 
+					</a>
+				</h2>
+			</div>
+			{% endfor %}
+		</div>
+	<br class="clearfloat">
+</div>
+{% endif %}
+{% endblock %}

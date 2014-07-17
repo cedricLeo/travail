@@ -1,0 +1,212 @@
+{% if listeGps is not empty %}    
+   {% for w in client %}
+{#   {% if w.reservitid is not empty and w.reservit is not empty %}
+		{# FORMULAIRE DE RÉSERVATION EN LIGNE #}
+	{#	{% include 'MyAppGlobalBundle:Hebergement:Formulaire_reservation_en_ligne.html.twig' %}
+	{% endif %}#}
+   <h2>{{ "activite.service.proximite" | trans }} {% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %}</h2>
+  <div class="rss">
+  {% if app.request.locale == "fr" %}
+  	<a class="btrss" {% for x in client %} href="{{ path('_hebergementfluxrss',{'name':x.repertoirefr|lower}) }}" {% endfor %} target="_blank"><img src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="30" border="0" height="39" style="border:0; margin:0; padding:0;"></a>
+  {% else %}
+  	<a class="btrss" {% for x in client %} href="{{ path('_hebergementfluxrss',{'name':x.repertoireen|lower}) }}" {% endfor %} target="_blank"><img src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="30" border="0" height="39" style="border:0; margin:0; padding:0;"></a>
+  {% endif %}
+  <p>{{ "feed.rss" | trans }} -  {% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %}</p>
+  </div>
+  {% endfor %}
+   <div class="liste">
+ 	 <div class="pages">    
+      {#	<div style="float:left" > //laisser en commentaire
+	       {{ "classer.par" | trans }} :
+	       <select name="">
+	         <option>Popularité </option>
+	         <option>Nom d’établissement</option>
+	         <option>Aléatoire </option>
+	       </select>
+    	</div> laisser commentaire jusqu'a cette ligne#}
+	       <ul>
+	       {% if app.request.locale == "fr" %}
+	       		{% if displaypage == 1 %}
+	      	 	Résultats de 1 à {{ listeGps|length }}
+	      	 	{% elseif page < displaypage %}
+		      	 	{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	      	 	{% elseif page == displaypage and displaypage > 1 %}
+		      	 	{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	      	 	{% elseif page > displaypage  %}
+		      	 	{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	       		{% endif %}
+	      {% else %}
+	       		{% if displaypage == 1 %}
+	      	 	Result of 1 to {{ listeGps|length }}
+	      	 	{% elseif page < displaypage %}
+	      	 		{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	      	 	{% elseif page == displaypage and displaypage > 1 %}
+	      	 		{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	      	 	{% elseif page > displaypage %}
+	      	 		{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	       		{% endif %}
+	      {% endif %}
+	       </ul>
+    	</div>
+            {#    {% if app.request.locale == "fr" %}
+                        {% for w in listeGps %}
+				  <div> 
+				       <div>
+				       		<a href="{{ w.regionid.urlfr|lower }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr }}" target="_blank" title="Activité {{ w.nomfr }}">
+				       			{% if w.image  is not empty %}
+				       			<img src="{{ asset('uploads/attrait') }}/{{ w.id }}/{{ w.image }}" class="img_liste_forfait" />
+				       			{% else %}
+				       			<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" alt="{{ w.nomfr }}" class="img_categoie_portail" /></a>
+				       			{% endif %}
+				       		</a>
+				       </div>
+				         <span>
+				         	<h3 style="color:white;">{{ w.nomfr }}</h3>
+							<p>{{ w.descriptionattraitfr.texteresumefr|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(200, true, ' [...]') }}<br />
+							<a href="{{ w.regionid.urlfr|lower }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr }}" target="_blank" title="Activité {{ w.nomfr }}">Plus d’information</a></p>
+				         </span>
+				  </div>
+			{% endfor %}
+	  	{% else %}
+	  		{% for w in listeGps %}
+				  <div> 
+				       <div>
+				       		<a href="{{ w.regionid.urlen|lower }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen }}" target="_blank" title="Activity {{ w.nomen }}">
+				       			{% if w.image is not empty %}
+				       			<img src="{{ asset('uploads/attrait') }}/{{ w.id }}/{{ w.image }}" class="img_liste_forfait" />
+				       			{% else %}
+				       			<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" alt="{{ w.nomfr }}" class="img_categoie_portail" /></a>
+				       			{% endif %}
+				       		</a>
+				       </div>
+				         <span>
+				         	<h3 style="color:white;">{{ w.nomen }}</h3>
+							<p>{{ w.descriptionattraiten.texteresumeen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(200, true, ' [...]') }}<br />
+							<a href="{{ w.regionid.urlen|lower }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen }}" target="_blank" title="Activity {{ w.nomen }}">More information</a></p>
+				         </span>
+				  </div>
+			{% endfor %}
+	  	{% endif %} #}
+    	<div class="pages"> 
+   {# <div style="float:left" > //laisser en commentaire
+       {{ "classer.par" | trans }} :
+       <select name="">
+         <option>Popularité </option>
+         <option>Nom d’établissement</option>
+         <option>Aléatoire</option>
+       </select>
+    </div> //laisser commentaire jusqu' a cette ligne #} 
+     	 <ul>
+     	 	{% if app.request.locale == "fr" %}
+       			{% if displaypage == 1 %}
+	      	 	Résultats de 1 à {{ listeGps|length }}
+	      	 	{% elseif page < displaypage %}
+	      	 		{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	      	 	{% elseif page == displaypage and displaypage > 1 %}
+	      	 		{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	      	 	{% elseif page > displaypage %}
+	      	 		{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	       		{% endif %}
+	       	{% else %}
+	       		{% if displaypage == 1 %}
+	      	 	Result of 1 to {{ listeGps|length }}
+	      	 	{% elseif page < displaypage %}
+	      	 		{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	      	 	{% elseif page == displaypage and displaypage > 1 %}
+	      	 		{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	      	 	{% elseif page > displaypage %}
+	      	 		{% for w in client %}
+		      	 		{% if w.hebergementid is not defined %}
+		       				<li><a href="{{ path('_hebergementactivite',{'name': w.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		       			{% else %}
+		      	 			<li><a href="{{ path('_hebergementactivite',{'name': w.hebergementid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		      	 		{% endif %}
+		      	 	{% endfor %}
+	       		{% endif %}
+	       	{% endif %}
+      	</ul>
+    </div>
+  </div>
+{% endif %}
+  <br class="clearfloat" />
+  {# PUB GOOGLE #}
+ 	<div id="zone_01" class="pubGoogleBottom pubGoogleAttrait">
+	  	<script type='text/javascript'>
+			googletag.cmd.push(function() { googletag.display('zone_01'); });
+		</script>
+	</div> 
+	

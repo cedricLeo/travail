@@ -1,0 +1,84 @@
+<?php
+namespace MyApp\GlobalBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Entity(repositoryClass="MyApp\GlobalBundle\Entity\Texte_region_forfait_affaireRepository")
+ * @ORM\Table(name = "texte_region_forfait_affaire")
+ */
+class Texte_region_forfait_affaire {
+	
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy = "AUTO")
+     *
+     * @var integer $id
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type = "string", nullable = "true")
+     * 
+     * @var string $page_titre_fr
+     */
+    private $page_titre_fr;
+
+     /**
+     * @ORM\Column(type = "text", nullable = "true")
+     * 
+     * @var text $page_metadescription_fr
+     */
+    private $page_metadescription_fr;
+
+    /**
+     * @ORM\Column(type = "text", nullable = "true")
+     * 
+     * @var text $texte_fr
+     */
+    private $texte_fr;
+    
+    /**
+     * @ORM\Column(type = "string", nullable = "true")
+     * 
+     * @var string $page_titre_en
+     */
+    private $page_titre_en;
+
+     /**
+     * @ORM\Column(type = "text", nullable = "true")
+     * 
+     * @var text $page_metadescription_en
+     */
+    private $page_metadescription_en;
+
+    /**
+     * @ORM\Column(type = "text", nullable = "true")
+     * 
+     * @var text $texte_en
+     */
+    private $texte_en;
+
+    /**
+     * @ORM\ManyToOne(targetEntity = "Regions", inversedBy = "Texte_region_forfait_affaire")
+     * 
+     * @var integer $region
+     */
+    private $region;
+    
+    /**
+     * @ORM\Column(type="string", length = 255, nullable = "true")
+     * 
+     * @var string $repertoire_fr
+     */
+    private $repertoire_fr;
+
+    /**
+     * @ORM\Column(type="string", length = 255, nullable = "true")
+     * 
+     * @var string $repertoire_en
+     */
+    private $repertoire_en;
+
+}

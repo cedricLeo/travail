@@ -1,0 +1,704 @@
+session.unset: Déconnexion 
+info.administrative: Informations administratives
+info.attraction: Information sur votre attraction touristique
+info.visibilite: Informez vous sur les options de visibilité
+aide: Besoin d'aide
+connexion.compte: Connexion au compte 
+text.activite: Textes de la page attrait
+express: L'express
+tarif.horaire: Horaires
+paiement.accepte: Modes de paiements et devises acceptés
+photo.logo: Photographies de l'attrait et logo
+video.externe: Vidéos externes (exemple vidéo sur Youtube)
+video.interne: Vidéos téléchargées
+activite.service: Activités et services
+coupon.rabais: Coupons rabais
+carte.routiere: Carte routière
+titre.info.attract: Informations de l'attraction
+titre.info.admin: Informations administratives
+activite.sur.place: Activités offertes sur place
+submit.texte.attrait: Enregistrer
+texte.resume: Texte résume
+etablissement.global: Voici le lien pour aller voir l'établissement sur Global réservation
+attraction.guide: Attraction sur les guides touristiques
+option.visibilite: Option de visibilité sur Global Réservation
+bonjour: Bonjour
+coordonnee.gps: Les valeurs latitude et longitude ne sont pas renseignées pour faire afficher la carte de google.
+name.customer.fiche: Nom du client
+externe: Vidéos externes
+paiement: Paiements et devises
+photos: Photos et logo
+hebergement: Hébergement
+condition.horaire: Laisser à 00:00 si votre commerce est fermé
+hour.summer: Horaire d'été
+hour.winter: Horaire d'hiver
+day.ferie: Jours feriés
+Lundi.matin: Lundi ouverture
+Mardi.matin: Mardi ouverture
+Mercredi.matin: Mercredi ouverture
+Jeudi.matin: Jeudi ouverture
+Vendredi.matin: Vendredi ouverture
+Samedi.matin: Samedi ouverture
+Dimanche.matin: Dimanche ouverture
+Lundi.soir: Lundi fermeture
+Mardi.soir: Mardi fermeture
+Mercredi.soir: Mercredi fermeture
+Jeudi.soir: Jeudi fermeture
+Vendredi.soir: Vendredi fermeture
+Samedi.soir: Samedi fermeture
+Dimanche.soir: Dimanche fermeture
+Nouvel.an.matin: Nouvel an ouverture
+Vendredi.saint.matin: Vendredi Saint ouverture
+Paques.matin: Pâques ouverture
+25.mai.matin: 25 mai ouverture
+Saint.Jean.matin: Saint Jean ouverture
+Fete.du.Canada.matin: Fête du Canada ouverture
+Fete.du.travail.matin: Fête du travail ouverture
+2.octobre.matin: 2 octobre ouverture
+Noel.matin: Noël ouverture
+Nouvel.an.soir: Nouvel an soir
+Vendredi.saint.soir: Vendredi Saint fermeture
+Paques.soir: Pâques fermeture
+25.mai.soir: 25 mai fermeture
+Saint.Jean.soir: Saint Jean fermeture
+Fete.du.Canada.soir: Fête du Canada fermeture
+Fete.du.travail.soir: Fête du travail fermeture
+2.octobre.soir: 2 octobre fermeture
+Noel.soir: Noël fermeture
+return.home: Retour à l'accueil
+Mode.paiement: Modes de paiements
+Devise: Devises
+msgConfirmActivite: Les mises à jours ont réussies
+activite: Activités
+aide: Garder la touche du clavier « CTRL » enfoncer quand vous voulez ajouter ou supprimer un élément dans la liste déroulante 
+Cuisine: Types de cuisines
+Type.soin.sante: Types de soins
+Soins.sante: Soins de santé
+Date.ouverture: Date d'ouverture
+Date.fermeture: Date de fermeture
+attrait.periode: L'attrait a t'il une periode d'ouverture et de fermeture ?
+prix: Prix
+titre.fr: Titre FR
+titre.en: Titre EN
+texte.periode.ouverture.fr: Texte periode ouverture FR
+texte.periode.ouverture.en: Texte periode ouverture  EN
+texte.description.fr: Texte descriptif FR
+texte.description.en: Texte descriptif EN
+texte.resume.fr: Texte résume FR
+texte.resume.en: Texte résume EN
+texte.express.fr: Texte express FR
+texte.express.en: Texte express EN
+page.facebook.fr: Page Facebook FR
+page.facebook.en: Page Facebook EN
+page.twitter.fr: Page Twitter FR
+page.twitter.en: Page Twitter EN
+page.google.fr: Page Google+ FR
+page.google.en: Page Google+ EN
+texte.tarif.fr: Texte tarif FR
+texte.tarif.en: Texte tarif EN
+texte.horaire.fr: Texte horaire FR
+texte.horaire.en: Texte horaire EN
+aucun.etablissement: Aucun établissement
+nombre.etage: Nombre d'étage
+fichier.liste.salle.fr: Fichier liste des salles FR
+fichier.liste.salle.en: Fichier liste des salles EN
+fichier.plan.salle.fr: Fichier plan des salles FR
+fichier.plan.salle.en: Fichier plan des salles EN
+politique.generale.fr: Politique générale FR
+politique.generale.en: Politique générale EN
+politique.animaux.fr: Politique des animaux FR
+politique.animaux.en: Politique des animaux EN
+politique.annulation.fr: Politique d'annulation FR
+politique.annulation.en: Politique d'annulation EN
+politique.tarif.fr: Politique tarifaire FR
+politique.tarif.en: Politique tarifaire EN
+email: Courriel
+Site.web: Site web
+Nom.fr: Nom FR
+Nom.en: Nom EN
+Nom.abrege.fr: Nom abrégé FR
+Nom.abrege.en: Nom abrégé FR
+Category.hebergement: Catégorie d'hébergement
+Affiliation.hebergement: Affiliation pour l'hébergement
+videos: Vidéos
+see.more: voir la suite
+quoi.faire: Quoi faire ?
+choisir.endroit: Choisir l'endroit où vous voulez voyager
+langue: English
+region: Région
+category.hebergement: Catégorie d'établissements hôtelier
+Bienvenue: Bienvenue
+accueil: Accueil
+forfait: Forfaits
+corporatif.evenement: Corporatif et événements
+centre.sante.spa: Centres de santé et spas
+attrait.activite: Attraits et activités
+promotion: Promotions
+restaurant: Restaurants
+choisir.endroit.profiter.hebergement: Choisir l'endroit où profiter d'un hébergement
+mon.global: Mon Global Réservation
+mon.itineraire: Mon itinéraire
+qui.sommes.nous: Qui sommes-nous ?
+connexion: Connexion
+recherche.avance: Recherche avancée
+recherche.par.carte: Recherche par carte
+recherche.enligne: Réservation en ligne
+condition.utilisation: Condition d'utilisation
+contactez.nous: Contactez-nous
+plan.site: Plan du Site
+rss: Suivez nous sur votre lecteur RSS
+suivez.facebook: Visitez notre page facebook pour nous suivre au quotidien.
+global.facebook: Retrouvez nous sur notre page Facebook
+adresse.courriel: Votre adresse courriel
+minscrire: Je veux m'inscrire
+blog.quebec.saison: Le Blogue du Tourisme au Québec 
+info.blog: Visitez le Québec en saison pour ses nombreux échos 
+tarif.minutes: Voyez nos tarifs de dernières minutes et promotions
+tarif.derniere.minutes: Tarifs dernière minute et promotions
+festival.evenement.rss: Festivals et événements au Québec
+les.festivaux: Festivals et événements à la grandeur de la province
+nouveaux.hebergements: Nouveaux membres hébergements
+nouvelles.activites: Nouveaux membres activités
+news.activitees: Les activites de nos nouveaux clients
+news.hebergements: Les hébergements de nos nouveaux clients
+descriptif.global: Global Réservation, le leader de l'industrie touristique sur Internet. Des spécialistes bilingues formés en tourisme, dans une centrale de réservations unique et représentant une vaste gamme d'hôtels, de motels, de gîtes et d'auberges. Un concept innovateur vous permettant de trouver facilement l'établissement recherché et de réserver instantanément votre séjour.
+ou.aller: Où souhaitez-vous aller?
+suggestion.hebergement: Suggestions d'hébergements
+voir.les.hotels.de: Voir les hôtels de
+recherche.sur.global: Recherche sur Global Réservation
+choisir.la.region: Choisir la région des 
+choisir.la.province: Choisir la province des 
+nos.suggestions: Nos suggestions
+restaurant.google: Restaurant
+hebergement.google: Hébergement
+forfait.google: Forfaits
+corporatif.evenement: Corporatif et événements
+attrait.activite.google: Attraits et activités
+destination.google: Destination
+centre.sante.spa.google: Centre de santé et spas
+reservez.par.telephone: Réservez votre hôtel par téléphone 1 877 778-8977
+hotels: Hôtels
+choisir.region.ou.sejourner: Choisir la région ou séjourner 
+hotel.motel.auberge: Hôtels, motels et auberges
+region.de: Région de
+choisir.ville.forfait.region: Choisir la ville où profiter d'un hébergement dans la 
+categorie.etablissement.hotelier: Catégorie d'établissements hôtelier
+global.reservation: Global Réservation
+resultat.de: Résultats de
+a: à 
+sur: sur
+classer.par: Classés par
+popularite: Popularité
+nom.etablissement: Nom d'établissement
+aleatoire: Aléatoire
+villes: Villes 
+etoile: Étoile
+tarif: Tarif
+prix.moyen: Prix moyen
+commentaire: comment
+voir.mon.itineraire: Voir mon itinéraire
+ajouter.mon.itineraire: Ajouter à mon itinéraire
+voir.carte: Voir sur la carte
+choisir.endroit.profiter.forfait: Choisir l'endroit où profiter d'un forfait
+categorie.forfait: Catégorie de forfaits
+forfait.romantique: Forfaits romantiques
+forfait.spectacle: Forfaits spectacles
+forfait.golf: Forfaits golf
+forfait.ski: Forfaits ski
+forfait.chien.traineau: Forfaits traineau à chiens
+forfait.vtt: Forfaits VTT
+forfait.gastronomie: Forfaits gastronomie
+forfait.pleinair: Forfaits plein air
+forfait.mariage: Forfaits mariages
+forfait.famille: Forfaits famille
+forfait.detente: Forfaits détente
+forfait.souper: Forfaits déjeuners et soupers
+forfait.dejeuner: Forfaits déjeuners
+forfait.croisiere: Forfaits croisières
+forfait.casino: Forfaits casino
+forfait.affaire: Forfaits affaires
+forfait.activite.sportive: Activités sportives
+forfait.activite.culturelle: Activités culturelles
+suggestion.forfait.region: Suggestions de forfaits dans la région
+choisir.endroit.profiter: Choisir l'endroit ou profiter
+nos.suggestions.destination: Nos suggestions de promotions
+decouvrez: Découvrez
+destination.touristique: Destination touristique
+coordonnee.global.reservation: Coordonnées téléphoniques de Global Réservation
+destination.touristique.province: Destination touristique province
+nos.suggestions.destination.touristique.region: Nos suggestions de destination touristique dans la région
+secteur.touristique: Secteur touristique de la région de Québec
+visiter.secteur: Visiter les secteurs touristique de la région
+choisir.ville.visiter: Choisir la ville à visiter dans la région
+les.incontournables.region: Les incontournables
+les.hebergements.plus.visites: Les hébergements les plus visités
+attrait.activite.visiter.region: Les attraits et activités les plus visités
+forfait.visiter.region: Les forfaits les plus visités
+centre.sante.visiter.region: Les centres de santé et spas les plus visités
+restaurant.visiter.region: Les restaurants les plus visités
+etablissement.corporatif.speciaux.region: Établissement pour le corporatif et événements spéciaux 
+numero.global.reservation: Réservation téléphonique et en ligne avec Global Réservation 
+choisir.endroit.corporatif: Choisir la région où organiser une réunion corporative ou des événements spéciaux
+categorie.corporatif.event.speciaux: Corporatif et événements spéciaux
+appeloffre: Appel d'offres corporatif
+forfaitaffaire: Forfaits affaires
+locationsallereunion: Location de salles de réunion
+chambreaffaire: Les chambres affaires
+activitecorporativegroupe: Activités corporatives et de groupes
+categorie.corpo.region: Catégorie corporatif et événements spéciaux dans la région
+choisir.ville.corpo.speciaux: Choisir la ville où organiser une réunion corporatif et événements spéciaux dans la région
+corporatif.even.speciaux.region: Corporatif et événements spéciaux dans la région
+categorie.appel.offre: Catégorie appel d'offres corporatifs
+categorie.activite.corporative.groupe: Catégorie activités corporatives et de groupes
+categorie.forfait.affaire: Catégorie forfaits affaires
+categorie.location.salle.reunion: Catégorie location de salles de réunion
+categorie.chambre.affaire: Catégorie les chambres affaires 
+appel.offre.region: Appel d'offre corporatif
+region: Région
+localisation.salle.reunion: Location de salles de réunion
+home.corpo.text: Trouvez le meilleur endroit où rester lors de votre prochain congrés et pour l'organisation d'une réunion ou d'un banquet.
+home.destination.text: Choisissez la ou les régions du Québec qui vous intéressent et trouvez une multitude d'information vous permettant de planifier votre séjour.
+home.restaurant.text: Découvrez les meilleures tables, la meilleure ambiance ainsi que le meilleur qualité-prix des restaurants de votre prochaine  destination.
+home.forfait.text: Bonifiez vos vacances en profitant de l'un des nombreux forfaits offerts par Global Réservation ainsi que ses partenaires.
+home.centresante.text: Planifiez un moment de détente bien mérité en parcourant la liste des centres de santé et spas de votre prochaine destination.
+home.attrait.text: Découvrez les incroyables attraits et activités dont regorge le Québec, du plus petit festival aux plus grands événements internationaux.
+home.hebergement.text: Que ce soit pour un hôtel 5 étoiles ou un chaleureux couette et café, vous trouverez toute l'information nécessaire pour votre prochain hébergement au Québec.
+suggestion.hebergement: Suggestions d'hébergements
+legende.home: Hôtel Québec, auberge Québec, motel Québec
+suggestion.forfait: Suggestions de forfaits
+choisir.endroit.restaurant: Choisir l'endroit où manger au restaurant
+nos.suggestions.hotel.motel.auberge: Nos suggestions d'hôtels, motels et auberges
+choisir.endroit.profiter.attrait: Choisir l'endroit où profiter d'un attrait et activité
+suggestion.attrait: Suggestions des attraits et activités
+attrait.activite.region: Attraits et activités région
+corpo.event.speciaux: Corporatif et événements spéciaux
+nos.suggestions.attraits: Suggestions attraits et d'activités
+choisir.ville.profiter.attrait: Choisir la ville où profiter d'un attrait ou activité dans la
+suggestion.activite.region: Suggestions des attraits et activités dans la
+resultat.liste: Résultats de
+resultat.a: à 
+resultat.sur: sur
+nos.suggestions.hotels.proximite: Nos suggestions d’hôtels, motels et auberges
+type.cuisine.restaurant: Types de cuisines de restaurants
+suggestion.restaurant.region: Nos suggestions de restaurants dans la
+categorie.cuisine: Catégories de cuisines
+categorie.restaurant: Catégories de restaurants
+choisir.endroit.manger: Choisir l'endroit où manger au restaurant
+nos.suggestions.restaurants: Nos suggestions de restaurants
+voir.mon.itineraire: Voir mon itinéraire
+type.cuisine: Types de cuisines
+presentation: Présentation
+chambre.tarif: Chambres et tarifs
+forfait.promotion: Forfaits et promotions
+activite.service: Activités et services
+corporatif.speciaux: Corporatif et événements spéciaux
+galerie.photo: Galerie photo
+direction.routiere: Directions routières
+information.reservation: Réservation
+votre.opinion: Nous sommes intéressés par votre
+date.arriver: Votre date d'arrivée
+date.depart: Votre date de départ
+nombre.chambre: Nombre de chambre
+adulte: Adulte(s)
+enfant: Enfant(s)
+reservation.en.ligne: Réservation en ligne
+voir.disponibilite: voir les disponibilités
+sans.frais: Sans frais
+plus.info: Plus d'information 
+caracteristique.resto: Caractéristiques du restaurant
+heure.ouverture: Heures d'ouverture
+capacite: Capacité
+specialites: Spécialités
+specialite: Spécialité
+prix: Prix
+mode.paiement: Mode de paiement
+modes.paiements: Modes de paiements
+pourboire: Au Québec, le service n'est pas compris dans le prix total du repas. L'usage veut qu'on laisse un pourboire représentant 15% de la facture totale.
+haute.saison: Tarif haute saison
+basse.saison: Tarif basse saison
+restaurant.au.quebec: Nos suggestions de restaurants 
+choisir.specialite.restaurant: Choisir l'endroit où  manger au restaurant
+a.partir: À partir de
+chargement: Chargement en cours ...
+depart: Départ
+calcul.initeraire: Calculer l'itinéraire
+choisir.endroit.sante: Choisir l'endroit où visiter un centre de santé et spa
+categorie.centre.sante: Catégorie de centre de santé et spa
+suggestion.centre.sante: Suggestions de centres de santé et spas
+select.region.centre.sante: Choisir la région où visiter un centre de santé et spa
+type.chambre: Types de chambres
+information.concernant.etablissement: Information concernant l'établissement
+politique.animaux: Politique concernant les animaux
+modalite.paiement: Modalite(s) de paiement(s)
+devises: Devise(s)
+style.hebergement: Style(s) d'hébergement(s)
+heure.depart.etablissement: Heure de départ
+heure.arriver.etablissement: Heure d'arrivée
+salle.etablissement: Salle(s)
+nombre.etage: Nombre d'étage(s)
+nombre.chambre: Nombre de chambre(s)
+partager.experience: Partager votre expérience
+critere.semblable: Établissements qui ont des critères semblables à
+imprimer: Imprimer l'itinéraire
+activite.service.proximite: Activités et services à proximité de
+feed.rss: Feed Rss pour un lien avec les activités et attraits
+classer.par: Classés par
+texte.resume.fr: Texte résumé FR
+texte.resume.en: Texte résumé EN
+msg: Mise à jour réussie
+Activites: Activités
+services.offerts: Services offerts
+activite.place.proximite: Activités sur place et à proximité
+hebergement.unite.tarif: Hébergement, unité(s) et tarif(s)
+type.even.corpo: Types d'événement corporatifs
+capacite.corpo: Capacité corporative
+service.corpo: Services corporatifs
+soin.offert: Soins de santé offert
+condition.annulation: Condition d'annulation
+jusqua: jusqu'à
+tarif.preferentiel: Tarif préférentiel
+type.de.chambre.pour: Chambres
+haute.saison.admin.client: tarif maximum
+basse.saison.admin.client: tarif minimum
+semaine.relache: Semaine(s) de relâche
+politique.annulation: Politique d'annulation
+haut: haut
+caracteristique.certaine.unite: Caractéristique(s) de certaine unité(s)
+saison: Saisons
+max.personne: Maximum de personnes
+autre: Autre
+unite: Unité(s)
+lit: Lit(s)
+dejeuner.non.compris: Le prix de la chambre ne comprend pas le petit déjeuner 
+dejeuner.buffet: Le prix de la chambre comprend le petit déjeuner buffet
+dejeuner.americain: Le prix de la chambre comprend le petit déjeuner américain
+dejeuner.continental: Le prix de la chambre comprend le petit déjeuner continental
+aucun.resultat: Pas de résultat trouvé
+nom.fr: Nom FR
+nom.en: Nom EN
+ajouter.forfait: Ajouter un forfait
+categorie.forfait: Catégorie du forfait
+texte.fr: Texte FR
+texte.en: Texte EN
+date.debut: Date de début du forfait
+date.fin: Date de fin du forfait
+aucune.date: Si le forfait ne possède aucune date de début et de date fin cocher la case
+actif.forfait: Cochez la case si vous êtes pret à publier votre forfait
+titlefaq: FAQ Global Réservation 
+Q.reservation.en.ligne.securitaire: Est-ce que la réservation en ligne est sécuritaire ? 
+R.reservation.en.ligne.securitaire: OUI, notre système a la certification PCI-DSS (Payment Card Industry-Data Security Standard) qui garantit que notre outil de réservation est fiable et bénéficie du plus haut niveau de sécurité existant concernant la sauvegarde et la préservation des données bancaires des utilisateurs internautes.
+Q.prix.eleves: Est-ce que les prix sont plus élevés qu'à l'établissement d'hébergement ? 
+R.prix.eleves: NON, nous proposons les mêmes prix que l'établissement et il y a des établissements qui proposent des promotions et rabais lorsque vous réservez avec Global Réservation.
+Q.nous.devons.payer.les.service: Est-ce que nous devons payer pour le service de Global Réservation ?
+R.nous.devons.payer.les.service: NON, le service est entièrement GRATUIT.
+Q.nous.pouvons.annuler: Est-ce que nous pouvons annuler une réservation ?  
+R.nous.pouvons.annuler: OUI à la condition de respecter les politiques d'annulation de l'établissement d'hébergement.  Vous n'avez qu'à appeler les agents de Global Réservation ou à cliquer sur le lien reçu par courriel à cet effet pour une réservation en ligne.
+Q.forfait.disponible: Est-ce que les forfaits sont aussi disponibles si j'appelle directement l'établissement d'hébergement ?  
+R.forfait.disponible: Certain oui et certain non, il y a des forfaits que les établissements nous proposent en fonction de nos thématiques de forfaits pour le bulletin d'information touristique Québec en Saisons.  Il vous faut passer par les agents de Global Réservation pour bénéficier de ces forfaits.
+Q.tarif.corpo.gouvernement: Est-ce que Global Réservation accepte les tarifs corporatifs et gouvernementaux ? 
+R.tarif.corpo.gouvernement: Global Réservation les accepte si l'établissement d'hébergement les accepte.  
+Q.global.prend.paiement: Est-ce que c'est Global Réservation qui prend directement le paiement de la réservation ? 
+R.global.prend.paiement: NON, c'est toujours l'établissement d'hébergement qui prend les paiements.
+Q.remboursement.communiquer: En cas de demande de remboursement, est-ce que nous devons communiquer avec Global Réservation ?  
+R.remboursement.communiquer: NON, il vous faut communiquer directement avec l'établissement d'hébergement puisque votre paiement a été fait avec eux.
+Q.type.hebergement.reserver.avec.nous: Quels types d'hébergement pouvons-nous réserver avec vous ? 
+R.type.hebergement.reserver.avec.nous: Vous pouvez réserver tous ces types d'hébergement : gîtes (B&B, Bed & Breakfast), auberges, hôtels, motels, chalets, condos, appartements, auberges de jeunesse, chalets de pourvoiries ou campings et d'autres types insolites (tipis, maison dans les arbres).
+QuisommesnousTitle: Qui sommes-nous Global Réservation ?
+paragraphe1: Global Réservation est une compagnie québécoise qui a été créée en 2001.  Notre mission étant de faciliter la recherche d'un établissement d'hébergement au Québec et au Canada pour les voyageurs.
+2facons.faire.reservation: Global Réservation vous propose deux façons de faire une réservation 
+1appel.agent: 1- Appelez l'un de nos agents bilingues à notre centrale de réservations 1-877-778-8977
+2reservez.directement: 2- Réservez directement en ligne via notre site Internet www.global-reservation.com
+paragraphe2: Nos agents se feront un plaisir de faire une recherche pour vous dans le but de vraiment trouver l'établissement d'hébergement qui répondra à votre besoin spécifique, votre budget, l'endroit où vous désirez aller, un forfait désiré, de la disponibilité ou toute autre demande.
+global.reservation.cest: Global Réservation, c'est:
+liste1: Un service personnalisé et GRATUIT que le voyageur reçoit en fonction de ses besoins par nos conseillers en tourisme bilingues; 
+liste2: Un site Internet regroupant des établissements d'hébergement au Canada (www.global-reservation.com); 
+liste3: Une centrale de réservations ouverte du lundi au vendredi de 8h00 à 16h30 (1-877-778-8977); 
+liste4: Possibilité de réserver en ligne via notre système ReservIT;
+liste5: Description de chacun des différents établissements au Canada (services, photos, forfaits et autres spécifications);
+liste6: Une section "Tarifs dernière minute"; 
+liste7: Une section "Forfaits"; 
+liste8: Une section "Attraits et activités", vous pourrez trouver des activités, événements et autres services touristiques à proximité de l'établissement désiré; 
+liste9: Une section dédiée au corporatif et événements;
+liste10: Un bulletin d'information touristique Québec en Saisons qui parait à chaque saison (www.quebecensaisons.com);
+liste11: Une page Facebook et Twitter pour toujours vous tenir informés des nouvelles promotions, tarifs dernière minute, nouveautés et autres renseignements touristiques pertinents (www.facebook.com/globalreserv et http://twitter.com/GReservation).
+differents.type.etablissement: Voici les différents types d'établissements d'hébergement disponibles  
+liste12: Gîtes, B&B, Bed & Breakfast;
+liste13: Auberges;
+liste14: Hôtels;
+liste15: Motels;
+liste16: Chalets;
+liste17: Condos;
+liste18: Appartements;
+liste19: Auberges de jeunesse;
+liste20: Chalets de pourvoiries ou campings;
+liste21: Autres types d'hébergement (insolites) comme des tipis, maisons dans les arbres et autres.
+ajouter.coupon: Ajouter un coupon rabais
+apercu.fr: Aperçu FR
+apercu.en: Aperçu EN
+emule.apercu: Visionner le coupon
+supprimer.coupon: Voulez vous supprimer le coupon
+supprimer: Supprimer
+pour.supprimer.coupon: Pour supprimer le coupon
+prix.sujet.changement.sans.preavis: Prix sujets à changements sans préavis
+ajouter.chambre: Ajouter une chambre
+modifer.chambre: Modifier une chambre
+supprimer.chambre: Supprimer une chambre
+Voici.ordre.affichage: Voici dans quel ordre vont s'afficher vos chambres sur votre mini site.
+ordre.affichage: Ordre d'affichage
+status: Activer
+quantite: Quantité
+supprimer.chambre: Voulez vous supprimer la chambre
+active.la.chambre: Activer la chambre
+type.de.chambre: catégorie de chambre
+liste.des.equipements: Liste des équipements
+liste.des.lits: Liste des lits
+texte.presentation.fr: Texte présentation FR
+texte.presentation.en: Texte présentation EN
+description.fr: Description FR
+description.en: Description EN
+nombre.occupants: Nombre d'occupants
+tarif.minimum.basse.saison: Tarif minimum basse saison
+tarif.maximum.basse.saison: Tarif maximum basse saison
+tarif.minimum.haute.saison: Tarif minimum haute saison
+tarif.maximum.haute.saison: Tarif maximum haute saison
+tarif.minimum.pour.la.relache: Tarif minimum pour la relache
+tarif.maximum.pour.la.relache: Tarif maximum pour la relache
+description.basse.saison.fr: Description basse saison FR
+description.basse.saison.en: Description basse saison En
+description.haute.saison.fr: Description haute saison FR
+description.haute.saison.en: Description haute saison EN
+dejeuner.continental: Déjeuner continental inclus
+dejeuner.americain: Déjeuner américain inclus
+dejeuner.buffet: Déjeuner buffet inclus
+dejeuner.non.compris: Déjeuner non compris
+image.pour.la.presentation: Image pour la présentation
+ajouter.corpo: Ajouter un corporatif
+modifier.corpo: Modifier un corporatif 
+active.le.corpo: Activer le corporatif
+type.evenement: Événements
+service.corporatif: Services
+texte.corporatif.fr: Texte corporatif FR
+texte.corporatif.en: Texte corporatif EN
+texte.capacite.salle.fr: Texte capacité de la salle FR
+texte.capacite.salle.en: Texte capacité de la salle EN
+largeur.pied: Largeur en pieds
+hauteur.pied: Hauteur en pieds
+profondeur.pied: Profondeur en pieds
+largeur.metre: Largeur en mètres
+hauteur.metre: Hauteur en mètres
+profondeur.metre: Profondeur en mètres
+supprimer.corpo: Supprimer un corporatif
+modifier.corpo: Modifier un corporatif
+voir.pdf: voir le pdf
+liste.salle: Liste des salles
+plan.salle: Liste des plans
+telecharger.info.corpo: Télécharger les informations corporatives
+salle.capacite: Salles et capacité 
+email.corporatif: Courriel de reception
+corporatif.evenement.speciaux: Corporatif et événements spéciaux
+perime: La date de ce forfait est périmé
+choisir.endroit.profiter.forfait.affaire: Choisir l'endroit où profiter d'un forfait affaire
+nos.suggestions.forfaits.affaires: Nos suggestions de forfaits affaires
+choisir.ville.profiter.forfait: Choisir la ville où profiter d'un forfait dans la 
+lesforfaitsdela: Les forfaits de la
+les.forfait.pour.la.ville.de: Les forfaits pour la ville de
+motdepasse.absent: Le mot de passe est vide
+authentification.incorrecte: Authentification incorrecte
+plus.info.restaurant: Plus d'info sur le restaurant
+texte.accueil.forfait: Texte de votre mini site pour la section forfait
+photo.categorie: Photo pour la catégorie
+photo.grande: Photo de présentation
+Galerie: Galerie photo
+etablissements.global: Établissements sur Global Réservation
+affichage.chambre.sur.minisite.client: Ceci va déterminer l'ordre d'affichage de vos chambre sur votre mini site exemple (1 pour qu'elle soit en tête de liste d'affichage 2, 3 etc)
+supprimer: Supprimer
+dimension.en.metre: Dimension de la salle en mètre (veuillez arrondir à l'entier le plus prés exemple 17.6  => 18)
+dimension.en.pouce: Dimension de la salle en pouce (veuillez arrondir à l'entier le plus prés exemple 17.6  => 18)
+banquet: Banquet nombre de personne
+carre.ouvert: Carré ouvert nombre de personne
+chevron: Chevron nombre de personne
+conference: Conférence nombre de personne
+demi.lune: Demi lune nombre de personne
+ecole: École nombre de personne
+en.t: Forme en T nombre de personne
+en.u: Forme en U nombre de personne
+salon.commercial: Salon commercial nombre de personne
+theatre: Théatre nombre de personne
+photo.principale: Photo principale
+photo.categorie: Photo pour la catégorie
+photo.logo: Logo
+ajouter.une.photo: Ajouter une photo
+supprimer.une.photo: Supprimer une photo
+galerie.photo.centre.sante: Galerie de photos du centre de santé et spa
+haut: haut
+formulaire.demande.information.corpo: Formulaire de demande d'information
+renseignements.personnels: Renseignements personnels
+salle: Salle
+hebergements: Hébergements
+salle.hebergement: Salle d'hébergement
+prenom: Prénom
+nom: Nom
+courriel: Courriel
+nom.d.entreprise: Nom d'entreprise
+adresse: Adresse
+ville: Ville
+province: Province
+code.postal: Code postal
+pays: Pays
+telephone: Téléphone
+telecopieur: Téléocopieur
+renseignements.hebergement: Renseignements sur l'hébergement
+renseignements.sur.salle: Renseignements sur la salle
+nombre.de.chambre: Nombre de chambres
+simple.double: Simple et double
+demandes.specifiques: Demandes spécifiques pour l'hébergement 
+nom.reunion: Nom de la réunion
+nombre.personne: Nombre de personnes
+type.d.evenement: Type d'événement
+date.arrivee: Date d'arrivée
+date.du.depart: Date de départ 
+vos.dates.flexibles: Vos dates sont-elles flexibles ?
+disposition.salle: Disposition de la salle 
+decrire.equipement: Décrire les équipements dont vous avez besoin 
+message.demande.information.corpo.envoye: Votre demande a été envoyée
+demande.information.title: Demande d'information corporative
+textes.politique.forfait: Textes politiques pour les forfaits
+region.quebec: (région de québec)
+chaque.jour: Chaque jour entre 8hrs et 22hrs
+sans.frais.canada.usa: (Sans frais pour Canada et USA)
+reservation.telephone: Réserver par téléphone
+demande.information.reservation.internet: Demande d'information / réservations par Internet (24 heures)
+amerique.nord: Canada et États-Unis
+envoyer.la.demande: Envoyer la demande
+demande.specifique: Commentaire ou demandes spéciales
+chambre.fumeur: Chambre fumeur
+nombre.chambre: Nombre de chambre
+nombre.enfant: Nombre d'enfant
+nombre.adulte: Nombre d'adulte
+date.arrive: Date d'arrivée
+date.depart: Date du départ
+age.enfant: Age des enfants
+tarif.derniere.minute: Tarifs de dernières minutes
+global.valide.derniere.minute: Pour affichage de ce même forfait dans la section Pomotion et Tarif dernière minute du site de Global Réservation
+service.de.l.hebergement: Services de l'hébergement
+activite.hebergement: Activités de l'hébergement
+service.hebergement: Services de l'hébergement
+activite.attrait: Activités de l'attrait
+service.attrait: Services de l'attrait
+qui.sommes.nous.ariane: Qui sommes nous
+a.proximiter: à proximité des
+choisir.ville: Choisir une ville
+centresante.clientaleatoire: Centre de santé
+choisir.ville.soin: Choisir la ville où visiter un 
+forfait.detente: Forfaits détente et soins de santé
+reserver.cette.chambre: Réserver cette chambre en ligne
+ajout.forfait: Forfait
+choisir.endroit.corporatif.index: Choisir la province où organiser une réunion corporative ou des événements spéciaux
+dejeuner.inclus.dans.chambre: Déjeuner inclus avec la chambre 
+promotion.pour.region: Promotions pour la région 
+promotion.province: Promotions pour la province
+choisir.activite.province: Choisir l'endroit où profiter
+les.categories.services: Les catégories de services 
+nos.suggestions.endroit.pour: Nos suggestions d'endroit pour
+nos.suggestions.endroit.soin.province: Nos suggestions de
+nos.suggestions.hebergement.chambre.affaire: Nos suggestions d'hébergements avec chambre affaire
+choisir.endroit.ou.reserver.salle.reunion: Choisir un endroit où réserver une salle de réunion
+nos.suggestions.hebergement.salle.reunion: Nos suggestions d'hébergement avec des salles de réunion
+tarif.derniere.minute.promotion: Tarifs dernières minutes et promotions
+text.appel.offre: Vous cherchez une salle de réunion, une salle de réception, des chambres corporatives pour une réunion, un colloque, une conférence, un mariage, un évènement familial ou toute autre activité (évènement) spécial, faites une demande de soumission!
+text.forfait.affaire: Vous désirez trouver un forfait affaires qui répond à vos besoins?  Cherchez parmi les hôtels et établissements d'hébergement le forfait qui vous satisfera!
+text.salle.corporative: Vous cherchez une salle pour une réunion d'affaires, une formation ou une conférence, faites une recherche auprès des hôtels et établissements d'hébergement.  Trouvez la salle qui répondra à tous vos besoins!
+text.chambre.affaire: Plusieurs hôtels ou établissements d'hébergement proposent des tarifs corporatifs pour vos voyages d'affaires.  Informez-vous pour connaître les établissements qui proposent des tarifs avantageux pour les voyageurs affaires ainsi que commodités intéressantes pour vous!
+text.actvite.corporative: Vous cherchez un endroit pour faire une activité corporative, familiale ou de groupe, comme un party de Noël ou autres?  Trouvez l'endroit adéquat pour vivre ce moment tout en répondant à tous vos besoins même en hébergement si nécessaire.
+nos.suggestions.chambre.affaire: Nos suggestions de chambres affaires
+liste.ebergement: Liste des établissements
+province.etats: Province/État 
+envoyer.la.demande: Envoyer la demande
+rechercher.par.critere: Recherche avancée
+nombre.de.nuits: Nombre de nuits
+choisir.endroit.organiser.activite.corporative: Choisir l'endroit où organiser un activité corporative ou de groupe
+nos.suggestions.organiser.activite.corporative: Nos suggestions pour organiser un activité corporative ou de groupe
+activitescorporative: Activités corporatives
+activite.corporative.groupe.region: Activités corporatives et de groupes dans la région
+activite.corporative.groupe.ville: Activités corporatives et de groupes dans la ville
+texte.fr: Texte FR
+texte.en: Texte EN
+titre.derniere.minute.fr: Titre de dernières minutes FR
+titre.derniere.minute.en: Titre de dernières minutes EN
+descriptif.derniere.minute.fr: Description de dernières minutes FR
+descriptif.derniere.minute.en: Description de dernières minutes EN
+supprimer.une.image: Supprimer une image
+categorie.du.forfait: Categorie du forfait
+apercu.du.forfait: Aperçu du forfait
+entrer.0.latitude.longitude: Entrer un zéro dans les champs latitude et longitude si vous ne connaissez pas votre localisation
+text.hebergement: Fiche pour l'hébergement
+soin.sante.attrait: Soins de santé
+Date.debut.saisonnier: Date ouverture saisonnière
+Date.fin.saisonnier: Date fermeture saisonnière
+texte.description.complementaires: Textes pour les politiques et descriptions supplémentaires
+image.principale.forfait.client: Image principale 594 x 328 px
+reserver.forfait.en.ligne: Réserver ce forfait en ligne
+version.anglaise: Version anglaise
+date.ouverture.et.fermeture: Ouverture
+classer.par: Classer par
+supprimer.une.periode: Supprimer une période
+ajouter.une.periode: Ajouter une période 
+periode.haute.saison: Périodes
+tarif.a.partir: Tarif à partir
+attraits.client: Attrait(s)
+image.categorie: Image de catégorie
+image.principale: Image principale
+siteweb: Site web
+rechercher: Rechercher
+sansitem: Aucun résultat trouvé
+heure.arrive: Heure d'arrivée
+heure.depart: Heure de départ
+modes.de.paiements: Modes de paiements
+nos.suggestions.hotel.motel.auberge.quebec: Nos suggestions d'hôtels, motels et auberge au Québec
+information.concernant.etablissement: Information concernant l'établissement
+horaire: Horaire
+version.mobile: Version mobile
+actitivites: Activités
+supprimer.le.forfait: Voulez vous supprimer le forfait
+annuler: Annuler
+facture.etat.de.compte: FACTURES ET ÉTATS DE COMPTE 
+modifier.forfait: Modifier le forfait
+connexion.compte.facture: Connectez vous à votre compte pour voir vos factures
+reservation.ligne: Réservation en ligne
+reserver.la.chambre: Réserver cette chambre en ligne
+selectionner.destination: Sélectionner votre destination
+publication.tarif.derniere.minute: Voulez-vous afficher ce forfait en Promotion et Tarif de dernière minute? 
+choisir.endroit.corporatif.ville: Choisir la ville où organiser une réunion corporative ou des événements spéciaux
+sur.place: Sur place
+nombre.lit: Nombre de lit
+exemple.prix.pourcent: Exemple 30% ou 90$
+reserver: Réservez
+forfait.singulier: Forfait
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

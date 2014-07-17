@@ -1,0 +1,82 @@
+<div id="dialog-confirm_del" title="{{ 'supprimer' | trans }}"></div>
+
+<div class="genereimgajax">			
+	{% if listeimgroom is defined  %}
+		{% for l in listeimgroom %}
+				<img src="{{ asset('uploads/galerie_chambres/') }}{{ l.id }}/{{ l.image }}" class="imgajax index{{ l.id }}"/> 
+		{% endfor %}
+	{% endif %}
+</div>
+
+
+<script>
+$(function(){
+	//gestion de l'affichage des images pour la gestion de la galerie photo chambre
+	$("#Hour_summer").click(function(event){ 
+		if(typeof $(".genereimgajax > div").val() == "undefined"){
+			//Retourne le nombre d'image dans la galerie
+			$nbinput = $("#add_chambre_client_galerie_chambre > div ").length;
+			//stocke dans le tableau les id des images
+			$tabarray = new Array();
+			for(var j = 0; j < $nbinput; j++){
+				$tabarray.push($("#add_chambre_client_galerie_chambre > div > div > input#add_chambre_client_galerie_chambre_"+j+"_id").val());
+			}	
+			if($tabarray != 0){
+			    var DATA = "listeimgroom=" + $tabarray;
+			    $.ajax({
+			        type: "post",
+			    	url: "{{ path('_displayvignetteroom') }}",
+			        data: DATA,
+			        cache: true,
+			        success: function(data){
+			        	$('.genereimgajax').html(data);	    
+				    }
+			    });  
+			    return false;
+			}
+		}
+	});
+	//Suppression des images de la galerie
+	$("#add_chambre_client_galerie_chambre > div > input.checkboxdeletegalerie").click(function(event){
+		$(".ui-dialog-buttons").last().remove();
+		$checkboxdelimg = $(this).prev().children().last().val();
+		//$divparentimg = $(this).parent();
+		$divparentimg = $(this).prev().attr("id");
+		$("#dialog-confirm_del" ).dialog({
+			 resizable: false,
+			 height:140,
+			 modal: true,
+			 buttons: {
+				 "{{ 'supprimer' | trans }}": function() {
+				 	$( this ).dialog( "close" );
+					if($checkboxdelimg != 0){
+					    var DATA = "galimgdelete=" + $checkboxdelimg;
+					    $.ajax({
+					        type: "post",
+					    	url: "{{ path('_galeriechambredelete') }}",
+					        data: DATA,
+					        cache: false,
+					        success: function(data){
+					        	 $("#"+$divparentimg).parent().remove();
+					        	 $(".genereimgajax img.index"+$checkboxdelimg).remove();
+						    }
+					    });  
+					    return false;
+					}
+				 },
+			Cancel: function() {
+				 	$( this ).dialog( "close" );
+				 	$(".checkboxdeletegalerie").removeAttr("checked");
+				 }
+			 }
+		 });		
+	});
+
+	//Outil crop
+	$(".genereimgajax .genereimgajax img.imgajax").click(function(event){
+		//retourne les class
+		$indeximgcrop = $(this).attr("class");
+	
+	});
+});
+</script>

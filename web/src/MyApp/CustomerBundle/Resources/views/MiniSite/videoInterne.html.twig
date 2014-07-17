@@ -1,0 +1,26 @@
+{% extends '::base1.html.twig' %}
+
+{% block content %}
+<div class="gris" style="margin-top:50px;">
+	<h2 style="margin-left:0px;">
+		<a id="movieInterne">
+			{{ "video.interne" | trans }}
+		</a>
+	</h2>	
+	<form action="{{ path('MyAppPaiementDevise',{'id':id}) }}" method="post" {{ form_enctype(formDevise) }} >		    
+	    {{ form_label(formDevise.devise_id, "Devise", {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formDevise.devise_id, {'attr':{'class':'txt_add_state2'}}) }}   
+	    <p>&nbsp;</p> 
+	    {{ form_label(formDevise.paiement_id, "Mode de paiement", {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formDevise.paiement_id, {'attr':{'class':'txt_add_state2'}}) }}				    		   
+	    <p>&nbsp;</p>
+	    {% if langue is defined and langue != "fr" %}
+	    {{ form_label(formDevise.paiement_id, "Mode de paiement", {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formDevise.paiement_id, {'attr':{'class':'txt_add_state2'}}) }}	
+	    {% endif %}			    		   
+	    <p>&nbsp;</p>		
+	    {{ form_rest(formDevise) }}	
+	    <input type="submit" value="{{"submit.texte.attrait" |trans}}" />
+	</form>	
+</div>
+{% endblock %}

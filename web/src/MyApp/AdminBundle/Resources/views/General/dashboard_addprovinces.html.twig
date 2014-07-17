@@ -1,0 +1,91 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist == "false" %}
+	<h1>Ajouter une province où un état</h1>
+{% else %}
+	<h1>Modifier la province « {{ infonom|upper }} »</h1>
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_addtexteprovincecategoriehebergement',{'id':infoid,'categorie':2 }) }}">Textes d'accueil pour les catégories d'hébergements province {{ infonom|upper }}</a><br />
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_texteprovinceforfait',{'id':infoid,'forfait':2 }) }}">Textes d'accueil pour les forfaits province {{ infonom|upper }}</a><br />
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_texteprovinceattrait',{'id':infoid,'attrait':1 }) }}">Textes d'accueil pour les catégories d'attraits province {{ infonom|upper }}</a><br />
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_texteprovincesante',{'id':infoid,'sante':1}) }}">Textes d'accueil soins de santé province {{ infonom|upper }}</a><br />
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_texteprovincerestaurant',{'id':infoid,'resto':1 }) }}">Textes d'accueil pour les types de restaurant province {{ infonom|upper }}</a><br />
+        <a class="linkAddTexteAdmin" href="{{ path('_Dashboard_addtexteprovincecorporatif',{'id':infoid }) }}">Textes d'accueil pour le corporatif province {{ infonom|upper }}</a><br />
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist == "true" %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer la province {{ infonom }}">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer la province {{ infonom }}"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+                                        <p>Voulez vous supprimez la province / état {{ infonom }} ?<p>
+						<a href="{{ path('_Dashboard_deleteprovinces', {'id':infoid, 'name':infonom}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler"></a>
+				    </div>	
+				    {% endif %}	
+                                    {{ form_label(form.pays_id, "Pays", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.pays_id, {'attr':{'class':'txt_add_state'}}) }}	
+				     <p class="resize_p_form">&nbsp;</p>		
+				    {{ form_label(form.nomfr, "Nom fr", {'attr':{'class':'lblnompays lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nomfr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nomen, "Nom en", {'attr':{'class':'lblnompays lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nomen, {'attr':{'class':'txt_add_state'}}) }}
+                                    {{ form_label(form.repertoire_fr, "Répertoire fr", {'attr':{'class':'lblnompays lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.repertoire_en, "Répertoire en", {'attr':{'class':'lblnompays lblnompays flag_en'}}) }}
+				    {{ form_widget(form.repertoire_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.reservitId, "Reservit Id", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.reservitId, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.affiche, "Affiche dans reservit", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.affiche, {'attr':{'class':'checkbox'}}) }}				    
+                                    {{ form_label(form.page_titre_fr, "Titre fr", {'attr':{'class':'lblnompays lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_titre_en, "Titre en", {'attr':{'class':'lblnompays lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_titre_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metakeyword_fr, "Meta keywords fr", {'attr':{'class':'lblnompays lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metakeyword_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metakeyword_en, "Meta keywords en", {'attr':{'class':'lblnompays lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metakeyword_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metadescription_fr, "Méta description fr", {'attr':{'class':'lblnompays lblnompays flag_fr lbl_txt_area'}}) }}
+				    {{ form_widget(form.page_metadescription_fr, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				     {{ form_label(form.page_metadescription_en, "Méta description en", {'attr':{'class':'lblnompays lblnompays flag_en lbl_txt_area'}}) }}
+				    {{ form_widget(form.page_metadescription_en, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				     {{ form_label(form.texte_accueil_fr, "Texte accueil fr", {'attr':{'class':'lblnompays lblnompays flag_fr'}}) }}
+				     {{ form_widget(form.texte_accueil_fr, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				    <textarea id="editor1" name="editor1"></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace( 'editor1' );
+					</script>
+					{% if exist == "true" %}
+						<script type="text/javascript">
+							document.getElementById('editor1').innerHTML = "{{ txthomefr }}";
+						</script>
+					{% endif %}
+				     {{ form_label(form.texte_accueil_en, "Texte accueil en", {'attr':{'class':'lblnompays lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_accueil_en, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				    <textarea id="editor2" name="editor2"></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace( 'editor2' );
+					</script>
+					{% if exist == "true" %}
+						<script type="text/javascript">
+							document.getElementById('editor2').innerHTML = "{{ txthomeen }}";
+						</script>
+					{% endif %}
+					{{ form_label(form.image_doctrine, "Image", {'attr':{'class':'lblnompays'}}) }}	   
+				    {{ form_widget(form.image_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+				    {% if exist == "true" %}
+				    	<img class="img_paiement_update" src="{{ asset('uploads/provinces') }}/{{ infoid }}/{{ infoimg }}" style="width:100px; height:60px;" alt="drapeau de la province {{ infonom }}" title="drapeau de la province {{ infonom }}"/>
+				    {% endif %}
+				    {{ form_rest(form) }}
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_provinces') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+
+{% endblock %}

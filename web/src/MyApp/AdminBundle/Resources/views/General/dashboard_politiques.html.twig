@@ -1,0 +1,42 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addpolitique')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter une politique</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="120" colspan=1>Politique générale fr</td>
+								<td width="120">Politique générale en</td>
+								<td width="120">Politique animaux fr</td>
+								<td width="120">Politique animaux en</td>
+								<td width="120">Politique annulation fr</td>
+								<td width="120">Politique annulation en</td>
+								<td width="120">Politique tarif fr</td>
+								<td width="120">Politique tarif en</td>
+							</tr>	
+							{% for p in politique %}
+							<tr>
+								<td colspan=1><a href="{{path('_Dashboard_updatepolitique',{'id':p.id})}}">{{ p.politiqueGeneraleFr }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatepolitique',{'id':p.id})}}">{{ p.politiqueGeneraleEn }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatepolitique',{'id':p.id})}}">{{ p.politiqueAnimauxFr }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatepolitique',{'id':p.id})}}">{{ p.politiqueAnimauxEn }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatepolitique',{'id':p.id})}}">{{ p.politiqueAnnulationFr }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatepolitique',{'id':p.id})}}">{{ p.politiqueAnnulationEn }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatepolitique',{'id':p.id})}}">{{ p.politiqueTarifFr }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatepolitique',{'id':p.id})}}">{{ p.politiqueTarifEn }}</a></td>
+							</tr>
+							{% endfor %}	
+							{% if politique is empty %}
+								<p class="searchnull">Pas de résultat trouvé</p>
+							{% endif %}	
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

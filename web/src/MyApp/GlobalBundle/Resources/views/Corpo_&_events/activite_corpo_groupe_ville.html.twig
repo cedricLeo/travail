@@ -1,0 +1,154 @@
+{% extends '::base2.html.twig' %}
+
+  	    {% block picture %}	
+		<p class="legendeHome">{{ "activitescorporative" | trans }} {% if app.request.locale == "fr" %} ville {{ clientAleatoire.regionid.nomfr }} {% else %} city {{ clientAleatoire.regionid.nomen }} {% endif %}</p>	
+		{# div qui va contenir la photo principal du sujet de la section #}
+		<div id="photoprincipale">
+			{% if app.request.locale == "fr" %}
+				<div class="nomSousCategorie">    
+					<h1>{{ "activitescorporative" | trans }} ville {{ clientAleatoire.villeid.nomfr }}</h1>
+					<h3><a href="{{ path('_hebergementactivite',{'name':clientAleatoire.repertoirefr|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ clientAleatoire.nomfr }}">{{ "activitescorporative" | trans }}  {{ clientAleatoire.nomfr }} - ville {{ clientAleatoire.villeid.nomfr }}</a></h3>	
+				</div>
+				{% if clientAleatoire.photopayante is not empty %}
+			  		<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomfr }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+				{% endif %}
+			{% else %}
+				<div class="nomSousCategorie">    
+					<h1>{{ "activitescorporative" | trans }} city {{ clientAleatoire.villeid.nomen }}</h1>
+					<h3><a href="{{ path('_hebergementactiviteen',{'name':clientAleatoire.repertoireen|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ clientAleatoire.nomen }}">{{ "activitescorporative" | trans }}  {{ clientAleatoire.nomen }} - city {{ clientAleatoire.villeid.nomen }}</a></h3>	
+				</div>
+				{% if clientAleatoire.photopayante is not empty %}
+			  		<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomen }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+				{% endif %}
+			{% endif %}
+		</div>
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+                    {% if app.request.locale == "fr" %}
+                            <p>{{ texte_accueilfr|striptags|nl2br }}</p>
+                    {% else %}	
+                            <p>{{ texte_accueilen|striptags|nl2br }}</p>
+                    {% endif %}
+		{% endblock %}
+
+		{% block body %} 
+		 	<h6>{{ "activite.corporative.groupe.ville" | trans }} {% if app.request.locale == "fr" %} {{ clientAleatoire.villeid.nomfr }} {% else %} {{ clientAleatoire.villeid.nomen }} {% endif %}</h6>
+			{# PAGINATION DU HAUT #}
+			 <div class="pages" style="width:632px;" >
+			    <ul class="paginationHebergement">
+                                {% if app.request.locale == "fr" %}
+                                       {% if displaypage == 1 %}
+                                       Résultats de 1 à {{ total }}
+                                       {% elseif page < displaypage %}
+                                           {% if page == 1 %}
+                                               <li><a href="{{ path('_activitecorpovillefr',{'name':clientAleatoire.villeid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page+1 }} </a></li>
+                                           {% else %}
+                                               <li><a href="{{ path('_activitecorpovillefr',{'name':clientAleatoire.villeid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page -1 }} </a></li>
+                                               <li><a href="{{ path('_activitecorpovillefr',{'name':clientAleatoire.villeid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ page +1 }} >> </a></li>
+                                          {% endif %}
+                                       {% elseif page == displaypage and displaypage > 1 %}
+                                               <li><a href="{{ path('_activitecorpovillefr',{'name':clientAleatoire.villeid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>		      	 	
+                                       {% endif %}
+                               {% else %}
+                                       {% if displaypage == 1 %}
+                                       Result of 1 to {{ total }} 
+                                       {% elseif page < displaypage %}
+                                           {% if page == 1 %}
+                                               <li><a href="{{ path('_activitecorpovilleen',{'name':clientAleatoire.villeid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page+1 }} </a></li>
+                                           {% else %}
+                                               <li><a href="{{ path('_activitecorpovilleen',{'name':clientAleatoire.villeid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+                                               <li><a href="{{ path('_activitecorpovilleen',{'name':clientAleatoire.villeid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ page+1 }} >> </a></li>
+                                           {% endif %}
+                                       {% elseif page == displaypage and displaypage > 1 %}
+                                               <li><a href="{{ path('_activitecorpovilleen',{'name':clientAleatoire.villeid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+                                       {% endif %}
+                               {% endif %}
+                            </ul>
+			 </div>
+			 {# Liste des activités de la région #}
+			  <div class="liste attrait">
+				{% if app.request.locale == "fr" %}
+					{% for w in listePaginate %}
+				   	  <div>
+				        <a href="{{ path('_hebergementactiviteen',{'name':w.repertoireen|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ w.nomfr }}">
+				        	<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ w.id }}/{{ w.photopayante }}" class="promotion ph" alt="{{ "activitescorporative" | trans }} {{ w.nomfr }}" />
+				        </a> 
+				        <div class="listetexte">
+				       		 <h2><a href="{{ path('_hebergementactivite',{'name':w.repertoirefr|lower}) }}">{{ w.nomfr }}</a></h2>
+				        	<p>{{ w.texteresumefr|striptags|truncate(500, '...') }}<a href="{{ path('_hebergementactivite',{'name':w.repertoirefr|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ w.nomfr }}"> Plus d'info </a></p>
+				      	</div> 
+				      </div>
+			      	{% endfor %}
+			    {% else %}
+			    	{% for w in listePaginate %}
+				      <div>
+				        <a href="{{ path('_hebergementactiviteen',{'name':w.repertoireen|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ w.nomen }}">
+				        	<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ w.id }}/{{ w.photopayante }}" class="promotion ph" alt="{{ "activitescorporative" | trans }} {{ w.nomen }}" />
+				        </a> 
+				        <div class="listetexte">
+				       		 <h2><a href="{{ path('_hebergementactiviteen',{'name':w.repertoireen|lower}) }}">{{ w.nomen }}</a></h2>
+				        	<p>{{ w.texteresumeen|striptags|truncate(500, '...') }}<a href="{{ path('_hebergementactiviteen',{'name':w.repertoireen|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ w.nomen }}"> More info</a></p>
+				      	</div> 
+				      </div>
+			      	{% endfor %}
+			    {% endif %}
+			  </div>
+			  {# PAGINATION DU BAS #}
+			 <div class="pages" style="width:632px;" >
+                            <ul class="paginationHebergement">
+			  	{% if app.request.locale == "fr" %}
+                                       {% if displaypage == 1 %}
+                                        Résultats de 1 à {{ total }}
+                                        {% elseif page < displaypage %}
+                                            {% if page == 1 %}
+                                                <li><a href="{{ path('_activitecorpovillefr',{'name':clientAleatoire.villeid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page+1 }} </a></li>
+                                            {% else %}
+                                                <li><a href="{{ path('_activitecorpovillefr',{'name':clientAleatoire.villeid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page -1 }} </a></li>
+                                                <li><a href="{{ path('_activitecorpovillefr',{'name':clientAleatoire.villeid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ page +1 }} >> </a></li>
+                                           {% endif %}
+                                        {% elseif page == displaypage and displaypage > 1 %}
+                                                <li><a href="{{ path('_activitecorpovillefr',{'name':clientAleatoire.villeid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>		      	 	
+                                        {% endif %}
+                                {% else %}
+                                        {% if displaypage == 1 %}
+                                        Result of 1 to {{ total }} 
+                                        {% elseif page < displaypage %}
+                                            {% if page == 1 %}
+                                                <li><a href="{{ path('_activitecorpovilleen',{'name':clientAleatoire.villeid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page+1 }} </a></li>
+                                            {% else %}
+                                                <li><a href="{{ path('_activitecorpovilleen',{'name':clientAleatoire.villeid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+                                                <li><a href="{{ path('_activitecorpovilleen',{'name':clientAleatoire.villeid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ page+1 }} >> </a></li>
+                                            {% endif %}
+                                        {% elseif page == displaypage and displaypage > 1 %}
+                                                <li><a href="{{ path('_activitecorpovilleen',{'name':clientAleatoire.villeid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+                                        {% endif %}
+                                {% endif %}
+                            </ul>
+			 </div>
+			  <br class="clearfloat" />
+			  {# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+
+		
+	    {% endblock %}
+		
+		{% block gauche %}
+			 {# Implémentation de la recherche par carte #}
+         	 {% block ouAller %} {% include '::searchCard.html.twig' %} {% endblock %}
+  			 {# PUB GOOGLE #}
+				<div id="zone_02" class="styleBigBox">
+					<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('zone_02'); });
+					</script>
+				</div>
+		{% endblock%}

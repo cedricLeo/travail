@@ -1,0 +1,181 @@
+{% extends '::base1.html.twig' %}
+
+{% block content %}
+<div class="gris">
+	<h2 style="margin-left:0px;">
+		<a id="tarifHoraire">
+			{{ "tarif.horaire" | trans }}
+		</a>
+	</h2>
+		
+		<p style="font-size:14px; font-weight:bold; color:red;">{{ "condition.horaire" | trans }}</p>
+		
+		<form id="form_txt_attrait" action="" method="post" {{ form_enctype(formHoraire) }} class="update_state_form">			
+						 
+			<h3 id="Over_time">{{ "hour.summer" | trans }}</h3> 	
+			<div class="columnLeftHoraire">
+			{{ form_label(formHoraire.lundi_matin_ete, "Lundi.matin" | trans, {'attr':{'class':'lblnompays lbl_horaire '}}) }}
+		    {{ form_widget(formHoraire.lundi_matin_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.mardi_matin_ete, "Mardi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.mardi_matin_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.mercredi_matin_ete, "Mercredi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.mercredi_matin_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.jeudi_matin_ete, "Jeudi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.jeudi_matin_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.vendredi_matin_ete, "Vendredi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.vendredi_matin_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.samedi_matin_ete, "Samedi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.samedi_matin_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.dimanche_matin_ete, "Dimanche.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.dimanche_matin_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>
+		    </div>
+		    
+		    <div class="columnRightHoraire" >
+		    {{ form_label(formHoraire.lundi_soir_ete, "Lundi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.lundi_soir_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.mardi_soir_ete, "Mardi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.mardi_soir_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.mercredi_soir_ete, "Mercredi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.mercredi_soir_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.jeudi_soir_ete, "Jeudi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.jeudi_soir_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.vendredi_soir_ete, "Vendredi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.vendredi_soir_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.samedi_soir_ete, "Samedi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.samedi_soir_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.dimanche_soir_ete, "Dimanche.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.dimanche_soir_ete, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>
+		    </div>
+	
+	   		 <p>&nbsp;</p>
+	     	<h3 id="Hour_winter">{{ "hour.winter" | trans }}</h3>
+		    <div class="columnLeftHoraire" >
+		    {{ form_label(formHoraire.lundi_matin_hiver, "Lundi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.lundi_matin_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.mardi_matin_hiver, "Mardi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.mardi_matin_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.mercredi_matin_hiver, "Mercredi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.mercredi_matin_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.jeudi_matin_hiver, "Jeudi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.jeudi_matin_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.vendredi_matin_hiver, "Vendredi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.vendredi_matin_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.samedi_matin_hiver, "Samedi.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.samedi_matin_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.dimanche_matin_hiver, "Dimanche.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.dimanche_matin_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>	
+		    </div>
+		    
+		    <div class="columnRightHoraire">
+		    {{ form_label(formHoraire.lundi_soir_hiver, "Lundi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.lundi_soir_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.mardi_soir_hiver, "Mardi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.mardi_soir_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.mercredi_soir_hiver, "Mercredi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.mercredi_soir_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.jeudi_soir_hiver, "Jeudi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.jeudi_soir_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.vendredi_soir_hiver, "Vendredi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.vendredi_soir_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.samedi_soir_hiver, "Samedi.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.samedi_soir_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.dimanche_soir_hiver, "Dimanche.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.dimanche_soir_hiver, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>
+		    </div>
+	  
+	    	{#<p>&nbsp;</p>
+	    	 <h3 id="Over_time">{{ "day.ferie" | trans }}</h3> 		
+	     	{# colonnes de gauche #}
+		   {#} <div class="columnLeftHoraire">
+		    {{ form_label(formHoraire.janvier_1_matin, "Nouvel.an.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.janvier_1_matin, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.vendredi_saint_matin, "Vendredi.saint.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.vendredi_saint_matin, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.paques_matin, "Paques.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.paques_matin, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.mai_25_matin, "25.mai.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.mai_25_matin, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.juin_24_matin, "Saint.Jean.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.juin_24_matin, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.juillet_1_matin, "Fete.du.Canada.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.juillet_1_matin, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.septembre_1_matin, "Fete.du.travail.matin"  | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.septembre_1_matin, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.octobre_2_matin, "2.octobre.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.octobre_2_matin, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.decembre_25_matin, "Noel.matin" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.decembre_25_matin, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>	
+		    </div>	
+		    							
+		    {# colonnes de droite #}
+		  {#}  <div class="columnRightHoraire nouvel_an">
+			{{ form_label(formHoraire.janvier_1_soir, "Nouvel.an.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.janvier_1_soir, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.vendredi_saint_soir, "Vendredi.saint.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.vendredi_saint_soir, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.paques_soir, "Paques.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.paques_soir, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.mai_25_soir, "25.mai.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.mai_25_soir, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}	
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.juin_24_soir, "Saint.Jean.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.juin_24_soir, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.juillet_1_soir, "Fete.du.Canada.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.juillet_1_soir, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.septembre_1_soir, "Fete.du.travail.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.septembre_1_soir, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.octobre_2_soir, "2.octobre.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.octobre_2_soir, {'attr':{'class':' select_horaire ajuste_horaire'}}) }}
+		    <p>&nbsp;</p>
+		    {{ form_label(formHoraire.decembre_25_soir, "Noel.soir" | trans, {'attr':{'class':'lblnompays '}}) }}
+		    {{ form_widget(formHoraire.decembre_25_soir, {'attr':{'class':' select_horaire ajuste_horaire'}}) }} 	
+		    <p>&nbsp;</p>
+		     </div>#}
+		    {{ form_rest(formHoraire) }}	
+		    <input class="bouton_sub" type="submit" value="{{"submit.texte.attrait" | trans}}" />  
+		</form>	
+</div>
+{% endblock %}

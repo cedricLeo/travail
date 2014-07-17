@@ -1,0 +1,39 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist == "false" %}
+	<h1>Ajouter une devise</h1>
+{% else %}
+	<h1>Modifier la devise « {{ infonom|upper }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">
+				{% if exist == "true" %}	
+					{%  if money != "CAN" %}
+					<p>Toutes les devises sont converties pour donner la valeur en dollar canadien (exemple <b> 1 $ CAN</b> vaut <b>{{ value }} {{ money }}</b>.)</p>
+					{% endif %}
+				{% endif %}
+					{% if exist == "true" %}
+				   <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer la devise {{ infonom }}">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une devise"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	Voulez vous supprimez la devise :  {{ infonom }} ?
+						<p><a href="{{ path('_Dashboard_deletedevises',{'id':infoid}) }}" class="detroye_state" >Supprimer</a></p>
+						<p><a href="#reset" class="boutonannuler"></a></p>
+				    </div>
+				    {% endif %}	
+					{{ form_label(form.abreviation, "Abreviation", {'attr':{'class':'lblnompays'}}) }} 
+				    {{ form_widget(form.abreviation, {'attr':{'class':'txt_add_state', 'title':'Inscrire les abréviations ex: CAN'}}) }}	
+					{{ form_label(form.symbole, "Symbole", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.symbole, {'attr':{'class':'txt_add_state','title':'Inscrire le symbole de la devise ex: $'}}) }}	
+				    {{ form_label(form.tauxchange, "Taux de change", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tauxchange, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_rest(form) }}			   
+				    <input type="submit" value="" class="boutonvalidenregistrer"/>
+				    <a href="{{ path('_Dashboard_devises') }}" class="boutonannuler"></a>
+				</form>
+			   <br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}	
+		<p class="legendeHome">{{ "corpo.event.speciaux" | trans }} {% if app.request.locale == "fr" %} ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }} {% else %} city {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }} {% endif %} </p>
+		{# div qui va contenir la photo principal du sujet de la section #}
+			 <div id="photoprincipale">
+			 	{% if app.request.locale == "fr" %}
+					<div class="nomSousCategorie">
+						<h1>{{ "corpo.event.speciaux" | trans }} ville de {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }}</h1>
+						<h3><a href="{{ path('_hebergementcorporatif',{'name':clientAleatoire.sallecorporativehebergement.repertoirefr|lower}) }}" title="Corporatif et événements {{ clientAleatoire.sallecorporativehebergement.nomfr }}" target="_blank">{{ clientAleatoire.sallecorporativehebergement.nomfr }} - ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }}</a></h3>
+					</div>
+					{% if clientAleatoire.sallecorporativehebergement.photopayante is not empty %}
+				 		<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.sallecorporativehebergement.id }}/{{ clientAleatoire.sallecorporativehebergement.photopayante }}" class="big_picture" alt="{{ clientAleatoire.sallecorporativehebergement.nomfr }}" />
+			 		{% else %}
+			 			<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+			 		{% endif %}
+				{% else %}
+			 		<div class="nomSousCategorie">
+						<h1>{{ "corpo.event.speciaux" | trans }} city of {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }}</h1>
+						<h3><a href="{{ path('_hebergementcorporatif',{'name':clientAleatoire.sallecorporativehebergement.repertoireen|lower}) }}" title="Corporate and events {{ clientAleatoire.sallecorporativehebergement.nomen }}" target="_blank">{{ clientAleatoire.sallecorporativehebergement.nomen }} - city {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }}</a></h3>
+					</div>
+				 	{% if clientAleatoire.sallecorporativehebergement.photopayante is not empty %}
+				 		<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.sallecorporativehebergement.id }}/{{ clientAleatoire.sallecorporativehebergement.photopayante }}" class="big_picture" alt="{{ clientAleatoire.sallecorporativehebergement.nomen }}" />
+					{% else %}
+						<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+					{% endif %}
+				 {% endif %}
+			 </div>
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		
+		{% block body %}
+			{% if app.request.locale == "fr" %}
+			   <div class="colonnes2">
+				  <h1>{{ "categorie.corporatif.event.speciaux" | trans }} {% if app.request.locale == "fr" %} ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }} {% else %} city {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }} {% endif %} </h1>
+					<div class="clientCorpo"> <a href="{{ path('_appeloffrefr') }}" title="{{ "appeloffre" | trans }} ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }}"><img src="{{ asset('bundles/myappglobal/images/appelOffresCorporatif.jpg') }}" width="80" height="80" alt="{{ "appeloffre" | trans }}" title="{{ "appeloffre" | trans }}"/></a>
+					  <h2><a href="{{ path('_appeloffrefr') }}" title="{{ "appeloffre" | trans }} ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }}">{{ "appeloffre" | trans }}</a></h2>
+					  <p>{{ "text.appel.offre" | trans }}</p>
+					 </div>					
+					{% if salleCorporative is not empty %}
+                                            <div class="clientCorpo"> <a href="{{ path('_locationsallereunionvillefr',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoirefr|lower}) }}" title="{{ "locationsallereunion" | trans }} ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }}"><img src="{{ asset('bundles/myappglobal/images/salleReunion.jpg') }}" width="80" height="80" alt="{{ "locationsallereunion" | trans }}" title="{{ "locationsallereunion" | trans }}"/></a>
+                                             <h2><a href="{{ path('_locationsallereunionvillefr',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoirefr|lower}) }}" title="{{ "locationsallereunion" | trans }} ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }}">{{ "locationsallereunion" | trans }}</a></h2>
+                                             <p>{{ "text.salle.corporative" | trans }}</p>
+                                            </div>
+				   	{% endif %}
+				   	{% if chambreAleatoire is not empty %}
+                                            <div class="clientCorpo"> 
+				    	{% if chambreAleatoire.photo1 is not empty %}
+                                                <a href="{{ path('_hebergementchambre',{'name':chambreAleatoire.hebergement.repertoirefr|lower }) }}#{{ chambreAleatoire.id }}" title="{{ "chambreaffaire" | trans }} {{ chambreAleatoire.hebergement.nomfr }}" target="_blank">
+                                                <img src="{{ asset('uploads/chambres') }}/{{ chambreAleatoire.id }}/{{ chambreAleatoire.photo1 }}" class="corpothumbnail" alt="{{ "chambreaffaire" | trans }} {{ chambreAleatoire.hebergement.nomfr }}" title="{{ "chambreaffaire" | trans }}"/></a>
+                                                {% else %}
+                                                <a href="{{ path('_chambreaffairevillefr',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoirefr|lower}) }}" title="{{ "chambreaffaire" | trans }} ville {{ chambreAleatoire.hebergement.villeid.nomfr }}">
+                                                <img src="{{ asset('bundles/myappglobal/images/chambresAffaires.jpg') }}" class="corpothumbnail" alt="{{ "chambreaffaire" | trans }} ville {{ chambreAleatoire.hebergement.regionid.nomfr }}" title="{{ "chambreaffaire" | trans }} ville {{ chambreAleatoire.hebergement.villeid.nomfr }}"/></a>
+                                                {% endif %}
+                                             <h2><a href="{{ path('_chambreaffairevillefr',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoirefr|lower}) }}" title="{{ "chambreaffaire" | trans }} ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }}">{{ "chambreaffaire" | trans }} </a></h2>
+                                             <p>{{ "text.chambre.affaire" | trans }}</p>
+                                            </div>
+                                        {% endif %}
+				    <div class="clientCorpo"> <a href="{{ path('_activitecorpovillefr',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoirefr|lower}) }}" title=""><img src="{{ asset('bundles/myappglobal/images/activitesCorporatives.jpg') }}" width="80" height="80" alt="{{ "activitecorporativegroupe" | trans }}" title="{{ "activitecorporativegroupe" | trans }}"/></a>
+				     <h2><a href="{{ path('_activitecorpovillefr',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoirefr|lower}) }}" title="">{{ "activitecorporativegroupe" | trans }}</a></h2>
+				     <p>{{ "text.actvite.corporative" | trans }}</p>
+				    </div>
+				    {% if forfait is not empty %}
+						<div class="clientCorpo"> <a href="{{ forfait.hebergementid.regionid.urlfr|lower }}/{{ forfait.hebergementid.zoneid.repertoirefr|lower }}/{{ forfait.hebergementid.repertoirefr|lower }}" target="_blank" title="{{ "forfaitaffaire" | trans }} {{ forfait.hebergementid.nomfr }} ville {{ forfait.hebergementid.villeid.nomfr }}"><img src="{{ asset('uploads/forfaits-client/image_categorie') }}/{{ forfait.id }}/{{ forfait.imagecategorie }}" class="corpothumbnail" alt="{{ "forfaitaffaire" | trans }} {{ forfait.hebergementid.nomfr }}" title="{{ "forfaitaffaire" | trans }} {{ forfait.hebergementid.nomfr }} ville {{ forfait.hebergementid.villeid.nomfr }}" /></a>
+						   <h2><a href="{{ path('_forfaitsactiviteville',{'activite':forfait.forfaitclientid.repertoirefr|lower, 'name':forfait.hebergementid.villeid.repertoirefr|lower}) }}" title="{{ "forfaitaffaire" | trans }} ville {{ forfait.hebergementid.villeid.nomfr }}">{{ "forfaitaffaire" | trans }}</a></h2>
+						   <p>{{ "text.forfait.affaire" | trans }}</p>
+						</div>  
+					{% endif %}
+			  </div>
+		   {% else %}
+			  <div class="colonnes2">
+				  <h1>{{ "categorie.corporatif.event.speciaux" | trans }}</h1>
+					<div class="clientCorpo"> <a href="{{ path('_appeloffreen') }}" title="{{ "appeloffre" | trans }} city {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }}"><img src="{{ asset('bundles/myappglobal/images/appelOffresCorporatif.jpg') }}" width="80" height="80" alt="{{ "appeloffre" | trans }}" title="{{ "appeloffre" | trans }}"/></a>
+                                            <h2><a href="{{ path('_appeloffreen') }}" title="{{ "appeloffre" | trans }} city {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }}">{{ "appeloffre" | trans }}</a></h2>
+                                            <p>{{ "text.appel.offre" | trans }}</p>
+					 </div>			 
+					<div class="clientCorpo"> <a href="{{ path('_activitecorpovilleen',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoireen|lower}) }}"><img src="{{ asset('bundles/myappglobal/images/activitesCorporatives.jpg') }}" width="80" height="80" alt="{{ "activitecorporativegroupe" | trans }}" title="{{ "activitecorporativegroupe" | trans }}"/></a>
+                                            <h2><a href="{{ path('_activitecorpovilleen',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoireen|lower}) }}">{{ "activitecorporativegroupe" | trans }}</a></h2>
+                                            <p>{{ "text.actvite.corporative" | trans }}</p>
+                                       </div>				 
+					{% if forfait is not empty %}
+						<div class="clientCorpo"> <a href="{{ forfait.hebergementid.regionid.urlen|lower }}/{{ forfait.hebergementid.zoneid.repertoireen|lower }}/{{ forfait.hebergementid.repertoireen|lower }}" target="_blank" title="{{ "forfaitaffaire" | trans }} {{ forfait.hebergementid.nomen }} city {{ forfait.hebergementid.villeid.nomen }}"><img src="{{ asset('uploads/forfaits-client') }}/{{ forfait.id }}/{{ forfait.imagecategorie }}" class="corpothumbnail" alt="{{ "forfaitaffaire" | trans }} {{ forfait.hebergementid.nomen }}" title="{{ "forfaitaffaire" | trans }} {{ forfait.hebergementid.nomen }} city {{ forfait.hebergementid.villeid.nomen }}" /></a>
+						  <h2><a href="{{ path('_forfaitaffairevilleen',{'activite':forfait.forfaitclientid.repertoireen|lower, 'name':forfait.hebergementid.villeid.repertoireen|lower }) }}" title="{{ "forfaitaffaire" | trans }} city {{ forfait.hebergementid.villeid.nomen }}">{{ "forfaitaffaire" | trans }}</a></h2>
+						   <p>{{ "text.forfait.affaire" | trans }}</p>
+						</div>  
+					{% endif %}					
+				    {% if chambreAleatoire is not empty %}
+				    <div class="clientCorpo"> 
+				    	{% if chambreAleatoire.photo1 is not empty %}
+				    	<a href="{{ path('_hebergementchambreen',{'name':chambreAleatoire.hebergement.repertoirefr|lower }) }}#{{ chambreAleatoire.id }}" title="{{ "chambreaffaire" | trans }} {{ chambreAleatoire.hebergement.nomen }}" target="_blank">
+				    	<img src="{{ asset('uploads/chambres') }}/{{ chambreAleatoire.id }}/{{ chambreAleatoire.photo1 }}" class="corpothumbnail" alt="{{ "chambreaffaire" | trans }} {{ chambreAleatoire.hebergement.nomen }}" title="{{ "chambreaffaire" | trans }}"/></a>
+				    	{% else %}
+				    	<a href="{{ path('_chambreaffairevilleen',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoireen|lower}) }}" title="{{ "chambreaffaire" | trans }} city {{ chambreAleatoire.hebergement.villeid.nomen }}">
+				    	<img src="{{ asset('bundles/myappglobal/images/chambresAffaires.jpg') }}" class="corpothumbnail" alt="{{ "chambreaffaire" | trans }} ville {{ chambreAleatoire.hebergement.regionid.nomfr }}" title="{{ "chambreaffaire" | trans }} ville {{ chambreAleatoire.hebergement.villeid.nomen }}"/></a>
+				     	{% endif %}
+				     <h2><a href="{{ path('_chambreaffairevilleen',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoireen|lower}) }}" title="{{ "chambreaffaire" | trans }} city {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }}">{{ "chambreaffaire" | trans }} </a></h2>
+				     <p>{{ "text.chambre.affaire" | trans }}</p>
+				    </div>
+				    {% endif %}
+				   {% if salleCorporative is not empty %}
+				    <div class="clientCorpo"> <a href="{{ path('_locationsallereunionvilleen',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoireen|lower}) }}" title="{{ "locationsallereunion" | trans }} city {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }}"><img src="{{ asset('bundles/myappglobal/images/salleReunion.jpg') }}" width="80" height="80" alt="{{ "locationsallereunion" | trans }}" title="{{ "locationsallereunion" | trans }}"/></a>
+				     <h2><a href="{{ path('_locationsallereunionvilleen',{'name':clientAleatoire.sallecorporativehebergement.villeid.repertoireen|lower}) }}" title="{{ "locationsallereunion" | trans }} city {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }}">{{ "locationsallereunion" | trans }}</a></h2>
+				     <p>{{ "text.salle.corporative" | trans }}</p>
+				    </div>
+				    {% endif %}
+			  </div> 
+		   {% endif %}
+			 {# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait hackPub" style="padding-top:20px;">
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+			  <br class="clearfloat" />
+		{% endblock %}
+		
+		{% block gauche %}
+			{# Implémentation de la recherche par carte #}
+         	{% block ouAller %} {% include '::searchCard.html.twig' %} {% endblock %}
+  			{# PUB GOOGLE #}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+		{% endblock %}

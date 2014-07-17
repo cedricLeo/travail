@@ -1,0 +1,242 @@
+{% extends '::base3.html.twig' %}
+{% block content %}
+  <div class="tabAdmin">
+	
+	{# Moteur de validation des clients #}
+	<div class="recherche_client_geographique">	
+		<form action="" method="post" class="engine_validation_customer hack_recherche_geographique" autocomplete="on">					
+		    {{ form_widget(form_validation.statut, {'attr':{'class':'moteur_recherche', 'onclick':'listener()'}}) }}
+				{# recherche avec auto complétion pour les villes #}
+				<input type="text" list="ville" id="listVille" class="add_field_with_js" name="ville" />
+					 <datalist id="ville">
+		    			{% for v in ville_autocompletion %}
+		    			<option value="{{ v.nom_fr}}">{{ v.nom_fr}} </option>
+		    			{% endfor %}	
+		    		</datalist>	
+		    <input type="submit" value="Lancer la recherche" />
+		</form>
+	</div>
+	
+	<h1 class="ajusteresultatclient">{% if nbclient > 1 %} {{ nbclient }} clients trouvés {% else %} {{nbclient }} client trouvé {% endif %}</h1>
+	
+	{# Moteur de recherche #}
+	<div class="recherche_client">
+		<form action="" method="post" {{ form_enctype(form) }} class="engine_search">					
+		    {{ form_widget(form.nom, {'attr':{'class':'moteur_recherche', 'list':'listclient'}}) }}
+		    {# Auto-complétion #}
+		    <datalist id="listclient">
+		    	{% for v in autocompletion %}
+		    		 <option value="{{ v.nom }}">{{ v.nom }}</option>
+		    		 <option value="{{ v.username }}">{{ v.username }}</option>
+		    	{% endfor %}
+		    </datalist>
+		    <input type="submit" value="" class="loupe_moteur btn_search_customer hack_btn_recherche"/>
+		</form>
+	</div>
+		<table class="first_tab" align="center" width="100%" cellspacing="0" cellpadding="0" border="0">
+			<tbody>
+				<tr class="rowheader">	
+					  <td><a href="{{ path('_Dashboard_addclients') }}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter un client</a>
+					  <a href="{{ path('_Dashboard_clients') }}" title="Initialise la recherche des clients" class="initFunction">Initialise la recherche</a>
+						<table align="center" style="float:left; display:block; margin:0px 0 0 0; width:100%;" class="display_info_customer" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="100" colspan=1>N° interne</td>
+								<td width="200" colspan=1>Client</td>
+								<td width="150" colspan=1>Hébergement</td>
+								<td width="150" colspan=1>Attrait</td>
+								<td width="60" colspan=1>Actif</td>
+								<td width="150" colspan=1>Date de création</td>
+								<td width="150" colspan=1>Ville</td>
+								<td width="250" colspan=1 class="columnMiniSite">Mini site</td>
+								{% if role == "ROLE_SUPER_ADMIN" %}
+								<td width="120" colspan=1>Valider par</td>
+								{% endif %}
+							</tr>
+		
+							{% if number == 1 %}
+								 {% for p in listeClient %}
+								 {# AFFICHAGE PAR DÉFAUT #}
+										<tr>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" title="MODIFIER LE NUMÉRO INTERNE - {{ p.nom|upper }}">{{ p.username }}</a></td>
+											<td colspan=1 class="celtestlink"><a class="testlink" href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number })}}" title="MODIFIER LE CLIENT - {{ p.nom|upper }}">{{ p.nom }}</a></td>
+											{% if p.hebergementexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">HÉBERGEMENT</a></td>
+											{% else %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">-----------</a></td>
+											{% endif %}
+											{% if p.attraitexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">ATTRAIT</a></td>
+											{% else %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">-----------</a></td>
+											{% endif %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">{% if p.isactive == 0 %}<img src="{{ asset('bundles/myappadmin/images/buttons_cancel_xxl.png') }}" title="{{ p.nom|upper }} N'EST PAS ACTIF" alt="img non actif"/>{% else %}<img src="{{ asset('bundles/myappadmin/images/buttons_ok_xxl.png') }}" title="{{ p.nom|upper }} EST ACTIF" alt="img actif" />{% endif %} </a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" >{{ p.datecreation|date("d/m/Y")}}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" >{{ p.villes }} </a></td>
+											{% if p.attraitexiste is not empty or p.hebergementexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_compteCustomer',{'id':p.id })}}"  title="VOIR LE MINI SITE - {{p.nom}}">Mini site {{ p.nom }}</a></td>
+											{% else %}
+											<td colspan=1><a href="javascript:void(0);" >-----------</a></td>
+											{% endif %}
+											<td colspan=1><a href="{{path('_Dashboard_utilisateursSysteme',{'id':p.id, 'number':number})}}"  title="DERNIÈRE PERSONNE QUI A EU ACCÈS AU COMPTE">{{ p.validerpar }}</a></td>
+										</tr>
+									{% endfor %}
+									{% if listeClient is empty %}
+										<p class="searchnull">Pas de résultat trouvé pour: {{ recherche }}</p>
+									{% endif %}	
+								{% elseif number == 2 %}	
+									{% for p in lettre %}
+									{# AFFICHAGE PAR RECHERCHE PAR LETTRE ALPHABÉTIQUE #}
+										<tr>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" title="MODIFIER LE NUMÉRO INTERNE - {{ p.nom|upper }}">{{ p.username }}</a></td>
+											<td colspan=1 class="celtestlink"><a class="testlink" href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number })}}" title="MODIFIER LE CLIENT - {{ p.nom|upper }}">{{ p.nom }}</a></td>
+											{% if p.hebergementexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">HÉBERGEMENT</a></td>
+											{% else %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">-----------</a></td>
+											{% endif %}
+											{% if p.attraitexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">ATTRAIT</a></td>
+											{% else %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">-----------</a></td>
+											{% endif %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">{% if p.isactive == 0 %}<img src="{{ asset('bundles/myappadmin/images/buttons_cancel_xxl.png') }}" title="{{ p.nom|upper }} N'EST PAS ACTIF" alt="img non actif"/>{% else %}<img src="{{ asset('bundles/myappadmin/images/buttons_ok_xxl.png') }}" title="{{ p.nom|upper }} EST ACTIF" alt="img actif" />{% endif %} </a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" >{{ p.datecreation|date("d/m/Y")}}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" >{{ p.villes }} </a></td>
+											{% if p.attraitexiste is not empty or p.hebergementexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_compteCustomer',{'id':p.id })}}"  title="VOIR LE MINI SITE - {{p.nom}}">Mini site {{ p.nom }}</a></td>
+											{% else %}
+											<td colspan=1><a href="javascript:void(0);" >-----------</a></td>
+											{% endif %}
+											<td colspan=1><a href="{{path('_Dashboard_utilisateursSysteme',{'id':p.id, 'number':number})}}"  title="DERNIÈRE PERSONNE QUI A EU ACCÈS AU COMPTE">{{ p.validerpar }}</a></td>
+										</tr>
+									{% endfor %}
+									{% if lettre is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+									{% endif %}	
+								{% elseif number == 4 %}	
+									{% for p in statutClient %}
+									{# AFFICHAGE DES STATUS ACTIFS OU INACTIFS DES CLIENTS #}
+									    <tr>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" title="MODIFIER LE NUMÉRO INTERNE - {{ p.nom|upper }}">{{ p.username }}</a></td>
+											<td colspan=1 class="celtestlink"><a class="testlink" href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number })}}" title="MODIFIER LE CLIENT - {{ p.nom|upper }}">{{ p.nom }}</a></td>
+											{% if p.hebergementexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">HÉBERGEMENT</a></td>
+											{% else %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">-----------</a></td>
+											{% endif %}
+											{% if p.attraitexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">ATTRAIT</a></td>
+											{% else %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">-----------</a></td>
+											{% endif %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">{% if p.isactive == 0 %}<img src="{{ asset('bundles/myappadmin/images/buttons_cancel_xxl.png') }}" title="{{ p.nom|upper }} N'EST PAS ACTIF" alt="img non actif"/>{% else %}<img src="{{ asset('bundles/myappadmin/images/buttons_ok_xxl.png') }}" title="{{ p.nom|upper }} EST ACTIF" alt="img actif" />{% endif %} </a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" >{{ p.datecreation|date("d/m/Y")}}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" >{{ p.villes }} </a></td>
+											{% if p.attraitexiste is not empty or p.hebergementexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_compteCustomer',{'id':p.id })}}"  title="VOIR LE MINI SITE - {{p.nom}}">Mini site {{ p.nom }}</a></td>
+											{% else %}
+											<td colspan=1><a href="javascript:void(0);" >-----------</a></td>
+											{% endif %}
+											<td colspan=1><a href="{{path('_Dashboard_utilisateursSysteme',{'id':p.id, 'number':number})}}"  title="DERNIÈRE PERSONNE QUI A EU ACCÈS AU COMPTE">{{ p.validerpar }}</a></td>
+										</tr>
+									{% endfor %}
+									{% if statutClient is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+									{% endif %}	
+								{% elseif number == 3 %}
+									{% for p in result %}
+									{# AFFICHAGE POUR LE CLIENT RECHERCHÉ DANS LE MOTEUR #}
+									     <tr>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" title="MODIFIER LE NUMÉRO INTERNE - {{ p.nom|upper }}">{{ p.username }}</a></td>
+											<td colspan=1 class="celtestlink"><a class="testlink" href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number })}}" title="MODIFIER LE CLIENT - {{ p.nom|upper }}">{{ p.nom }}</a></td>
+											{% if p.hebergementexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">HÉBERGEMENT</a></td>
+											{% else %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">-----------</a></td>
+											{% endif %}
+											{% if p.attraitexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">ATTRAIT</a></td>
+											{% else %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">-----------</a></td>
+											{% endif %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">{% if p.isactive == 0 %}<img src="{{ asset('bundles/myappadmin/images/buttons_cancel_xxl.png') }}" title="{{ p.nom|upper }} N'EST PAS ACTIF" alt="img non actif"/>{% else %}<img src="{{ asset('bundles/myappadmin/images/buttons_ok_xxl.png') }}" title="{{ p.nom|upper }} EST ACTIF" alt="img actif" />{% endif %} </a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" >{{ p.datecreation|date("d/m/Y")}}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" >{{ p.villes }} </a></td>
+											{% if p.attraitexiste is not empty or p.hebergementexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_compteCustomer',{'id':p.id })}}"  title="VOIR LE MINI SITE - {{p.nom}}">Mini site {{ p.nom }}</a></td>
+											{% else %}
+											<td colspan=1><a href="javascript:void(0);" >-----------</a></td>
+											{% endif %}
+											<td colspan=1><a href="{{path('_Dashboard_utilisateursSysteme',{'id':p.id, 'number':number})}}"  title="DERNIÈRE PERSONNE QUI A EU ACCÈS AU COMPTE">{{ p.validerpar }}</a></td>
+										</tr>
+									{% endfor %}
+									{% if result is empty %}
+										<p class="searchnull">Pas de résultat trouvé pour: {{ recherche }}</p>
+									{% endif %}	
+								{% elseif number == 7 %}
+									{% for p in statutVille %}
+									{# AFFICHAGE PAR TRI DE VILLE #}
+									    <tr>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" title="MODIFIER LE NUMÉRO INTERNE - {{ p.nom|upper }}">{{ p.username }}</a></td>
+											<td colspan=1 class="celtestlink"><a class="testlink" href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number })}}" title="MODIFIER LE CLIENT - {{ p.nom|upper }}">{{ p.nom }}</a></td>
+											{% if p.hebergementexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">HÉBERGEMENT</a></td>
+											{% else %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">-----------</a></td>
+											{% endif %}
+											{% if p.attraitexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">ATTRAIT</a></td>
+											{% else %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">-----------</a></td>
+											{% endif %}
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}">{% if p.isactive == 0 %}<img src="{{ asset('bundles/myappadmin/images/buttons_cancel_xxl.png') }}" title="{{ p.nom|upper }} N'EST PAS ACTIF" alt="img non actif"/>{% else %}<img src="{{ asset('bundles/myappadmin/images/buttons_ok_xxl.png') }}" title="{{ p.nom|upper }} EST ACTIF" alt="img actif" />{% endif %} </a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" >{{ p.datecreation|date("d/m/Y")}}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updateclients',{'id':p.id, 'number':number})}}" >{{ p.villes }} </a></td>
+											{% if p.attraitexiste is not empty or p.hebergementexiste is not empty %}
+											<td colspan=1><a href="{{path('_Dashboard_compteCustomer',{'id':p.id })}}"  title="VOIR LE MINI SITE - {{p.nom}}">Mini site {{ p.nom }}</a></td>
+											{% else %}
+											<td colspan=1><a href="javascript:void(0);" >-----------</a></td>
+											{% endif %}
+											<td colspan=1><a href="{{path('_Dashboard_utilisateursSysteme',{'id':p.id, 'number':number})}}"  title="DERNIÈRE PERSONNE QUI A EU ACCÈS AU COMPTE">{{ p.validerpar }}</a></td>
+										</tr>
+									{% endfor %}
+									{% if statutVille is empty %}
+										<p class="searchnull">{% if item != "item" %}Pas de résultat trouvé pour la ville : {{ item }} {% else %} Une ville doit possédée un nom pour que la recherche s'effectue. {% endif %}</p>
+									{% endif %}		
+								{% endif %} 
+							</tbody>
+						</table>
+					</td>
+				</tr> 
+				<tr>
+				<td style="height:50px;"></td>
+				</tr>
+				{# PAGINATION #}
+				<tr>	
+					{% if lettre is not defined %}
+						<td>
+							<a class="pagination_customer hackPagination" href="  {{ path('_Dashboard_clients',{'page':page - 1, 'statut': statut, 'item':item}) }}" >{% if firstpage < page %} << {% else %} {% endif %}</a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_clients',{'page':page + 1 , 'statut':statut, 'item':item}) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+						</td>
+					{% elseif number == 1 %}
+						<td>
+							<a class="pagination_customer hackPagination" href="  {{ path('_Dashboard_clients',{'page':page - 1, 'statut': statut}) }}" >{% if firstpage < page %} << {% else %} {% endif %}</a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_clients',{'page':page + 1 , 'statut':statut}) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+						</td>
+					{% else %}
+						<td>
+							<a class="pagination_customer hackPagination" href="  {{ path('_Dashboard_clients',{'page':page - 1, 'letter':item, 'statut': statut}) }}" >{% if firstpage < page %} << {% else %} {% endif %}</a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_clients',{'page':page + 1 ,'letter':item , 'statut':statut}) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+						</td>
+					{% endif %}
+				</tr>
+				{# RECHERCHE PAR LETTRE #}
+				<tr>
+					<td class="letter_alpha">
+						{% for letter in 'a'|upper ..'z'|upper %}
+						<a href="{{ path('_Dashboard_clients',{'page':page, 'letter':letter}) }}">{{ letter }}</a>
+						{% endfor %}
+					<td>
+				</tr>
+			</tbody>
+		</table> 	
+	</div>
+{% endblock %}

@@ -1,0 +1,616 @@
+<script>
+
+if(typeof(Storage)!=="undefined"){
+	$(function(){
+			//Si un client est déjà créer
+			{% if exist is not defined %}
+				$idclient = {{ infoid }};
+				//meta description fr
+				$("#add_attrait_metadescription_fr").live("keyup", function(){
+					localStorage.setItem("metadescriptionfr_attrait_"+$idclient , $(this).val() );
+				});
+				if($("#add_attrait_metadescription_fr").val() == ""){
+					$("#add_attrait_metadescription_fr").append(localStorage.getItem("metadescriptionfr_attrait_"+$idclient ));
+				}
+				//texte résume fr
+				$("#add_attrait_description_attrait_fr_texte_resume_fr").live("keyup", function(){
+					localStorage.setItem("texte_resume_fr_attrait_"+$idclient, $(this).val());
+				});
+				if($("#add_attrait_description_attrait_fr_texte_resume_fr").val() == ""){
+					$("#add_attrait_description_attrait_fr_texte_resume_fr").append(localStorage.getItem("texte_resume_fr_attrait_"+$idclient ));
+				}
+				//politique tarif fr
+				$("#add_attrait_politique_attrait_fr_politique_tarif_fr").live("keyup", function(){
+					localStorage.setItem("politique_tarif_fr_attrait_"+$idclient, $(this).val());
+				});
+				if($("#add_attrait_politique_attrait_fr_politique_tarif_fr").val() == ""){
+					$("#add_attrait_politique_attrait_fr_politique_tarif_fr").append(localStorage.getItem("politique_tarif_fr_attrait_"+$idclient ));
+				}
+				//texte periode ouverture fr
+				$("#add_attrait_description_attrait_fr_texte_periode_ouverture_fr").live("keyup", function(){
+					localStorage.setItem("texte_periode_fr_attrait_"+$idclient, $(this).val());
+				});
+				if($("#add_attrait_description_attrait_fr_texte_periode_ouverture_fr").val() == ""){
+					$("#add_attrait_description_attrait_fr_texte_periode_ouverture_fr").append(localStorage.getItem("texte_periode_fr_attrait_"+$idclient ));
+				}
+			
+				//version anglaise
+				//meta description en
+				$("#add_attrait_metadescription_en").live("keyup", function(){
+					localStorage.setItem("metadescriptionen_attrait_"+$idclient , $(this).val() );
+				});
+				if($("#add_attrait_metadescription_en").val() == ""){
+					$("#add_attrait_metadescription_en").append(localStorage.getItem("metadescriptionen_attrait_"+$idclient ));
+				}
+				//texte résume en
+				$("#add_attrait_description_attrait_en_texte_resume_en").live("keyup", function(){
+					localStorage.setItem("texte_resume_en_attrait_"+$idclient, $(this).val());
+				});
+				if($("#add_attrait_description_attrait_en_texte_resume_en").val() == ""){
+					$("#add_attrait_metadescription_en").append(localStorage.getItem("texte_resume_en_attrait_"+$idclient ));
+				}
+				//politique tarif en
+				$("#add_attrait_politique_attrait_en_politique_tarif_en").live("keyup", function(){
+					localStorage.setItem("politique_tarif_en_attrait_"+$idclient, $(this).val());
+				});
+				if($("#add_attrait_politique_attrait_en_politique_tarif_en").val() == ""){
+					$("#add_attrait_politique_attrait_en_politique_tarif_en").append(localStorage.getItem("politique_tarif_en_attrait_"+$idclient ));
+				}
+				//texte periode ouverture en
+				$("#add_attrait_description_attrait_en_texte_periode_ouverture_en").live("keyup", function(){
+					localStorage.setItem("texte_periode_en_attrait_"+$idclient, $(this).val());
+				});	
+				if($("#add_attrait_description_attrait_en_texte_periode_ouverture_en").val() == ""){
+					$("#add_attrait_description_attrait_en_texte_periode_ouverture_en").append(localStorage.getItem("politique_tarif_en_attrait_"+$idclient ));
+				}
+			
+			{% else %} //NOUVEL ATTRAIT
+				//actif
+				$("#add_attrait_actif").live("change", function(){
+					localStorage.setItem("actif", $(this).val() );
+				}); 
+				if($("#add_attrait_actif option:selected").val() != localStorage.getItem("actif")){
+					$("#add_attrait_actif option[value="+localStorage.getItem('actif')+"]").attr("selected","selected");
+				}
+				//approbation
+				$("#add_attrait_approuve").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("approuver", 1);
+					}else{  
+						localStorage.setItem("approuver", 0);
+					}
+				});
+				if(localStorage.getItem("approuver") == 1){
+					$("#add_attrait_approuve").prop('checked', true);
+				}else{
+					$("#add_attrait_approuve").prop('checked', false);
+				}
+				//client
+				$("#add_attrait_utilisateur").live("change", function(){
+					localStorage.setItem("client_attrait", $(this).val() );
+				});				
+				if($("#add_attrait_utilisateur option:selected").val() != localStorage.getItem("client_attrait")){
+					$("#add_attrait_utilisateur option[value="+localStorage.getItem("client_attrait")+"]").attr("selected", "selected");
+				}
+				//province
+				$("#add_attrait_province_id").live("click", function(){
+					localStorage.setItem("province", $(this).val() );
+				});
+				if($("#add_attrait_province_id option:selected").val() != localStorage.getItem("province")){
+					$("#add_attrait_province_id option[value="+localStorage.getItem("province")+"]").attr("selected", "selected");
+				}
+				//hébergement
+				$("#add_attrait_hebergement_id").live("click", function(){
+					localStorage.setItem("hebergement", $(this).val());
+				});
+				if( localStorage.getItem("hebergement") != ""){
+					$("#add_attrait_hebergement_id option[value="+localStorage.getItem("hebergement")+"]").attr("selected", "selected");
+				}
+				//catégorie attrait
+				$("#add_attrait_categorie_attrait").live("click", function(){
+					localStorage.setItem("categorie", $(this).val());
+				});
+				if($("#add_attrait_categorie_attrait").val() != localStorage.getItem("categorie")){
+					$("#add_attrait_categorie_attrait option[value="+localStorage.getItem("categorie")+"]").attr("selected", "selected");
+				}
+				//nom fr
+				$("#add_attrait_nom_fr").live("keyup", function(){
+					localStorage.setItem("nom_fr", $(this).val());
+				}); 
+				if(localStorage.getItem("nom_fr") != ""){
+					$("#add_attrait_nom_fr").attr("value", localStorage.getItem("nom_fr"));
+				}
+				//nom en
+				$("#add_attrait_nom_en").live("keyup", function(){
+					localStorage.setItem("nom_en", $(this).val());
+				});
+				if(localStorage.getItem("nom_en") != ""){
+					$("#add_attrait_nom_en").attr("value", localStorage.getItem("nom_en"));
+				}
+				//adresse
+				$("#add_attrait_adresse").live("keyup", function(){
+					localStorage.setItem("adresse", $(this).val());
+				});
+				if(localStorage.getItem("adresse") != ""){
+					$("#add_attrait_adresse").attr("value", localStorage.getItem("adresse"));
+				}
+				//CP
+				$("#add_attrait_code_postal").live("keyup", function(){
+					localStorage.setItem("cp", $(this).val());
+				});
+				if(localStorage.getItem("cp") != ""){
+					$("#add_attrait_code_postal").attr("value", localStorage.getItem("cp"));
+				}
+				//téléphone
+				$("#add_attrait_telephone").live("keyup", function(){
+					localStorage.setItem("telephone", $(this).val());
+				});
+				if(localStorage.getItem("telephone") != ""){
+					$("#add_attrait_telephone").attr("value", localStorage.getItem("telephone"));
+				}
+				//latitude
+				$("#add_attrait_latitude").live("keyup", function(){
+					localStorage.setItem("latitude", $(this).val());
+				});
+				if(localStorage.getItem("latitude") != ""){
+					$("#add_attrait_latitude").attr("value", localStorage.getItem("latitude"));
+				}
+				//longitude
+				$("#add_attrait_longitude").live("keyup", function(){
+					localStorage.setItem("longitude", $(this).val());
+				});
+				if(localStorage.getItem("longitude") != ""){
+					$("#add_attrait_longitude").attr("value", localStorage.getItem("longitude"));
+				}
+				//téléphone 2
+				$("#add_attrait_telephone2").live("keyup", function(){
+					localStorage.setItem("telephone2", $(this).val());
+				});
+				if(localStorage.getItem("telephone2") != ""){
+					$("#add_attrait_telephone2").attr("value", localStorage.getItem("telephone2"));
+				}
+				//poste téléphone
+				$("#add_attrait_telephone_poste").live("keyup", function(){
+					localStorage.setItem("telephone_poste", $(this).val());
+				});
+				if(localStorage.getItem("telephone_poste") != ""){
+					$("#add_attrait_telephone_poste").attr("value", localStorage.getItem("telephone_poste"));
+				}
+				//sans frais
+				$("#add_attrait_sans_frais").live("keyup", function(){
+					localStorage.setItem("sans_frais", $(this).val());
+				});
+				if(localStorage.getItem("sans_frais") != ""){
+					$("#add_attrait_sans_frais").attr("value", localStorage.getItem("sans_frais"));
+				}
+				//télécopieur
+				$("#add_attrait_telecopieur").live("keyup", function(){
+					localStorage.setItem("telecopieur", $(this).val());
+				});
+				if(localStorage.getItem("telecopieur") != ""){
+					$("#add_attrait_telecopieur").attr("value", localStorage.getItem("telecopieur"));
+				}
+				//site web
+				$("#add_attrait_siteweb").live("keyup", function(){
+					localStorage.setItem("siteweb", $(this).val());
+				});
+				if(localStorage.getItem("siteweb") != ""){
+					$("#add_attrait_siteweb").attr("value", localStorage.getItem("siteweb"));
+				}
+				//email
+				$("#add_attrait_courriel").live("keyup", function(){
+					localStorage.setItem("email", $(this).val());
+				});
+				if(localStorage.getItem("email") != ""){
+					$("#add_attrait_courriel").attr("value", localStorage.getItem("email"));
+				}
+				//soins
+				$("#add_attrait_soins_sante_id").live("change", function(){
+					valsoin = new Array($(this).val());
+					localStorage.setItem("soins", valsoin);
+				});
+				if($("#add_attrait_soins_sante_id").val() != localStorage.getItem("soins") ){
+					tabsoin = new Array(localStorage.getItem("soins"));
+					for(var i = 0; i < tabsoin.length; i++ ){
+						$("#add_attrait_soins_sante_id option[value="+tabsoin[i]+"]").attr("selected", "selected");
+					}
+				}
+				//cuisines
+				$("#add_attrait_cuisine_id").live("change", function(){
+					valcuisine = new Array($(this).val());
+					localStorage.setItem("cuisines", valcuisine);
+				});
+				if($("#add_attrait_cuisine_id").val() != localStorage.getItem("cuisines")){
+					tabcuisine = new Array(localStorage.getItem("cuisines"));
+					for(var i = 0; i < tabcuisine.length; i++){
+						$("#add_attrait_cuisine_id option[value="+tabcuisine[i]+"]").attr("selected", "selected");
+					}
+				}	
+				//classification
+				$("#add_attrait_classification_id").live("change", function(){
+					localStorage.setItem("classification", $(this).val());
+				}); 
+				if($("#add_attrait_classification_id").val() != localStorage.getItem("classification")){
+					$("#add_attrait_classification_id option[value="+localStorage.getItem("classification")+"]").attr("selected", "selected");
+				}
+				//cotation
+				$("#add_attrait_cotation_id").live("change", function(){
+					localStorage.setItem("cotation", $(this).val());
+				});
+				if($("#add_attrait_cotation_id").val() != localStorage.getItem("cotation")){
+					$("#add_attrait_cotation_id option[value="+localStorage.getItem("cotation")+"]").attr("selected", "selected");
+				}
+				//devises
+				$("#add_attrait_devise_id").live("change", function(){
+					valdevise = new Array($(this).val());
+					localStorage.setItem("devise", valdevise);
+				});
+				if($("#add_attrait_devise_id").val() != localStorage.getItem("devise")){
+					tabdevise = new Array(localStorage.getItem("devise"));
+					for(var i = 0; i < tabdevise.length; i++){
+						$("#add_attrait_devise_id option[value="+tabdevise[i]+"]").attr("selected", "selected");
+					}
+				}
+				//modes de paiements
+				/*$("#add_attrait_paiement_id").live("change", function(){
+					valpaiement = new Array($(this).val());
+					localStorage.setItem("paiement", valpaiement);
+				});
+				if($("#add_attrait_paiement_id").val() != localStorage.getItem("paiement")){
+					tabpaiement = new Array(localStorage.getItem("paiement"));
+					for(var i = 0; i < tabpaiement.length; i++){
+						$("#add_attrait_paiement_id option[value="+tabpaiement[i]+"]").attr("selected", "selected");
+					}
+				}*/
+				//attraits services
+				$("#add_attrait_attrait_service_id").live("change", function(){
+					localStorage.setItem("service", $(this).val());
+				});
+				if($("#add_attrait_attrait_service_id").val() != localStorage.getItem("service")){
+					$("#add_attrait_attrait_service_id option[value="+localStorage.getItem("service")+"]").attr("selected", "selected");
+				}
+				//activités
+				$("#add_attrait_attrait_activite_id").live("change", function(){
+					valactivite = new Array($(this).val());
+					localStorage.setItem("activite", valactivite);
+				});
+				if($("#add_attrait_attrait_activite_id").val() != localStorage.getItem("activite")){
+					tabactivite = new Array(localStorage.getItem("activite"));
+					for(var i = 0; i < tabactivite.length; i++){
+						$("#add_attrait_attrait_activite_id option[value="+tabactivite[i]+"]").attr("selected", "selected");
+					}
+				}
+				//qc thématique
+				$("#add_attrait_qcs_thematique_attrait_id").live("change", function(){
+					valthematique = new Array($(this).val());
+					localStorage.setItem("thematique", valthematique);
+				});
+				if($("#add_attrait_qcs_thematique_attrait_id").val() != localStorage.getItem("thematique")){
+					tabthematique = new Array(localStorage.getItem("thematique"));
+					for(var i = 0; i < tabthematique.length; i++){
+						$("#add_attrait_qcs_thematique_attrait_id option[value="+tabthematique[i]+"]").attr("selected", "selected");
+					}
+				}
+				//echos
+				$("#add_attrait_qcs_echo_attrait_id").live("change", function(){
+					valequos = new Array($(this).val());
+					localStorage.setItem("echo", valequos);
+				});
+				if($("#add_attrait_qcs_echo_attrait_id").val() != localStorage.getItem("echo")){
+					tabequos = new Array(localStorage.getItem("echo"));
+					for(var i = 0; i < tabequos.length; i++){
+						$("#add_attrait_qcs_echo_attrait_id option[value="+tabequos[i]+"]").attr("selected", "selected");
+					}
+				}
+				//festival
+				$("#add_attrait_qcs_festival_attrait_id").live("change", function(){
+					valfestival = new Array($(this).val());
+					localStorage.setItem("festival", valfestival);
+				});
+				if($("#add_attrait_qcs_festival_attrait_id").val() != localStorage.getItem("festival")){
+					tabfestival = new Array(localStorage.getItem("festival"));
+					for(var i = 0; i < tabfestival.length; i++){
+						$("#add_attrait_qcs_festival_attrait_id option[value="+tabfestival[i]+"]").attr("selected", "selected");
+					}
+				}
+				//facebook fr
+				$("#add_attrait_page_facebook_fr").live("keyup", function(){
+					localStorage.setItem("facebook_fr", $(this).val());
+				});
+				if(localStorage.getItem("facebook_fr") != ""){
+					$("#add_attrait_page_facebook_fr").attr("value", localStorage.getItem("facebook_fr"));
+				}
+				//facebook en
+				$("#add_attrait_page_facebook_en").live("keyup", function(){
+					localStorage.setItem("facebook_en", $(this).val());
+				});
+				if(localStorage.getItem("facebook_en") != ""){
+					$("#add_attrait_page_facebook_en").attr("value", localStorage.getItem("facebook_en"));
+				}
+				//twitter fr
+				$("#add_attrait_twitter_fr").live("keyup", function(){
+					localStorage.setItem("twitter_fr", $(this).val());
+				});
+				if(localStorage.getItem("twitter_fr") != ""){
+					$("#add_attrait_twitter_fr").attr("value", localStorage.getItem("twitter_fr"));
+				}
+				//twitter en
+				$("#add_attrait_twitter_en").live("keyup", function(){
+					localStorage.setItem("twitter_en", $(this).val());
+				});
+				if(localStorage.getItem("twitter_en") != ""){
+					$("#add_attrait_twitter_en").attr("value", localStorage.getItem("twitter_en"));
+				}
+				//google + fr
+				$("#add_attrait_google_plus_fr").live("keyup", function(){
+					localStorage.setItem("google+fr", $(this).val());
+				});
+				if(localStorage.getItem("google+fr") != ""){
+					$("#add_attrait_google_plus_fr").attr("value", localStorage.getItem("google+fr"));
+				}
+				//google + en
+				$("#add_attrait_google_plus_en").live("keyup", function(){
+					localStorage.setItem("google+en", $(this).val());
+				});
+				if(localStorage.getItem("google+en") != ""){
+					$("#add_attrait_google_plus_en").attr("value", localStorage.getItem("google+en"));
+				}
+				//repertoire fr
+				$("#add_attrait_repertoire_fr").live("keyup", function(){
+					localStorage.setItem("reperfr", $(this).val());
+				});
+				if(localStorage.getItem("reperfr") != ""){
+					$("#add_attrait_repertoire_fr").attr("value", localStorage.getItem("reperfr"));
+				}
+				//repertoire en
+				$("#add_attrait_repertoire_en").live("keyup", function(){
+					localStorage.setItem("reperen", $(this).val());
+				});
+				if(localStorage.getItem("reperen") != ""){
+					$("#add_attrait_repertoire_en").attr("value", localStorage.getItem("reperen"));
+				}
+				//metadescription fr
+				$("#add_attrait_metadescription_fr").live("keyup", function(){
+					localStorage.setItem("metadescripfr", $(this).val());
+				});
+				if(localStorage.getItem("metadescripfr") != ""){
+					$("#add_attrait_metadescription_fr").attr("value", localStorage.getItem("metadescripfr"));
+				}
+				//metadescription en
+				$("#add_attrait_metadescription_en").live("keyup", function(){
+					localStorage.setItem("metadescripen", $(this).val());
+				});
+				if(localStorage.getItem("metadescripen") != ""){
+					$("#add_attrait_metadescription_en").attr("value", localStorage.getItem("metadescripen"));
+				}
+				//mots clé fr
+				$("#add_attrait_metakeywords_fr").live("keyup", function(){
+					localStorage.setItem("motclefr", $(this).val());
+				});
+				if(localStorage.getItem("motclefr") != ""){
+					$("#add_attrait_metakeywords_fr").attr("value", localStorage.getItem("motclefr"));
+				}
+				//mots cle en
+				$("#add_attrait_metakeywords_en").live("keyup", function(){
+					localStorage.setItem("motcleen", $(this).val());
+				});
+				if(localStorage.getItem("motcleen") != ""){
+					$("#add_attrait_metakeywords_en").attr("value", localStorage.getItem("motcleen"));
+				}
+				//meta titre fr
+				$("#add_attrait_meta_titre_fr").live("keyup", function(){
+					localStorage.setItem("metatitrefr", $(this).val());
+				});
+				if(localStorage.getItem("metatitrefr") != ""){
+					$("#add_attrait_meta_titre_fr").attr("value", localStorage.getItem("metatitrefr"));
+				}
+				//meta titre en
+				$("#add_attrait_meta_titre_en").live("keyup", function(){
+					localStorage.setItem("metatitreen", $(this).val());
+				});
+				if(localStorage.getItem("metatitreen") != ""){
+					$("#add_attrait_meta_titre_en").attr("value", localStorage.getItem("metatitreen"));
+				}
+				//politique tarif fr
+				$("#add_attrait_politique_attrait_fr_politique_tarif_fr").live("keyup", function(){
+					localStorage.setItem("politiquefr", $(this).val());
+				});
+				if(localStorage.getItem("politiquefr") != ""){
+					$("#add_attrait_politique_attrait_fr_politique_tarif_fr").attr("value", localStorage.getItem("politiquefr"));
+				}
+				//politique tarif en
+				$("#add_attrait_politique_attrait_en_politique_tarif_en").live("keyup", function(){
+					localStorage.setItem("politiqueen", $(this).val());
+				});
+				if(localStorage.getItem("politiqueen") != ""){
+					$("#add_attrait_politique_attrait_en_politique_tarif_en").attr("value", localStorage.getItem("politiqueen"));
+				}
+				//texte résume fr
+				$("#add_attrait_description_attrait_fr_texte_resume_fr").live("keyup", function(){
+					localStorage.setItem("resumefr", $(this).val());
+				});
+				if(localStorage.getItem("resumefr") != ""){
+					$("#add_attrait_description_attrait_fr_texte_resume_fr").attr("value", localStorage.getItem("resumefr"));
+				}
+				//texte résume en
+				$("#add_attrait_description_attrait_en_texte_resume_en").live("keyup", function(){
+					localStorage.setItem("resumeen", $(this).val());
+				});
+				if(localStorage.getItem("resumeen") != ""){
+					$("#add_attrait_description_attrait_en_texte_resume_en").attr("value", localStorage.getItem("resumeen"));
+				}
+				//periode fr
+				$("#add_attrait_description_attrait_fr_texte_periode_ouverture_fr").live("keyup", function(){
+					localStorage.setItem("periodefr", $(this).val());
+				});
+				if(localStorage.getItem("periodefr") != ""){
+					$("#add_attrait_description_attrait_fr_texte_periode_ouverture_fr").attr("value", localStorage.getItem("periodefr"));
+				}
+				//periode en
+				$("#add_attrait_description_attrait_en_texte_periode_ouverture_en").live("keyup", function(){
+					localStorage.setItem("periodeen", $(this).val());
+				});
+				if(localStorage.getItem("periodeen") != ""){
+					$("#add_attrait_description_attrait_en_texte_periode_ouverture_en").attr("value", localStorage.getItem("periodeen"));
+				}
+				//capacité
+				$("#add_attrait_capacite").live("keyup", function(){
+					localStorage.setItem("capacite", $(this).val());
+				});
+				if(localStorage.getItem("capacite") != ""){
+					$("#add_attrait_capacite").attr("value", localStorage.getItem("capacite"));
+				}
+				//tarif
+				$("#add_attrait_tarif_attrait").live("keyup", function(){
+					localStorage.setItem("tarif", $(this).val());
+				});
+				if(localStorage.getItem("tarif") != ""){
+					$("#add_attrait_tarif_attrait").attr("value", localStorage.getItem("tarif"));
+				}
+				//express
+				$("#add_attrait_express").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("express", 1);
+					}else{  
+						localStorage.setItem("express", 0);
+					}
+				});
+				if(localStorage.getItem("express") == 1){
+					$("#add_attrait_express").prop('checked', true);
+				}else{
+					$("#add_attrait_express").prop('checked', false);
+				}
+				//payant
+				$("#add_attrait_payant").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("payant", 1);
+					}else{  
+						localStorage.setItem("payant", 0);
+					}
+				});
+				if(localStorage.getItem("payant") == 1){
+					$("#add_attrait_payant").prop('checked', true);
+				}else{
+					$("#add_attrait_payant").prop('checked', false);
+				}
+				//adresse cliquable
+				$("#add_attrait_adresse_web_cliquable").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("adresse_cliquable", 1);
+					}else{  
+						localStorage.setItem("adresse_cliquable", 0);
+					}
+				});
+				if(localStorage.getItem("adresse_cliquable") == 1){
+					$("#add_attrait_adresse_web_cliquable").prop('checked', true);
+				}else{
+					$("#add_attrait_adresse_web_cliquable").prop('checked', false);
+				}
+				//option grande photo
+				$("#add_attrait_optvisibilite_grande_photo").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optimg", 1);
+					}else{  
+						localStorage.setItem("optimg", 0);
+					}
+				});
+				if(localStorage.getItem("optimg") == 1){
+					$("#add_attrait_optvisibilite_grande_photo").prop('checked', true);
+				}else{
+					$("#add_attrait_optvisibilite_grande_photo").prop('checked', false);
+				}
+				//option photo categorie
+				$("#add_attrait_optvisibilite_photo_categorie").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optcat", 1);
+					}else{  
+						localStorage.setItem("optcat", 0);
+					}
+				});
+				if(localStorage.getItem("optcat") == 1){
+					$("#add_attrait_optvisibilite_photo_categorie").prop('checked', true);
+				}else{
+					$("#add_attrait_optvisibilite_photo_categorie").prop('checked', false);
+				}
+				//option nos suggestions
+				$("#add_attrait_optvisibilite_nos_suggestions").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optsugg", 1);
+					}else{  
+						localStorage.setItem("optsugg", 0);
+					}
+				});
+				if(localStorage.getItem("optsugg") == 1){
+					$("#add_attrait_optvisibilite_nos_suggestions").prop('checked', true);
+				}else{
+					$("#add_attrait_optvisibilite_nos_suggestions").prop('checked', false);
+				}
+				//option proximité
+				$("#add_attrait_optvisibilite_proximite").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optprox", 1);
+					}else{  
+						localStorage.setItem("optprox", 0);
+					}
+				});
+				if(localStorage.getItem("optprox") == 1){
+					$("#add_attrait_optvisibilite_proximite").prop('checked', true);
+				}else{
+					$("#add_attrait_optvisibilite_proximite").prop('checked', false);
+				}
+				//option visibilie lien hébergement
+				$("#add_attrait_optvisibilite_lien_hebergement").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optlinkheb", 1);
+					}else{  
+						localStorage.setItem("optlinkheb", 0);
+					}
+				});
+				if(localStorage.getItem("optlinkheb") == 1){
+					$("#add_attrait_optvisibilite_lien_hebergement").prop('checked', true);
+				}else{
+					$("#add_attrait_optvisibilite_lien_hebergement").prop('checked', false);
+				}
+				//option visibilie incoutournable
+				$("#add_attrait_optvisibilite_incontournables").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("optincont", 1);
+					}else{  
+						localStorage.setItem("optincont", 0);
+					}
+				});
+				if(localStorage.getItem("optincont") == 1){
+					$("#add_attrait_optvisibilite_incontournables").prop('checked', true);
+				}else{
+					$("#add_attrait_optvisibilite_incontournables").prop('checked', false);
+				}
+				//periode de l'attrait
+				$("#add_attrait_periode_pour_attrait").live("click", function(){
+					if(this.checked){
+						localStorage.setItem("attraitperiode", 1);
+					}else{  
+						localStorage.setItem("attraitperiode", 0);
+					}
+				});
+				if(localStorage.getItem("attraitperiode") == 1){
+					$("#add_attrait_periode_pour_attrait").prop('checked', true);
+				}else{
+					$("#add_attrait_periode_pour_attrait").prop('checked', false);
+				}
+			
+			{% endif %}
+				//On vide la bd du navigateur si tous les champs obligatoires sont remplis
+				$(".Btn_form_submit_fixed").live("click", function(){
+					if($("#add_attrait_nom_fr").val() != "" && $("#add_attrait_nom_en").val() != "" && $("#add_attrait_adresse").val() != "" && $("#add_attrait_code_postal").val() != "" && +
+					   $("#add_attrait_telephone").val() != "" && $("#add_attrait_latitude").val() != "" && $("#add_attrait_longitude").val() != "" && $("#listezone").val() != "" &&	$("#listeregion").val() != "" && +
+					   $("#add_attrait_repertoire_fr").val() != "" && $("#add_attrait_repertoire_en").val() != "" && + $("#add_attrait_capacite").val() != "" && $("#add_attrait_tarif_attrait").val() != "" && +
+                                           $("#add_attrait_classification_id").val() != "" && + $("#listeville").val() != ""){
+						localStorage.clear();
+					}else{$("#see_more").show();}
+				});	
+	});	
+}
+
+</script>
+			
+			

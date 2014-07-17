@@ -1,0 +1,304 @@
+    <meta charset="UTF-8">
+    <meta content="global-reservation-com" name="generator">   
+    {# OPTIMISATION POUR LES MINIS SITES #}
+    {% if hidden is defined %}
+        {% if client is defined %}
+             {% for meta in client %}                    
+                     {# AJOUTE LA BONNE CATÉGORIE DEVANT LE NOM #}
+                     {% if menuPresentation is defined %}
+                        <title>{{ "presentation" | trans }}                                     
+                        {% if app.request.locale == "fr" %} 
+                            {% if meta.metatitrefr is not empty %} {{ meta.metatitrefr }} {% else %} {{ meta.nomfr }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="{% if meta.metadescriptionfr is not empty %} {{ meta.metadescriptionfr }} {% else %} Venez séjourner à {{ meta.nomfr }} située dans la ville de {{ meta.villeid.nomfr }} dans la région touristique de {{ meta.regionid.nomfr }}. Faites une réservation pour profiter de {{ meta.nomfr }} et amusez-vous pendant votre séjour.{% endif %}" />
+                        {% else %} 
+                            {% if meta.metatitreen is not empty %} {{ meta.metatitreen }} {% else %} {{ meta.nomen }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsen }}" />
+                            <meta name="description" content="{% if meta.metadescriptionen is not empty %} {{ meta.metadescriptionen }} {% else %} Stay at {{ meta.nomen }} located in the city of {{ meta.villeid.nomen }} within the tourism region of {{ meta.regionid.nomen }}. Make a reservation in order to enjoy hotel name {{ meta.nomen }} and make the most of your stay.{% endif %}" />
+                        {% endif %}                                                
+                     {% elseif menuChambre is defined %}
+                        <title>{{ "chambre.tarif" | trans }}  
+                        {% if app.request.locale == "fr" %} 
+                            {% if meta.metatitrefr is not empty %} {{ meta.metatitrefr }} {% else %} {{ meta.nomfr }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Réservez la chambre de votre choix au {{ meta.nomfr }} dans la ville de {{ meta.villeid.nomfr }} dans la région touristique de {{ meta.regionid.nomfr }}. Vous aurez un séjour douillet dans l'une des {{ meta.nombrechambre }} chambres choisies de {{ meta.nomfr }}." /> 
+                        {% else %} 
+                            {% if meta.metatitreen is not empty %} {{ meta.metatitreen }} {% else %} {{ meta.nomen }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsen }}" />
+                            <meta name="description" content="Book the room of your choice at {{ meta.nomen }} in the city of {{ meta.regionid.nomen }} within the tourism region of {{ meta.regionid.nomen }}. You will be able to enjoy a most comfortable stay in the selected room of {{ meta.nomen }}." />   
+                        {% endif %}                         
+                     {% elseif menuForfait is defined %}	
+                        <title>{{ "forfait.promotion" | trans }}  
+                        {% if app.request.locale == "fr" %} 
+                            {% if meta.metatitrefr is not empty %} {{ meta.metatitrefr }} {% else %} {{ meta.nomfr }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Trouvez le forfait qui vous convient pour profiter d'un séjour agréable au {{ meta.nomfr }} dans la ville de {{ meta.villeid.nomfr }} dans la région touristique de {{ meta.regionid.nomfr }}. Réservez un forfait et profitez d'un bon repas, d'une activité, d'un moment de relaxation ou autres selon votre choix." />  
+                        {% else %} 
+                            {% if meta.metatitreen is not empty %} {{ meta.metatitreen }} {% else %} {{ meta.nomen }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Find the package that best suits you so that you can make the most of your stay at {{ meta.nomen }} in the city of {{ meta.villeid.nomen }} within the tourism region of {{ meta.regionid.nomen }}. Book a package and enjoy a nice meal, a great activity, a relaxing moment or any other pleasure that you would like." />  
+                        {% endif %} 
+                     {% elseif menuService is defined %}
+                        <title>{{ "activite.service" | trans }}  
+                        {% if app.request.locale == "fr" %} 
+                            {% if meta.metatitrefr is not empty %} {{ meta.metatitrefr }} {% else %} {{ meta.nomfr }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Suite à votre réservation au {{ meta.nomfr }} dans la ville de {{ meta.villeid.nomfr }} dans la région touristique de {{ meta.regionid.nomfr }}, vous pourrez retrouver des activités à proximité à faire et les services offerts au {{ meta.nomfr }}." />  
+                        {% else %} 
+                            {% if meta.metatitreen is not empty %} {{ meta.metatitreen }} {% else %} {{ meta.nomen }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Following your reservation at {{ meta.nomen }} in the city of {{ meta.villeid.nomen }} within the tourism region of {{ meta.regionid.nomen }}, you will be able to find all the activities and services close by in {{ meta.nomen }}." />  
+                        {% endif %} 
+                     {% elseif menuCorporatif is defined %}
+                        <title>{{ "corporatif.speciaux" | trans }}  
+                        {% if app.request.locale == "fr" %} 
+                            {% if meta.metatitrefr is not empty %} {{ meta.metatitrefr }} {% else %} {{ meta.nomfr }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Faites une réservation pour un événement spécial, familial, corporatif, mariage ou autre au {{ meta.nomfr }} dans la ville de {{ meta.villeid.nomfr }} dans la région touristique de {{ meta.regionid.nomfr }}. Trouvez tout ce que {{ meta.nomfr }} vous propose comme salle, services et autres." />  
+                        {% else %} 
+                            {% if meta.metatitreen is not empty %} {{ meta.metatitreen }} {% else %} {{ meta.nomen }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Make a reservation for a special event whether it is for a family, corporate, wedding or other occasion at {{ meta.nomen }} in the city of {{ meta.villeid.nomen }} within the tourism region of {{ meta.regionid.nomen }}.  Find everything that {{ meta.nomen }} offers you (i.e. meeting or conference rooms, services or others)" />  
+                        {% endif %} 
+                     {% elseif menuGalerie is defined %}
+                        <title>{{ "galerie.photo" | trans }}  
+                        {% if app.request.locale == "fr" %} 
+                            {% if meta.metatitrefr is not empty %} {{ meta.metatitrefr }} {% else %} {{ meta.nomfr }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Visualisez les photos du {{ meta.nomfr }} dans la ville de {{ meta.villeid.nomfr }} dans la région touristique de {{ meta.regionid.nomfr }} avant d'effectuer votre réservation.  Vous pourrez y voir le décor, les chambres, les jardins et autres." />  
+                        {% else %} 
+                            {% if meta.metatitreen is not empty %} {{ meta.metatitreen }} {% else %} {{ meta.nomen }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="View photos from {{ meta.nomen }} in the city of {{ meta.villeid.nomen }} within the tourism region of {{ meta.regionid.nomen }} before making your reservation. You will be able to see the rooms and hotel settings" />  
+                        {% endif %} 
+                     {% elseif menuCentreSante is defined %}
+                        <title>{{ "centre.sante.spa" | trans }}  
+                        {% if app.request.locale == "fr" %} 
+                            {% if meta.metatitrefr is not empty %} {{ meta.metatitrefr }} {% else %} {{ meta.nomfr }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="En réservant au {{ meta.nomfr }} dans la ville de {{ meta.villeid.nomfr }} dans la région touristique de {{ meta.regionid.nomfr }}, vous pourrez aller visiter leur centre de santé et spas pour vous détendre pendant votre séjour." />  
+                        {% else %} 
+                            {% if meta.metatitreen is not empty %} {{ meta.metatitreen }} {% else %} {{ meta.nomen }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="By booking at {{ meta.nomen }} in the city of {{ meta.villeid.nomen }} within the tourism region of {{ meta.regionid.nomen }}, you will be able to visit their great wellness centre and spa so that you can relax during your stay" />  
+                        {% endif %}                        
+                     {% elseif menuRestaurant is defined %}
+                        <title>{{ "restaurant" | trans }}  
+                        {% if app.request.locale == "fr" %} 
+                            {% if meta.metatitrefr is not empty %} {{ meta.metatitrefr }} {% else %} {{ meta.nomfr }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="En réservant au {{ meta.nomfr }} dans la ville de {{ meta.villeid.nomfr }} dans la région touristique de {{ meta.regionid.nomfr }}, vous pourrez aller déguster un bon repas au restaurant de l'établissement." />  
+                        {% else %} 
+                            {% if meta.metatitreen is not empty %} {{ meta.metatitreen }} {% else %} {{ meta.nomen }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="By booking at {{ meta.nomen }} in the city of  {{ meta.villeid.nomen }} within the tourism region of {{ meta.regionid.nomen }}, you will be able to enjoy a great meal at the on-site restaurant." /> 
+                        {% endif %} 
+                     {% elseif menuReservation is defined %}
+                        <title>{{ "information.reservation" | trans }}  
+                        {% if app.request.locale == "fr" %} 
+                            {% if meta.metatitrefr is not empty %} {{ meta.metatitrefr }} {% else %} {{ meta.nomfr }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Réservez, faites une réservation ou demandez de l'information pour {{ meta.nomfr }} dans la ville de {{ meta.villeid.nomfr }} dans la région touristique de {{ meta.regionid.nomfr }}." />  
+                        {% else %} 
+                            {% if meta.metatitreen is not empty %} {{ meta.metatitreen }} {% else %} {{ meta.nomen }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Make a reservation or ask for information for {{ meta.nomen }} in the city of  {{ meta.villeid.nomen }} within the tourism region of {{ meta.villeid.nomen }}." /> 
+                        {% endif %} 
+                     {% else %}
+                        <title>{{ "direction.routiere" | trans }}  
+                        {% if app.request.locale == "fr" %} 
+                            {% if meta.metatitrefr is not empty %} {{ meta.metatitrefr }} {% else %} {{ meta.nomfr }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Suite à votre réservation au {{ meta.nomfr }} dans la ville de {{ meta.villeid.nomfr }} dans la région touristique de {{ meta.regionid.nomfr }}, vous aurez besoin des directions routières pour vous rendre au {{ meta.nomfr }}." />  
+                        {% else %} 
+                            {% if meta.metatitreen is not empty %} {{ meta.metatitreen }} {% else %} {{ meta.nomen }} {% endif %} | Global Réservation</title>
+                            <meta name="keywords" content="{{ meta.metakeywordsfr }}" />
+                            <meta name="description" content="Following your reservation at {{ meta.nomen }} in the city of {{ meta.villeid.nomen }} within the tourism region of {{ meta.regionid.nomen }}, you will need driving directions in order to get to {{ meta.nomen }}" />  
+                        {% endif %} 
+                     {% endif %}	                    
+             {%endfor%}
+        {% endif %}
+    {% endif %}   
+
+  {# OPTIMISATION POUR LE RÉFÉRENCEMENT #}
+    	
+    {% if metaaccueilfr is defined and app.request.locale == "fr" %}
+        <title>{{ metaaccueilfr.titre_accueil_fr }} | Global Réservation </title>
+        <meta content="{{ metaaccueilfr.texte_accueil_meta_fr }}" name="description" />           
+    {% elseif metaaccueilen is defined and app.request.locale == "en" %} 
+        <title>{{ metaaccueilen.titre_accueil_en }} | Global Réservation</title>
+        <meta content="{{ metaaccueilen.texte_accueil_meta_en }}" name="description" />    
+    {% elseif metaaccueilprov is defined and app.request.locale == "fr" %}
+        <title> {% if titleProvince is defined %} Province {% else %} Région {% endif %} {{ metaaccueilprov.nomfr }} | Global Réservation </title>
+        <meta content="{{ metaaccueilprov.pagemetadescriptionfr }}" name="description" />           
+    {% elseif metaaccueilprov is defined and app.request.locale == "en" %} 
+        <title> {% if titleProvince is defined %} Province {% else %} Region {% endif %} {{ metaaccueilprov.nomen }} | Global Réservation</title>
+        <meta content="{{ metaaccueilproven.pagemetadescriptionen }}" name="description" />
+    {% elseif metahebergementfr is defined and app.request.locale == "fr" %}
+        <title>{{ metahebergementfr.titre_hebergement_fr }} | Global Réservation </title>
+        <meta content="{{ metahebergementfr.texte_accueil_hebergement_meta_fr }}" name="description" />      
+    {% elseif metahebergementen is defined and app.request.locale == "en" %}
+        <title>{{ metahebergementen.titre_hebergement_en }} | Global Réservation </title>
+        <meta content="{{ metahebergementen.texte_accueil_hebergement_meta_en }}" name="description" />     
+    {% elseif metahebergementcat is defined %}
+            {% if app.request.locale == "fr" %}
+                 <title>{{ metahebergementcat.page_titre_fr }} | Global Réservation </title>
+                 <meta content="{{ metahebergementcat.page_metadescription_fr }}" name="description" /> 
+            {% else %}
+                 <title>{{ metahebergementcat.page_titre_en }} | Global Réservation </title>
+                 <meta content="{{ metahebergementcat.page_metadescription_en }}" name="description" />     
+            {% endif %}
+    {% elseif metahebergementenfant is defined and metahebergementenfant is not empty %}
+            {% if app.request.locale == "fr" %}
+                 <title>{{ metahebergementenfant.pagetitrefr }} | Global Réservation </title>
+                 <meta content="{{ metahebergementenfant.pagemetadescriptionfr }}" name="description" /> 
+            {% else %}
+                 <title>{{ metahebergementenfant.pagetitreen }} | Global Réservation </title>
+                 <meta content="{{ metahebergementenfant.pagemetadescriptionen }}" name="description" />     
+            {% endif %}
+    {% elseif metahebergementregion is defined %}
+            {% if app.request.locale == "fr" %}
+                 <title>{{ "hebergements" | trans }} {{ metahebergementregion.titrefr }} | Global Réservation </title>
+                 <meta content="{{ metahebergementregion.pagemetadescriptionfr }}" name="description" /> 
+            {% else %}
+                 <title>{{ "hebergements" | trans }} {{ metahebergementregion.titreen }} | Global Réservation </title>
+                 <meta content="{{ metahebergementregion.pagemetadescriptionen }}" name="description" />     
+            {% endif %}
+    {% elseif metahebergementville is defined %}
+            {% if app.request.locale == "fr" %}
+                 <title>{{ "hebergement" | trans }} ville {{ clientAleatoire.villeid.nomfr }} | Global Réservation </title>
+                 <meta content="{{ clientAleatoire.villeid.pagemetadescriptionfr }}" name="description" /> 
+            {% else %}
+                 <title>{{ "hebergement" | trans }} city {{ clientAleatoire.villeid.nomen }} | Global Réservation </title>
+                <meta content="{{ clientAleatoire.villeid.pagemetadescriptionen }}" name="description" /> 
+            {% endif %}    
+    {% elseif metaforfaitenfant is defined %}
+            {% if app.request.locale == "fr" %}
+                 <title>{{ metaforfaitenfant.meta_titre_fr }} | Global Réservation </title>
+                 <meta content="{{ metaforfaitenfant.page_metadescription_fr }}" name="description" /> 
+            {% else %}
+                 <title>{{ metaforfaitenfant.meta_titre_en }} | Global Réservation </title>
+                 <meta content="{{ metaforfaitenfant.page_metadescription_en }}" name="description" />     
+            {% endif %} 
+     {% elseif metahebergementtypeville is defined %}
+            {% if app.request.locale == "fr" %}
+                 <title>{% for p in  clientAleatoire.categoriehebergementid %} {{ p.nomfr }} ville {{ clientAleatoire.villeid.nomfr }} {% endfor %} | Global Réservation </title>
+                 <meta content="{{ clientAleatoire.villeid.pagemetadescriptionfr }}" name="description" /> 
+            {% else %}
+                <title>{% for p in  clientAleatoire.categoriehebergementid %} {{ p.nomen }} city {{ clientAleatoire.villeid.nomen }} {% endfor %} | Global Réservation </title>
+                <meta content="{{ clientAleatoire.villeid.pagemetadescriptionen }}" name="description" /> 
+            {% endif %}    
+    {% elseif metaforfaitfr is defined and app.request.locale == "fr" %}
+        <title> {{ metaforfaitfr.titre_forfait_fr }} | Global Réservation </title>
+        <meta content="{{ metaforfaitfr.texte_accueil_forfait_meta_fr }}" name="description" />   
+    {% elseif metaforfaiten is defined and app.request.locale == "en" %}
+        <title> {{ metaforfaiten.titre_forfait_en }} | Global Réservation </title>
+        <meta content="{{ metaforfaiten.texte_accueil_forfait_meta_en }}" name="description" />  
+    {% elseif metaforfait is defined and app.request.locale == "fr" %}
+        <title>{{ "forfait" | trans }} {% if titleProvince is defined %} province {{ clientAleatoire.hebergementid.provinceid.nomfr }} {% elseif titleRegion is defined %} région {{ clientAleatoire.hebergementid.regionid.nomfr }}  {% else %} ville {{ clientAleatoire.hebergementid.villeid.nomfr }} {% endif %} | Global Réservation </title>
+        <meta content="{% if titleProvince is defined %} {{ clientAleatoire.hebergementid.provinceid.pagemetadescriptionfr }} {% elseif titleRegion is defined %} {{ clientAleatoire.hebergementid.regionid.pagemetadescriptionfr }}  {% else %} {{ clientAleatoire.hebergementid.villeid.pagemetadescriptionfr }} {% endif %}" name="description" />   
+    {% elseif metaforfait is defined and app.request.locale == "en" %}
+        <title>{{ "forfait" | trans }} {% if titleProvince is defined %} province {{ clientAleatoire.hebergementid.provinceid.nomen }} {% elseif titleRegion is defined %} region {{ clientAleatoire.hebergementid.regionid.nomen }}  {% else %} city {{ clientAleatoire.hebergementid.villeid.nomen }} {% endif %} | Global Réservation </title>
+        <meta content="{% if titleProvince is defined %} {{ clientAleatoire.hebergementid.provinceid.pagemetadescriptionen }} {% elseif titleRegion is defined %} {{ clientAleatoire.hebergementid.regionid.pagemetadescriptionen }}  {% else %} {{ clientAleatoire.hebergementid.villeid.pagemetadescriptionen }} {% endif %}" name="description" />                               
+    {% elseif metaforfaitcategorieregionfr is defined and metaforfaitcategorieregionfr is not empty and app.request.locale == "fr" %}
+        <title>{{ "forfait" | trans }} {{ metaforfaitcategorieregionfr.pagetitrefr }}  | Global Réservation </title>
+        <meta content="{{ metaforfaitcategorieregionfr.pagemetadescriptionfr }}" name="description" />   
+    {% elseif metaforfaitcategorieregionen is defined and metaforfaitcategorieregionen is not empty and app.request.locale == "en" %}
+        <title> {{ "forfait" | trans }} {{  metaforfaitcategorieregionen.pagetitreen }} | Global Réservation </title>
+        <meta content="{{  metaforfaitcategorieregionen.pagemetadescriptionen }}" name="description" />
+    {% elseif metaforfaitcategorieville is defined and app.request.locale == "fr" %}
+        <title>{{ "forfait" | trans }} {{ clientAleatoire.forfaitclientid.nomfr }} ville {{ clientAleatoire.hebergementid.villeid.nomfr }} | Global Réservation </title>
+        <meta content="{{ clientAleatoire.hebergementid.villeid.pagemetadescriptionfr }}" name="description" />   
+    {% elseif metaforfaitcategorieville is defined and app.request.locale == "en" %}
+        <title>{{ "forfait" | trans }} {{ clientAleatoire.forfaitclientid.nomen }} city {{ clientAleatoire.hebergementid.villeid.nomen }} | Global Réservation </title>
+        <meta content="{{ clientAleatoire.hebergementid.villeid.pagemetadescriptionen }}" name="description" />
+    {% elseif metacorpofr is defined and app.request.locale == "fr" %}  
+        <title>{{ metacorpofr.titre_corporatif_fr }} | Global Réservation </title>
+        <meta content="{{ metacorpofr.texte_accueil_corporatif_meta_fr }}" name="description" />                 
+    {% elseif metacorpoen is defined and app.request.locale == "en" %}                                  
+        <title>{{ metacorpoen.titre_corporatif_en }} | Global Réservation </title>
+        <meta content="{{ metacorpoen.texte_accueil_corporatif_meta_en }}" name="description" />      
+    {% elseif pageStatic is defined and app.request.locale == "fr" %}  
+        <title>{{ titlefr }} | Global Réservation </title>
+        <meta content="{{ metafr }}" name="description" />                 
+    {% elseif pageStatic is defined and app.request.locale == "en" %}                                  
+        <title>{{ titleen }} | Global Réservation </title>
+        <meta content="{{ metaen }}" name="description" />   
+    {% elseif metacorpogeneriquefr is defined and specific is empty %}
+        <title>{{ metacorpogeneriquefr.titre_corporatif_fr }} | Global Réservation </title>
+        <meta content="{{ metacorpogeneriquefr.texte_accueil_corporatif_meta_fr }}" name="description" />  
+    {% elseif metacorpogeneriquefr is defined and specific is not empty %}
+        <title>{{ metacorpogeneriquefr.pagetitrefr }} | Global Réservation </title>
+        <meta content="{{ metacorpogeneriquefr.pagemetadescriptionfr }}" name="description" /> 
+    {% elseif metacorpogeneriqueen is defined and specific is empty %}
+        <title>{{ metacorpogeneriqueen.titre_corporatif_en }} | Global Réservation </title>
+        <meta content="{{ metacorpogeneriqueen.texte_accueil_corporatif_meta_en }}" name="description" />   
+    {% elseif metacorpogeneriqueen is defined and specific is not empty %}
+        <title>{{ metacorpogeneriqueen.pagetitreen }} | Global Réservation </title>
+        <meta content="{{ metacorpogeneriqueen.pagemetadescriptionen }}" name="description" /> 
+    {% elseif metacorpoprovince is defined and app.request.locale == "fr" %}                              
+        <title>{{ "corporatif.evenement" | trans }} province {{ clientAleatoire.sallecorporativehebergement.provinceid.nomfr }} | Global Réservation </title>
+        <meta content="{{ clientAleatoire.sallecorporativehebergement.provinceid.pagemetadescriptionfr }}" name="description" />   
+    {% elseif metacorpoprovince is defined and app.request.locale == "en" %}
+        <title>{{ "corporatif.evenement" | trans }} province {{ clientAleatoire.sallecorporativehebergement.provinceid.nomen }} | Global Réservation </title>
+        <meta content="{{ clientAleatoire.sallecorporativehebergement.provinceid.pagemetadescriptionen }}" name="description" /> 
+    {% elseif metacorporegion is defined and app.request.locale == "fr" %}                                
+        <title>{{ "corporatif.evenement" | trans }} région {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }} | Global Réservation </title>
+        <meta content="{{ clientAleatoire.sallecorporativehebergement.regionid.pagemetadescriptionfr }}" name="description" />   
+    {% elseif metacorporegion is defined and app.request.locale == "en" %}
+        <title>{{ "corporatif.evenement" | trans }} region {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }} | Global Réservation </title>
+        <meta content="{{ clientAleatoire.sallecorporativehebergement.regionid.pagemetadescriptionen }}" name="description" />  
+    {% elseif metacorpoville is defined and app.request.locale == "fr" %}                                
+        <title>{{ "corporatif.evenement" | trans }} ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }} | Global Réservation </title>
+        <meta content="{{ clientAleatoire.sallecorporativehebergement.villeid.pagemetadescriptionfr }}" name="description" />   
+    {% elseif metacorpoville is defined and app.request.locale == "en" %}
+        <title>{{ "corporatif.evenement" | trans }} cityn {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }} | Global Réservation </title>
+        <meta content="{{ clientAleatoire.sallecorporativehebergement.villeid.pagemetadescriptionen }}" name="description" /> 
+    {% elseif metapromofr is defined and app.request.locale == "fr" %}
+        {% if destinationregion is defined %}
+        <title>{{ metapromofr.titre_promotion_fr }} région {{ clientAleatoire.hebergementid.regionid.nomfr }} | Global Réservation </title>
+        {% elseif destinationprovince is defined %}
+        <title>{{ metapromofr.titre_promotion_fr }} province {{ clientAleatoire.hebergementid.provinceid.nomfr }} | Global Réservation </title>
+        {% else %}
+        <title>{{ metapromofr.titre_promotion_fr }} | Global Réservation </title>
+        {% endif %}
+        <meta content="{{ metapromofr.texte_accueil_promotion_meta_fr }}" name="description" />   
+    {% elseif metapromoen is defined and app.request.locale == "en" %}
+        {% if destinationregion is defined %}
+        <title>{{ metapromoen.titre_promotion_en }} region {{ clientAleatoire.hebergementid.regionid.nomen }} | Global Réservation </title>
+        {% elseif destinationprovince is defined %}
+        <title>{{ metapromoen.titre_promotion_en }} province {{ clientAleatoire.hebergementid.provinceid.nomen }} | Global Réservation </title>
+        {% else %}
+        <title>{{ metapromoen.titre_promotion_en }} | Global Réservation </title>
+        {% endif %}
+        <meta content="{{ metapromoen.texte_accueil_promotion_meta_en }}" name="description" />   
+    {% elseif metasantefr is defined and app.request.locale == "fr" %}
+        <title>{{ metasantefr.titre_sante_fr }} | Global Réservation </title>
+        <meta content="{{ metasantefr.texte_accueil_sante_meta_fr }}" name="description" />  
+    {% elseif metasanteen is defined and app.request.locale == "en" %}
+        <title>{{ metasanteen.titre_sante_en }} | Global Réservation </title>
+        <meta content="{{ metasanteen.texte_accueil_sante_meta_en }}" name="description" /> 
+    {% elseif metaattraitfr is defined and app.request.locale == "fr" %}
+        <title>{{ metaattraitfr.titre_attrait_fr }} | Global Réservation </title>
+        <meta content="{{ metaattraitfr.texte_accueil_attrait_meta_fr }}" name="description" />  
+    {% elseif metaattraiten is defined and app.request.locale == "en" %}
+        <title>{{ metaattraiten.titre_attrait_en }} | Global Réservation </title>
+        <meta content="{{ metaattraiten.texte_accueil_attrait_meta_en }}" name="description" />  
+    {% elseif metarestofr is defined and app.request.locale == "fr" %}
+        <title>{{ metarestofr.titre_restaurant_fr }} | Global Réservation </title>
+        <meta content="{{ metarestofr.texte_accueil_restaurant_meta_fr }}" name="description" />
+    {% elseif metarestoen is defined and app.request.locale == "en" %}
+        <title>{{ metarestoen.titre_restaurant_en }} | Global Réservation </title>
+        <meta content="{{ metarestoen.texte_accueil_restaurant_meta_en }}" name="description" />
+    {% elseif sansItem is defined %}
+        {% if app.request.locale == "fr" %}
+        <title>{{ titrefrsansitem }} | Global Réservation </title>
+        <meta content="{{ metadescriptionfr }}" name="description" />
+        {% else %}
+        <title>{{ titreensansitem }} | Global Réservation </title>
+        <meta content="{{ metadescriptionen }}" name="description" />     
+        {% endif %}
+    {% endif %}
+                                
+
+    		

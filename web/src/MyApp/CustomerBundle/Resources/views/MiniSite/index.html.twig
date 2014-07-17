@@ -1,0 +1,83 @@
+{% extends '::base1.html.twig' %}
+
+{% block content %}
+<div class="boiteinfo">
+	<h1>{{ "titre.info.admin" | trans }}{% for p in listOption %}  « {{ p.nom }} » {% endfor %}</h1>  
+		<div class="ouvert ficheClient">
+			<div class="gris">
+				<div class="affiche_info_client">                                   
+					{% for p in listOption %}                                                                                           
+						{% if app.request.locale == "fr" %}
+							<p class="bold">  {% if p.username is not empty %}  N° client: {{ p.username }} {% endif %}</p>
+							<p><span class="gras">{{ "adresse" | trans }} :</span>  {{ p.adresse }}</p>
+							<p><span class="gras">{{ "ville" | trans }} :</span> {{ p.villes }}</p>
+							<p><span class="gras"> {{ "code.postal" | trans }} : </span> {{ p.codepostal }} </p>
+						{% else %}
+							<p class="bold">  {% if p.username is not empty %}  Customer n°: {{ p.username }} {% endif %}</p>
+							<p><span class="gras">{{ "adresse" | trans }} :</span>{{ p.adresse }} </p>
+							<p><span class="gras">{{ "ville" | trans }} :</span>{{ p.villes }}</p>
+							<p><span class="gras">{{ "code.postal" | trans }} :</span> {{ p.codepostal }} </p> 
+						{% endif %}
+							<p class="resize_p"><span class="gras">{{ "telephone" | trans }} :</span> {{ p.telephone }}</p>
+							{% if p.sansfrais is empty %}
+							{% else %}
+							<p class="test resize_p"><span class="gras">{{ "sans.frais" | trans }} :</span> {{ p.sansfrais }}</p>
+							{% endif %}
+							{% if p.telecopieur is empty %}
+							{% else %}
+							<p class="test resize_p"><span class="gras">{{ "telecopieur" | trans }} :</span> {{ p.telecopieur }}</p>
+							{% endif %}
+							{% if p.email is empty %}
+							{% else %}
+							<p class="test resize_p"><span class="gras">{{ "email" | trans }} :</span> {{ p.email }}</p>
+							{% endif %}
+							{% if p.siteweb is empty %}
+							{% else %}
+							<p class="test resize_p"><span class="gras">{{ "siteweb" | trans }} :</span> {{ p.siteweb }}</p>
+							{% endif %}
+                                                        <a class="facture_compte" href="http://www.globalinternet.ca/webzone/index.aspx" title="{{ "connexion.compte.facture" | trans }}" target="_blank">{{ "facture.etat.de.compte" | trans }}</a>                                                  
+                                 </div>
+						
+					{# Liste des hébergements et attraits que le client possède #}
+					    <div id="infoGuideTouristique">
+					    	{% if app.request.locale == "fr" %}
+                                                        {% if hebergementExiste is not empty %}
+                                                            {% for p in hebergementExiste %}
+                                                                {% if loop.index == 1 and p.actif != null %}
+                                                                    <p><b>{{ "etablissement.global" | trans}}</b></p>
+                                                                {% endif %}
+                                                                {% if p.actif != null %}
+                                                                    <p><a href="{{ path('_hebergementinfoclient',{'name':p.repertoirefr|lower}) }}" target="_blank">{{ p.nomfr }}</a></p>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                      {#  {% if attraitExist is not empty %}
+                                                                <p class="legendeAttrait"><b>{{ "attraits.client" | trans}}</b></p>
+                                                                {% for w in attraitExist %}								
+                                                                        <p><a href="{{ w.regionid.urlfr }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr }}" target="_blank" title="Attraits et activités {{ w.nomfr }}">{{ w.nomfr }}</a> </p>  
+                                                                {% endfor %}
+                                                        {% endif %}#}
+                                                {% else %}
+                                                        {% if hebergementExiste is not empty %}                                                   
+                                                            {% for p in hebergementExiste %}
+                                                                {% if loop.index == 1 and p.actif != null %}
+                                                                    <p><b>{{ "etablissement.global" | trans}}</b></p>
+                                                                {% endif %}
+                                                                {% if p.actif != null %}
+                                                                    <p><a href="{{ path('_hebergementinfoclient',{'name':p.repertoireen|lower}) }}" target="_blank">{{ p.nomen }}</a></p>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                     {#    {% if attraitExist is not empty %}
+                                                                <p class="legendeAttrait"><b>{{ "attraits.client" | trans}}</b></p>
+                                                                {% for w in attraitExist %}									
+                                                                        <p><a href="{{ w.regionid.urlen }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen }}" target="_blank" title="Attractions and activities {{ w.nomen }}">{{ w.nomen }}</a></p>
+                                                                {% endfor %}
+                                                        {% endif %}#}
+                                                {% endif %}
+					    </div>	
+				{% endfor %}	
+			</div>
+		</div>
+</div>
+{% endblock %}

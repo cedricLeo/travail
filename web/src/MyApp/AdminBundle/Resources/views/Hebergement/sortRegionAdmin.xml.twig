@@ -1,0 +1,88 @@
+{% if regionrecorder is defined %}
+    <label class="lblnompays">Région</label>
+	    <div class="region_id">
+			<select class="txt_add_state listeregion" id="listeregion" name="listeregion" required="required">
+				{% if regionrecorder is not empty %}
+					{% for pr in regionrecorder %}
+						<option value="{{ pr.id }}">{{ pr.nomfr }}</option>
+					{% endfor %}
+				{% endif %}
+			</select>
+		</div>
+{% else %}
+	<img class="imgtriregion" src="{{ asset('bundles/myappglobal/images/loading.gif') }}" style="display:block; position:relative; top:50px; left:-50px;">
+	<label class="lblnompays">Région</label>
+	    <div class="region_id">
+			<select class="txt_add_state listeregion" id="listeregion" name="listeregion" required="required">
+			{% if province is defined %}
+				{% for pr in province %}
+					<option value="{{ pr.id }}">{{ pr.nomfr }}</option>
+				{% endfor %}
+			{% endif %}
+			</select>
+		</div>
+{% endif %}
+
+<script>
+	$(function(){
+		//Ajoute l'attibut selected dans la liste des régions
+		{% if regionSelected is defined %}
+			$("#listeregion option[value='{{ regionSelected }}']").attr('selected','selected');
+		{% endif %}
+		//Traitement pour les régions en ajax
+		$(".imgtriregion").hide();
+		{% if heb is defined %}//hébergement
+		$("select#add_hebergement_province_id").change(function(){ 
+		{% else %}//attrait
+		$("select#add_attrait_province_id").change(function(){
+		{% endif %}
+			//On efface la liste des zones et des villes si on a déjà des listes pour ne pas créer des incohérences
+	   		$("#listezone, #listeville").html("");
+		{% if heb is defined %}//hébergement
+			var province = $("#add_hebergement_province_id").val();
+		{% else %}//attrait
+			var province = $("#add_attrait_province_id").val();
+		{% endif %}
+			if(province != 0){
+			    $(".imgtriregion").show();
+			    var DATA = "province=" + province;
+			    $.ajax({
+			        type: "post",
+			    	url: "{{ path('_triregionajax') }}",
+			        data: DATA,
+			        cache: false,
+			        success: function(data){
+			           $('.region_id').html(data);
+			           $(".imgtriregion").hide();
+			           $(".region_id").first().prev("label").remove();
+			        }
+			    });  
+			    return false;
+			}
+		});
+		
+		//Traitement pour les zones en ajax
+		$(".imgtrizone").hide();
+		$("select#listeregion").change(function(){ 
+			var region = $("#listeregion").val();
+			if(region != 0){
+			    $(".imgtrizone").show();
+			    var DATA = "region=" + region;
+			    $.ajax({
+			        type: "post",
+			    	url: "{{ path('_trizoneajax') }}",
+			        data: DATA,
+			        cache: false,
+			        success: function(data){
+			           $('.zone_id').html(data);
+			           $(".imgtrizone").hide();
+			           $(".zone_id").first().prev("label").remove();
+			        }
+			    });  
+			    return false;
+			}
+		});
+	});
+</script>
+
+

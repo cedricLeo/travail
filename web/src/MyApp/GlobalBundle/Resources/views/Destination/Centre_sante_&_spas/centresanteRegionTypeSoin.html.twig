@@ -1,0 +1,392 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}	
+		<p class="legendeHome">{{ "centre.sante.spa" | trans }} {% for w in clientAleatoire.typesoinsid %} {% if app.request.locale == "fr" %} {{ w.nomfr|lower }} région {{ clientAleatoire.regionid.nomfr }} {% else %} {{ w.nomen|lower }} region {{ clientAleatoire.regionid.nomen }} {% endif %} {% endfor %} </p>
+	{# div qui va contenir la photo principal du sujet de la section #}
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+				<h1> {% for w in clientAleatoire.typesoinsid %} {% if app.request.locale == "fr" %} {{ w.nomfr }} région {{ clientAleatoire.regionid.nomfr }} {% else %} {{ w.nomen }} region {{ clientAleatoire.regionid.nomen }} {% endif %} {% endfor %}</h1>
+			{% if app.request.locale == "fr" %}
+				<h3><a href="{{ clientAleatoire.regionid.urlfr }}/{{ clientAleatoire.zoneid.repertoirefr }}/{{ clientAleatoire.repertoirefr|lower }}" target="_blank" title="{{ "centresante.clientaleatoire" | trans }} {{ clientAleatoire.nomfr }} région {{ clientAleatoire.regionid.nomfr }}">{{ "centresante.clientaleatoire" | trans }} {{ clientAleatoire.nomfr }} - {{ clientAleatoire.regionid.nomfr }}</a></h3>
+			</div>
+				{% if clientAleatoire.photopayante is not empty %}
+		  			<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ "centresante.clientaleatoire" | trans }} {{ clientAleatoire.nomfr }} - {{ clientAleatoire.regionid.nomfr }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+				{% endif %}
+			{% else %}
+				<h3><a href="{{ clientAleatoire.regionid.urlen }}/{{ clientAleatoire.zoneid.repertoireen }}/{{ clientAleatoire.repertoireen|lower }}" target="_blank" title="{{ "centresante.clientaleatoire" | trans }} {{ clientAleatoire.nomen }} region {{ clientAleatoire.regionid.nomen }}">{{ "centresante.clientaleatoire" | trans }} {{ clientAleatoire.nomen }} - {{ clientAleatoire.regionid.nomen }}</a></h3>
+			</div>
+				{% if clientAleatoire.photopayante is not empty %}
+		  			<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ "centresante.clientaleatoire" | trans }} {{ clientAleatoire.nomen }} - {{ clientAleatoire.regionid.nomen }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+				{% endif %}
+			{% endif %}
+		</div>
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		
+		{% block body %}
+			  {# NOS SUGGESTIONS #}
+				<div class="colonnes4">
+				  <h4>{{ "nos.suggestions.endroit.soin.province" | trans }}  {% for w in clientAleatoire.typesoinsid %} {% if app.request.locale == "fr" %} {{ w.nomfr|lower }} région {{ clientAleatoire.regionid.nomfr }}  {% else %} {{ w.nomen|lower }}  region {{ clientAleatoire.regionid.nomen }} {% endif %} {% endfor %}</h4>
+				     {% if app.request.locale == "fr" %}
+					      <div> 
+					        {% for q in clientAleatoire.typesoinsid %}
+					        	{% for x in regionSuggestion %}
+					        		{% if loop.index == 1 %}
+							      	<a href="{{ path('_typedesoinregion',{'name':q.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ q.nomfr }} {{ x.nomfr }}"><img src="{{ asset('bundles/myappglobal/images/massotherapie1.jpg') }}" alt="{{ q.nomfr }} {{ x.nomfr }}" class="img_categoie_portail" /></a>
+							        <h3><a href="{{ path('_typedesoinregion',{'name':q.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ q.nomfr }} {{ x.nomfr }}">{{ x.nomfr }}</a></h3>
+						        	{% endif %} 
+						        {% endfor %}
+						        <ul>
+						        	{% for w in suggestion1 %}						        
+									      <li><a href="{{ w.regionid.urlfr }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr|lower }}" target="_blank" title="{{ q.nomfr }} {{ w.nomfr }}">{{ w.nomfr }}</a></li>
+								          <dt><a href="{{ w.regionid.urlfr }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr|lower }}" target="_blank" title="{{ q.nomfr }} {{ w.nomfr }}">{{ w.nomfr }}</a></dt>
+							        {% endfor %}
+						        </ul>
+						        {% for x in regionSuggestion %}
+						        	{% if loop.index == 1 %}
+						        		<h2><a href="{{ path('_typedesoinregion',{'name':q.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ q.nomfr }} {{ x.nomfr }}">{{ q.nomfr }} {{ x.nomfr }}</a></h2>
+						      		{% endif %} 
+						      	{% endfor %}
+					      	{% endfor %}
+					      </div>
+					      {% if suggestion2 is not empty %}
+					      	  {% for q in clientAleatoire.typesoinsid %}
+					      	  	 {% for x in regionSuggestion %}
+					      	  	  	{% if loop.index == 2 %}
+							      		<div> <a href="{{ path('_typedesoinregionen',{'name':w.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ q.nomfr }} {{ x.nomfr }}"><img src="{{ asset('bundles/myappglobal/images/massotherapie1.jpg') }}" alt="{{ q.nomfr }} {{ x.nomfr }}" class="img_categoie_portail" /></a>
+							        	<h3><a href="{{ path('_typedesoinregionen',{'name':w.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ q.nomfr }} {{ x.nomfr }}">{{ x.nomfr }}</a></h3>
+							        {% endif %} 
+							     {% endfor %}
+							        <ul>
+							        	{% for w in suggestion2 %}
+										      <li><a href="{{ w.regionid.urlfr }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr|lower }}" target="_blank" title="{{ q.nomfr }} {{ w.nomfr }}">{{ w.nomfr }}</a></li>
+									          <dt><a href="{{ w.regionid.urlfr }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr|lower }}" target="_blank" title="{{ q.nomfr }} {{ w.nomfr }}">{{ w.nomfr }}</a></dt>
+								        {% endfor %}
+							        </ul>
+							        {% for x in regionSuggestion %}
+							        	{% if loop.index == 2 %}
+							        		<h2><a href="{{ path('_typedesoinregionen',{'name':w.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ w.nomfr }} {{ x.nomfr }}">{{ w.nomfr }} {{ x.nomfr }}</a></h2>
+							      		{% endif %} 
+							      	{% endfor %}
+							      </div>
+					      	  {% endfor %}
+					      {% endif %}
+					      {% if suggestion3 is not empty %}
+						       {% for q in clientAleatoire.typesoinsid %}
+						       	   {% for x in regionSuggestion %}
+						       	   		{% if loop.index == 3 %}
+							     			 <div> <a href="{{ path('_typedesoinregionen',{'name':w.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ q.nomfr }} {{ x.nomfr }}"><img src="{{ asset('bundles/myappglobal/images/massotherapie1.jpg') }}" alt="{{ q.nomfr }} {{ x.nomfr }}" class="img_categoie_portail" /></a>
+							       			 <h3><a href="{{ path('_typedesoinregionen',{'name':w.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ q.nomfr }} {{ x.nomfr }}">{{ x.nomfr }}</a></h3>
+							       		{% endif %} 
+							       {% endfor %}
+							        <ul>
+							        	{% for w in suggestion2 %}
+										      <li><a href="{{ w.regionid.urlfr }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr|lower }}" target="_blank" title="{{ q.nomfr }} {{ w.nomfr }}">{{ w.nomfr }}</a></li>
+									          <dt><a href="{{ w.regionid.urlfr }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr|lower }}" target="_blank" title="{{ q.nomfr }} {{ w.nomfr }}">{{ w.nomfr }}</a></dt>
+								        {% endfor %}
+							        </ul>
+							        {% for x in regionSuggestion %}
+							        	{% if loop.index == 3 %}
+							        		<h2><a href="{{ path('_typedesoinregionen',{'name':w.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ w.nomfr }} {{ x.nomfr }}">{{ w.nomfr }} {{ x.nomfr }}</a></h2>
+							      		{% endif %} 
+							      	{% endfor %}
+							      </div>
+					      	  {% endfor %}
+					      {% endif %}
+					      {% if suggestion4 is not empty %}
+						       {% for q in clientAleatoire.typesoinsid %}
+						       		{% for x in regionSuggestion %}
+						       			{% if loop.index == 4 %}
+							      			<div> <a href="{{ path('_typedesoinregionen',{'name':w.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ q.nomfr }} {{ x.nomfr }}"><img src="{{ asset('bundles/myappglobal/images/massotherapie1.jpg') }}" alt="{{ q.nomfr }} {{ x.nomfr }}" class="img_categoie_portail" /></a>
+							       			 <h3><a href="{{ path('_typedesoinregionen',{'name':w.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ q.nomfr }} {{ x.nomfr }}">{{ x.nomfr }}</a></h3>
+							       		{% endif %} 
+							       	{% endfor %}
+							        <ul>
+							        	{% for w in suggestion2 %}
+										      <li><a href="{{ w.regionid.urlfr }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr|lower }}" target="_blank" title="{{ q.nomfr }} {{ w.nomfr }}">{{ w.nomfr }}</a></li>
+									          <dt><a href="{{ w.regionid.urlfr }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr|lower }}" target="_blank" title="{{ q.nomfr }} {{ w.nomfr }}">{{ w.nomfr }}</a></dt>
+								        {% endfor %}
+							        </ul>
+							        {% for x in regionSuggestion %}
+							        	{% if loop.index == 4 %}
+							        		<h2><a href="{{ path('_typedesoinregionen',{'name':w.repertoirefr|lower, 'region':x.repertoirefr|lower}) }}" title="{{ w.nomfr }} {{ x.nomfr }}">{{ w.nomfr }} {{ x.nomfr }}</a></h2>
+							      		{% endif %} 
+							      	{% endfor %}
+							      </div>
+					      	  {% endfor %}
+					      {% endif %}
+				     {% else %}
+				     	 {% for q in clientAleatoire.typesoinsid %}
+					     	  <div> 
+					     		{% for x in regionSuggestion %}
+					     			{% if loop.index == 1 %}
+					     				<a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ q.nomen }} {{ x.nomen }}"><img src="{{ asset('bundles/myappglobal/images/massotherapie1.jpg') }}" alt="{{ q.nomen }} {{ x.nomen }}" class="img_categoie_portail" /></a>
+						       			<h3><a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ q.nomen }} {{ x.nomen }}">{{ x.nomen }}</a></h3>
+						        	{% endif %} 
+						        {% endfor %}
+						        <ul>
+						        	{% for w in suggestion1 %}
+									      <li><a href="{{ w.regionid.urlen }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen|lower }}" target="_blank" title="{{ q.nomen }} {{ w.nomen }}">{{ w.nomen }}</a></li>
+								          <dt><a href="{{ w.regionid.urlen }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen|lower }}" target="_blank" title="{{ q.nomen }} {{ w.nomen }}">{{ w.nomen }}</a></dt>
+							        {% endfor %}
+						        </ul>
+						        {% for x in regionSuggestion %}
+						        	{% if loop.index == 1 %}
+						        		<h2><a href="{{ path('_typedesoinregionen',{'name':w.nrepertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ w.nomen }} {{ x.nomen }}">{{ w.nomen }} {{ x.nomen }}</a></h2>
+						      		{% endif %} 
+						      	{% endfor %}
+					      	  </div>
+					      {% endfor %}
+					      {% for q in clientAleatoire.typesoinsid %}
+					      	  {% for x in regionSuggestion %}
+					      	  	  {% if loop.index == 2 %}
+								      <div> <a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ w.nomen }} {{ x.nomen }}"><img src="{{ asset('bundles/myappglobal/images/massotherapie1.jpg') }}" alt="{{ q.nomen }} {{ x.nomen }}" class="img_categoie_portail" /></a>
+								      <h3><a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ w.nomen }} {{ x.nomen }}">{{ x.nomen }}</a></h3>
+								  {% endif %} 
+							 {% endfor %}
+						        <ul>
+						        	{% for w in suggestion2 %}
+									      <li><a href="{{ w.regionid.urlen }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen|lower }}" target="_blank" title="{{ q.nomen }} {{ w.nomen }}">{{ w.nomen }}</a></li>
+								          <dt><a href="{{ w.regionid.urlen }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen|lower }}" target="_blank" title="{{ q.nomen }} {{ w.nomen }}">{{ w.nomen }}</a></dt>
+							        {% endfor %}
+						        </ul>
+						        {% for x in regionSuggestion %}
+						        	{% if loop.index == 2 %}
+						        		<h2><a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ w.nomen }} {{ x.nomen }}">{{ w.nomen }} {{ x.nomen }}</a></h2>
+						      		{% endif %} 
+						      	{% endfor %}
+						      </div>
+					      {% endfor %}
+					      {% for q in clientAleatoire.typesoinsid %}
+					      	  {% for x in regionSuggestion %}
+					      	  	  {% if loop.index == 3 %}
+								      <div> <a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ w.nomen }} {{ x.nomen }}"><img src="{{ asset('bundles/myappglobal/images/massotherapie1.jpg') }}" alt="{{ q.nomen }} {{ x.nomen }}" class="img_categoie_portail" /></a>
+								      <h3><a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ w.nomen }} {{ x.nomen }}">{{ x.nomen }}</a></h3>
+								  {% endif %} 
+							 {% endfor %}
+						        <ul>
+						        	{% for w in suggestion2 %}
+									      <li><a href="{{ w.regionid.urlen }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen|lower }}" target="_blank" title="{{ q.nomen }} {{ w.nomen }}">{{ w.nomen }}</a></li>
+								          <dt><a href="{{ w.regionid.urlen }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen|lower }}" target="_blank" title="{{ q.nomen }} {{ w.nomen }}">{{ w.nomen }}</a></dt>
+							        {% endfor %}
+						        </ul>
+						        {% for x in regionSuggestion %}
+						        	{% if loop.index == 3 %}
+						        		<h2><a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ w.nomen }} {{ x.nomen }}">{{ w.nomen }} {{ x.nomen }}</a></h2>
+						      		{% endif %} 
+						      	{% endfor %}
+						      </div>
+					      {% endfor %}
+					       {% for q in clientAleatoire.typesoinsid %}
+					      	  {% for x in regionSuggestion %}
+					      	  	  {% if loop.index == 4 %}
+								      <div> <a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ w.nomen }} {{ x.nomen }}"><img src="{{ asset('bundles/myappglobal/images/massotherapie1.jpg') }}" alt="{{ q.nomen }} {{ x.nomen }}" class="img_categoie_portail" /></a>
+								      <h3><a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ w.nomen }} {{ x.nomen }}">{{ x.nomen }}</a></h3>
+								  {% endif %} 
+							 {% endfor %}
+						        <ul>
+						        	{% for w in suggestion2 %}
+									      <li><a href="{{ w.regionid.urlen }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen|lower }}" target="_blank" title="{{ q.nomen }} {{ w.nomen }}">{{ w.nomen }}</a></li>
+								          <dt><a href="{{ w.regionid.urlen }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen|lower }}" target="_blank" title="{{ q.nomen }} {{ w.nomen }}">{{ w.nomen }}</a></dt>
+							        {% endfor %}
+						        </ul>
+						        {% for x in regionSuggestion %}
+						        	{% if loop.index == 4 %}
+						        		<h2><a href="{{ path('_typedesoinregionen',{'name':w.repertoireen|lower, 'region':x.repertoireen|lower}) }}" title="{{ w.nomen }} {{ x.nomen }}">{{ w.nomen }} {{ x.nomen }}</a></h2>
+						      		{% endif %} 
+						      	{% endfor %}
+						      </div>
+					      {% endfor %}
+				     {% endif %}
+				     <br class="clearfloat" />
+				 </div>
+				 {# PUB GOOGLE #}
+				  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+				  	<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('zone_01'); });
+					</script>
+				  </div>
+				  <div class="pages" >
+					  <ul>
+				       	{% if app.request.locale == "fr" %}
+				       		{% if displaypage == 1 %}
+				      	 	Résultats de 1 à {{ total }}
+				      	 	{% elseif page < displaypage %}
+					      	 	{% for p in region %}
+					      	 		{% for w in p.typesoinsid %}
+					       				<li><a href="{{ path('_typedesoinregion',{'name': w.repertoirefr|lower, 'region':p.regionid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+					       				<li><a href="{{ path('_typedesoinregion',{'name': w.repertoirefr|lower, 'region':p.regionid.repertoirefr|lower ,'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+									{% endfor %}
+					      	 	{% endfor %}
+				      	 	{% elseif page == displaypage and displaypage > 1 %}
+					      	 	{% for p in region %}
+					      	 		{% for w in p.typesoinsid %}
+					       				<li><a href="{{ path('_typedesoinregion',{'name': w.repertoirefr|lower, 'region':p.regionid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+					       			{% endfor %}
+					      	 	{% endfor %}
+				      	 	{% elseif page > displaypage  %}
+					      	 	{% for p in region %}
+					      	 		{% for w in p.typessoinsid %}
+					       				<li><a href="{{ path('_typedesoinregion',{'name': w.repertoirefr|lower, 'region':p.regionid.repertoirefr|lower , 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+					       			{% endfor %}
+					      	 	{% endfor %}
+				       		{% endif %}
+				       	{% else %}
+				       		{% if displaypage == 1 %}
+				      	 	Result of 1 to {{ total }}
+				      	 	{% elseif page < displaypage %}
+				      	 		{% for p in region %}
+					      	 		{% for w in p.typesoinsid %}
+					       				<li><a href="{{ path('_typedesoinregionen',{'name': w.repertoireen|lower, 'region':p.regionid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+					       				<li><a href="{{ path('_typedesoinregionen',{'name': w.repertoireen|lower, 'region':p.regionid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+					       			{% endfor %}
+					      	 	{% endfor %}
+				      	 	{% elseif page == displaypage and displaypage > 1 %}
+				      	 		{% for p in region %}
+					      	 		{% for w in p.typesoinsid %}
+					       				<li><a href="{{ path('_typedesoinregionen',{'name': w.repertoireen|lower, 'region':p.regionid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+					       			{% endfor %}
+					      	 	{% endfor %}
+				      	 	{% elseif page > displaypage %}
+				      	 		{% for p in region %}
+					      	 		{% for w in p.typesoinsid %}
+					       				<li><a href="{{ path('_typedesoinregionene',{'name': w.repertoireen|lower, 'region':p.regionid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+					       			{% endfor %}
+					      	 	{% endfor %}
+				       		{% endif %}
+				       	{% endif %}
+				       </ul>
+				  </div>
+				  <div class="liste">
+					  {% if app.request.locale == "fr" %}
+				       	<div> 
+				       		{% for x in region %}
+				       			{% for q in clientAleatoire.typesoinsid %}
+						       		<a href="{{ x.regionid.urlfr }}/{{ x.zoneid.repertoirefr }}/{{ x.repertoirefr }}" target="_blank" title="{{ q.nomfr }} {{ x.nomfr }}"><img class="ph" src="{{ asset('uploads/attrait') }}/{{ x.id }}/{{ x.image }}" width="187" height="127" alt="{{ x.nomfr }}" /></a>
+						         	<div class="listetexte">
+						         		<h2><a href="{{ x.regionid.urlfr }}/{{ x.zoneid.repertoirefr }}/{{ x.repertoirefr }}" target="_blank" title="{{ q.nomfr }} {{ x.nomfr }}">{{ x.nomfr }}</a></h2>
+										<p>{{ x.texteresumefr|striptags }}</p><p> <a href="{{ x.regionid.urlfr }}/{{ x.zoneid.repertoirefr }}/{{ x.repertoirefr }}" target="_blank" title="{{ q.nomfr }} {{ x.nomfr }}">Plus d'info sur {{ x.nomfr }}</a></p>
+									</div>
+								{% endfor %}
+							{% endfor %}
+				        </div>
+				      {% else %}
+				       <div> 
+				       		{% for x in region %}
+				       			{% for q in clientAleatoire.typesoinsid %}
+						       		<a href="{{ x.regionid.urlen }}/{{ x.zoneid.repertoireen }}/{{ x.repertoireen }}" target="_blank" title="{{ q.nomen }} {{ x.nomen }}"><img class="ph" src="{{ asset('uploads/attrait') }}/{{ x.id }}/{{ x.image }}" width="187" height="127" alt="{{ x.nomen }}" /></a>
+						         	<div class="listetexte">
+						         		<h2><a href="{{ x.regionid.urlen }}/{{ x.zoneid.repertoireen }}/{{ x.repertoireen }}" target="_blank" title="{{ q.nomen }} {{ x.nomen }}">{{ x.nomen }}</a></h2>
+										<p>{{ x.texteresumeen|striptags }}</p><p> <a href="{{ x.regionid.urlen }}/{{ x.zoneid.repertoireen }}/{{ x.repertoireen }}" target="_blank" title="{{ q.nomen }} {{ x.nomen }}">More information  {{ x.nomen }}</a></p>
+									</div>
+								{% endfor %}
+							{% endfor %}
+				        </div>
+				      {% endif %}
+			      </div>
+			      <div class="pages" >
+			      	<ul>
+			       	{% if app.request.locale == "fr" %}
+			       		{% if displaypage == 1 %}
+			      	 	Résultats de 1 à {{ total }}
+			      	 	{% elseif page < displaypage %}
+				      	 	{% for p in region %}
+				      	 		{% for w in p.typesoinsid %}
+				       				<li><a href="{{ path('_typedesoinregion',{'name': w.repertoirefr, 'region':p.regionid.repertoirefr, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+				       				<li><a href="{{ path('_typedesoinregion',{'name': w.repertoirefr, 'region':p.regionid.repertoirefr ,'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+								{% endfor %}
+				      	 	{% endfor %}
+			      	 	{% elseif page == displaypage and displaypage > 1 %}
+				      	 	{% for p in region %}
+				      	 		{% for w in p.typesoinsid %}
+				       				<li><a href="{{ path('_typedesoinregion',{'name': w.repertoirefr, 'region':p.regionid.repertoirefr, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+				       			{% endfor %}
+				      	 	{% endfor %}
+			      	 	{% elseif page > displaypage  %}
+				      	 	{% for p in region %}
+				      	 		{% for w in p.typessoinsid %}
+				       				<li><a href="{{ path('_typedesoinregion',{'name': w.repertoirefr, 'region':p.regionid.repertoirefr , 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+				       			{% endfor %}
+				      	 	{% endfor %}
+			       		{% endif %}
+			       	{% else %}
+			       		{% if displaypage == 1 %}
+			      	 	Result of 1 to {{ total }}
+			      	 	{% elseif page < displaypage %}
+			      	 		{% for p in region %}
+				      	 		{% for w in p.typesoinsid %}
+				       				<li><a href="{{ path('_typedesoinregionen',{'name': w.repertoireen, 'region':p.regionid.repertoireen, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+				       				<li><a href="{{ path('_typedesoinregionen',{'name': w.repertoireen, 'region':p.regionid.repertoireen, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+				       			{% endfor %}
+				      	 	{% endfor %}
+			      	 	{% elseif page == displaypage and displaypage > 1 %}
+			      	 		{% for p in region %}
+				      	 		{% for w in p.typesoinsid %}
+				       				<li><a href="{{ path('_typedesoinregionen',{'name': w.repertoireen, 'region':p.regionid.repertoireen, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+				       			{% endfor %}
+				      	 	{% endfor %}
+			      	 	{% elseif page > displaypage %}
+			      	 		{% for p in region %}
+				      	 		{% for w in p.typesoinsid %}
+				       				<li><a href="{{ path('_typedesoinregionene',{'name': w.repertoireen, 'region':p.regionid.repertoireen, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+				       			{% endfor %}
+				      	 	{% endfor %}
+			       		{% endif %}
+			       	{% endif %}
+			       </ul>
+				</div>
+		{% endblock %}
+		
+		{% block gauche %}
+			{# Implémentation de la recherche par carte #}
+	         	{% include '::searchCard.html.twig' %}
+			{# Implémentation des suggestions pour les centre de santé #}
+			{# {% include 'MyAppGlobalBundle:Centre_sante_&_spas:nosSuggestionCentreSante.html.twig' %}#}
+			{# PUB GOOGLE #}
+				<div id="zone_02" class="bigBox">
+					<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('zone_02'); });
+					</script>
+				</div>
+			{% if app.request.locale == "fr" %}
+				 <div class="region">	
+				 {% for q in clientAleatoire.typesoinsid %}		 
+			  		<h3>Choisir la ville où profiter du soin {{ q.nomfr|lower }} dans la région {{ clientAleatoire.regionid.nomfr }}</h3>
+					  <ul>
+					    <dt>{{ clientAleatoire.regionid.nomfr }}</dt>
+					    {% for p in listeResultat %}
+					    		<li><a href="{{ path('_typedesoinville',{'name':q.repertoirefr|lower , 'ville':p.villeid.repertoirefr|lower }) }}">{{ p.villeid.nomfr }}</a></li>
+					    {% endfor %}
+					    </ul>
+				 {% endfor %}
+					<br class="clearfloat" />
+				</div>
+				  	<img src="{{ asset('bundles/myappglobal/images/telephoneGauche.jpg') }}" width="304" height="65" alt="Réservation ou plus d'information 1 877 778 8977 ou 1 418 266 2165"/>
+			{% else %}
+				<div class="region">	
+				{% for q in clientAleatoire.typesoinsid %}		 
+			  		<h3>Choose the city where you can enjoy the care {{ q.nomen|lower }} of the region {{ clientAleatoire.regionid.nomen }}</h3>
+					  <ul>
+					    <dt>{{ clientAleatoire.regionid.nomen }}</dt>
+					    {% for p in listeResultat %}
+					    		<li><a href="{{ path('_typedesoinville',{'name':q.repertoireen|lower , 'ville':p.villeid.repertoireen|lower }) }}">{{ p.villeid.nomen }}</a></li>
+					    {% endfor %}
+					    </ul>
+				{% endfor %}
+				    <br class="clearfloat" />
+				</div>
+					<img src="{{ asset('bundles/myappglobal/images/telephoneGaucheEn.png') }}" width="304" height="65" alt="Reservation or more information 1 877 778 8977 or 1 418 266 2165 "/>
+			{% endif %}
+		{% endblock %}

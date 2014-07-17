@@ -1,0 +1,5 @@
+User-Agent: * 
+Disallow : /admin
+Disallow : /client
+Disallow : /login
+Sitemap: http://www.global-reservation.com/sitemap.xml/

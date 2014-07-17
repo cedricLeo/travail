@@ -1,0 +1,83 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist is defined %}
+	<h1>Ajouter un client</h1>
+{% else %}
+	{% if exist is not defined %}
+	<h1>Modification du client « {{ infonom }} »</h1>
+	{% endif %}
+{% endif %} 
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_customer" id="client_ajout">	
+					 <p class="resize_p_form">&nbsp;</p>
+					 <br />
+					{{ form_label(form.username, "N° interne", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.username, {'attr':{'class':'txt_add_state'}}) }}	
+                                        {{ form_label(form.password, "Mot de passe", {'attr':{'class':'lblnompays '}}) }}
+                                        {{ form_widget(form.password, {'attr':{'class':'txt_add_state'}}) }}	
+                                        {{ form_label(form.reset_password, "Changer le mot de passe", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+                                        {{ form_widget(form.reset_password, {'attr':{'class':'checkbox'}}) }}	
+                                        {{ form_label(form.nom, "Nom", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.nom, {'attr':{'class':'txt_add_state'}}) }}
+                                        {{ form_label(form.adresse, "Adresse", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.adresse, {'attr':{'class':'txt_add_state'}}) }}
+                                        {{ form_label(form.code_postal, "Code postal", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.code_postal, {'attr':{'class':'txt_add_state', "maxlength":"7"}}) }}
+                                        {{ form_label(form.villes, "Ville", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.villes, {'attr':{'class':'txt_add_state'}}) }}
+                                        {{ form_label(form.telephone, "Téléphone", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.telephone, {'attr':{'class':'txt_add_state', "maxlength":"22"}}) }}
+                                        {{ form_label(form.telephone_poste, "Poste", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.telephone_poste, {'attr':{'class':'txt_add_state'}}) }}
+                                        {{ form_label(form.sans_frais, "Sans frais", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.sans_frais, {'attr':{'class':'txt_add_state', "maxlength":"22"}}) }}
+                                        {{ form_label(form.telecopieur, "Télécopieur", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.telecopieur, {'attr':{'class':'txt_add_state', "maxlength":"22"}}) }}
+                                        {{ form_label(form.siteweb, "Site web", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.siteweb, {'attr':{'class':'txt_add_state'}}) }}
+					   {% if exist is defined %}
+					    <script>
+                                                document.getElementById('add_customer_password').setAttribute("required","required");
+                                                document.getElementById('add_customer_reset_password').setAttribute("checked","checked");
+					    </script>	
+					   {% else %}
+					    <script>
+						document.getElementById('add_customer_reset_password').removeAttribute('checked');
+					    </script>
+					   {% endif %}	
+					   {% if infonom is not empty %}
+					    <script>
+						document.getElementById('add_customer_password').removeAttribute('required');
+					    </script>
+					   {% endif %}    				    
+                                        {{ form_label(form.email, "Courriel", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.email, {'attr':{'class':'txt_add_state'}}) }}				    			    
+                                        {{ form_label(form.isActive, "Actif ", {'attr':{'class':'lblnompays'}}) }}
+                                        {{ form_widget(form.isActive, {'attr':{'class':'txt_add_state'}}) }}  
+                                        {{ form_rest(form) }}
+					<br />
+					<script>
+					var cp = document.getElementById('add_customer_code_postal');
+					cp.onkeyup = function(){
+                                            this.value = this.value.toUpperCase();
+                                            if(cp.value.length == 3){
+                                                    this.value = this.value.toUpperCase()+"-";
+                                            }
+					}
+					$("#client_ajout div input, #client_ajout div select").addClass("txt_add_state");
+					$("#client_ajout div input#add_customer_reset_password").removeClass("txt_add_state").addClass("checkbox");
+                                        {% if displayPw is defined %}
+                                        $("#add_customer_password").val("{{ displayPw }}");
+                                        {% endif %}
+					</script>
+				    <input type="submit" value="" class="boutonvalidenregistrer"/>
+				    <a href="{{ path('_Dashboard_clients') }}" class="boutonannuler"></a>
+				</form>
+			   <br class="clearfloat">
+			</div>
+		</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,396 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}	
+		<p class="legendeHome">{{ "corpo.event.speciaux" | trans }} {{ "locationsallereunion" | trans |lower }} {% if app.request.locale == "fr" %} région {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }} {% else %} region {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }} {% endif %}</p>
+		{# div qui va contenir la photo principal du sujet de la section #}
+			<div id="photoprincipale">
+				<div class="nomSousCategorie">
+				{% if app.request.locale == "fr" %}
+				<h1> {{ "locationsallereunion" | trans }} région {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }}</h1>
+				<h3><a href="{{ path('_hebergementcorporatif',{'name':clientAleatoire.sallecorporativehebergement.repertoirefr|lower}) }}" title="{{ "locationsallereunion" | trans }} {{ clientAleatoire.sallecorporativehebergement.nomfr }}" target="_blank">{{ clientAleatoire.sallecorporativehebergement.nomfr }} - ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }}</a></h3>
+				{% else %}
+				<h1> {{ "locationsallereunion" | trans }} region {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }}</h1>
+				<h3><a href="{{ path('_hebergementcorporatif',{'name':clientAleatoire.sallecorporativehebergement.repertoireen|lower}) }}" title="{{ "locationsallereunion" | trans }} {{ clientAleatoire.sallecorporativehebergement.nomen }}" target="_blank">{{ clientAleatoire.sallecorporativehebergement.nomen }} - city {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }}</a></h3>
+				{% endif %}
+				</div>
+                            {% if clientAleatoire.sallecorporativehebergement.photopayante != null %}
+                                <img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.sallecorporativehebergement.id }}/{{ clientAleatoire.sallecorporativehebergement.photopayante }}" class="big_picture" alt="{{ "locationsallereunion" | trans }} {% if app.request.locale == "fr" %} {{ clientAleatoire.sallecorporativehebergement.nomfr }} {% else %} {{ clientAleatoire.sallecorporativehebergement.nomen }} {% endif %} " />
+                            {% else %}
+                                <div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" class="big_picture" {% if app.request.locale == "fr" %} alt="Image de remplacement pour {{ clientAleatoire.sallecorporativehebergement.nomfr }}" {% else %} alt="Replacement image for {{ clientAleatoire.sallecorporativehebergement.nomen }}" {% endif %}/></div>
+                            {% endif %}
+			</div>
+		{% endblock %}
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+                    {% if app.request.locale == "fr" %}
+                            <p>{{ texte_accueilfr|striptags|nl2br }}</p>
+                    {% else %}	
+                            <p>{{ texte_accueilen|striptags|nl2br }}</p>
+                    {% endif %}
+		{% endblock %}
+		{# Listes des 4 clients pour les suggestions #}
+		{% block body %} 
+			<div class="colonnes4">
+		      <h4>{{ "nos.suggestions.hebergement.salle.reunion" | trans }} {% if app.request.locale == "fr" %} région {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }} {% else %} region {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }} {% endif %}</h4>
+			   {# Les suggestions #}
+			   {% if app.request.locale == "fr" %}
+			     {% if regionSugg1 != "" %}
+				  <div>
+					<a href="{{ path('_hebergementinfoclient',{'name':regionSugg1.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg1.sallecorporativehebergement.nomfr }} région {{ regionSugg1.sallecorporativehebergement.regionid.nomfr }}">
+						{% if regionSugg1.sallecorporativehebergement.photocategoriepayante is not empty %}
+						<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ regionSugg1.sallecorporativehebergement.id }}/{{ regionSugg1.sallecorporativehebergement.photocategoriepayante }}" alt="{{ regionSugg1.sallecorporativehebergement.nomfr }}" class="img_categoie_portail" /></a>
+					 	{% else %}
+					 	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" alt="{{ regionSugg1.sallecorporativehebergement.nomfr }}" class="img_categoie_portail" /></a>
+					 	{% endif %}
+					  <div>
+					    <h3><a href="{{ path('_hebergementinfoclient',{'name':regionSugg1.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg1.sallecorporativehebergement.nomfr }} région {{ regionSugg1.sallecorporativehebergement.regionid.nomfr }}">{{ regionSugg1.sallecorporativehebergement.nomfr }}</a></h3>
+					    <ol>
+					    	<li>{{ listeClient1|length }} chambre{% if listeClient1|length > 1 %}s{% endif %}</li>
+					    	<li>{{ salleCorpo1|length }} salle{% if salleCorpo1|length > 1 %}s{% endif %} de réunion</li>
+					    </ol>
+					    	<p>ville de {{ regionSugg1.sallecorporativehebergement.villeid.nomfr }}</p>
+					    	{% for s in forfaitAffaire1 %}
+					    	<p>{{ s.nomfr }} à partir de {{ s.tarif|replace({"%$%":""}) }} $</p>
+					    	{% endfor %}
+					    	<p><a href="{{ path('_hebergementcorporatif',{'name':regionSugg1.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="Formulaire de demande d'information">Formulaire de demande d'information</a></p>
+					    <h2><a href="{{ path('_hebergementcorporatif',{'name':regionSugg1.sallecorporativehebergement.repertoirefr|lower}) }}#formuSugg" target="_blank">Information sur {% if salleCorpo1|length > 1 %}les salles{% else %}la salle{% endif %} de reunions</a></h2>
+					  </div>
+					    
+				  </div>
+				 {% endif %}
+				 {% if regionSugg2 != "" %}
+				 <div>
+					<a href="{{ path('_hebergementinfoclient',{'name':regionSugg2.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg2.sallecorporativehebergement.nomfr }} région {{ regionSugg2.sallecorporativehebergement.regionid.nomfr }}">
+						{% if regionSugg2.sallecorporativehebergement.photocategoriepayante is not empty %}
+						<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ regionSugg2.sallecorporativehebergement.id }}/{{ regionSugg2.sallecorporativehebergement.photocategoriepayante }}" alt="{{ regionSugg2.sallecorporativehebergement.nomfr }}" class="img_categoie_portail" /></a>
+					 	{% else %}
+					 	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" alt="{{ regionSugg2.sallecorporativehebergement.nomfr }}" class="img_categoie_portail" /></a>
+					 	{% endif %}
+					  <div>
+					    <h3><a href="{{ path('_hebergementinfoclient',{'name':regionSugg2.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg2.sallecorporativehebergement.nomfr }} région {{ regionSugg2.sallecorporativehebergement.regionid.nomfr }}">{{ regionSugg2.sallecorporativehebergement.nomfr }}</a></h3>
+					     <ol>
+					    	<li>{{ listeClient2|length }} chambre{% if listeClient2|length > 1 %}s{% endif %}</li>
+					    	<li>{{ salleCorpo2|length }} salle{% if salleCorpo2|length > 1 %}s{% endif %} de réunion</li>
+					    </ol>
+					    	<p>ville de {{ regionSugg2.sallecorporativehebergement.villeid.nomfr }}</p>
+					    	{% for s in forfaitAffaire1 %}
+					    	<p>{{ s.nomfr }} à partir de {{ s.tarif|replace({"%$%":""}) }} $</p>
+					    	{% endfor %}
+					    	<p><a href="{{ path('_hebergementcorporatif',{'name':regionSugg2.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="Formulaire de demande d'information">Formulaire de demande d'information</a></p>
+					     <h2><a href="{{ path('_hebergementcorporatif',{'name':regionSugg2.sallecorporativehebergement.repertoirefr|lower}) }}#formuSugg" target="_blank">Information sur {% if salleCorpo2|length > 1 %}les salles{% else %}la salle{% endif %} de reunions</a></h2>
+					  </div>
+				  </div>
+				 {% endif %}
+				 {% if regionSugg3 != "" %}
+				  <div>
+					<a href="{{ path('_hebergementinfoclient',{'name':regionSugg3.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg3.sallecorporativehebergement.nomfr }} région {{ regionSugg3.sallecorporativehebergement.regionid.nomfr }}">
+						{% if regionSugg3.sallecorporativehebergement.photocategoriepayante is not empty %}
+						<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ regionSugg3.sallecorporativehebergement.id }}/{{ regionSugg3.sallecorporativehebergement.photocategoriepayante }}" alt="{{ regionSugg3.sallecorporativehebergement.nomfr }}" class="img_categoie_portail" /></a>
+					 	{% else %}
+					 	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" alt="{{ regionSugg3.sallecorporativehebergement.nomfr }}" class="img_categoie_portail" /></a>
+					 	{% endif %}
+					  <div>
+					    <h3><a href="{{ path('_hebergementinfoclient',{'name':regionSugg3.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg3.sallecorporativehebergement.nomfr }} région {{ regionSugg3.sallecorporativehebergement.regionid.nomfr }}">{{ regionSugg3.sallecorporativehebergement.nomfr }}</a></h3>
+					     <ol>
+					    	<li>{{ listeClient3|length }} chambre{% if listeClient3|length > 1 %}s{% endif %}</li>
+					    	<li>{{ salleCorpo3|length }} salle{% if salleCorpo3|length > 1 %}s{% endif %} de réunion</li>
+					    </ol>
+					    	<p>ville de {{ regionSugg3.sallecorporativehebergement.villeid.nomfr }}</p>
+					    	{% for s in forfaitAffaire3 %}
+					    	<p>{{ s.nomfr }} à partir de {{ s.tarif|replace({"%$%":""}) }} $</p>
+					    	{% endfor %}
+					    	<p><a href="{{ path('_hebergementcorporatif',{'name':regionSugg13.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="Formulaire de demande d'information">Formulaire de demande d'information</a></p>
+					     <h2><a href="{{ path('_hebergementcorporatif',{'name':regionSugg3.sallecorporativehebergement.repertoirefr|lower}) }}#formuSugg" target="_blank">Information sur {% if salleCorpo3|length > 1 %}les salles{% else %}la salle{% endif %} de reunions</a></h2>
+					  </div>
+				  </div>
+				 {% endif %}
+				 {% if regionSugg4 != "" %}
+				  <div>
+					<a href="{{ path('_hebergementinfoclient',{'name':regionSugg4.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg4.sallecorporativehebergement.nomfr }} région {{ regionSugg4.sallecorporativehebergement.regionid.nomfr }}">
+						{% if regionSugg4.sallecorporativehebergement.photocategoriepayante is not empty %}
+						<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ regionSugg4.sallecorporativehebergement.id }}/{{ regionSugg4.sallecorporativehebergement.photocategoriepayante }}" alt="{{ regionSugg4.sallecorporativehebergement.nomfr }}" class="img_categoie_portail" /></a>
+					 	{% else %}
+					 	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" alt="{{ regionSugg4.sallecorporativehebergement.nomfr }}" class="img_categoie_portail" /></a>
+					 	{% endif %}
+					  <div>
+					    <h3><a href="{{ path('_hebergementinfoclient',{'name':regionSugg4.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg4.sallecorporativehebergement.nomfr }} région {{ regionSugg4.sallecorporativehebergement.regionid.nomfr }}">{{ regionSugg4.sallecorporativehebergement.nomfr }}</a></h3>
+					     <ol>
+					    	<li>{{ listeClient4|length }} chambre{% if listeClient4|length > 1 %}s{% endif %}</li>
+					    	<li>{{ salleCorpo4|length }} salle{% if salleCorpo4|length > 1 %}s{% endif %} de réunion</li>
+					    </ol>
+					    	<p>ville de {{ regionSugg4.sallecorporativehebergement.villeid.nomfr }}</p>
+					    	{% for s in forfaitAffaire4 %}
+					    	<p>{{ s.nomfr }} à partir de {{ s.tarif|replace({"%$%":""}) }} $</p>
+					    	{% endfor %}
+					    	<p><a href="{{ path('_hebergementcorporatif',{'name':regionSugg4.sallecorporativehebergement.repertoirefr|lower}) }}" target="_blank" title="Formulaire de demande d'information">Formulaire de demande d'information</a></p>
+					     <h2><a href="{{ path('_hebergementcorporatif',{'name':regionSugg4.sallecorporativehebergement.repertoirefr|lower}) }}#formuSugg" target="_blank">Information sur {% if salleCorpo4|length > 1 %}les salles{% else %}la salle{% endif %} de reunions</a></h2>
+					  </div>
+				  </div>
+				{% endif %}
+			 {% else %}
+			 {# VERSION ANGLAISE #}
+				{% if regionSugg1 != "" %}
+				  <div>
+					<a href="{{ path('_hebergementinfoclient',{'name':regionSugg1.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg1.sallecorporativehebergement.nomen }} region {{ regionSugg1.sallecorporativehebergement.regionid.nomen }}">
+						{% if regionSugg1.sallecorporativehebergement.photocategoriepayante is not empty %}
+						<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ regionSugg1.sallecorporativehebergement.id }}/{{ regionSugg1.sallecorporativehebergement.photocategoriepayante }}" alt="{{ regionSugg1.sallecorporativehebergement.nomfr }}" class="img_categoie_portail" /></a>
+					 	{% else %}
+					 	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" alt="{{ regionSugg1.sallecorporativehebergement.nomen }}" class="img_categoie_portail" /></a>
+					 	{% endif %}
+					  <div>
+					    <h3><a href="{{ path('_hebergementinfoclient',{'name':regionSugg1.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg1.sallecorporativehebergement.nomen }} region {{ regionSugg1.sallecorporativehebergement.regionid.nomen }}">{{ regionSugg1.sallecorporativehebergement.nomen }}</a></h3>
+					    <ol>
+					    	<li>{{ listeClient1|length }} room{% if listeClient1|length > 1 %}s{% endif %}</li>
+					    	<li>{{ salleCorpo1|length }} salle{% if salleCorpo1|length > 1 %}s{% endif %} de réunion</li>
+					    </ol>
+					    	<p>ville de {{ regionSugg1.sallecorporativehebergement.villeid.nomen }}</p>
+					    	{% for s in forfaitAffaire1 %}
+					    	<p>{{ s.nomen }} à partir de {{ s.tarif|replace({"%$%":""}) }} $</p>
+					    	{% endfor %}
+					    	<p><a href="{{ path('_hebergementcorporatif',{'name':regionSugg1.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="Application information">Application information</a></p>
+					    <h2><a href="{{ path('_hebergementcorporatif',{'name':regionSugg1.sallecorporativehebergement.repertoireen|lower}) }}#formuSugg" target="_blank" title="Information meeting room">Information meeting {% if salleCorpo1|length > 1 %} rooms{% else %}room{% endif %} </a></h2>
+					  </div>
+					    
+				  </div>
+				 {% endif %}
+				 {% if regionSugg2 != "" %}
+				 <div>
+					<a href="{{ path('_hebergementinfoclient',{'name':regionSugg2.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg2.sallecorporativehebergement.nomen }} region {{ regionSugg2.sallecorporativehebergement.regionid.nomen }}">
+						{% if regionSugg2.sallecorporativehebergement.photocategoriepayante is not empty %}
+						<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ regionSugg2.sallecorporativehebergement.id }}/{{ regionSugg2.sallecorporativehebergement.photocategoriepayante }}" alt="{{ regionSugg2.sallecorporativehebergement.nomen }}" class="img_categoie_portail" /></a>
+					 	{% else %}
+					 	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" alt="{{ regionSugg2.sallecorporativehebergement.nomen }}" class="img_categoie_portail" /></a>
+					 	{% endif %}
+					  <div>
+					    <h3><a href="{{ path('_hebergementinfoclient',{'name':regionSugg2.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg2.sallecorporativehebergement.nomen }} region {{ regionSugg2.sallecorporativehebergement.regionid.nomen }}">{{ regionSugg2.sallecorporativehebergement.nomen }}</a></h3>
+					     <ol>
+					    	<li>{{ listeClient2|length }} chambre{% if listeClient2|length > 1 %}s{% endif %}</li>
+					    	<li>{{ salleCorpo2|length }} salle{% if salleCorpo2|length > 1 %}s{% endif %} de réunion</li>
+					    </ol>
+					    	<p>ville de {{ regionSugg2.sallecorporativehebergement.villeid.nomen }}</p>
+					    	{% for s in forfaitAffaire1 %}
+					    	<p>{{ s.nomen }} à partir de {{ s.tarif|replace({"%$%":""}) }} $</p>
+					    	{% endfor %}
+					    	<p><a href="{{ path('_hebergementcorporatif',{'name':regionSugg2.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="Application information">Application information</a></p>
+					     <h2><a href="{{ path('_hebergementcorporatif',{'name':regionSugg2.sallecorporativehebergement.repertoireen|lower}) }}#formuSugg" target="_blank" title="Information meeting room">Information meeting {% if salleCorpo2|length > 1 %} rooms{% else %}room{% endif %} </a></h2>
+					  </div>
+				  </div>
+				 {% endif %}
+				 {% if regionSugg3 != "" %}
+				  <div>
+					<a href="{{ path('_hebergementinfoclient',{'name':regionSugg3.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg3.sallecorporativehebergement.nomen }} region {{ regionSugg3.sallecorporativehebergement.regionid.nomen }}">
+						{% if regionSugg3.sallecorporativehebergement.photocategoriepayante is not empty %}
+						<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ regionSugg3.sallecorporativehebergement.id }}/{{ regionSugg3.sallecorporativehebergement.photocategoriepayante }}" alt="{{ regionSugg3.sallecorporativehebergement.nomen }}" class="img_categoie_portail" /></a>
+					 	{% else %}
+					 	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" alt="{{ regionSugg3.sallecorporativehebergement.nomen }}" class="img_categoie_portail" /></a>
+					 	{% endif %}
+					  <div>
+					    <h3><a href="{{ path('_hebergementinfoclient',{'name':regionSugg3.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg3.sallecorporativehebergement.nomen }} region {{ regionSugg3.sallecorporativehebergement.regionid.nomen }}">{{ regionSugg3.sallecorporativehebergement.nomen }}</a></h3>
+					     <ol>
+					    	<li>{{ listeClient3|length }} chambre{% if listeClient3|length > 1 %}s{% endif %}</li>
+					    	<li>{{ salleCorpo3|length }} salle{% if salleCorpo3|length > 1 %}s{% endif %} de réunion</li>
+					    </ol>
+					    	<p>ville de {{ regionSugg3.sallecorporativehebergement.villeid.nomfr }}</p>
+					    	{% for s in forfaitAffaire3 %}
+					    	<p>{{ s.nomfr }} à partir de {{ s.tarif|replace({"%$%":""}) }} $</p>
+					    	{% endfor %}
+					    	<p><a href="{{ path('_hebergementcorporatif',{'name':regionSugg13.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="Application information">Application information</a></p>
+					     <h2><a href="{{ path('_hebergementcorporatif',{'name':regionSugg3.sallecorporativehebergement.repertoireen|lower}) }}#formuSugg" target="_blank" title="Information meeting room">Information meeting {% if salleCorpo3|length > 1 %} rooms{% else %}room{% endif %} </a></h2>
+					  </div>
+				  </div>
+				 {% endif %}
+				 {% if regionSugg4 != "" %}
+				  <div>
+					<a href="{{ path('_hebergementinfoclient',{'name':regionSugg4.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg4.sallecorporativehebergement.nomen }} region {{ regionSugg4.sallecorporativehebergement.regionid.nomen }}">
+						{% if regionSugg4.sallecorporativehebergement.photocategoriepayante is not empty %}
+						<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ regionSugg4.sallecorporativehebergement.id }}/{{ regionSugg4.sallecorporativehebergement.photocategoriepayante }}" alt="{{ regionSugg4.sallecorporativehebergement.nomen }}" class="img_categoie_portail" /></a>
+					 	{% else %}
+					 	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" alt="{{ regionSugg4.sallecorporativehebergement.nomen }}" class="img_categoie_portail" /></a>
+					 	{% endif %}
+					  <div>
+					    <h3><a href="{{ path('_hebergementinfoclient',{'name':regionSugg4.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="{{ "locationsallereunion" | trans }} {{ regionSugg4.sallecorporativehebergement.nomen }} region {{ regionSugg4.sallecorporativehebergement.regionid.nomen }}">{{ regionSugg4.sallecorporativehebergement.nomen }}</a></h3>
+					     <ol>
+					    	<li>{{ listeClient4|length }} chambre{% if listeClient4|length > 1 %}s{% endif %}</li>
+					    	<li>{{ salleCorpo4|length }} salle{% if salleCorpo4|length > 1 %}s{% endif %} de réunion</li>
+					    </ol>
+					    	<p>ville de {{ regionSugg4.sallecorporativehebergement.villeid.nomen }}</p>
+					    	{% for s in forfaitAffaire4 %}
+					    	<p>{{ s.nomen }} à partir de {{ s.tarif|replace({"%$%":""}) }} $</p>
+					    	{% endfor %}
+					    	<p><a href="{{ path('_hebergementcorporatif',{'name':regionSugg4.sallecorporativehebergement.repertoireen|lower}) }}" target="_blank" title="Application information">Application information</a></p>
+					     <h2><a href="{{ path('_hebergementcorporatif',{'name':regionSugg4.sallecorporativehebergement.repertoireen|lower}) }}#formuSugg" target="_blank" title="Information meeting room">Information meeting {% if salleCorpo4|length > 1 %} rooms{% else %}room{% endif %} </a></h2>
+					  </div>
+				  </div>
+				{% endif %}
+			  {% endif %}  
+		      </div>
+		      <br class="clearfloat" />
+		      {# PUB GOOGLE #}
+				  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait hackPub" style="padding-top:20px;">
+				  	<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('zone_01'); });
+					</script>
+				  </div> 
+			  <br class="clearfloat" />
+			  {# PAGINATION DU HAUT #}
+			 <div class="pages" style="width:632px;" >
+			  	<ul class="paginationHebergement">
+			  	{% if app.request.locale == "fr" %}
+				    {% if displaypage == 1 %}
+		      	 	Résultats de 1 à {{ total }}
+		      	 	{% elseif page < displaypage %}
+			       				<li><a href="{{ path('_locationsallereunionregionfr',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+			       				<li><a href="{{ path('_locationsallereunionregionfr',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		      	 	{% elseif page == displaypage and displaypage > 1 %}
+			       				<li><a href="{{ path('_locationsallereunionregionfr',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		      	 	{% elseif page > displaypage  %}
+			       				<li><a href="{{ path('_locationsallereunionregionfr',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		       		{% endif %}
+		       	{% else %}
+		       		{% if displaypage == 1 %}
+		      	 	Result of 1 to {{ total }} 
+		      	 	{% elseif page < displaypage %}
+			       				<li><a href="{{ path('_locationsallereunionregionen',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+			       				<li><a href="{{ path('_locationsallereunionregionen',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		      	 	{% elseif page == displaypage and displaypage > 1 %}
+			       				<li><a href="{{ path('_locationsallereunionregionen',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		      	 	{% elseif page > displaypage %}
+			       				<li><a href="{{ path('_locationsallereunionregionen',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		       		{% endif %}
+		       	{% endif %}
+		       	</ul>
+			 </div>
+			  {# LISTE DES CLIENTS POUR LA RÉGION #}
+			      <div class="liste">
+			      {% if app.request.locale == "fr" %}
+				       {% for w in listeclientSalle %}
+				         <div> 
+				          {# <div><a href="#"><img src="images/monItineraire.png" width="187" height="136" alt="Mon itinéraire" /></a></div>#}
+				           <a href="{{ path('_hebergementinfoclient',{'name':w.sallecorporativehebergement.repertoirefr|lower}) }}" title="{{ w.sallecorporativehebergement.nomfr }} région {{ w.sallecorporativehebergement.regionid.nomfr }}" target="_blank">
+                                            {% if w.sallecorporativehebergement.photocategoriepayante is not empty %}
+                                                <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.sallecorporativehebergement.id }}/{{ w.sallecorporativehebergement.photocategoriepayante }}" class="imgListeRegion" alt="{{ w.sallecorporativehebergement.nomfr }} région {{ w.sallecorporativehebergement.regionid.nomfr }}" />
+				            {% else %}
+				            	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="imgListeRegion" alt="{{ w.sallecorporativehebergement.nomfr }} région {{ w.sallecorporativehebergement.regionid.nomfr }}" />
+				            {% endif %}
+				           </a>
+				           <div class="listetexte">
+				           {% if  w.sallecorporativehebergement.classificationid != "" %}
+						<img class="etoile" src="{{ asset('uploads/classifications') }}/{{ w.sallecorporativehebergement.classificationid.id }}/{{ w.sallecorporativehebergement.classificationid.image }}"  alt="{{ w.sallecorporativehebergement.classificationid.valeur }}" />
+				           {% endif %}
+				             <h2 class="ajustewidthTitle"><a href="{{ path('_hebergementinfoclient',{'name':w.sallecorporativehebergement.repertoirefr|lower}) }}" title="{{ w.sallecorporativehebergement.nomfr }} région {{ w.sallecorporativehebergement.regionid.nomfr }}" target="_blank">{{ w.sallecorporativehebergement.nomfr }}</a></h2>
+				  		{% if w.sallecorporativehebergement.texteresumefr != null %}
+                                                    <p>{{ w.sallecorporativehebergement.texteresumefr|truncate(150, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.sallecorporativehebergement.repertoirefr}) }}" title="{% for q in clientAleatoire.sallecorporativehebergement.categoriehebergementid %} {{ q.nomfr }} {{ w.sallecorporativehebergement.nomfr }} {% endfor %}" target="_blank">Plus d’information</a></p>
+                                                {% else %}
+                                                    <p>{{ w.sallecorporativehebergement.textedescriptionfr|truncate(150, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.sallecorporativehebergement.repertoirefr}) }}" title="{% for q in clientAleatoire.sallecorporativehebergement.categoriehebergementid %} {{ q.nomfr }} {{ w.sallecorporativehebergement.nomfr }} {% endfor %}" target="_blank">Plus d’information</a></p> 
+                                                {% endif %}
+                                             <ul class="telephone">		
+				               <li style="height:40px;">Ville de {{ w.sallecorporativehebergement.villeid.nomfr }} {%if w.sallecorporativehebergement.latitude != 0 and w.sallecorporativehebergement.longitude != 0 %}[ <a href="{{ path('_hebergementdirectionroutiere',{'name':w.sallecorporativehebergement.repertoirefr}) }}" target="_blank" > Voir sur la carte </a> ]{% endif %}</li>
+				               {#<li>18 commentaires <img src="images/commentaire7.gif" width="81" height="11" alt="" /> 7/10</li>#}
+				               {#<li  class="itineraire"><a href="#">Voir mon itinéraire</a></li>#}
+				             </ul>
+				           	    {% if w.sallecorporativehebergement.reservitid != null %}
+					           	<a class="btreservation btn-reservit" href="http://reservation.global-reservation.com/reservit/avail-info.php?hotelid={{ w.sallecorporativehebergement.reservitid }}" target="_blank" title="Réservation en ligne" style="margin-top:5px;"><img src="{{ asset('bundles/myappglobal/images/vide.gif') }}" class="btn_reservit"  alt="bouton"/>{{ "reservation.ligne" | trans }}</a>
+					            {% endif %}
+				           </div>
+				         </div> 
+				       {% endfor %}
+				  {% else %}
+				  	{% for w in listeclientSalle %}
+				         <div> 
+				          {# <div><a href="#"><img src="images/monItineraire.png" width="187" height="136" alt="Mon itinéraire" /></a></div>#}
+				           <a href="{{ path('_hebergementinfoclient',{'name':w.sallecorporativehebergement.repertoireen|lower}) }}" title="{{ w.sallecorporativehebergement.nomen }} region {{ w.sallecorporativehebergement.regionid.nomen }}" target="_blank">
+				           {% if w.sallecorporativehebergement.photocategoriepayante is not empty %}
+				           	<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.sallecorporativehebergement.id }}/{{ w.sallecorporativehebergement.photocategoriepayante }}" class="imgListeRegion" alt="{{ w.sallecorporativehebergement.nomen }} region {{ w.sallecorporativehebergement.regionid.nomen }}" />
+				            {% else %}
+				            	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="imgListeRegion" alt="{{ w.sallecorporativehebergement.nomen }} region {{ w.sallecorporativehebergement.regionid.nomen }}" />
+				            {% endif %}
+				           </a>			           
+				           <div class="listetexte">
+				           {% if  w.sallecorporativehebergement.classificationid != "" %}
+						<img class="etoile" src="{{ asset('uploads/classifications') }}/{{ w.sallecorporativehebergement.classificationid.id }}/{{ w.sallecorporativehebergement.classificationid.image }}"  alt="{{ w.sallecorporativehebergement.classificationid.valeur }}" />
+				           {% endif %}
+				             <h2 class="ajustewidthTitle"><a href="{{ path('_hebergementinfoclient',{'name':w.sallecorporativehebergement.repertoireen|lower}) }}" title="{{ w.sallecorporativehebergement.nomen }} region {{ w.sallecorporativehebergement.regionid.nomen }}" target="_blank">{{ w.sallecorporativehebergement.nomen }}</a></h2>
+				  		{% if  w.sallecorporativehebergement.texteresumeen != null %}
+                                                    <p>{{ w.sallecorporativehebergement.texteresumeen|truncate(150, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.sallecorporativehebergement.repertoireen}) }}" title="{% for q in clientAleatoire.sallecorporativehebergement.categoriehebergementid %} {{ q.nomen }} {{ w.sallecorporativehebergement.nomen }} {% endfor %}" target="_blank">More information</a></p>
+                                                {% else %}
+                                                     <p>{{ w.sallecorporativehebergement.textedescriptionen|truncate(150, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.sallecorporativehebergement.repertoireen}) }}" title="{% for q in clientAleatoire.sallecorporativehebergement.categoriehebergementid %} {{ q.nomen }} {{ w.sallecorporativehebergement.nomen }} {% endfor %}" target="_blank">More information</a></p>
+                                                {% endif %}
+                                            <ul class="telephone">				            
+				               <li style="height:40px;">City of {{ w.sallecorporativehebergement.villeid.nomen }} {%if w.sallecorporativehebergement.latitude != 0 and w.sallecorporativehebergement.longitude != 0 %}[ <a href="{{ path('_hebergementdirectionroutiere',{'name':w.sallecorporativehebergement.repertoireen}) }}" target="_blank" > View on map </a> ]{% endif %}</li>
+				               {#<li>18 commentaires <img src="images/commentaire7.gif" width="81" height="11" alt="" /> 7/10</li>#}
+				               {#<li  class="itineraire"><a href="#">Voir mon itinéraire</a></li>#}
+				            </ul>
+					           {% if w.sallecorporativehebergement.reservitid != null %}
+					           	<a class="btreservation btn-reservit" href="http://reservation.global-reservation.com/reservit/avail-info.php?hotelid={{ w.sallecorporativehebergement.reservitid }}" target="_blank" title="Online booking" style="margin-top:5px;"><img src="{{ asset('bundles/myappglobal/images/vide.gif') }}" class="btn_reservit"  alt="bouton"/>{{ "reservation.ligne" | trans }}</a>
+					           {% endif %}
+				           </div>
+				         </div>
+				       {% endfor %} 
+				  {% endif %}   
+			      </div>
+		      	{# PAGINATION DU BAS #}
+		      	 <div class="pages">
+		      	 	<ul class="paginationHebergement">
+					{% if app.request.locale == "fr" %}
+					    {% if displaypage == 1 %}
+			      	 	Résultats de 1 à {{ total }}
+			      	 	{% elseif page < displaypage %}
+				       				<li><a href="{{ path('_locationsallereunionregionfr',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+				       				<li><a href="{{ path('_locationsallereunionregionfr',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+			      	 	{% elseif page == displaypage and displaypage > 1 %}
+				       				<li><a href="{{ path('_locationsallereunionregionfr',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+			      	 	{% elseif page > displaypage  %}
+				       				<li><a href="{{ path('_locationsallereunionregionfr',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+			       		{% endif %}
+			       	{% else %}
+			       		{% if displaypage == 1 %}
+			      	 	Result of 1 to {{ total }} 
+			      	 	{% elseif page < displaypage %}
+				       				<li><a href="{{ path('_locationsallereunionregionen',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+				       				<li><a href="{{ path('_locationsallereunionregionen',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+			      	 	{% elseif page == displaypage and displaypage > 1 %}
+				       				<li><a href="{{ path('_locationsallereunionregionen',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+			      	 	{% elseif page > displaypage %}
+				       				<li><a href="{{ path('_locationsallereunionregionen',{'name':clientAleatoire.sallecorporativehebergement.regionid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+			       		{% endif %}
+		       		{% endif %}
+			       	</ul>
+		        </div>
+		{% endblock %}
+		
+		{% block gauche %}
+			 {# Implémentation de la recherche par carte #}
+         	 {% block ouAller %} {% include '::searchCard.html.twig' %} {% endblock %}
+  			 {# PUB GOOGLE #}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+				{# LISTE DES VILLES #}
+				{% if app.request.locale == "fr" %}
+					<div class="region">
+		 			    <h3>Choisir la ville où profiter d'une {{ "locationsallereunion" | trans|lower }} dans la région {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }}</h3>
+						  <ul>
+						    <dt>{{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }}</dt>
+						    {% for s in listeclientSalle %}
+						    <li><a href="{{ path('_locationsallereunionvillefr',{'name':s.sallecorporativehebergement.villeid.repertoirefr|lower}) }}" title="{{ "locationsallereunion" | trans }} ville {{ s.sallecorporativehebergement.villeid.nomfr }}">{{ s.sallecorporativehebergement.villeid.nomfr }}</a></li>
+						    {% endfor %}
+						    </ul>
+						  <br class="clearfloat" />
+					</div>
+					<img src="{{ asset('bundles/myappglobal/images/telephoneGauche.jpg') }}" width="304" height="65" />
+				{% else %}
+					<div class="region">
+		 			    <h3>Choose the city where you can enjoy a {{ "locationsallereunion" | trans|lower }} in the region {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }}</h3>
+						  <ul>
+						    <dt>{{ clientAleatoire.sallecorporativehebergement.regionid.nomen }}</dt>
+						    {% for s in listeclientSalle %}
+						    <li><a href="{{ path('_locationsallereunionvilleen',{'name':s.sallecorporativehebergement.villeid.repertoireen|lower}) }}" title="{{ "locationsallereunion" | trans }} city {{ s.sallecorporativehebergement.villeid.nomen }}">{{ s.sallecorporativehebergement.villeid.nomen }}</a></li>
+						    {% endfor %}
+						    </ul>
+						  <br class="clearfloat" />
+					</div>
+					<img src="{{ asset('bundles/myappglobal/images/telephoneGaucheEn.png') }}" width="304" height="65" />
+				{% endif %}
+		{% endblock%}

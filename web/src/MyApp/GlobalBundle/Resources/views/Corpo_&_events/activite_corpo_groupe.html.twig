@@ -1,0 +1,118 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}	
+		<p class="legendeHome">{{ "activitescorporative" | trans }}</p>	
+		{# div qui va contenir la photo principal du sujet de la section #}
+		<div id="photoprincipale">
+			{% if app.request.locale == "fr" %}
+				<div class="nomSousCategorie">    
+					<h1>{{ "activitescorporative" | trans }} </h1>
+					<h3><a href="{{ path('_hebergementactivite',{'name':clientAleatoire.repertoirefr|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ clientAleatoire.nomfr }}">{{ "activitescorporative" | trans }}  {{ clientAleatoire.nomfr }} - province {{ clientAleatoire.provinceid.nomfr }}</a></h3>	
+				</div>
+				{% if clientAleatoire.photopayante is not empty %}
+			  		<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomfr }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+				{% endif %}
+			{% else %}
+				<div class="nomSousCategorie">    
+					<h1>{{ "activitescorporative" | trans }} </h1>
+					<h3><a href="{{ path('_hebergementactiviteen',{'name':clientAleatoire.repertoireen|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ clientAleatoire.nomen }}">{{ "activitescorporative" | trans }}  {{ clientAleatoire.nomen }} - province {{ clientAleatoire.provinceid.nomen }}</a></h3>	
+				</div>
+				{% if clientAleatoire.photopayante is not empty %}
+			  		<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomen }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+				{% endif %}
+			{% endif %}
+		</div>
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+
+		{% block body %} 
+		<div class="region">
+			  <h2>{{ "choisir.endroit.organiser.activite.corporative" | trans }}</h2>
+			  	{% if app.request.locale == "fr" %}
+				  <ul>	
+			  		{% for w in regionqc %}
+			  			{% if loop.index == 1 %}
+			        	<li class="province"><a href="{{ path('_activitecorpoprovincefr',{'name':w.provinceid.repertoirefr|lower}) }}" title="{{ "activitescorporative" | trans }} province {{ w.provinceid.nomfr }}">{{ w.provinceid.nomfr }}</a></li>
+			        	{% endif %}
+				        <li><a href="{{ path('_activitecorporegionfr',{'name':w.regionid.repertoirefr|lower}) }}" title="{{ "activitescorporative" | trans }} région {{ w.regionid.nomfr }}">{{ w.regionid.nomfr }}</a></li>
+				    {% endfor %}
+			      </ul>
+			      <ul>	
+			        {% for w in regionon %}
+			        	{% if loop.index == 1 %}
+				        <li class="province"><a href="{{ path('_activitecorpoprovincefr',{'name':w.provinceid.repertoirefr|lower}) }}" title="{{ "activitescorporative" | trans }} province {{ w.provinceid.nomfr }}">{{ w.provinceid.nomfr }}</a></li>
+				        {% endif %}
+				        <li><a href="{{ path('_activitecorporegionfr',{'nom':w.regionid.repertoirefr|lower}) }}" title="{{ "activitescorporative" | trans }} région {{ w.regionid.nomfr }}">{{ w.regionid.nomfr }}</a></li>
+				    {% endfor %}
+			      </ul>
+			      <ul>
+			        {% for w in regionnb %}
+			        	{% if loop.index == 1 %}
+				        <li class="province"><a href="{{ path('_activitecorpoprovincefr',{'name':w.provinceid.repertoirefr|lower}) }}" title="{{ "activitescorporative" | trans }} province {{ w.provinceid.nomfr }}">{{ w.provinceid.nomfr }}</a></li>
+				        {% endif %}
+				        <li><a href="{{ path('_activitecorporegionfr',{'nom':w.regionid.repertoirefr|lower}) }}" title="{{ "activitescorporative" | trans }} région {{ w.regionid.nomfr }}">{{ w.regionid.nomfr }}</a></li>
+				    {% endfor %}
+			      </ul>
+			   {% else %}
+			   	  <ul>	
+			  		{% for w in regionqc %}
+			  			{% if loop.index == 1 %}
+			        	<li class="province"><a href="{{ path('_activitecorpoprovinceen',{'name':w.provinceid.repertoireen|lower}) }}" title="{{ "activitescorporative" | trans }} province {{ w.provinceid.nomen }}">{{ w.provinceid.nomen }}</a></li>
+			        	{% endif %}
+				        <li><a href="{{ path('_activitecorporegionen',{'name':w.regionid.repertoireen|lower}) }}" title="{{ "activitescorporative" | trans }} region {{ w.regionid.nomen }}">{{ w.regionid.nomen }}</a></li>
+				    {% endfor %}
+			      </ul>
+			      <ul>	
+			      	{% for w in regionon %}
+			      		{% if loop.index == 1 %}
+				        <li class="province"><a href="{{ path('_activitecorpoprovinceen',{'name':w.provinceid.repertoireen|lower}) }}" title="{{ "activitescorporative" | trans }} province {{ w.provinceid.nomen }}">{{ w.provinceid.nomen }}</a></li>
+				        {% endif%}
+				        <li><a href="{{ path('_activitecorporegionen',{'nom':w.regionid.repertoireen|lower}) }}" title="{{ "activitescorporative" | trans }} region {{ w.regionid.nomen }}">{{ w.regionid.nomen }}</a></li>
+				    {% endfor %}
+			      </ul>
+			      <ul>
+			      	{% for w in regionnb %}
+			      		{% if loop.index == 1 %}
+				        <li class="province"><a href="{{ path('_activitecorpoprovinceen',{'name':w.provinceid.repertoireen|lower}) }}" title="{{ "activitescorporative" | trans }} province {{ w.provinceid.nomen }}">{{ w.provinceid.nomen }}</a></li>
+				        {% endif %}
+				        <li><a href="{{ path('_activitecorporegionen',{'nom':w.regionid.repertoireen|lower}) }}" title="{{ "activitescorporative" | trans }} region {{ w.regionid.nomen }}">{{ w.regionid.nomen }}</a></li>
+				    {% endfor %}
+			      </ul>
+			   {% endif %}
+			  <br class="clearfloat" />
+			  {# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+		</div>
+		<div class="colonnes4">
+		    <h4>{{ "nos.suggestions.organiser.activite.corporative" | trans }}</h4>
+				{% include 'MyAppGlobalBundle:Corpo_&_events:suggestions_bottom_activites.html.twig' %}
+		    <br class="clearfloat" />
+		</div>
+	    {% endblock %}
+		
+		{% block gauche %}
+			 {# Implémentation de la recherche par carte #}
+         	 {% block ouAller %} {% include '::searchCard.html.twig' %} {% endblock %}
+  			 {# PUB GOOGLE #}
+				<div id="zone_02" class="styleBigBox">
+					<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('zone_02'); });
+					</script>
+				</div>
+		{% endblock%}

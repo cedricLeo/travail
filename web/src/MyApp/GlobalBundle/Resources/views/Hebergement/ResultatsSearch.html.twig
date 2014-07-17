@@ -1,0 +1,39 @@
+{% extends '::base2.html.twig' %}
+				
+{% block body %}
+<h1>Résultat de la recherche <mark>{{ champRecherche }}</mark></h1>
+{#    <input type="checkbox" id="rechercheraffinee" /> Affiner la recherche
+<div class="rechercheraffinee">
+    {% for cr in critereRecherche %}
+        <span><input type="checkbox" name="{{ cr.id }}" />{{ cr.nom_fr }}</span> 
+    {% endfor %}
+        <button>Rechercher</button>        
+</div>#}
+<div id="resultatRecherche">
+    {% for r in resultat %}
+        {% for w in r %} 
+        <div class="resultatListeRecherche">
+            {% if w.photocategoriepayante != "" %}
+                <a href="{{ path('_hebergementinfoclient',{"name":w.repertoirefr|lower}) }}" target="_blank" title="Hébergement {{ w.nomfr }}">
+                    <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante')}}{{ w.id }}/{{ w.photocategoriepayante }}" class="imgListeRegion" alt="{{ w.nomfr }}" />
+                </a>
+            {% elseif w.photopayante != "" %}
+                <a href="{{ path('_hebergementinfoclient',{"name":w.repertoirefr|lower}) }}" target="_blank" title="Hébergement {{ w.nomfr }}">
+                    <img src="{{ asset('uploads/hebergement/photo_payante/photo_payante')}}{{ w.id }}/{{ w.photopayante }}" class="imgListeRegion" alt="{{ w.nomfr }}" />
+                </a>
+            {% else %}
+                <a href="{{ path('_hebergementinfoclient',{"name":w.repertoirefr|lower}) }}" target="_blank" title="Hébergement {{ w.nomfr }}">
+                    <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="imgListeRegion" alt="Image replacement {{ w.nomfr }}" />
+                </a>
+            {% endif %}
+                <h2><a href="{{ path('_hebergementinfoclient',{"name":w.repertoirefr|lower}) }}" target="_blank" title="Hébergement {{ w.nomfr }}">{{ w.nomfr }}</a></h2>   
+                <p class="description_recherche">{{ w.textedescriptionfr|truncate(200, '[...]')|raw }}</p> 
+                <p>{{ "tarif.a.partir" | trans }}: <strong>{{ w.prixapartir }} $</strong></p>
+        </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}
+		
+		
+		

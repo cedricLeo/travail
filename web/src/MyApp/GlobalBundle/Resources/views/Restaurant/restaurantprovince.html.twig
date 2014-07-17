@@ -1,0 +1,121 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}
+		<p class="legendeHome">{{ "restaurant" | trans }} {% include '::OrthographeProvince.html.twig' %}</p>
+	{# div qui va contenir la photo principal du sujet de la section #}
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+			{% if app.request.locale == "fr" %}
+				<h1>Restaurants {% include '::OrthographeProvince.html.twig' %}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlfr }}/{{ clientAleatoire.zoneid.repertoirefr }}/{{ clientAleatoire.repertoirefr|lower }}" target="_blank" title="{{ "restaurant" | trans }} {{ clientAleatoire.nomfr }}">{{ clientAleatoire.nomfr }} région {{ clientAleatoire.regionid.nomfr }}</a></h3>
+			</div>
+				{% if clientAleatoire.photopayante is not empty %}
+		    		<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomfr }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+				{% endif %}
+			{% else %}
+				<h1>Restaurants {% include '::OrthographeProvince.html.twig' %}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlen }}/{{ clientAleatoire.zoneid.repertoireen }}/{{ clientAleatoire.repertoireen|lower }}" target="_blank" title="{{ "restaurant" | trans }} {{ clientAleatoire.nomen }}">{{ clientAleatoire.nomen }} region {{ clientAleatoire.regionid.nomen }}</a></h3>
+			</div>
+				{% if clientAleatoire.photopayante is not empty %}
+		    		<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomen }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+				{% endif %}
+			{% endif %}
+		</div>	
+		{% endblock %}
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		{% block body %} 			
+			<div class="region">
+			  <h2>{{ "choisir.endroit.manger" | trans }}{% include '::OrthographeProvince.html.twig' %}</h2>
+			  <ul>
+			    <li class="province"><a href="javascript:(void);">Province {{ views }}</a></li>
+			    {% if app.request.locale == "fr" %}
+					{% for r in region %}
+						<li><a href="{{ path('_restaurantregion',{'name':r.regionid.repertoirefr|lower}) }}">{{ r.regionid.nomfr }}</a></li>
+					{% endfor %}
+				{% else %}
+					{% for r in region %}
+						<li><a href="{{ path('_restaurantregion',{'name':r.regionid.repertoireen|lower}) }}">{{ r.regionid.nomen }}</a></li>
+					{% endfor %}
+				{% endif %}
+			  </ul>
+			  <br class="clearfloat" />
+			</div>
+			{# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+			{# NOS SUGGESTIONS #}
+			<div class="colonnes4">
+			  <h4>{{ "nos.suggestions.restaurants" | trans }} {% include '::OrthographeProvince.html.twig' %}</h4>
+			  {%  if app.request.locale == "fr" %}
+				  {% for resto in listSuggestion %}
+				  <div> 
+				  	<a href="{{ resto.regionid.urlfr }}/{{ resto.zoneid.repertoirefr }}/{{ resto.repertoirefr }}" title="Restaurant {{ resto.nomfr }}"><img src="{{ asset('uploads/attrait') }}/{{ resto.id }}/{{ resto.image }}" alt="{{ resto.nomfr }}" width="154" height="112" /></a>    
+				    <div>
+				    <h3><a href="{{ resto.regionid.urlfr }}/{{ resto.zoneid.repertoirefr }}/{{ resto.repertoirefr }}" title="Restaurant {{ resto.nomfr }}">{{ resto.nomfr }}</a></h3>
+				      <p>{{ resto.descriptionattraitfr.texteresumefr|striptags }}</p>
+				    </div>
+				    <h2><a href="{{ resto.regionid.urlfr }}/{{ resto.zoneid.repertoirefr }}/{{ resto.repertoirefr }}" title="Restaurant {{ resto.nomfr }}">{{ resto.nomfr }}</a></h2>
+				  </div>
+				 {% endfor %}
+			 {% else %}
+			  	{% for resto in listSuggestion %}
+				  <div> 
+				  	<a href="{{ resto.regionid.urlen }}/{{ resto.zoneid.repertoireen }}/{{ resto.repertoireen }}" title="Restaurant {{ resto.nomen }}"><img src="{{ asset('uploads/attrait') }}/{{ resto.id }}/{{ resto.image }}" alt="{{ resto.nomen }}" width="154" height="112" /></a>    
+				    <div>
+				    <h3><a href="{{ resto.regionid.urlen }}/{{ resto.zoneid.repertoireen }}/{{ resto.repertoireen }}" title="Restaurant {{ resto.nomen }}">{{ resto.nomen }}</a></h3>
+				      <p>{{ resto.descriptionattraiten.texteresumeen|striptags }}</p>
+				    </div>
+				    <h2><a href="{{ resto.regionid.urlen }}/{{ resto.zoneid.repertoireen }}/{{ resto.repertoireen }}" title="Restaurant {{ resto.nomen }}">{{ resto.nomen }}</a></h2>
+				  </div>
+				 {% endfor %}
+			 {% endif %}
+			  <br class="clearfloat" />
+			</div>
+			
+			<div class="colonnes3 hackcss">
+			  <h2 class="childHackcss">{{ "categorie.cuisine" | trans }}</h2>
+			  <div> 
+			  	<ul>
+			  	{% if app.request.locale == "fr" %}
+					{%for resto in restoFR%}
+						{% for l in resto.cuisineid %}
+							<li><a href="{{path('_restaurantspecialite',{'name':l.repertoirefr|lower})}}" title="Restaurants {{l.nomfr|lower}}" >Restaurants {{l.nomfr|lower}}</a></li> 
+						{% endfor %}
+					{%endfor%} 
+				{% else %}
+					{%for resto in restoEN%}
+						{% for l in resto.cuisineid %}
+							<li><a href="{{path('_restaurantspecialite',{'name':l.repertoireen|lower})}}" title="{{l.nomen}} restaurants" >{{l.nomen}} restaurants </a></li> 
+						{% endfor %}
+					{%endfor%} 
+				{% endif %}
+			    </ul>
+			  </div>
+			  <br class="clearfloat" />
+			</div>
+		{% endblock %}	
+					
+		{%block gauche%}
+			{# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %} 
+			{# PUB GOOGLE #}
+			<div id="zone_02" class="styleBigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+		{%endblock%}	

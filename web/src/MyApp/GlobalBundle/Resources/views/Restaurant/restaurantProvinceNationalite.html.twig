@@ -1,0 +1,109 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}
+		<p class="legendeHome">{% if app.request.locale == "fr" %} Restaurants {% for s in clientAleatoire.cuisineid %} {{ s.nomfr|lower }} {% endfor %} {% include '::OrthographeProvince.html.twig' %} {% else %} Restaurants {% for s in restoAleatoire.cuisineid %} {{ s.nomen|lower }} {% endfor %} {% include '::OrthographeProvince.html.twig' %} {% endif %}</p>
+	<!-- div qui va contenir la photo principal du sujet de la section -->
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+			{% if app.request.locale == "fr" %}
+				<h1> Restaurants {% for s in clientAleatoire.cuisineid %} {{ s.nomfr|lower }} {% endfor %} {% include '::OrthographeProvince.html.twig' %}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlfr }}/{{ clientAleatoire.zoneid.repertoirefr }}/{{ clientAleatoire.repertoirefr }}" target="_blank" title="{{ "restaurant" | trans }} {{ clientAleatoire.nomfr }}">{{ clientAleatoire.nomfr }}  - {% include '::orthographe.html.twig' %}</a></h3>
+			</div>
+				{% if clientAleatoire.photopayante is not empty %}
+		  			<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomfr }}" />
+		  		{% else %}
+		  			<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+		  		{% endif %}
+			{% else %}
+		  		<h1> Restaurants {% for s in clientAleatoire.cuisineid %} {{ s.nomen|lower }} {% endfor %} {% include '::OrthographeProvince.html.twig' %}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlen }}/{{ clientAleatoire.zoneid.repertoireen }}/{{ clientAleatoire.repertoireen }}" target="_blank" title="{{ "restaurant" | trans }} {{ clientAleatoire.nomen }}">{{ clientAleatoire.nomen }}  - {% include '::orthographe.html.twig' %}</a></h3>
+			</div>
+				{% if clientAleatoire.photopayante is not empty %}
+		  			<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomen }}" />
+		  		{% else %}
+		  			<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+		  		{% endif %}
+			{% endif %}
+		</div>
+		{% endblock %}		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}	
+		{% block body %}			
+			<div class="region">
+				{% if app.request.locale == "fr" %}
+				  <h2>Choisir l'endroit où manger au restaurant {% for s in clientAleatoire.cuisineid %} {{ s.nomfr|lower }} {% endfor %} province {{ clientAleatoire.provinceid.nomfr }}</h2>
+				  <ul>
+				  	{% for p in province %}
+				   		<li class="province"><a href="javascript:void(0)">Province {{ p.provinceid.nomfr }}</a></li>
+				    {% endfor %}
+				    {% for r in region %}
+				    	{% for s in r.cuisineid %}
+				    	<li><a href="{{ path('_listespecialiteregion',{'name':s.repertoirefr|lower , 'region':r.regionid.repertoirefr|lower }) }}">{{ r.regionid.nomfr }}</a></li>
+				    	{% endfor %}
+					{% endfor %}
+				  </ul>
+				{% else %}
+				  <h2>Choosing where to eat in the restaurant {% for s in clientAleatoire.cuisineid %} {{ s.nomen|lower }} {% endfor %} province {{ clientAleatoire.provinceid.nomen }}</h2>
+				  <ul>
+				  	{% for p in province %}
+				   		<li class="province"><a href="javascript:void(0)">Province {{ p.provinceid.nomen }}</a></li>
+				    {% endfor %}
+				    {% for r in region %}
+				    	{% for s in r.cuisineid %}
+				    	<li><a href="{{ path('_listespecialiteregion',{'name':s.repertoireen|lower , 'region':r.regionid.repertoireen|lower }) }}">{{ r.regionid.nomen }}</a></li>
+				    	{% endfor %}
+					{% endfor %}
+				  </ul>
+				{% endif %}  
+				  <br class="clearfloat" />
+				</div>
+				 {# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+				<div class="colonnes4">
+				{% if app.request.locale == "fr" %}
+				  <h4>{{ "nos.suggestions.restaurants" | trans }} province {{ clientAleatoire.provinceid.nomfr }}</h4>
+				   {% for w in listeRestaurant %}
+				   <div> <a href="{{ path('_hebergementrestaurant',{'name':w.repertoirefr|lower}) }}"><img src="{{ asset('uploads/attrait') }}/{{ w.id }}/{{ w.image }}" alt="{{ w.nomfr }}" class="img_categoie_portail" /></a>
+				    <div>
+				      <h3><a href="{{ path('_hebergementrestaurant',{'name':w.repertoirefr|lower}) }}">{{ w.nomfr }}</a></h3>
+				      <p>{{ w.descriptionattraitfr.texteresumefr|striptags }}</p>
+				    </div>
+				    <h2><a href="{{ path('_hebergementrestaurant',{'name':w.repertoirefr|lower}) }}">Restaurant {{ w.nomfr }}</a></h2>
+				   </div>
+				   {% endfor %}
+				{% else %}
+				  <h4>{{ "nos.suggestions.restaurants" | trans }} province {{ clientAleatoire.provinceid.nomen }}</h4>
+				   {% for w in listeRestaurant %}
+				   <div> <a href="{{ path('_hebergementrestaurant',{'name':w.repertoireen|lower}) }}"><img src="{{ asset('uploads/attrait') }}/{{ w.id }}/{{ w.image }}" alt="{{ w.nomen }}" class="img_categoie_portail" /></a>
+				    <div>
+				      <h3><a href="{{ path('_hebergementrestaurant',{'name':w.repertoireen|lower}) }}">{{ w.nomen }}</a></h3>
+				      <p>{{ w.descriptionattraiten.texteresumeen|striptags }}</p>
+				    </div>
+				    <h2><a href="{{ path('_hebergementrestaurant',{'name':w.repertoireen|lower}) }}">Restaurant {{ w.nomen }}</a></h2>
+				   </div>
+				   {% endfor %}
+				{% endif %}
+				  <br class="clearfloat" />
+			</div>
+		{% endblock %}
+					
+		{%block gauche%}
+			{# Implémentation de la recherche par carte #}
+         	{% block ouAller %} {% include '::searchCard.html.twig' %} {% endblock %}
+			{# PUB GOOGLE #}
+			<div id="zone_02" class="styleBigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+		{%endblock%}		

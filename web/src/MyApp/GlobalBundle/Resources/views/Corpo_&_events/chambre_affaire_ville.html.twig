@@ -1,0 +1,196 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}		
+		<p class="legendeHome">{{ "chambreaffaire" | trans }} {% if app.request.locale == "fr" %} ville {{ clientAleatoire.hebergement.regionid.nomfr }} {% else %} city {{ clientAleatoire.hebergement.regionid.nomen }} {% endif %}</p>
+	<!-- div qui va contenir la photo principal du sujet de la section -->
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+			{% if app.request.locale == "fr" %}
+				<h1>{{ "chambreaffaire" | trans }} ville {{ clientAleatoire.hebergement.villeid.nomfr }}</h1>
+				<h3><a href="{{ path('_hebergementchambre',{'name':clientAleatoire.hebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "chambreaffaire" | trans }} {{ clientAleatoire.hebergement.nomfr }}"> {{ clientAleatoire.hebergement.nomfr }} ville {{ clientAleatoire.hebergement.villeid.nomfr }}</a></h3>
+			</div>
+		  	<img src="{{ asset('bundles/myappglobal/images/corporatifEntete.jpg') }}" class="big_picture" alt="{{ "chambreaffaire" | trans }} {{ clientAleatoire.hebergement.nomfr }}" />
+			{% else %}
+				<h1>{{ "chambreaffaire" | trans }} city {{ clientAleatoire.hebergement.villeid.nomen }} </h1>
+				<h3><a href="{{ path('_hebergementchambreen',{'name':clientAleatoire.hebergement.repertoireen|lower}) }}" target="_blank" title="{{ "chambreaffaire" | trans }} {{ clientAleatoire.hebergement.nomen }}"> {{ clientAleatoire.hebergement.nomfr }} city {{ clientAleatoire.hebergement.villeid.nomen }}</a></h3>
+			</div>
+		  	<img src="{{ asset('bundles/myappglobal/images/corporatifEntete.jpg') }}" class="big_picture" alt="{{ "chambreaffaire" | trans }} {{ clientAleatoire.hebergement.nomen }}" />
+			{% endif %}
+		</div>
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+
+		{% block body %} 
+			<div class="colonnes4">
+				<h4>{{ "nos.suggestions.chambre.affaire" | trans }} {% if app.request.locale == "fr" %} ville {{ clientAleatoire.hebergement.villeid.nomfr }} {% else %} city {{ clientAleatoire.hebergement.villeid.nomen }} {% endif %}</h4>	
+			{# NOS SUGGESTIONS #}
+			{% if app.request.locale == "fr" %}
+				{% for w in tarifSuggestion %}
+				<div><img  class="etoile" src="{{ asset('uploads/classifications') }}/{{ w.hebergement.classificationid.id }}/{{ w.hebergement.classificationid.image }}"  alt="Classification {{ w.hebergement.classificationid.valeur }}" />
+					<a href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "chambreaffaire" | trans }} {{ w.hebergement.nomfr }}"><img src="{{ asset('uploads/chambres') }}/{{ w.id }}/{{ w.photo1 }}" alt="{{ "chambreaffaire" | trans }} {{ w.hebergement.nomfr }}" class="img_categoie_portail" /></a>
+			      <div>
+			        <h3><a href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoirefr|lower}) }}" target="_blank" title="{{ "chambreaffaire" | trans }} {{ w.hebergement.nomfr }}"> {{ w.hebergement.nomfr }} </a></h3>
+			        <p>{{ w.hebergement.texteresumefr }}</p>
+			      </div>
+			      <h5>À partir : <a href="javascript:void(0);">{{ w.tarifmaxbassesaison|replace({"%$%": ""}) }} $</a></h5>
+			    </div>
+			   {% endfor %}
+			    <br class="clearfloat" />
+			{% else %}
+				{% for w in tarifSuggestion %}
+				<div><img  class="etoile" src="{{ asset('uploads/classifications') }}/{{ w.hebergement.classificationid.id }}/{{ w.hebergement.classificationid.image }}"  alt="Classification {{ w.hebergement.classificationid.valeur }}" />
+					<a href="{{ path('_hebergementchambreen',{'name':w.hebergement.repertoireen|lower}) }}" target="_blank" title="{{ "chambreaffaire" | trans }} {{ w.hebergement.nomen }}"><img src="{{ asset('uploads/chambres') }}/{{ w.id }}/{{ w.photo1 }}" alt="{{ "chambreaffaire" | trans }} {{ w.hebergement.nomen }}" class="img_categoie_portail" /></a>
+			      <div>
+			        <h3><a href="{{ path('_hebergementchambreen',{'name':w.hebergement.repertoireen|lower}) }}" target="_blank" title="{{ "chambreaffaire" | trans }} {{ w.hebergement.nomen }}"> {{ w.hebergement.nomen }} </a></h3>
+			        <p>{{ w.hebergement.texteresumeen }}</p>
+			      </div>
+			      <h5>From : <a href="javascript:void(0);">{{ w.tarifmaxbassesaison|replace({"%$%": ""}) }} $ </a></h5>
+			    </div>
+			   {% endfor %}
+			    <br class="clearfloat" />
+			{% endif %}
+		  </div>	
+			
+			 {# PAGINATION DU HAUT #}
+			 <div class="pages" style="width:632px;" >
+			  	<ul class="paginationHebergement">
+			  	{% if app.request.locale == "fr" %}
+				    {% if displaypage == 1 %}
+		      	 	Résultats de 1 à {{ total }}
+		      	 	{% elseif page < displaypage %}
+			       				<li><a href="{{ path('_chambreaffairevillefr',{'name':clientAleatoire.hebergement.villeid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+			       				<li><a href="{{ path('_chambreaffairevillefr',{'name':clientAleatoire.hebergement.villeid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		      	 	{% elseif page == displaypage and displaypage > 1 %}
+			       				<li><a href="{{ path('_chambreaffairevillefr',{'name':clientAleatoire.hebergement.villeid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		      	 	{% elseif page > displaypage  %}
+			       				<li><a href="{{ path('_chambreaffairevillefr',{'name':clientAleatoire.hebergement.villeid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		       		{% endif %}
+		       	{% else %}
+		       		{% if displaypage == 1 %}
+		      	 	Result of 1 to {{ total }} 
+		      	 	{% elseif page < displaypage %}
+			       				<li><a href="{{ path('_chambreaffairevilleen',{'name':clientAleatoire.hebergement.villeid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+			       				<li><a href="{{ path('_chambreaffairevilleen',{'name':clientAleatoire.hebergement.villeid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+		      	 	{% elseif page == displaypage and displaypage > 1 %}
+			       				<li><a href="{{ path('_chambreaffairevilleen',{'name':clientAleatoire.hebergement.villeid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+		      	 	{% elseif page > displaypage %}
+			       				<li><a href="{{ path('_chambreaffairevilleen',{'name':clientAleatoire.hebergement.villeid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+		       		{% endif %}
+		       	{% endif %}
+		       	</ul>
+			 </div>
+			  {# LISTE DES CLIENTS POUR LA RÉGION #}
+			      <div class="liste">
+			      {% if app.request.locale == "fr" %}
+				       {% for w in listePaginate %}
+				         <div> 
+				          {#} <div><a href="#"><img src="images/monItineraire.png" width="187" height="136" alt="Mon itinéraire" /></a></div>#}
+				           <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" title="{{ w.hebergement.nomfr }} région {{ w.hebergement.regionid.nomfr }}" target="_blank">
+				           	{% if w.hebergement.photocategoriepayante is not empty %}
+				           		<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergement.id }}/{{ w.hebergement.photocategoriepayante }}" class="imgListeRegion" alt="{{ w.hebergement.nomfr }} région {{ w.hebergement.regionid.nomfr }}" />
+				            {% else %}
+				            	<img src="{{ asset('bundles/myappglobal/images/Manicouagan2.jpg') }}" class="imgListeRegion" alt="{{ w.hebergement.nomfr }} région {{ w.hebergement.regionid.nomfr }}" />
+				            {% endif %}
+				           </a>
+				           <div class="listetexte">
+				           {% if  w.hebergement.classificationid != "" %}
+							 <img class="etoile" src="{{ asset('uploads/classifications') }}/{{ w.hebergement.classificationid.id }}/{{ w.hebergement.classificationid.image }}"  alt="{{ w.hebergement.classificationid.valeur }}" />
+				           {% endif %}
+				             <h2><a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" title="{{ w.hebergement.nomfr }} région {{ w.hebergement.regionid.nomfr }}" target="_blank">{{ w.hebergement.nomfr }}</a></h2>
+				  				<p>{{ w.hebergement.texteresumefr|truncate(150, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoirefr|lower}) }}" title="{% for q in clientAleatoire.hebergement.categoriehebergementid %} {{ q.nomfr }} {{ w.hebergement.nomfr }} {% endfor %}" target="_blank">Plus d’information</a></p>
+				             <ul class="telephone">		
+				               <li style="height:40px;">Ville de {{ w.hebergement.villeid.nomfr }} {%if w.hebergement.latitude != 0 and w.hebergement.longitude != 0 %}[ <a href="{{ path('_hebergementdirectionroutiere',{'name':w.hebergement.repertoirefr}) }}" target="_blank" > Voir sur la carte </a> ]{% endif %}</li>
+				               {#}<li>18 commentaires <img src="images/commentaire7.gif" width="81" height="11" alt="" /> 7/10</li>#}
+				               {#}<li  class="itineraire"><a href="#">Voir mon itinéraire</a></li>#}
+				           	 </ul>
+				           	    {% if w.hebergement.reservitid is not empty %}
+					           		<a class="btreservation hackbtn" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ w.hebergement.reservitid }}&lang=fr" target="_blank">{{ "reservation.ligne" | trans }}</a>
+					            {% endif %}
+				           </div>
+				         </div> 
+				       {% endfor %}
+				  {% else %}
+				  		{% for w in listePaginate %}
+				         <div> 
+				          {#} <div><a href="#"><img src="images/monItineraire.png" width="187" height="136" alt="Mon itinéraire" /></a></div>#}
+				           <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" title="{{ w.hebergement.nomen }} region {{ w.hebergement.regionid.nomen }}" target="_blank">
+				           {% if w.hebergement.photocategoriepayante is not empty %}
+				           		<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergement.id }}/{{ w.hebergement.photocategoriepayante }}" class="imgListeRegion" alt="{{ w.hebergement.nomen }} region {{ w.hebergement.regionid.nomen }}" />
+				            {% else %}
+				            	<img src="{{ asset('bundles/myappglobal/images/Manicouagan2.jpg') }}" class="imgListeRegion" alt="{{ w.hebergement.nomen }} region {{ w.hebergement.regionid.nomen }}" />
+				            {% endif %}
+				           </a>			           
+				           <div class="listetexte">
+				           {% if  w.hebergement.classificationid != "" %}
+							 <img class="etoile" src="{{ asset('uploads/classifications') }}/{{ w.hebergement.classificationid.id }}/{{ w.hebergement.classificationid.image }}"  alt="{{ w.hebergement.classificationid.valeur }}" />
+				           {% endif %}
+				             <h2><a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" title="{{ w.hebergement.nomen }} region {{ w.hebergement.regionid.nomen }}" target="_blank">{{ w.hebergement.nomen }}</a></h2>
+				  				<p>{{ w.hebergement.texteresumeen|truncate(150, '...') }} <a href="{{ path('_hebergementinfoclient',{'name':w.hebergement.repertoireen|lower}) }}" title="{% for q in clientAleatoire.categoriehebergementid %} {{ q.nomen }} {{ w.hebergement.nomen }} {% endfor %}" target="_blank">More information</a></p>
+				             <ul class="telephone">				            
+				               <li style="height:40px;">City of {{ w.hebergement.villeid.nomen }} {%if w.hebergement.latitude != 0 and w.hebergement.longitude != 0 %}[ <a href="{{ path('_hebergementdirectionroutiere',{'name':w.hebergement.repertoireen}) }}" target="_blank" > View on map </a> ]{% endif %}</li>
+				               {#}<li>18 commentaires <img src="images/commentaire7.gif" width="81" height="11" alt="" /> 7/10</li>#}
+				               {#}<li  class="itineraire"><a href="#">Voir mon itinéraire</a></li>#}
+				            </ul>
+					           {% if w.hebergement.reservitid is not empty %}
+					           		<a class="btreservation hackbtn" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ w.hebergement.reservitid }}&lang=en" target="_blank">{{ "reservation.ligne" | trans }}</a>
+					           {% endif %}
+				           </div>
+				         </div>
+				       {% endfor %} 
+				  {% endif %}   
+			      </div>
+		      	{# PAGINATION DU BAS #}
+		      	 <div class="pages">
+		      	 	<ul class="paginationHebergement">
+					{% if app.request.locale == "fr" %}
+					    {% if displaypage == 1 %}
+			      	 	Résultats de 1 à {{ total }}
+			      	 	{% elseif page < displaypage %}
+				       				<li><a href="{{ path('_chambreaffairevillefr',{'name':clientAleatoire.hebergement.villeid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+				       				<li><a href="{{ path('_chambreaffairevillefr',{'name':clientAleatoire.hebergement.villeid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+			      	 	{% elseif page == displaypage and displaypage > 1 %}
+				       				<li><a href="{{ path('_chambreaffairevillefr',{'name':clientAleatoire.hebergement.villeid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+			      	 	{% elseif page > displaypage  %}
+				       				<li><a href="{{ path('_chambreaffairevillefr',{'name':clientAleatoire.hebergement.villeid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+			       		{% endif %}
+			       	{% else %}
+			       		{% if displaypage == 1 %}
+			      	 	Result of 1 to {{ total }} 
+			      	 	{% elseif page < displaypage %}
+				       				<li><a href="{{ path('_chambreaffairevilleen',{'name':clientAleatoire.hebergement.villeid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+				       				<li><a href="{{ path('_chambreaffairevilleen',{'name':clientAleatoire.hebergement.villeid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ displaypage }} >> </a></li>
+			      	 	{% elseif page == displaypage and displaypage > 1 %}
+				       				<li><a href="{{ path('_chambreaffairevilleen',{'name':clientAleatoire.hebergement.villeid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page }} </a></li>
+			      	 	{% elseif page > displaypage %}
+				       				<li><a href="{{ path('_chambreaffairevilleen',{'name':clientAleatoire.hebergement.villeid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page }} </a></li>
+			       		{% endif %}
+		       		{% endif %}
+			       	</ul>
+		        </div>
+		        {# PUB GOOGLE #}
+				  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait hackPub" style="padding-top:20px;">
+				  	<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('zone_01'); });
+					</script>
+				  </div> 
+			  <br class="clearfloat" />
+		{% endblock %}
+		
+		{% block gauche %}
+			 {# Implémentation de la recherche par carte #}
+         	 {% block ouAller %} {% include '::searchCard.html.twig' %} {% endblock %}
+  			 {# PUB GOOGLE #}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+		{% endblock%}

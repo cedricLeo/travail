@@ -1,0 +1,61 @@
+{% if app.request.locale == "fr" %}    
+    <p><a href="{{ path('_sansCategorieForfaitPaysFr') }}" id="recherche">{{ "rechercher" | trans }}</a></p>
+    <div id="resultat">
+        {% if listeResultat is defined %} 
+            <div class="linkNavigation linkNavigationTop">
+                {% if page > 1 %}
+                <a href="{{ path('_sansCategorieForfaitPaysFr',{"page":page-1 }) }}" class="prev"><img src="{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}" alt="page précedente" /></a>    
+                {% elseif page < total %}
+                <a href="{{ path('_sansCategorieForfaitPaysFr',{"page":page+1 }) }}" class="next"><img src="{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}" alt="page suivante" /></a>
+                {% endif %}
+            </div>
+            {% for w in listeResultat %}
+                <div>
+                    <h2>{{ w.nomfr }} | {{ w.hebergementid.nomfr }}</h2>
+                    <p>{{ w.textefr|striptags|truncate(200, '[...]')|raw }}</p>
+                    <p>Prix: {{ w.tarif }}</p>
+                    <p>Région: {{w.hebergementid.regionid.nomfr }}</p>
+                    <p>Ville: {{w.hebergementid.villeid.nomfr}}</p>      
+                    <a href="{{ path('mobile_generic_detail',{'section':"forfait-promotion", 'id':w.hebergementid.repertoirefr }) }}" title="forfait hébergement {{ w.hebergementid.nomfr }}">Pour en savoir plus</a>
+                </div>
+            {% endfor %}
+            <div class="linkNavigation">
+                {% if page > 1 %}
+                <a href="{{ path('_sansCategorieForfaitPaysFr',{"page":page-1 }) }}" class="prev"><img src="{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}" alt="page précedente" /></a>
+                {% elseif page < total %}
+                <a href="{{ path('_sansCategorieForfaitPaysFr',{"page":page+1 }) }}" class="next"><img src="{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}" alt="page suivante" /></a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% else %}
+    <p><a href="{{ path('_notPackageCategoryPaysEn') }}" id="recherche">{{ "rechercher" | trans }}</a></p>
+    <div id="resultat">
+        {% if listeResultat is defined %} 
+            <div class="linkNavigation linkNavigationTop">
+                {% if page > 1 %}
+                <a href="{{ path('_notPackageCategoryPaysEn',{"page":page-1 }) }}" class="prev"><img src="{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}" alt="prev" /></a>         
+                {% elseif page < total %}
+                <a href="{{ path('_notPackageCategoryPaysEn',{"page":page+1 }) }}" class="next"><img src="{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}" alt="next" /></a>
+                {% endif %}
+            </div>
+            {% for w in listeResultat %}
+                <div>
+                    <h2>{{ w.nomen }} | {{ w.hebergementid.nomen }}</h2>
+                    <p>{{ w.texteen|striptags|truncate(200, '[...]')|raw }}</p>
+                    <p>Price: {{ w.tarif }}</p>
+                    <p>Region: {{w.hebergementid.regionid.nomen }}</p>
+                    <p>City: {{w.hebergementid.villeid.nomen}}</p>  
+                    <a href="{{ path('mobile_generic_detail',{'section':"package-promotion", "id":w.hebergementid.repertoireen }) }}" title="Package accommodation {{ w.hebergementid.nomen }}">For more</a>
+                </div>
+            {% endfor %}
+            <div class="linkNavigation">
+                {% if page > 1 %}
+                <a href="{{ path('_notPackageCategoryPaysEn',{"page":page-1 }) }}" class="prev"><img src="{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}" alt="prev" /></a>    
+                {% elseif page < total %}
+                <a href="{{ path('_notPackageCategoryPaysEn',{"page":page+1 }) }}" class="next"><img src="{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}" alt="next" /></a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %} 

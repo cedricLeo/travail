@@ -1,0 +1,45 @@
+{# {% javascripts '@MyAppGlobalBundle/Resources/public/js/*' filter='yui_js' %}#}
+    <script type="text/javascript" src="{{ asset('bundles/myappglobal/js/jquery.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/myappglobal/js/source/jquery.fancybox.js') }}"></script> 
+    <script type="text/javascript" src="{{ asset('bundles/myappglobal/js/fancybox_custom.js') }}"></script> 
+    <script type="text/javascript" src="{{ asset('bundles/myappglobal/js/jquery_custome.js') }}"></script> 
+    <script type="text/javascript" src="{{ asset('bundles/myappglobal/js/jquery-ui-1.9.1.custom.js') }}"></script> 
+    <script type="text/javascript" async="" src="http://www.google-analytics.com/ga.js" style=""></script>
+    <script type="text/javascript" src="{{ asset('bundles/myappglobal/js/googleDFP.js') }}"></script>  
+    <script type="text/javascript" src="{{ asset('bundles/myappglobal/js/moment/moment.js') }}"></script>  
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACKcE9ixEXmpRIIvIfwBryfUX_7AJOVd4&sensor=true"></script>
+    <script type="text/javascript">
+    	googletag.cmd.push(function() {
+        googletag.defineSlot('/5445203/{{ googledfp2 }}', [300, 250], 'zone_02').addService(googletag.pubads()); 
+        googletag.defineSlot('/5445203/{{ googledfp1 }}', [468, 60], 'zone_01').addService(googletag.pubads());
+        googletag.defineSlot('/5445203/{{ googledfp3 }}', [728, 90], 'zone_03').addService(googletag.pubads());   
+        googletag.pubads().setTargeting("langue", {% if app.request.locale == "fr" %}'fr'{% else %}'en'{% endif %});
+    	googletag.pubads().enableSingleRequest();
+    	googletag.enableServices();
+    	});
+    </script>
+    <script>
+        $(function() {
+            {% if listeClient is defined %}
+
+               var listeClient = [
+                   {% for w in listeClient %}
+                       {% for v in w %}
+                           {% autoescape 'js' %}
+                                "{{ v.nom_fr|striptags }}",
+                           {% endautoescape %}
+                       {% endfor %}
+                   {% endfor %}
+               ];
+               $( "#moteur_recherche_portail_nom" ).autocomplete({
+                   source: listeClient
+               });
+             {% endif %}
+             {% if main is defined %}         
+                //Enlève l'attribut « href » dans le lien du menu principale pour la section sélectionnée
+                $('#navhaut ul li#inSection a').removeAttr('href');
+                $('#navhaut ul li#inSection a').css('padding','12px 8px');  
+            {% endif %}                            
+        });
+    </script>
+{# {% endjavascripts %}#}

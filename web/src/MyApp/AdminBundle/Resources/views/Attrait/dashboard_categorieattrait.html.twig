@@ -1,0 +1,30 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">	
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" recentre>
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addattraitcategories')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter une catégorie aux attraits</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+									<tr class="rowsubheader">
+										<td width="270" colspan=1>Nom fr</td>
+										<td width="270">Nom en</td>
+									</tr>	
+								{% for p in attraitCategory %}
+									<tr>
+										<td colspan=1><a href="{{path('_Dashboard_updateattraitcategories',{'id':p.id})}}">{{ p.nomfr }}</a></td>
+										<td colspan=1><a href="{{path('_Dashboard_updateattraitcategories',{'id':p.id})}}">{{ p.nomen }}</a></td>
+									</tr>
+								{% endfor %}	
+								{% if attraitCategory is empty %}
+									<p class="searchnull">Pas de résultat trouvé</p>
+								{% endif %}	
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

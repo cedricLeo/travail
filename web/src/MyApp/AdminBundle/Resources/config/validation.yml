@@ -1,0 +1,123 @@
+MyApp\UtilisateurBundle\Entity\Utilisateur:
+    properties:
+      email:
+         - Email:
+             message: L'adresse "{{ value }}" n'est pas un courriel valide.
+             checkMX: true
+MyApp\GlobalBundle\Entity\Zones:
+    properties:
+      latitude:
+          - Type:
+             type: float
+             message: Le champ latitude ne peut accepter qu'une valeur numérique soit (78562) où (-1.5665).
+      longitude:
+          - Type:
+             type: float
+             message: Le champ latitude ne peut accepter qu'une valeur numérique soit (78562) où (-1.5665).
+MyApp\GlobalBundle\Entity\Forfaits:
+   properties:
+     image_doctrine:
+        - File:
+           maxSize: 2048k
+           mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+           mimeTypesMessage: L'extension du fichier n'est pas correcte seul les .JPG, .PNG et .GIF sont permises.         
+           maxSizeMessage: Le poids de l'image est trop important maximum 2M.  
+MyApp\GlobalBundle\Entity\Pays:
+   properties:
+     image_doctrine:
+        - File:
+           maxSize: 2048k
+           mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+           mimeTypesMessage: L'extension du fichier n'est pas correcte seul les .JPG, .PNG et .GIF sont permises.         
+           maxSizeMessage: Le poids de l'image est trop important maximum 2M. 
+MyApp\GlobalBundle\Entity\Provinces:
+   properties:
+     image_doctrine:
+        - File:
+           maxSize: 2048k
+           mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+           mimeTypesMessage: L'extension du fichier n'est pas correcte seul les .JPG, .PNG et .GIF sont permises.         
+           maxSizeMessage: Le poids de l'image est trop important maximum 2M.           
+MyApp\GlobalBundle\Entity\Modes_paiements:
+   properties:
+     image_doctrine:
+        - File:
+           maxSize: 2048k
+           mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+           mimeTypesMessage: L'extension du fichier n'est pas correcte seul les .JPG, .PNG et .GIF sont permises.         
+           maxSizeMessage: Le poids de l'image est trop important maximum 2M.  
+MyApp\GlobalBundle\Entity\Zones:
+   properties:
+     image_suggestion_doctrine:
+        - File:
+           maxSize: 2048k
+           mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+           mimeTypesMessage: L'extension du fichier n'est pas correcte seul les .JPG, .PNG et .GIF sont permises.         
+           maxSizeMessage: Le poids de l'image est trop important maximum 2M.  
+MyApp\GlobalBundle\Entity\Regions:
+   properties:
+     image_doctrine:
+        - File:
+           maxSize: 2048k
+           mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+           mimeTypesMessage: L'extension du fichier n'est pas correcte seul les .JPG, .PNG et .GIF sont permises.         
+           maxSizeMessage: Le poids de l'image est trop important maximum 2M.  
+     image_travel_doctrine:
+        - File:
+           maxSize: 2048k
+           mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+           mimeTypesMessage: L'extension du fichier n'est pas correcte seul les .JPG, .PNG et .GIF sont permises.         
+           maxSizeMessage: Le poids de l'image est trop important maximum 2M.            
+MyApp\GlobalBundle\Entity\Soins_sante:
+   properties:
+     image_doctrine:
+        - File:
+           maxSize: 2048k
+           mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+           mimeTypesMessage: L'extension du fichier n'est pas correcte seul les .JPG, .PNG et .GIF sont permises.         
+           maxSizeMessage: Le poids de l'image est trop important maximum 2M.            
+MyApp\GlobalBundle\Entity\Hebergement_photo:
+   properties:
+     image_doctrine_1:
+        - File:
+           maxSize: 2048k
+           mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+           mimeTypesMessage: L'extension du fichier n'est pas correcte seul les .JPG, .PNG et .GIF sont permises.         
+           maxSizeMessage: Le poids de l'image est trop important maximum 2M.               
+MyApp\GlobalBundle\Entity\Chambres:
+   properties:
+     photo1_doctrine:
+        - File:
+           maxSize: 2048k
+           mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+           mimeTypesMessage: L'extension du fichier n'est pas correcte seul les .JPG, .PNG et .GIF sont permises.         
+           maxSizeMessage: Le poids de l'image est trop important maximum 2M.             
+#MyApp\GlobalBundle\Entity\Textes_accueil:
+#   properties:
+#     texte_minisite_forfait_fr:
+#        - NotNull: ~
+#          message: La zone de texte pour le descriptif fr ne peut pas être vide.       
+#     texte_minisite_forfait_en:
+#        - NotNull: ~
+#          message: La zone de texte pour le descriptif en ne peut pas être vide.        
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+                  

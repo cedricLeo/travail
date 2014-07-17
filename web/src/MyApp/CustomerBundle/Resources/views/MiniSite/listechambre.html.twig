@@ -1,0 +1,64 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+				{% for p in hebergementChambre %}
+					<td>
+						<form method="GET" action="{{path('MyAppAddChambre',{'idclient':p.id, 'name':p.repertoirefr, 'redirect':redirect })}}">
+							<input type="submit" value="{{ "ajouter.chambre" | trans }}" class="btnAddFicheClient"/>
+						</form>
+						{% if chambre is not empty %}
+						{#<p class="infoOrdreAffichage">{{ "Voici.ordre.affichage" | trans}}</p>#}
+						{% endif %}
+						<a href="" id="valideordreliste">{{ "submit.texte.attrait" | trans }}</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0" >
+							<thead>
+								<tr class="rowsubheader">
+									<td width="224">{{ "type.chambre" | trans }}</td>
+									<td width="224">{{ "nom" | trans }}</td>
+									{#<td width="20">{{ "ordre.affichage" | trans }}</td>#}
+									<td width="100">{{ "quantite" | trans }}</td>
+									<td width="20">{{ "status" | trans }}</td>
+								</tr>
+							</thead>	
+							<tbody id="sortable">
+							{% for w in chambre %}
+								<tr id="{{ w.id }}">
+									<td colspan=1 title="{{ "modifer.chambre" | trans }}"><a href="{{path('MyAppUpdateChambre',{'idchambre':w.id, 'name':p.repertoirefr, 'idclient':p.id, 'redirect':redirect})}}" >{% for s in w.typechambreid %} {% if app.request.locale == "fr" %} {{ s.nomfr }} {% else %} {{ s.nomen }} {% endif %} {% endfor %}</a></td>
+									<td colspan=1 title="{{ "modifer.chambre" | trans }}"><a href="{{path('MyAppUpdateChambre',{'idchambre':w.id, 'name':p.repertoirefr, 'idclient':p.id, 'redirect':redirect})}}" >{% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %}</a></td>
+									{#<td class="ui-state-default sort" colspan=1 title="{{ "modifer.chambre" | trans }}"><a href="{{path('MyAppUpdateChambre',{'idchambre':w.id, 'name':p.repertoirefr, 'idclient':p.id, 'redirect':redirect})}}" >{{ w.ordreaffichage }}</a></td>#}
+									<td colspan=1 title="{{ "modifer.chambre" | trans }}"><a href="{{path('MyAppUpdateChambre',{'idchambre':w.id, 'name':p.repertoirefr, 'idclient':p.id, 'redirect':redirect})}}" >{{ w.quantite }}</a></td>
+									<td colspan=1 title="{{ "modifer.chambre" | trans }}"><a href="{{path('MyAppUpdateChambre',{'idchambre':w.id, 'name':p.repertoirefr, 'idclient':p.id, 'redirect':redirect})}}" >{% if w.actif == 0 %}<img src="{{ asset('bundles/myappadmin/images/buttons_cancel_xxl.png') }}"  alt="{{ "status" | trans }}"/>{% else %}<img src="{{ asset('bundles/myappadmin/images/buttons_ok_xxl.png') }}" alt="{{ "status" | trans }}" />{% endif %}</a></td>
+								</tr>
+							{% endfor %}
+							</tbody>
+						</table>
+					</td>
+				 {% endfor %}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<script>
+		/*$(function(){
+			$compt= $("#sortable > tr").length;
+			for(i = 0; i <= $compt; i++){
+				index = 1+i;
+				premier = $("#sortable  tr").eq(i).children("td.sort").children("a").text(index);
+			}*/
+			//Action lors du relachement du bouton de la sourie pour mettre à jour l'odre d'affichage
+			/*$("#sortable tr td").mouseup(function(){ 
+				alert($("#sortable tr").index(this));
+				for(i = 0; i <= $compt; i++){
+					index = 1+i;
+					premier = $("#sortable  tr").eq(i).children("td.sort").children("a").text(index);
+				}
+			}).mousedown(function(){ });*/
+		//});
+	</script>
+	
+   {% include 'MyAppCustomerBundle:MiniSite:sortablechambre.xml.twig' %}
+{% endblock %}

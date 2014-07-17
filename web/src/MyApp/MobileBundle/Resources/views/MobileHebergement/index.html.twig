@@ -1,0 +1,56 @@
+{% extends "::base_mobile.html.twig" %}
+
+{% block body %}
+    {# {% include 'MyAppMobileBundle:MobileHebergement:Formulaire_reservation_en_ligne.html.twig' %} #}
+    <div id="menu">
+       
+            {% if app.request.locale == "fr" %} 
+                <select id="idprovince" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+                    <option value="0" class="indexListeSelected">{{ choixprovince }}</option>
+                    {% for p in listeProvince %}          
+                    <option id="{{ p.repertoire_fr|lower }}" value="{{ p.id }}">{{ p.nom_fr }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <select id="idprovince" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+                    <option value="0" class="indexListeSelected">{{ choixprovince }}</option>
+                    {% for p in listeProvince %}          
+                    <option id="{{ p.repertoire_en|lower }}" value="{{ p.id }}">{{ p.nom_en }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+        
+    {% include 'MyAppMobileBundle:MobileHebergement:region.js.twig' %}
+    {% include 'MyAppMobileBundle:MobileHebergement:ville.js.twig' %}
+    </div>
+    <p><a href="{{ path('MyAppMobileBundle_hebergement_resultat_canada') }}" id="recherche">{{ "rechercher" | trans }}</a></p>
+    {% if app.request.locale == "fr" %}    
+        <div id="resultat">
+            {% if listeResultat is defined %} 
+                {% for w in listeResultat %}
+                    <div>
+                        <h2>{{ w.nom_fr }}</h2>
+                        <p>{{ w.texte_description_fr|striptags|truncate(200, '[...]')|raw }}</p>
+                        <p>Région: {{w.region }}</p>
+                        <p>Ville: {{w.ville}}</p>
+                        <img src="{{ asset('uploads/classifications/') }}{{ w.classification }}/{{ w.image }}" alt="{{ w.valeur }}" />
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% else %}
+        <div id="resultat">
+            {% if listeResultat is defined %} 
+                {% for w in listeResultat %}
+                    <div>
+                        <h2>{{ w.nom_en }}</h2>
+                        <p>{{ w.texte_description_en|striptags|truncate(200, '[...]')|raw }}</p>
+                        <p>Region: {{w.region }}</p>
+                        <p>City: {{w.ville}}</p>
+                        <img src="{{ asset('uploads/classifications/') }}{{ w.classification }}/{{ w.image }}" alt="{{ w.valeur }}" />
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endif %} 
+{% endblock %}

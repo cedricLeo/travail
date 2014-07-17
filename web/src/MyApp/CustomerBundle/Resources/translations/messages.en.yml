@@ -1,0 +1,704 @@
+session.unset: Disconnection
+info.administrative: Administrative information
+info.attraction: Information on your tourist attraction
+info.visibilite: Be informed about the visibility options
+aide: Need help
+connexion.compte: Account login
+text.activite: Page text appeal
+express: The express
+tarif.horaire: Schedule
+paiement.accepte: Currencies and payment methods accepted
+photo.logo: Photographs of the attraction and logo
+video.externe: External videos (eg Youtube video)
+video.interne: Downloaded videos
+activite.service: Activities and Services
+coupon.rabais: Discount coupons
+carte.routiere: Road map
+titre.info.attract: Information of attraction
+titre.info.admin: Administrative information
+activite.sur.place: On-site activities
+submit.texte.attrait: Register
+texte.resume: Text summarizes
+etablissement.global: Here is the link to see the establishment on Global Reservation
+attraction.guide: Attraction on tourist guides
+option.visibilite: Visibility option on Global Reservation
+bonjour: Hello
+coordonnee.gps: The latitude and longitude values ​​are not populated to display google map.
+name.customer.fiche: Customer name
+externe: External videos
+paiement: Payments and currency
+photos: Photos and logo
+hebergement: Accommodation
+condition.horaire: Leave at 00:00 if your business is closed
+hour.summer: Summer hours
+hour.winter: Winter hours
+day.ferie: Bank holidays
+Lundi.matin: Monday morning
+Mardi.matin: Tuesday morning
+Mercredi.matin: Wednesday morning
+Jeudi.matin: Thursday morning
+Vendredi.matin: Friday morning
+Samedi.matin: Saturday morning
+Dimanche.matin: Sunday morning
+Lundi.soir: Monday night
+Mardi.soir: Tuesday night
+Mercredi.soir: Wednesday night
+Jeudi.soir: Thursday night
+Vendredi.soir: Friday night
+Samedi.soir: Saturday night
+Dimanche.soir: Sunday night
+Nouvel.an.matin: New year opening
+Vendredi.saint.matin: Friday opening
+Paques.matin: Pâques opening
+25.mai.matin: May 25 opening
+Saint.Jean.matin: St. John opening
+Fete.du.Canada.matin: Canada day opening
+Fete.du.travail.matin: Labor day opening
+2.octobre.matin: October 2 opening
+Noel.matin: Christmas opening
+Nouvel.an.soir: New year closure
+Vendredi.saint.soir: Friday closure
+Paques.soir: Pâques closure
+25.mai.soir: May 25 closure
+Saint.Jean.soir: St. John closure
+Fete.du.Canada.soir: Canada day closure
+Fete.du.travail.soir: Labor day closure
+2.octobre.soir: October 2 closure
+Noel.soir: Christmas closure
+return.home: Return to home
+Mode.paiement: Payment methods
+Devise: Currencies
+msgConfirmActivite: The updates were successful
+activite: Activities
+aide: Keep the key on the keyboard press « CTRL » when you want to add or remove an item from the dropdown
+Cuisine: Types of cuisines
+Type.soin.sante: Types of Care
+Soins.sante: Health care
+Date.ouverture: Opening date
+Date.fermeture: Closing date
+attrait.periode: The attraction was there a period of opening and closing?
+prix: Price
+titre.fr: Title FR
+titre.en: Title EN
+texte.periode.ouverture.fr: Text opening period FR
+texte.periode.ouverture.en: Text opening period  EN
+texte.description.fr: Descriptive text FR
+texte.description.en: Descriptive text EN
+texte.resume.fr: Text summarize FR
+texte.resume.en: Text summarizes EN
+texte.express.fr: Text express FR
+texte.express.en: Text express EN
+page.facebook.fr: Facebook page FR
+page.facebook.en: Facebook page EN
+page.twitter.fr: Twitter page FR
+page.twitter.en: Twitter page EN
+page.google.fr: Google+ page FR
+page.google.en: Google+ page EN
+texte.tarif.fr: Text rate FR
+texte.tarif.en: Text rate EN
+texte.horaire.fr: Texte zone FR
+texte.horaire.en: Text zone EN
+aucun.etablissement: No institution
+nombre.etage: Number of floor
+fichier.liste.salle.fr: File room list FR
+fichier.liste.salle.en: File room list EN
+fichier.plan.salle.fr: Plan file rooms FR
+fichier.plan.salle.en: Plan file rooms EN
+politique.generale.fr: General policy FR
+politique.generale.en: General policy EN
+politique.animaux.fr: Political animals FR
+politique.animaux.en: Political animals EN
+politique.annulation.fr: Cancellation policy FR
+politique.annulation.en: Cancellation policy EN
+politique.tarif.fr: Tariff policy FR
+politique.tarif.en: Tariff policy EN
+email: Email
+Site.web: Website
+Nom.fr: Name FR
+Nom.en: Name EN
+Nom.abrege.fr: Short name FR
+Nom.abrege.en: Short name EN
+Category.hebergement: Category of accommodation
+Affiliation.hebergement: Affiliate hosting
+videos: Movies
+see.more: see more
+quoi.faire: What to do?
+choisir.endroit: Choose where you want to travel
+langue: Français
+region: Region
+category.hebergement: Category of hotel establishments
+Bienvenue: Welcome
+accueil: Home
+forfait: Packages
+corporatif.evenement: Corporate and events
+centre.sante.spa: Health centers and spas
+attrait.activite: Attractions and activities
+promotion: Promotions
+restaurant: Restaurants
+choisir.endroit.profiter.hebergement: Choose where benefit from accommodation
+mon.global: My Global Reservation
+mon.itineraire: My Itinerary
+qui.sommes.nous: Who are we?
+connexion: Sign in
+recherche.avance: Advanced search
+recherche.par.carte: Search by map
+recherche.enligne: Online booking
+condition.utilisation: Terms of Use
+contactez.nous: Contact us
+plan.site: Sitemap
+rss: Follow us on your RSS reader
+suivez.facebook: Visit our facebook page to follow us everyday
+global.facebook: Join us on our Facebook page
+adresse.courriel: Your email address
+minscrire: I want to register
+blog.quebec.saison: The Quebec Tourism's Blog 
+info.blog: Visit Quebec in season for its many echoes
+tarif.minutes: See our last minute prices and promotions
+tarif.derniere.minutes: Last minute deals and promotions
+festival.evenement.rss: Festivals and Events in Quebec
+les.festivaux: Festivals and events across the province
+nouveaux.hebergements: New members accommodation
+nouvelles.activites: New member activities
+news.activitees: The activities of our new customers
+news.hebergements: Accommodation of our new customers
+descriptif.global: Global Reservation, the leader of the tourism industry on the Internet. Bilingual specialists trained in tourism, in a single reservation center and representing a wide range of hotels, motels, lodges and inns. An innovative concept that allows you to easily find the desired setting and instantly book your stay
+ou.aller: Where would you go?
+suggestion.hebergement: Suggested accommodations
+voir.les.hotels.de: See hotels
+recherche.sur.global: Research on Global Reservation
+choisir.la.region: Select region
+choisir.la.province: Select province
+nos.suggestions: our suggestions
+restaurant.google: Restaurant
+hebergement.google: Accommodation
+forfait.google: Packages
+corporatif.evenement: Corporate and events
+attrait.activite.google: Attractions and activities
+destination.google: Destination
+centre.sante.spa.google: Health centers
+reservez.par.telephone: Book your hotel by phone 1 877 778-8977
+hotels: Hotels
+choisir.region.ou.sejourner: Choose the area or stay in
+hotel.motel.auberge: Hotels, motels and inns
+region.de: Region
+choisir.ville.forfait.region: Choose the city enjoy accommodation in
+categorie.etablissement.hotelier: Category of hotel establishments
+global.reservation: Global Reservation
+resultat.de: Results
+a: to
+sur: on
+classer.par: Sort by
+popularite: Popularity
+nom.etablissement: Name of establishment
+aleatoire: Random
+villes: Cities
+etoile: Stars
+tarif: Price
+prix.moyen: Average price
+commentaire: commentaire
+voir.mon.itineraire: View My Itinerary
+ajouter.mon.itineraire: Add to my itinerary
+voir.carte: View on map
+choisir.endroit.profiter.forfait: Choose where to enjoy a package
+categorie.forfait: Category of packages
+forfait.romantique: Romantic packages
+forfait.spectacle: Packages shows
+forfait.golf: Golf packages
+forfait.ski: ski packages
+forfait.chien.traineau: Dogsledding packages
+forfait.vtt: ATV packages
+forfait.gastronomie: Gastronomy packages
+forfait.pleinair: Outdoor packages
+forfait.mariage: Wedding packages
+forfait.famille: Family plans
+forfait.detente: Relaxation packages
+forfait.souper: Packages lunches and dinners
+forfait.dejeuner: Lunch packages
+forfait.croisiere: Cruise packages
+forfait.casino: Casino packages
+forfait.affaire: Business plans
+forfait.activite.sportive: Sports
+forfait.activite.culturelle: Cultural activities
+suggestion.forfait.region: Suggested packages in the region
+choisir.endroit.profiter: Choose the place or enjoy
+nos.suggestions.destination: Our suggestions promotions
+decouvrez: Discover
+destination.touristique: Tourist destination
+coordonnee.global.reservation: Telephone numbers of Global Reservation
+destination.touristique.province: Tourist destination province
+nos.suggestions.destination.touristique.region: Our recommended tourist destination in the region
+secteur.touristique: Tourism sector in the region of Quebec
+visiter.secteur: Visit the tourism of the region
+choisir.ville.visiter: Select city to visit in the region
+les.incontournables.region: The attractions 
+les.hebergements.plus.visites: Accommodation of the most visited
+attrait.activite.visiter.region: Activities and attractions most visited
+forfait.visiter.region: Packages of the most visited
+centre.sante.visiter.region: Health centers and spas the most visited
+restaurant.visiter.region: The most visited restaurants
+etablissement.corporatif.speciaux.region: Facility for corporate and special events
+numero.global.reservation: Telephone booking online with Global Reservations
+choisir.endroit.corporatif: Select the region to organize a corporate meeting or special events
+categorie.corporatif.event.speciaux: Corporate and special events
+appeloffre: Corporate call for tenders
+forfaitaffaire: Corporate packages
+locationsallereunion: Meeting rooms
+chambreaffaire: Corporate rooms
+activitecorporativegroupe: Corporate or group activities
+categorie.corpo.region: Category corporate and special events in the region
+choisir.ville.corpo.speciaux: Choose the city where a meeting and corporate special events in the region
+corporatif.even.speciaux.region: Corporate and special events in the region
+categorie.appel.offre: Category tender corporate
+categorie.activite.corporative.groupe: Category corporate activities and groups
+categorie.forfait.affaire: Category business packages
+categorie.location.salle.reunion: Category hire meeting rooms
+categorie.chambre.affaire: Business class rooms
+appel.offre.region: Tender Corporate
+region: Region
+localisation.salle.reunion: Rental of meeting rooms
+home.corpo.text: Find the best place to stay during your next congress and to organize a meeting or banquet.
+home.destination.text: Choose or Quebec regions that interest you and find a wealth of information to help you plan your stay.
+home.restaurant.text: Discover the best restaurants, the best atmosphere and the best quality-price restaurants in your next destination.
+home.forfait.text: Upgrade your holiday taking advantage of one of the many packages offered by Global Reservation and its partners.
+home.centresante.text: Plan a time of pure relaxation by browsing the list of health centers and spas for your next destination.
+home.attrait.text: Discover the amazing attractions and activities that abound in Quebec, from the smallest to the largest festival international events.
+home.hebergement.text: Whether for a 5 star hotel or a cozy bed and breakfast, you will find all necessary information for your next accommodation in Quebec.
+suggestion.hebergement: Accommodation suggestions
+legende.home: Hotel Quebec, Quebec inn, motel Quebec
+suggestion.forfait: Suggested packages
+choisir.endroit.restaurant: Choose where eating out
+nos.suggestions.hotel.motel.auberge: Our suggestions for hotels, motels and inns
+choisir.endroit.profiter.attrait: Choose where enjoy an activity and attraction
+suggestion.attrait: Suggestions of attractions and activities
+attrait.activite.region: Area attractions and activities
+corpo.event.speciaux: Corporate and special events
+nos.suggestions.attraits: Suggestions attractions and activities
+choisir.ville.profiter.attrait: Choose the city enjoy an attraction or activity in the
+suggestion.activite.region: Suggestions of attractions and activities in the
+resultat.liste: Results from
+resultat.a: to
+resultat.sur: on
+nos.suggestions.hotels.proximite: Our suggestions for hotels, motels and inns
+type.cuisine.restaurant: Types of restaurant kitchens
+suggestion.restaurant.region: Our suggestions for restaurants in the
+categorie.cuisine: Categories kitchens
+categorie.restaurant: Categories restaurants
+choisir.endroit.manger: Choosing where to eat in a restaurant
+nos.suggestions.restaurants: Our suggestions for restaurants
+voir.mon.itineraire: See my itinerary
+type.cuisine: Cuisines
+presentation: Presentation
+chambre.tarif: Rooms and rates
+forfait.promotion: Packages and promotions
+activite.service: Activities and Services
+corporatif.speciaux: Corporate and special events
+galerie.photo: Photo gallery
+direction.routiere: Driving directions
+information.reservation: Booking
+votre.opinion: We are interested in your
+date.arriver: Your arrival date
+date.depart: Your departure date
+nombre.chambre: Number of room
+adulte: Adult(s)
+enfant: Child(ren)
+reservation.en.ligne: Online booking
+voir.disponibilite: check availability
+sans.frais: Toll
+plus.info: More information
+caracteristique.resto: Characteristics of the restaurant
+heure.ouverture: Business hours
+capacite: Capacity
+specialites: Specialties
+specialite: Specialty
+prix: Price
+mode.paiement: Method of payment
+modes.paiements: Methods of payment
+pourboire: In Quebec, the service is not included in the total price of the meal. The customary to leave a tip of 15% of the total bill.
+haute.saison: High season rates
+basse.saison: Low season rates
+restaurant.au.quebec: Our suggestions for restaurants 
+choisir.specialite.restaurant: Choosing where to eat in the
+a.partir: From
+chargement: Loading ...
+depart: Departure
+calcul.initeraire: Calculate the route
+choisir.endroit.sante: Choose where to visit a health center and spa
+categorie.centre.sante: Class spa and health center
+suggestion.centre.sante: Suggestions health centers and spas
+select.region.centre.sante: Select the region to visit a health center and spa
+type.chambre: Types of rooms
+information.concernant.etablissement: Information regarding the establishment
+politique.animaux: Animals policy
+modalite.paiement: Method(s) of payment(s)
+devises: Currency(s)
+style.hebergement: Accommodation style(s)
+heure.depart.etablissement: Departure time
+heure.arriver.etablissement : Arrival
+salle.etablissement: Room(s)
+nombre.etage: Number of floor(s)
+nombre.chambre: Number of room(s)
+partager.experience: Share your experience
+critere.semblable: Institutions that have similar criteria
+imprimer: Print route
+activite.service.proximite: Activities and services close to
+feed.rss: Rss Feed for a link with the activities and attractions
+classer.par: Sort by
+texte.resume.fr: Summary text FR
+texte.resume.en: Summary text EN
+msg: Successful update
+Activites: Activities
+services.offerts: Services
+activite.place.proximite: Activities on site and nearby
+hebergement.unite.tarif: Lodging, unit(s) and rate(s)
+type.even.corpo: Types of corporate event
+capacite.corpo: corporate capacity
+service.corpo: Corporate Services
+soin.offert: Health care offered
+condition.annulation: Cancellation policy
+jusqua: to
+tarif.preferentiel: preferential tariff
+type.de.chambre.pour: Rooms
+haute.saison.admin.client: maximum rate
+basse.saison.admin.client: minimum rate
+semaine.relache: Week(s) released
+politique.annulation: Cancellation Policy
+haut: top
+caracteristique.certaine.unite: Characteristic(s) of some unit(s)
+saison: Seasons
+max.personne: Maximum people
+autre: Other
+unite: Unit(s)
+lit: Bed(s)
+dejeuner.non.compris: The room rate does not include breakfast
+dejeuner.buffet: The room price includes breakfast buffet
+dejeuner.americain: The room price includes breakfast U.S.
+dejeuner.continental: The room rate includes continental breakfast
+aucun.resultat: No result found
+nom.fr: Name FR
+nom.en: Name EN
+ajouter.forfait: Add a package
+categorie.forfait: Category package
+texte.fr: FR text
+texte.en: EN text
+date.debut: Start date of package
+date.fin: End Date package
+aucune.date: If the package has no start date and end date check box
+actif.forfait: Check the box if you are ready to publish your package
+titlefaq: FAQ Global Réservation 
+Q.reservation.en.ligne.securitaire: Is the online reservation safe?  
+R.reservation.en.ligne.securitaire: Yes. Our system is certified PCI-DSS (Payment Card Industry- Data Security Standard) which guarantees that our online reservation system is reliable and uses the highest existing level of security regarding the safeguarding and protection of the banking data for Web users. 
+Q.prix.eleves: Is it more expensive than reserving directly with the accommodation? 
+R.prix.eleves: We offer the same prices than the accommodation and some of them even offer discounts when you reserve with Global Réservation.
+Q.nous.devons.payer.les.service: Do we have to pay for Global Réservation’s service?
+R.nous.devons.payer.les.service: No. The service is completely FREE.
+Q.nous.pouvons.annuler: Can we cancel a reservation? 
+R.nous.pouvons.annuler: Yes. But you have to respect the cancellation policies of the accommodation. You only have to call a Global Réservation travel agent or click on the link received via email for an online reservation.
+Q.forfait.disponible: Are the packages also available if I call directly the accommodation? 
+R.forfait.disponible: Yes and no. Some of the packages offered are specifically made according to our thematic packages included in the Quebec’s Seasons tourism newsletter. You need to call one of our travel agents at Global Réservation in order to choose these packages.
+Q.tarif.corpo.gouvernement: Does Global Réservation accept corporate and government rates? 
+R.tarif.corpo.gouvernement: Global Réservation accepts these rates if the accommodation accepts them.
+Q.global.prend.paiement: Does Global Réservation directly take the payment of the reservation? 
+R.global.prend.paiement: No. It is always the accommodation which is in charge of the payment.
+Q.remboursement.communiquer: In case of a refund, do we have to contact Global Réservation? 
+R.remboursement.communiquer: No. You need to contact directly the accommodation since your payment is made with them.
+Q.type.hebergement.reserver.avec.nous: What kind of accommodation can we book with you? 
+R.type.hebergement.reserver.avec.nous: You can book all types of accommodation: Bed & Breakfasts, inns, hotels, motels, chalets, condos, apartments, hostels, outfitter’s cabins, camping and other non-typical accommodation (teepees, houses in trees, etc).
+QuisommesnousTitle: What is Global Réservation?
+paragraphe1: Global Réservation is a company from Quebec which was created in 2001. Our mission is to help travellers who are looking for accommodation in Quebec and Canada.
+2facons.faire.reservation: Global Réservation offers you two ways to make a reservation:
+1appel.agent: 1- Call one of our bilingual travel agents at our booking centre 1-877-778-8977
+2reservez.directement: 2- Book directly online via our Website www.global-reservation.com
+paragraphe2: Our travel agents will be pleased to find an accommodation that will answer to your needs, budget, the area where you want to stay, a specific package, availability or any other requests.
+global.reservation.cest: Global Réservation is:
+liste1: A FREE and personal service designed for travellers according to their needs by our bilingual travel agents.
+liste2: A Website comprising accommodations in Canada (www.global-reservation.com). 
+liste3: A reservation center open monday to friday from 8:00 a.m. to 4:30 p.m. (1-877-778-8977). 
+liste4: Online reservation available via our ReservIT system.
+liste5: Description of each accommodation in Canada (services, photos, packages and other specifications).
+liste6: A “Last Minute Deal” section.
+liste7: A “Packages” section.
+liste8: An “Attractions and Activities” section where you will be able to find activities, events and other tourism services close to your accommodation.
+liste9: A “Corporate and Events” section.
+liste10: A tourism newsletter Quebec’s Seasons published each season (www.quebecensaisons.com).
+liste11: A Facebook and Twitter page in order to always keep you updated on new offers, last minute deals and other relevant tourism information (www.facebook.com/globalreserv and http://twitter.com/GReservation).
+differents.type.etablissement: Here are the different types of accommodation available
+liste12: Cottages, B&Bs, Bed & Breakfasts;
+liste13: Inns;
+liste14: Hotels;
+liste15: Motels;
+liste16: Chalets & cabins;
+liste17: Condos;
+liste18: Apartments;
+liste19: Hostels;
+liste20: Outfitters or campings;
+liste21: Other non-typical accommodation such as teepees, houses in trees, etc.
+ajouter.coupon: Add a coupon
+apercu.fr: Preview FR
+apercu.en: Preview EN
+emule.apercu: View the Coupon
+supprimer.coupon: Want to delete the coupon
+supprimer: Remove
+pour.supprimer.coupon: To remove the coupon
+prix.sujet.changement.sans.preavis: Prices subject to change without notice
+ajouter.chambre: Add a room
+modifer.chambre: Change room
+supprimer.chambre: Remove a room
+Voici.ordre.affichage: Here is the order in which your room will appear on your mini site.
+ordre.affichage: Display order
+status: Activate
+quantite: Quantity
+supprimer.chambre: Do you want to remove the room
+active.la.chambre: Enable room
+type.de.chambre: Room category
+liste.des.equipements: List of equipment
+liste.des.lits: List of beds
+texte.presentation.fr: Text presentation FR
+texte.presentation.en: Text presentation EN
+description.fr: Description FR
+description.en: Description EN
+nombre.occupants: Number of occupants
+tarif.minimum.basse.saison: Minimum rate low season
+tarif.maximum.basse.saison: Maximum rate low season
+tarif.minimum.haute.saison: Minimum rate high season
+tarif.maximum.haute.saison: Maximum rate high season
+tarif.minimum.pour.la.relache: Minimum rate for relache
+tarif.maximum.pour.la.relache: Maximum rate for relache
+description.basse.saison.fr: Description FR low season 
+description.basse.saison.en: Description EN season
+description.haute.saison.fr: Description FR season
+description.haute.saison.en: Description EN season
+dejeuner.continental: Continental breakfast
+dejeuner.americain: American breakfast
+dejeuner.buffet: Buffet
+dejeuner.non.compris: Lunch not included
+image.pour.la.presentation: Image for presentation
+ajouter.corpo: Add a corporate
+modifier.corpo: Edit a corporate
+active.le.corpo: Activate the corporate
+type.evenement: Events
+service.corporatif: Services
+texte.corporatif.fr: Corporate text FR
+texte.corporatif.en: Corporate text EN
+texte.capacite.salle.fr: Text hall capacity FR
+texte.capacite.salle.en: Text hall capacity EN
+largeur.pied: Width in feets
+hauteur.pied: Height in feets
+profondeur.pied: Depth in feets
+largeur.metre: Width in meters
+hauteur.metre: Height in meters
+profondeur.metre: Depth in meters
+supprimer.corpo: Delete a corporate
+modifier.corpo: Edit a corporate
+voir.pdf: see pdf
+liste.salle: List of rooms
+plan.salle: List of Plans
+telecharger.info.corpo: Download corporate information
+salle.capacite: Rooms and capacity
+email.corporatif: Email reception
+corporatif.evenement.speciaux: Corporate and special events
+perime: The date of this package has expired
+choisir.endroit.profiter.forfait.affaire: Choose where to enjoy a package deal
+nos.suggestions.forfaits.affaires: Our business packages suggestions
+choisir.ville.profiter.forfait: Choose the city where you can enjoy a package in the
+lesforfaitsdela: Packages of
+les.forfait.pour.la.ville.de: Packages for the city of
+motdepasse.absent: The password is empty
+authentification.incorrecte: Incorrect authentication
+plus.info.restaurant: More info restaurant
+texte.accueil.forfait: Text of your mini site package section
+photo.categorie: Picture for category
+photo.grande: Photo presentation
+Galerie: Photo gallery
+etablissements.global: Institutions on Global Reservation
+affichage.chambre.sur.minisite.client: This will determine the display order of your room on your mini site example (1 for it to be top of the list display 2, 3 etc.)
+supprimer: Delete
+dimension.en.metre: Size of the room in meters (please round to the nearest whole example 17.6 => 18)
+dimension.en.pouce: Size of the room in inches (please round to the nearest whole example 17.6 => 18)
+banquet: Banquet number of people
+carre.ouvert: Open square number of people
+chevron: Chevron number of people
+conference: Conference number of people
+demi.lune: Half moon number of people
+ecole: School number of people
+en.t: T shape number of people
+en.u: U shape number of people
+salon.commercial: Tradeshow number of people
+theatre: Theatre number of people
+photo.principale: Main photo
+photo.categorie: Picture for category
+photo.logo: Logo
+ajouter.une.photo: Add a photo
+supprimer.une.photo: Delete a photo
+galerie.photo.centre.sante: Gallery of the health center and spa
+haut: top
+formulaire.demande.information.corpo: Application information
+renseignements.personnels: Personal Information
+salle: Room
+hebergements: Accommodation
+salle.hebergement: Room accommodation
+prenom: First name
+nom: Name
+courriel: Email
+nom.d.entreprise: Company Name
+adresse: Adress
+ville: City
+province: Province
+code.postal: Zip code
+pays: Country
+telephone: Phone
+telecopieur: Fax machine
+renseignements.hebergement: Information on accommodation
+renseignements.sur.salle: Venue Information
+nombre.de.chambre: Number of rooms
+simple.double: Single and double
+demandes.specifiques: Specific requests for accommodation
+nom.reunion: Name of the meeting
+nombre.personne: Number of people
+type.d.evenement: Event Type
+date.arrivee: Date of arrival
+date.du.depart: Date of departure
+vos.dates.flexibles: Are your dates flexible?
+disposition.salle: Room layout
+decrire.equipement: Describe the equipment you need
+message.demande.information.corpo.envoye: Your request has been sent
+demande.information.title: Demand for corporate information
+textes.politique.forfait: Political texts for packages 
+region.quebec: (Quebec city area)
+chaque.jour: Every day from 8hrs - 22hrs
+sans.frais.canada.usa: (Toll free for Canada and USA)
+reservation.telephone: Book by phone
+demande.information.reservation.internet: Request information / reservations via the Internet (24 hours)
+amerique.nord: Canada and the United States
+envoyer.la.demande: Send inquiry
+demande.specifique: Comments or special requests
+chambre.fumeur: Smoking room
+nombre.chambre: Number of rooms
+nombre.enfant: Number of children
+nombre.adulte: Number of adult
+date.arrive: Date of arrival
+date.depart: Date of departure
+age.enfant: Age of children
+tarif.derniere.minute: Last minute rates
+global.valide.derniere.minute: Global Reservation valid your package to be visible in the section last minute rate
+service.de.l.hebergement: Accommodation services
+activite.hebergement: Accommodation activities
+service.hebergement: Accommodation services
+activite.attrait: Activities attraction
+service.attrait: Services appeal
+qui.sommes.nous.ariane: Who are we
+a.proximiter: near
+choisir.ville: Choose a city
+centresante.clientaleatoire: Health center
+choisir.ville.soin: Choose the city where one visit 
+forfait.detente: Relaxation packages and health care
+reserver.cette.chambre: Book this room online
+ajout.forfait: Package
+choisir.endroit.corporatif.index: Choose the province to organize a corporate meeting or special events
+dejeuner.inclus.dans.chambre: Breakfast included with the room
+promotion.pour.region: Promotions for the region
+promotion.province: Promotions for the province
+choisir.activite.province: Choose where benefit
+les.categories.services: Categories of services
+nos.suggestions.endroit.pour: Our suggestions for place
+nos.suggestions.endroit.soin.province: Our suggestions
+nos.suggestions.hebergement.chambre.affaire: Our suggestions accommodation with room affair
+choisir.endroit.ou.reserver.salle.reunion: Choose a location where to book a meeting room
+nos.suggestions.hebergement.salle.reunion: Our suggestions accommodation with meeting rooms
+tarif.derniere.minute.promotion: Last minute deals and promotions
+text.appel.offre: Are you looking for a meeting room, reception hall, corporate rooms for a meeting, colloquium, conference, wedding, family event or any other special activity (event)? Simply ask for a quotation.
+text.forfait.affaire: You wish to find a corporate package that will answer your needs? Find the package that you need among our hotels and lodging establishments!
+text.salle.corporative: Are you looking for a room for a business meeting, training or a conference? Search through a list of hotels and lodging establishments in order to find the room that will answer all your needs!
+text.chambre.affaire: Many hotels and lodging establishments offer corporate rates for your business trips. Ask about the establishments which offer special rates for business travellers as well as interesting conveniences for you!
+text.actvite.corporative: Are you looking for an establishment where you can have a corporate, family or group activity, such as a Christmas party or others? Find the best place to enjoy this moment while benefiting from accommodation if necessary.
+nos.suggestions.chambre.affaire: Our suggestions of business rooms
+liste.ebergement: List of institutions
+province.etats: Province/State
+envoyer.la.demande: Send inquiry
+rechercher.par.critere: Advanced search
+nombre.de.nuits: Number of nights
+choisir.endroit.organiser.activite.corporative: Choose where organizing a corporate event or group
+nos.suggestions.organiser.activite.corporative: Our suggestions for organizing a corporate event or group
+activitescorporative: Corporate activities
+activite.corporative.groupe.region: Corporate and group activities in the region
+activite.corporative.groupe.ville: Corporate and group activities in the city
+nom.fr: Name FR
+nom.en: Name EN
+texte.fr: Text FR
+texte.en: Text EN
+titre.derniere.minute.fr: Title last minute FR
+titre.derniere.minute.en: Title last minute EN
+descriptif.derniere.minute.fr: Description last minute FR
+descriptif.derniere.minute.en: Description last minute EN
+supprimer.une.image: Delete a picture
+categorie.du.forfait: Category package
+apercu.du.forfait: Overview package
+entrer.0.latitude.longitude: Enter zero in the latitude and longitude fields if you do not know your location
+text.hebergement: Sheet for accommodation
+soin.sante.attrait: Healthcare
+Date.debut.saisonnier: Date seasonal opening
+Date.fin.saisonnier: Date seasonal closure
+texte.description.complementaires: Texts for additional policies and descriptions
+image.principale.forfait.client: Main image 594 x 328 px
+reserver.forfait.en.ligne: Book this package online
+version.anglaise: English
+date.ouverture.et.fermeture: Opening
+classer.par: Sort by
+supprimer.une.periode: Delete a period
+ajouter.une.periode: Adding a period
+periode.haute.saison: Periods
+tarif.a.partir: Price from
+attraits.client: Attraction(s)
+image.categorie: Image category
+image.principale: Main image
+siteweb: Web site
+rechercher: Search
+sansitem: No results
+heure.arrive: Time of arrival
+heure.depart: Departure time
+modes.de.paiements: Payment methods
+nos.suggestions.hotel.motel.auberge.quebec: Our suggestions for hotels, motels and hostels in Quebec
+information.concernant.etablissement: Information concerning the establishment
+horaire: Schedule
+version.mobile: Mobile version
+actitivites: Activities
+supprimer.le.forfait: Want to remove the package
+annuler: Cancel
+facture.etat.de.compte: INVOICES AND STATEMENTS OF ACCOUNT
+modifier.forfait: Edit the package
+connexion.compte.facture: Login to your account to view your bills
+reservation.ligne: Online booking
+reserver.la.chambre: Book this room online
+selectionner.destination: Select a destination
+choisir.endroit.corporatif.ville: Select the city to organize a corporate meeting or special events
+sur.place: On the spot
+nombre.lit: Number of bed
+exemple.prix.pourcent: Example 30% or 90$
+reserver:  Online Booking
+forfait.singulier: Package
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

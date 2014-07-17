@@ -1,0 +1,187 @@
+{% if app.request.locale == "fr" %}
+	{% if suggestionactivite1 is not empty %}
+	<div>
+		{% for z in suggestionactivite1 %}
+		 	{% if loop.index == 1 %}
+		  	<img src="{{ asset('bundles/myappglobal/images/activitesSportives1.jpg') }}" class="img_categoie_portail" alt="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}" />
+                        <h3><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.nomfr|lower } ) }}" title=" {{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">{{z.regionid.nomfr}}</a></h3>
+		 	{% endif %}
+		 	    <ul>
+		 	      {% for p in z.hebergementactiviteid %}
+		 	      	{% if loop.index == 1 %}
+			      		<dt>{{ p.nomfr }}</dt>
+			      	{% endif %}
+			      {% endfor %}
+			      <dt><a href="{{ path('_hebergementactivite',{'name':z.repertoirefr|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ z.nomfr }}">{{ z.nomfr }}</a></dt>
+			    </ul>         
+	 	{% endfor %}
+                {% for z in suggestionactivite1 %}
+                    {% if loop.index == 1 %}
+                        <h2><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.nomfr|lower} ) }}" title="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">Activité corporative ou de groupe {{ z.regionid.nomfr }}</a></h2>
+                    {% endif %}
+                {% endfor %}
+	</div>
+	{% endif %}
+	{% if suggestionactivite2 is not empty %}
+	<div>
+                {% for z in suggestionactivite2 %}
+		 	{% if loop.index == 1 %}
+		  	<img src="{{ asset('bundles/myappglobal/images/activitesSportives2.jpg') }}" class="img_categoie_portail" alt="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}" />
+		  	<h3><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.repertoirefr|lower} ) }}" title=" {{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">{{z.regionid.nomfr}}</a></h3>
+		 	{% endif %}
+		 	    <ul>
+		 	      {% for p in z.hebergementactiviteid %}
+		 	      	{% if loop.index == 1 %}
+			      		<dt>{{ p.nomfr }}</dt>
+			      	{% endif %}
+			      {% endfor %}
+			      <dt><a href="{{ path('_hebergementactivite',{'name':z.repertoirefr|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ z.nomfr }}">{{ z.nomfr }}</a></dt>
+			    </ul>			   
+	 	{% endfor %}
+                {% for z in suggestionactivite2 %}
+                    {% if loop.index == 1 %}
+                        <h2><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.nomfr|lower} ) }}" title="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">Activité corporative ou de groupe {{ z.regionid.nomfr }}</a></h2>
+                    {% endif %}
+                {% endfor %}
+	</div>
+	{% endif %}
+	{% if suggestionactivite3 is not empty %}
+	<div>
+                {% for z in suggestionactivite3 %}
+		 	{% if loop.index == 1 %}
+		  	<img src="{{ asset('bundles/myappglobal/images/activitesSportives3.jpg') }}" class="img_categoie_portail" alt="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}" />
+		  	<h3><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.repertoirefr|lower} ) }}" title=" {{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">{{z.regionid.nomfr}}</a></h3>
+		 	{% endif %}
+		 	    <ul>
+		 	      {% for p in z.hebergementactiviteid %}
+		 	      	{% if loop.index == 1 %}
+			      		<dt>{{ p.nomfr }}</dt>
+			      	{% endif %}
+			      {% endfor %}
+			      <dt><a href="{{ path('_hebergementactivite',{'name':z.repertoirefr|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ z.nomfr }}">{{ z.nomfr }}</a></dt>
+			    </ul>			 
+	 	{% endfor %}
+                {% for z in suggestionactivite3 %}
+                    {% if loop.index == 1 %}
+                        <h2><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.nomfr|lower} ) }}" title="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">Activité corporative ou de groupe {{ z.regionid.nomfr }}</a></h2>
+                    {% endif %}
+                {% endfor %}
+	</div>
+	{% endif %}
+	{% if suggestionactivite4 is not empty %}
+	<div>
+	       {% for z in suggestionactivite4 %}
+		 	{% if loop.index == 1 %}
+		  	<img src="{{ asset('bundles/myappglobal/images/activitesSportives4.jpg') }}" class="img_categoie_portail" alt="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}" />
+		  	<h3><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.repertoirefr|lower} ) }}" title=" {{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">{{z.regionid.nomfr}}</a></h3>
+		 	{% endif %}
+		 	    <ul>
+		 	      {% for p in z.hebergementactiviteid %}
+		 	      	{% if loop.index == 1 %}
+			      		<dt>{{ p.nomfr }}</dt>
+			      	{% endif %}
+			      {% endfor %}
+			      <dt><a href="{{ path('_hebergementactivite',{'name':z.repertoirefr|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ z.nomfr }}">{{ z.nomfr }}</a></dt>
+			    </ul>			  
+	 	{% endfor %}
+                {% for z in suggestionactivite4 %}
+                    {% if loop.index == 1 %}
+                        <h2><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.nomfr|lower} ) }}" title="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">Activité corporative ou de groupe {{ z.regionid.nomfr }}</a></h2>
+                    {% endif %}
+                {% endfor %}
+	</div>
+	{% endif %}
+{% else %}
+	{% if suggestionactivite1 is not empty %}
+	<div>
+               {% for z in suggestionactivite1 %}
+		 	{% if loop.index == 1 %}
+		  	<img src="{{ asset('bundles/myappglobal/images/activitesSportives1.jpg') }}" class="img_categoie_portail" alt="{{ "activitescorporative" | trans }} {{z.regionid.nomen}}" />
+		  	<h3><a href="{{ path('_activitecorporegionen',{'name':z.regionid.repertoireen|lower} ) }}" title=" {{ "activitescorporative" | trans }} {{z.regionid.nomen}}">{{z.regionid.nomen}}</a></h3>
+		 	{% endif %}
+		 	    <ul>
+		 	      {% for p in z.hebergementactiviteid %}
+		 	      	{% if loop.index == 1 %}
+			      		<dt>{{ p.nomfr }}</dt>
+			      	{% endif %}
+			      {% endfor %}
+			      <dt><a href="{{ path('_hebergementactivite',{'name':z.repertoireen|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ z.nomfr }}">{{ z.nomfr }}</a></dt>
+			    </ul>			  
+	 	{% endfor %}
+                {% for z in suggestionactivite1 %}
+                    {% if loop.index == 1 %}
+			 <h2><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.repertoireen|lower} ) }}" title="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">Activité corporative ou de groupe {{ z.regionid.nomfr }}</a></h2>
+                    {% endif %}
+                {% endfor %}
+	</div>
+	{% endif %}
+	{% if suggestionactivite2 is not empty %}
+	<div>
+                {% for z in suggestionactivite2 %}
+		 	{% if loop.index == 1 %}
+		  	<img src="{{ asset('bundles/myappglobal/images/activitesSportives2.jpg') }}" class="img_categoie_portail" alt="{{ "activitescorporative" | trans }} {{z.regionid.nomen}}" />
+		  	<h3><a href="{{ path('_activitecorporegionen',{'name':z.regionid.repertoireen|lower} ) }}" title=" {{ "activitescorporative" | trans }} {{z.regionid.nomen}}">{{z.regionid.nomen}}</a></h3>
+		 	{% endif %}
+		 	   <ul>
+		 	      {% for p in z.hebergementactiviteid %}
+		 	      	{% if loop.index == 1 %}
+			      		<dt>{{ p.nomfr }}</dt>
+			      	{% endif %}
+			      {% endfor %}
+			      <dt><a href="{{ path('_hebergementactivite',{'name':z.repertoireen|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ z.nomfr }}">{{ z.nomfr }}</a></dt>
+			    </ul>			
+	 	{% endfor %}
+                {% for z in suggestionactivite2 %}
+                    {% if loop.index == 1 %}
+			 <h2><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.repertoireen|lower} ) }}" title="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">Activité corporative ou de groupe {{ z.regionid.nomfr }}</a></h2>
+                    {% endif %}
+                {% endfor %}
+	</div>
+	{% endif %}
+	{% if suggestionactivite3 is not empty %}
+	<div>
+                {% for z in suggestionactivite3 %}
+		 	{% if loop.index == 1 %}
+		  	<img src="{{ asset('bundles/myappglobal/images/activitesSportives3.jpg') }}" class="img_categoie_portail" alt="{{ "activitescorporative" | trans }} {{z.regionid.nomen}}" />
+		  	<h3><a href="{{ path('_activitecorporegionen',{'name':z.regionid.repertoireen|lower} ) }}" title=" {{ "activitescorporative" | trans }} {{z.regionid.nomen}}">{{z.regionid.nomen}}</a></h3>
+		 	{% endif %}
+		 	    <ul>
+		 	      {% for p in z.hebergementactiviteid %}
+		 	      	{% if loop.index == 1 %}
+			      		<dt>{{ p.nomfr }}</dt>
+			      	{% endif %}
+			      {% endfor %}
+			      <dt><a href="{{ path('_hebergementactivite',{'name':z.repertoireen|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ z.nomfr }}">{{ z.nomfr }}</a></dt>
+			    </ul>			
+	 	{% endfor %}
+                {% for z in suggestionactivite3 %}
+                    {% if loop.index == 1 %}
+			 <h2><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.repertoireen|lower} ) }}" title="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">Activité corporative ou de groupe {{ z.regionid.nomfr }}</a></h2>
+                    {% endif %}
+                {% endfor %}
+	</div>
+	{% endif %}
+	{% if suggestionactivite4 is not empty %}
+	<div>
+                {% for z in suggestionactivite4 %}
+		 	{% if loop.index == 1 %}
+		  	<img src="{{ asset('bundles/myappglobal/images/activitesSportives4.jpg') }}" class="img_categoie_portail" alt="{{ "activitescorporative" | trans }} {{z.regionid.nomen}}" />
+		  	<h3><a href="{{ path('_activitecorporegionen',{'name':z.regionid.repertoireen|lower} ) }}" title=" {{ "activitescorporative" | trans }} {{z.regionid.nomen}}">{{z.regionid.nomen}}</a></h3>
+		 	{% endif %}
+		 	    <ul>
+		 	      {% for p in z.hebergementactiviteid %}
+		 	      	{% if loop.index == 1 %}
+			      		<dt>{{ p.nomfr }}</dt>
+			      	{% endif %}
+			      {% endfor %}
+			      <dt><a href="{{ path('_hebergementactivite',{'name':z.repertoireen|lower}) }}" target="_blank" title="{{ "activitescorporative" | trans }} {{ z.nomfr }}">{{ z.nomfr }}</a></dt>
+			    </ul>			
+	 	{% endfor %}
+                {% for z in suggestionactivite4 %}
+                    {% if loop.index == 1 %}
+			 <h2><a href="{{ path('_activitecorporegionfr',{'name':z.regionid.repertoireen|lower} ) }}" title="{{ "activitescorporative" | trans }} {{z.regionid.nomfr}}">Activité corporative ou de groupe {{ z.regionid.nomfr }}</a></h2>
+                    {% endif %}
+                {% endfor %}
+	</div>
+	{% endif %}
+{% endif %}

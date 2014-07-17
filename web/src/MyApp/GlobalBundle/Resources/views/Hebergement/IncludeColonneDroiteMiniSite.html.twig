@@ -1,0 +1,493 @@
+<div id="cleanLink">
+{# INJECTION DE CE CODE SI ON EST DANS LA SECTION ACTIVITÉS #}
+{% if menuService is defined %}
+	{# VÉRIFICATION SI ON A DES ACTIVITÉS #}
+		{% if distance is not empty %}
+			<h2 class="title_attrait">{{ "activite.place.proximite" | trans }}</h2>
+		    <table width="340" border="0" cellspacing="1" cellpadding="2" style="font-size:12px; margin-top:12px;">
+			  <tr>
+			    <td width="136">&nbsp;</td>
+			    <td width="34" align="center" bgcolor="#999999" style="color:#FFF" ><strong>Km</strong></td>
+			  </tr>
+			{% if app.request.locale == "fr" %}
+				  {% for w in distance %}                                    
+                                        <tr>
+                                          <td>{{ w.nomfr }}</td>
+                                          <td align="center" bgcolor="#e5e5e5">{% if w.distance == "0km" or w.distance == "0 km" or w.distance == "0 KM" or w.distance == "0KM" or w.distance == "0 Km" or w.distance == "0 K m" or w.distance == "0 k m" or w.distance == "0 K M" or w.distance == "0" %} {{ "sur.place" | trans }}  {% else %} {{ w.distance }} {% endif %}</td>
+                                        </tr>                                     
+                                  {% endfor %}
+			{% else %}
+				 {% for w in distance %}   
+                                        <tr>
+                                          <td>{{ w.nomen }}</td>
+                                          <td align="center" bgcolor="#e5e5e5">{% if w.distance == "0km" or w.distance == "0 km" or w.distance == "0 KM" or w.distance == "0KM" or w.distance == "0 Km" or w.distance == "0 K m" or w.distance == "0 k m" or w.distance == "0 K M" or w.distance == "0" %} {{ "sur.place" | trans }} {% else %} {{ w.distance }} {% endif %}</td>
+                                        </tr>
+				 {% endfor %}
+			{% endif %}
+		    </table>
+                {% endif %}
+        {% if services is not empty %}
+	<h2 class="title_attrait">{{ "services.offerts" | trans }}</h2>
+        {% endif %}
+	<ol>
+	{% if app.request.locale == "fr" %}
+		{% for w in services %}
+                    {% for q in w.hebergementserviceid %}
+	    		<li>{{ q.nomfr }}</li>
+                    {% endfor %}
+                {% endfor %}
+	    {# PUB GOOGLE #}
+		<div id="zone_02" style="margin:25px 25px 25px 0!important; float:right;">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% else %}
+		{% for w in services %}
+                    {% for q in w.hebergementserviceid %}
+	    		<li>{{ q.nomen }}</li>
+                    {% endfor %}
+                {% endfor %}
+	    {# PUB GOOGLE #}
+		<div id="zone_02" style="margin:25px 25px 25px 0 !important; float:right;">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% endif %}
+	</ol>
+{% endif %}
+
+{# INJECTION DE CE CODE SI ON EST DANS LA SECTION RESTAURANT #}
+{% if menuRestaurant is defined %}
+	{% if app.request.locale == "fr" %}
+	<h2 class="title_attrait">{{ p.nomfr }}</h2>
+      	<h3 class="slogan_attrait">{{ p.metatitrefr }}</h3>
+    		<p>{{ p.descriptionattraitfr.texteresumefr|striptags }}</p>
+    		{% if menuRestaurant is defined %}
+    			<p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlfr }}/{{ p.zoneid.nomfr|lower }}/{{ p.repertoirefr }}" target="_blank">{{ p.nomfr }}</a></strong></p>
+    		{% elseif menuPresentation is defined %}
+    			<p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlfr }}/{{ p.zoneid.nomfr|lower }}/{{ p.repertoirefr }}" target="_blank">{{ p.nomfr }}</a></strong></p>
+    		{% elseif menuDirectionRoutiere is defined %}
+    			<p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlfr }}/{{ p.zoneid.nomfr|lower }}/{{ p.repertoirefr }}" target="_blank">{{ p.nomfr }}</a></strong></p>
+    		{% elseif menuReservation is defined %}
+		    	{% if p.hebergementid == "" %}
+		   			 <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlfr }}/{{ p.zoneid.nomfr|lower }}/{{ p.repertoirefr }}" target="_blank" title="{{ p.nomfr }}">{{ p.nomfr }}</a></strong></p>
+		    	{% else %}
+		    	 <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlfr }}/{{ p.zoneid.nomfr|lower }}/{{ p.repertoirefr }}" target="_blank" title="{{ p.nomfr }}">{{ p.hebergementid.nomfr }}</a></strong></p>
+		    	{% endif %}
+		   {% endif %}
+		   {# PUB GOOGLE #}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+	{% else %}
+	<h2 class="title_attrait">{{ p.nomen }}</h2>
+      	<h3 class="slogan_attrait">{{ p.metatitreen }}</h3>
+    		<p>{{ p.descriptionattraiten.texteresumeen|striptags }}</p>
+    		{% if menuRestaurant is defined %}
+    			<p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlen }}/{{ p.zoneid.nomen|lower }}/{{ p.repertoireen }}" target="_blank">{{ p.nomen }}</a></strong></p>
+    		{% elseif menuPresentation is defined %}
+    			<p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlen }}/{{ p.zoneid.nomen|lower }}/{{ p.repertoireen }}" target="_blank">{{ p.nomen }}</a></strong></p>
+    		{% elseif menuDirectionRoutiere is defined %}
+    			<p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlen }}/{{ p.zoneid.nomen|lower }}/{{ p.repertoireen }}" target="_blank">{{ p.nomen }}</a></strong></p>
+    		{% elseif menuReservation is defined %}
+		    	{% if p.hebergementid == "" %}
+		   			 <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlen }}/{{ p.zoneid.nomen }}/{{ p.repertoireen }}" target="_blank">{{ p.nomen }}</a></strong></p>
+		    	{% else %}
+		    	 <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlen }}/{{ p.zoneid.nomen|lower }}/{{ p.repertoireen }}" target="_blank">{{ p.hebergementid.nomen }}</a></strong></p>
+		    	{% endif %}
+		   {% endif %}
+		   {# PUB GOOGLE #}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+	{% endif %}
+{% endif %}
+	
+{# INJECTION DE CE CODE SI ON EST DANS LA SECTION FORFAIT #}
+{% if menuForfait is defined %}
+	{% if forfait is not empty %}
+		{% if app.request.locale == "fr" %}
+                    {% for a in client %}
+                            {% if a.descriptionhebergementfr.descriptionpromotionfr is not empty %}
+                            <h2 class="title_attrait">{{ "promotion" | trans }}</h2>
+                            <div class="colonneDroiteMinisitepromotion"> {{ a.descriptionhebergementfr.descriptionpromotionfr|raw }} </div> 
+                            {% endif %}
+		    {% endfor %}
+		   {# {% if forfait is not empty %}
+                        {% for f in forfait %}
+                            {% if f.derniereminute == 1 and loop.index == 1  %}
+                            <h2 class="title_attrait">{{ "tarif.derniere.minute" | trans }}</h2>
+                            {% endif %} 
+                                {% if f.derniereminute == 1 %}
+                                    {% if f.titrederniereminutefr != null and f.descriptifderniereminutefr != null %}
+                                        {% if f.datedebut|date_modify("+30 day")|date("m/d/Y") >= dateToday %}
+                                        <h2>{{ f.titrederniereminutefr }}</h2>
+                                        <p>{{ f.descriptifderniereminutefr|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(200, '...') }}</p>
+                                        <p>{{ f.tarif|replace({"%$%": ""}) }} $</p>
+                                        <p></p>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if f.datedebut|date_modify("+30 day")|date("m/d/Y") >= dateToday %}
+                                        <h2>{{ f.nomfr }}</h2>
+                                        <p>{{ f.textefr|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(200, '...') }}</p>
+                                        <p>{{ f.tarif|replace({"%$%": ""}) }} $</p>
+                                        <p></p>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+		    	{% endfor %}
+		    {% endif %}#}
+		    {# PUB GOOGLE #}
+                        <div id="zone_02" class="bigBox">
+                                <script type='text/javascript'>
+                                        googletag.cmd.push(function() { googletag.display('zone_02'); });
+                                </script>
+                        </div>
+		{% else %}
+                    {% for a in client %}
+                            {% if a.descriptionhebergementen.descriptionpromotionen is not empty %}
+                            <h2 class="title_attrait">{{ "promotion" | trans }}</h2>
+                        <p> {{ a.descriptionhebergementen.descriptionpromotionen|raw }} </p> 
+                        {% endif %}
+		    {% endfor %}
+		    {% if forfait is not empty %}
+		    	{#{% for f in forfait %}
+                            {% if f.derniereminute == 1 and loop.index == 1 %}
+                            <h2 class="title_attrait">{{ "tarif.derniere.minute" | trans }}</h2>
+                            {% endif %}
+                                {% if f.derniereminute == 1 %}
+                                    {% if f.titrederniereminuteen != null and f.descriptifderniereminuteen != null %}
+                                        {% if f.datedebut|date_modify("+30 day")|date("m/d/Y") >= dateToday %}
+                                        <h2>{{ f.titrederniereminuteen }}</h2>
+                                        <p>{{ f.descriptifderniereminuteen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(200, '...') }}</p>
+                                        <p>{{ f.tarif|replace({"%$%": ""}) }} $</p>
+                                        <p></p>
+                                        {% endif %}
+                                    {% else %}
+                                        {% if f.datedebut|date_modify("+30 day")|date("m/d/Y") >= dateToday %}
+                                        <h2>{{ f.nomen }}</h2>
+                                        <p>{{ f.texteen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(200, '...') }}</p>
+                                        <p>{{ f.tarif|replace({"%$%": ""}) }} $</p>
+                                        <p></p>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+		    	{% endfor %}#}
+		    {% endif %}
+		    {# PUB GOOGLE #}
+                        <div id="zone_02" class="bigBox">
+                                <script type='text/javascript'>
+                                        googletag.cmd.push(function() { googletag.display('zone_02'); });
+                                </script>
+                        </div>
+		{% endif %}                        
+	{% endif %}
+{% endif %}
+	
+{# INJECTION DE CE CODE SI ON EST DANS LA SECTION CHAMBRE #}
+{% if menuChambre is defined %}
+	<h2 class="title_attrait">{{ "hebergement.unite.tarif" | trans }}</h2>
+	{% if app.request.locale == "fr" %}
+		{% for w in client %}
+	    	<p>{{ w.descriptionhebergementfr.textegeneralechambrefr|raw }}</p>
+	    {% endfor %}
+	    {# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% else %}
+		{% for w in client %}
+	    	<p>{{ w.descriptionhebergementen.textegeneralechambreen|raw }}</p>
+	    {% endfor %}
+	    {# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% endif %}
+{% endif %}
+	
+{# INJECTION DE CE CODE SI ON EST DANS LA SECTION CORPORATIF #}
+{% if menuCorporatif is defined %}
+	{% if app.request.locale == "fr" %} {# VERSION FRANÇAISE #}
+		<h2 class="title_attrait">Description générale des services corporatif et événements spéciaux</h2>
+	    <p></p>
+	    {% if nbChambre != 0 %}
+	    <h2 class="title_attrait">{{ "capacite.corpo" | trans }}</h2>
+	    {% endif %}
+	    <ul>
+	    {% if nbChambre >= 1 %}
+	    <li>{{ nbChambre }} {{ "chambre" | trans }}{% if nbChambre > 1 %}s{% endif %}</li>
+	    {% endif %}
+	    {% if nbSalle >= 1 %}
+	    <li>{{ nbSalle }} salle{% if nbSalle > 1 %}s{% endif %} de réunion</li>
+	    {% endif %}
+	    </ul>
+	    	{% if corpo is not empty %}
+	   	 		<h2 class="title_attrait">{{ "type.even.corpo" | trans }}</h2>
+			{% endif %}
+	    {# LISTE DES ÉVÉNEMENTS #}
+	    <ul>
+	    	{% for w in corpo %}
+	    		{% for e in w.typeevenement %}
+	        		<li>{{ e.nomfr }}</li>
+	        	{% endfor %}
+	        {% endfor %}
+	    </ul> 
+	  		{% if corpo is not empty %}
+	    		<h2 class="title_attrait">{{ "service.corpo" | trans }}</h2>
+	    	{% endif %}
+	    {# LISTE DES SERVICES #}
+	    <ul>
+	        {% for w in corpo %}
+	    		{% for e in w.corporatifserviceid %}
+	        		<li>{{ e.nomfr }}</li>
+	        	{% endfor %}
+	        {% endfor %}
+	    </ul>
+	    {# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+    {% else %} {# VERSION ANGLAISE #}
+	    <h2 class="title_attrait">General description of corporate services and special events</h2>
+	    <p></p>
+	    <h1>{{ "capacite.corpo" | trans }}</h1>
+	    <ul>
+	    {% if nbChambre >= 1 %}
+	    <li>{{ nbChambre }} {{ "chambre" | trans }}{% if nbChambre > 1 %}s{% endif %}</li>
+	    {% endif %}
+	    {% if nbSalle >= 1 %}
+	    <li>{{ nbSalle }} meeting room{% if nbSalle > 1 %}s{% endif %}</li>
+	    {% endif %}
+	    </ul>
+	    <h2 class="title_attrait">{{ "type.even.corpo" | trans }}</h2>
+	    {# LISTE DES ÉVÉNEMENTS #}
+	    <ul>
+	    	{% for w in corpo %}
+	    		{% for e in w.typeevenement %}
+	        		<li>{{ e.nomen }}</li>
+	        	{% endfor %}
+	        {% endfor %}
+	    </ul>
+	    <h2 class="title_attrait">{{ "service.corpo" | trans }}</h2>
+	    {# LISTE DES SERVICES #}
+	    <ul>
+	        {% for w in corpo %}
+	    		{% for e in w.corporatifserviceid %}
+	        		<li>{{ e.nomen }}</li>
+	        	{% endfor %}
+	        {% endfor %}
+	    </ul>
+	    {# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+    {% endif %}
+{% endif %}
+
+{# INJECTION DE CE CODE SI ON EST DANS LA SECTION SOIN DE SANTÉ #}
+{% if menuSoinSante is defined %}
+	{% if app.request.locale == "fr" %}
+		{% for w in client %} 
+		<h2 class="title_attrait">{{ w.nomfr }}</h2>
+		{% if w.descriptionattraitfr is defined %}
+	    	<p>{{ w.descriptionattraitfr.texteresumefr|striptags }}</p>
+	    {% endif %}
+	    <p><strong>{{ "plus.info" | trans }} : <a href="{{ w.regionid.urlfr }}/{{ w.zoneid.repertoirefr }}/{{ w.repertoirefr }}" target="_blank" title="{{ "soins" | trans }} {{ w.nomfr }}">{{ w.nomfr }}</a></strong></p>
+	    {% endfor %}
+	    <ul>
+	    	{% for p in listeSoin %}
+	    		{% for e in p.soinssanteid %}
+	    			{% if loop.index == 1 %}
+	    				<h2 class="title_attrait">{{ "soin.offert" | trans }}</h2>
+	    			{% endif %}
+	    			{% if e.nomfr != "-----------------Aucun soin de santé--------------" %}
+	        			<li>{{ e.nomfr }}</li>
+	        		{% endif %}
+	        	{% endfor %}
+	        {% endfor %}
+	    </ul>
+	    {# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% else %}
+		{% for w in client %} 
+		<h2 class="title_attrait">{{ w.nomen }}</h2>
+		{% if w.descriptionattraiten is defined %}
+	    	<p>{{ w.descriptionattraiten.texteresumeen|striptags }}</p>
+	    {% endif %}
+	    <p><strong>{{ "plus.info" | trans }} : <a href="{{ w.regionid.urlen }}/{{ w.zoneid.repertoireen }}/{{ w.repertoireen }}" target="_blank" title="{{ "soins" | trans }} {{ w.nomen }}">{{ w.nomen }}</a></strong></p>
+	     {% endfor %}
+	    <ul>
+	    	{% for p in listeSoin %}
+	    		{% for e in p.soinssanteid %}
+	    			{% if loop.index == 1 %}
+	    				<h2 class="title_attrait">{{ "soin.offert" | trans }}</h2>
+	    			{% endif %}
+	    			{% if e.nomfr != "-----------------Aucun soin de santé--------------" %}
+	        			<li>{{ e.nomfr }}</li>
+	        		{% endif %}
+	        	{% endfor %}
+	        {% endfor %}
+	    </ul>
+	    {# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% endif %}
+{% endif %}
+
+{# INJECTION DE CE CODE SI ON EST DANS LA SECTION RÉSERVATION EN LIGNE #}
+{% if menuReservation is defined %}
+	{% for w in client %}
+		{% if w.politiquehebergementfr.politiqueannulationforfaitfr is not empty or w.politiquehebergementen.politiqueannulationforfaiten is not empty %}
+		<h2 class="title_attrait">{{ "condition.annulation" | trans }}</h2>
+		{% endif %}
+	{% endfor %}
+	{% if app.request.locale == "fr" %}
+		{% for a in client %}
+	    	<p class="red">{{ a.politiquehebergementfr.politiqueannulationforfaitfr|raw }}</p>
+	    {% endfor %}
+	    {# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% else %}
+		{% for a in client %}
+	    	<p class="red">{{ a.politiquehebergementen.politiqueannulationforfaiten|raw }}</p>
+	    {% endfor %}
+	    {# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% endif %}
+{% endif %}
+
+{# INJECTION DE CE CODE SI ON EST DANS LA SECTION PRÉSENTATION #}
+{% if menuPresentation is defined %}
+	{% if app.request.locale == "fr" %}
+	<h2 class="title_attrait">{{ p.nomfr }}</h2> 
+      	<h3 class="slogan_attrait">{{ p.villeid.nomfr }}</h3><img src="{{ asset('uploads/classifications/') }}{{ p.classificationid.id }}/{{ p.classificationid.image }}" class="classification2" alt="{{ p.classificationid.valeur }}" />
+    		<p> {{ textefr|raw }} </p>
+                        {% if menuRestaurant is defined %}
+                                <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlfr }}/{{ p.zoneid.repertoirefr }}/{{ p.repertoirefr }}" target="_blank" title="Plus d'information sur {{ p.nomfr }}">{{ p.nomfr }}</a></strong></p>
+                        {% elseif menuPresentation is defined %}
+                            {% if soinsExiste is not empty %}
+                                <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlfr }}/{{ p.zoneid.repertoirefr }}/{{ p.repertoirefr }}" target="_blank" title="Plus d'information sur {{ p.nomfr }}">{{ p.nomfr }}</a></strong></p>
+                            {% endif %}
+                        {% elseif menuDirectionRoutiere is defined %}
+                            {% if soinsExiste is not empty %}
+                                <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlfr }}/{{ p.zoneid.repertoirefr }}/{{ p.repertoirefr }}" target="_blank" title="Plus d'information sur {{ p.nomfr }}">{{ p.nomfr }}</a></strong></p>
+                            {% endif %}
+                        {% elseif menuReservation is defined %}
+                            {% if p.hebergementid == "" %}
+                                {% if soinsExiste is not empty or menuRestaurant is defined %}
+                                     <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlfr }}/{{ p.zoneid.repertoirefr }}/{{ p.repertoirefr }}" target="_blank" title="Plus d'information sur {{ p.nomfr }}">{{ p.nomfr }}</a></strong></p>
+                                {% endif %}
+                            {% else %}
+                                {% if soinsExiste is not empty or menuRestaurant is defined %} 
+                                    <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlfr }}/{{ p.zoneid.repertoirefr }}/{{ p.repertoirefr }}" target="_blank" title="Plus d'information sur {{ p.nomfr }}">{{ p.hebergementid.nomfr }}</a></strong></p>
+                                {% endif %}
+                        {% endif %}
+		   {% endif %}
+		   {# PUB GOOGLE #}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+	{% else %}
+	<h2 class="title_attrait">{{ p.nomen }}</h2>
+      	<h3 class="slogan_attrait">{{ p.villeid.nomen }}</h3><img src="{{ asset('uploads/classifications/') }}{{ p.classificationid.id }}/{{ p.classificationid.image }}" class="classification2" alt="{{ p.classificationid.valeur }}" />
+    		<p> {{ texteen|raw }} </p>
+                        {% if menuRestaurant is defined %}
+                                <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlen }}/{{ p.zoneid.repertoireen }}/{{ p.repertoireen }}" target="_blank" title="More information {{ p.nomen }}">{{ p.nomen }}</a></strong></p>
+                        {% elseif menuPresentation is defined %}
+                            {% if soinsExiste is not defined %}
+                                <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlen }}/{{ p.zoneid.repertoireen }}/{{ p.repertoireen }}" target="_blank" title="More information {{ p.nomen }}">{{ p.nomen }}</a></strong></p>
+                            {% endif %}
+                        {% elseif menuDirectionRoutiere is defined %}
+                            {% if soinsExiste is not empty %}
+                                <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlen }}/{{ p.zoneid.repertoireen }}/{{ p.repertoireen }}" target="_blank" title="More information {{ p.nomen }}">{{ p.nomen }}</a></strong></p>
+                            {% endif %}
+                        {% elseif menuReservation is defined %}
+                            {% if p.hebergementid == "" %}
+                                {% if soinsExiste is not empty or menuRestaurant is defined %}
+                                    <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlen }}/{{ p.zoneid.repertoireen }}/{{ p.repertoireen }}" target="_blank" title="More information {{ p.nomen }}">{{ p.nomen }}</a></strong></p>
+                                {% endif %}
+                            {% else %}
+                                 {% if soinsExiste is not empty or menuRestaurant is defined %}
+                                    <p><strong>{{ "plus.info" | trans }} : <a href="{{ p.regionid.urlen }}/{{ p.zoneid.repertoireen }}/{{ p.repertoireen }}" target="_blank" title="More information {{ p.nomen }}">{{ p.hebergementid.nomen }}</a></strong></p>
+                                 {% endif %}
+                            {% endif %}
+                        {% endif %}
+		   {# PUB GOOGLE #}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+	{% endif %}
+{% endif %}
+
+{# INJECTION DE CE CODE SI ON EST DANS LA SECTION DIRECTION ROUTIÈRES #}
+{% if menuDirectionRoutiere is defined %}
+	{% if app.request.locale == "fr" %}
+	{# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% else %}
+	{# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% endif %}
+{% endif %}
+
+{# INJECTION DE CE CODE POUR LA SECTION GALERIE PHOTO #}
+{% if menuGalerie is defined %}
+	{% if app.request.locale == "fr" %}
+	{# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% else %}
+	{# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% endif %}
+{% endif %}
+</div>                                    

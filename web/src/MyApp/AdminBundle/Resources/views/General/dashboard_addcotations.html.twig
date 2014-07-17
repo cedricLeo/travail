@@ -1,0 +1,35 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist == "false" %}
+	<h1>Ajouter une cotation</h1>
+{% else %}
+	<h1>Modifier la cotation « {{ infonom|upper }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+				   {% if exist == "true" %}
+				   <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer la cotation {{ infonom }}">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer la cotation {{ infonom }}"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimez la cotation :  {{ infonom }} ?</p>
+				        <a href="{{ path('_Dashboard_deletecotations', {'id':infoid}) }}" class="detroye_state " >Supprimer</a>
+					<a href="#reset" class="boutonannuler hack_btnCancel"></a>
+				    </div>
+				    {% endif %}	
+				    {{ form_label(form.valeur, "Valeur", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.valeur, {'attr':{'class':'txt_add_state'}}) }}	
+				    {{ form_label(form.file, "Image", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.file, {'attr':{'class':'txt_add_state'}}) }}		
+				    {% if exist == "true" %}
+				  	<img src="{{ asset('uploads/cotations') }}/{{infoid}}/{{ infoimg }}" class="img_cotation_sans_height"/>
+				    {% endif %}
+				    {{ form_rest(form) }}		   
+				    <input type="submit" value="" class="boutonvalidenregistrer"/>
+				    <a href="{{ path('_Dashboard_cotations') }}" class="boutonannuler"></a>
+				</form>
+			   <br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

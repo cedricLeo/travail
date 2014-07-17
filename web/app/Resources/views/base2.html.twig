@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+	 <head>
+         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+         <meta name="robots" content="index, follow" />
+         <meta content="ca" name="COUNTRY">
+         <meta http-equiv="content-language" content="{{ app.request.locale }}" />
+         {% include'::metas.html.twig' %}
+    	 <link rel="shortcut icon" href="{{ asset('bundles/myappglobal/images/favicon.ico') }}" />
+    	 {% block stylesheets %} {% include'::files_style.html.twig' %} {% endblock %}
+         {% block javascripts %} {% include'::files_js.html.twig' %} {% endblock %}
+    </head>
+    {% if menuDirectionRoutiere is defined %}
+    <body class="yui-skin-sam" onload="initialize()">
+    {% else %}
+    <body class="yui-skin-sam">
+    {% endif %}
+	<div id="global">
+	<div id="reservationexterne">
+		{% if app.request.locale == "fr" %}
+			<a href="http://www.quebecensaisons.com/" rel="nofollow" target="_blank" title="Québec en Saisons  {# {% for s in saison %} {% if loop.index == 1 %} {{ s }} {% endif %} {% endfor %}#}"><img src="{{ asset('bundles/myappglobal/images/quebecEnSaison.jpg') }}" alt="Québec en saison {% for s in saison %} {% if loop.index == 1 %} {{ s }} {% endif %} {% endfor %} " class="imgquebecensaison" /></a>
+		{% else %}
+			<a href="http://www.quebecensaisons.com/index-en.php" rel="nofollow" target="_blank" title="Quebec Seasons {#{% for s in saison %} {% if loop.index == 2 %} {{ s }} {% endif %} {% endfor %}#}"><img src="{{ asset('bundles/myappglobal/images/quebecEnSaison_en.jpg') }}" alt="Quebec season {% for s in saison %} {% if loop.index == 2 %} {{ s }} {% endif %} {% endfor %}" class="imgquebecensaison" /></a>
+		{% endif %}
+		<div class="partage">
+		{% include'::reservation_en_ligne.html.twig' %}
+		</div>
+	</div>
+		<div id="container">
+			<div id="slidercontent">		
+				<div id="entete">
+					<a href="{{ path("_accueil") }}" ><img id="logoblanc" src="{{ asset('bundles/myappglobal/images/logo_blanc.jpg') }}" class="logoblanc" alt="Logo Global Réservation"/></a>
+					<div>
+                                        <a {% if app.request.locale == "fr" %} href="http://reservation.global-reservation.com/jreservit/welcomeXml.do?langcode=FR" {% else %} href="http://reservation.global-reservation.com/jreservit/welcomeXml.do?langcode=EN" {% endif %} title="{{ "version.mobile" | trans }}" rel="nofollow">{{ "version.mobile" | trans }}</a> |
+					{# }<a href="#">{{ "mon.itineraire" | trans }}</a> |#} <a href="{{ path('login') }}" rel="nofollow">{{ "connexion" | trans }}</a> | <a href="{{ path('_contact') }}">{{ "contactez.nous" | trans }}</a> | <a href="{{ path('_faq') }}">FAQ</a> | <a href="{{ path('_quisommesnous') }}" title="{{ "qui.sommes.nous" | trans }}">{{ "qui.sommes.nous" | trans }}</a> | 
+					{% if app.request.locale == "fr"  %}
+                                            <a href="{{ path('_transaction_langue_global',{'langue':'en'}) }}"> <img class="drapeau_traduction" src="{{ asset('bundles/myappglobal/images/flag_en.png') }}" title="English version" alt="version anglaise" /></a> 
+					{% else %}
+                                            <a href="{{ path('_transaction_langue_global',{'langue':'fr'}) }}"> <img class="drapeau_traduction" src="{{ asset('bundles/myappglobal/images/flag_fr.png') }}" title="Version française" alt="version française" /></a>
+					{% endif %}
+                                                
+					</div>
+					    {#}<p>{{ "mon.global" | trans }} | <a href="#">{{ "connexion" | trans }}</a></p>#}
+						{#}<p><strong>{{ "Bienvenue" | trans }} </strong></p> #}
+						{% if app.request.locale == "fr" %}
+                                                        <p class="legendeAccueil">Site de réservations d'hôtels, de chalets et autres établissements d'hébergement</p>
+					   		<img src="{{ asset('bundles/myappglobal/images/telephone.png') }}" alt="{{ "reservez.par.telephone" | trans }}" width="578" height="21" class="imgreservation"/>   
+                                                {% else %}
+                                                        <p class="legendeAccueilen">Reservations web site for hotels, cottages and others accommodations</p>
+					   		<img src="{{ asset('bundles/myappglobal/images/telephoneversionen.png') }}" alt="{{ "reservez.par.telephone" | trans }}" width="578" height="21" class="imgreservation"/>
+                                                {% endif %} 
+                                               
+                                </div>
+                                {# MENU HAUT DE LA PAGE (HORIZONTALE) #}	
+				{% include'::menu.html.twig' %}
+			</div>
+			   {# FIL D'ARIANE #}
+			   <div id="logogr"> 
+					{% include'::filAriane.html.twig' %}
+					{# BANDEAU DE PUB GOOGLE #}
+					<div id="zone_03" class="pub"></div>		
+					<a href="{{ path('_accueil') }}"><img id="logoportail" src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Réservation d'hébergement au Canada" /></a>
+				</div>
+			<div id="bodycontent">
+	    	{% block picture %} {% endblock %}
+	   		 {% if hidden is not defined %}
+	   		 	{% if pageStatic is not defined %}
+				     <div  id="sectionrecherche" {% if multipleResultat is defined %} class="multipleResultat" {% endif %}>
+						{#	<a class="btRechercheAvancee" href="../SiteWeb/RechercheAvancee.html">
+								<img border="0" src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="103" height="82" alt="Bouton" />
+							</a>
+							<a class="btRechercheCarte" href="../SiteWeb/RechercheParCarte.html">
+								<img border="0" src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="103" height="82" alt="Bouton" />
+							</a>
+							<a class="btReservationEnLigne" href="{{ path('_hebergementreservationenligne') }}">
+								<img border="0" src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="103" height="82" alt="Bouton" />
+							</a>
+								<ul class="navRecherche">
+									<li>[<a href="../SiteWeb/RechercheParCarte.html">{{ "recherche.par.carte" | trans }}</a>]</li>
+									<li>[<a href="../SiteWeb/RechercheAvancee.html">{{ "recherche.avance" | trans }}</a>]</li>
+									<li style=" margin:0;">[<a href="{{ path('_hebergementreservationenligne') }}">{{ "recherche.enligne" | trans }}</a>]</li>
+								</ul>#}
+                                                        <a style="margin-top:-40px;" class="btreservation hackbtn" href="http://reservation.global-reservation.com/reservit/reserhotel.php?partid=6&action=adv-avail&langcode={% if app.request.locale == "fr" %}fr{%else %}en{% endif %}" target="_blank" rel="nofollow" title="Réservation en ligne">{{ "reservation.ligne" | trans }}</a>
+							{% if resultatGoogle is not defined %}
+                                                        <div id="recherche">
+								{# Moteur de recherche #}
+								<form action="" method="post" {{ form_enctype(formEngine) }} class="update_state_form">				
+								    {{ form_label(formEngine.nom, " ") }}
+								    {{ form_widget(formEngine.nom, {'attr':{'class':'txt_add_state' }}) }}								      
+								    {{ form_rest(formEngine) }}	
+								    <input type="submit" class="btn_form_recherche" value="{{ "rechercher" | trans }}"/> 
+                                                                </form>                                                             
+							</div>  
+                                                        {% endif %}
+                                                <br  class="clearfloat"/>				
+                                                {#<h2>{% block titleregion %}{% endblock %}</h2>#}
+                                                {% block texte_accueil %} {% endblock %}					
+					 </div>
+			 	{% endif %}
+			 {% endif %}
+			 <br class="clearfloat"/>
+                            {# Body  avec colonne gauche et droite #}
+                            <div id="droit">                           
+                                {% block body %} {% endblock %}     
+                            </div>		
+                            <div id="gauche">                               
+                                 {% block gauche %}{% endblock %}
+                            </div>
+                            {% block critere %}	
+                            {% if menuPresentation is defined %}						
+                                    <div class="critere">
+                                    {% if app.request.locale == "fr" %}
+				            {% if critere|length > 0 %}
+                                                    {% for w in devise %}
+                                                      <h2>{{ "critere.semblable" | trans }} <br /> {{ w.nomfr }}  </h2>
+                                                              <ul>
+                                                                <li><a href="javascript:void(0)" rel="nofollow">{% for g in w.stylehebergementid %} {{ g.nomfr }} + {% endfor %}</a> </li> 
+                                                                <li><a href="javascript:void(0)" rel="nofollow">{{ w.villeid.nomfr }}</a> </li>
+                                                              </ul>
+                                                    {% endfor %}
+                                                    {# LISTE DES ÉTABLISSEMENTS QUI ONT LES MÊMES CRITÈRES #}
+					            {% for y in critere %}
+					                   <div> 
+					                        <a href="{{ path('_hebergementinfoclient',{'name':y.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} {{ y.nomfr }}">
+					                        	{% if y.photocategoriepayante is not empty %}
+					                        		<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ y.id }}/{{ y.photocategoriepayante }}" class="img_categoie_portail" alt="{{ y.nomfr }}" />
+					                        	{% else %}
+					                        		<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Image de remplacement " />
+					                        	{% endif %}
+					                        </a>
+					                        <h3><a href="{{ path('_hebergementinfoclient',{'name':y.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} {{ y.nomfr }}">{{ y.nomfr }}</a></h3>
+					                   </div>
+					            {% endfor %}
+                                            {% endif %}
+                                    {% else %}
+                                            {% if critere|length > 0 %}
+								{% for w in devise %}
+								  <h2>{{ "critere.semblable" | trans }} <br /> {{ w.nomen }} </h2>
+									  <ul>
+                                                                            <li><a href="javascript:void(0)" rel="nofollow">{% for g in w.stylehebergementid %} {{ g.nomen }} + {% endfor %}</a> </li> 
+                                                                            <li><a href="javascript:void(0)" rel="nofollow">{{ w.villeid.nomen }}</a> </li>
+									  </ul>
+								{% endfor %}
+								{# LISTE DES ÉTABLISSEMENTS QUI ONT LES MÊMES CRITÈRES #}
+					            {% for y in critere %}
+					                   <div> 
+					                        <a href="{{ path('_hebergementinfoclient',{'name':y.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} {{ y.nomen }}">
+					                        	{% if y.photocategoriepayante is not empty %}
+					                        		<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ y.id }}/{{ y.photocategoriepayante }}" class="img_categoie_portail" alt="{{ y.nomen }}"/>
+					                        	{% else %}
+					                        		<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Replacement image " />
+					                        	{% endif %}
+					                        </a>
+					                        <h3><a href="{{ path('_hebergementinfoclient',{'name':y.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} {{ y.nomfr }}">{{ y.nomen }}</a></h3>
+					                   </div>
+					            {% endfor %}
+                                             {% endif %}
+                                     {% endif %}
+                                    <br class="clearfloat" />
+                                </div>
+                            {% endif %}
+			{% endblock %}
+			</div>		
+		</div><!-- fermeture du div container -->
+		
+		</div><!-- fermeture du div global -->
+		{% include'::footer.html.twig' %}
+    </body>
+</html>

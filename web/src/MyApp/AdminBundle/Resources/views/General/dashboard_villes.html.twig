@@ -1,0 +1,92 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+	{# Moteur de recherche #}
+	<form action="" method="post" {{ form_enctype(form) }} class="engine_search">					
+	    {{ form_widget(form.nom_fr, {'attr':{'class':'moteur_recherche', 'list':'listtown'}}) }}
+            <script>
+                $(function(){
+                     var availableTags = [
+                        {% for v in autocompletion %}
+                             {% autoescape 'js' %}
+                                 "{{ v.nom_fr }}",
+                             {% endautoescape %}
+                        {% endfor %}
+                      ];
+                      $( "#add_enginesearch_nom_fr" ).autocomplete({
+                        source: availableTags
+                      });
+                });
+            </script>
+	    <input type="submit" value="" class="loupe_moteur"/>
+	</form>
+	
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addvilles')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter une ville</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="270" colspan=1>Nom fr</td>
+								<td width="270">Nom en</td>
+							</tr>	
+								{% if number == 1 %}
+									{% for p in ville %}
+										<tr>
+											<td colspan=1><a href="{{path('_Dashboard_updatevilles',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updatevilles',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+										</tr>
+									{% endfor %}
+									{% if ville is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+									{% endif %}	
+								{% elseif number == 3 %}
+									{% for p in lettre %}
+										<tr>
+											<td colspan=1><a href="{{path('_Dashboard_updatevilles',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updatevilles',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+										</tr>
+									{% endfor %}
+									{% if lettre is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+									{% endif %}	
+								{% elseif number == 2 %}
+									{% for p in result %}
+											<tr>
+												<td colspan=1><a href="{{path('_Dashboard_updatevilles',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+												<td colspan=1><a href="{{path('_Dashboard_updatevilles',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+											</tr>
+									{% endfor %}
+									{% if result is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+									{% endif %}	
+								{% endif %}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+				{% if nbville > 30 %}
+				<tr>
+					<td>
+						{% if number == 1 %}
+							<a class="pagination_customer" href=" {{ path('_Dashboard_villes',{'page':page - 1}) }}" >{% if firstpage < page %} << {% else %} {% endif %} </a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_villes',{'page':page + 1}) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+						{% else %}
+							<a class="pagination_customer" href=" {{ path('_Dashboard_villes',{'page':page - 1}) }}" > </a> page 1 / {{ displaypage }} <a href="{{ path('_Dashboard_villes',{'page': 1 }) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td class="letter_alpha">
+						{% for letter in 'a'|upper ..'z'|upper %}
+						<a href="{{ path('_Dashboard_villes',{'page':page, 'letter':letter}) }}">{{ letter }}</a>
+						{% endfor %}
+					<td>
+				</tr>
+				{% endif %}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

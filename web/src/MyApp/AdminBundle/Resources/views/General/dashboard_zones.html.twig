@@ -1,0 +1,81 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+	{# Moteur de recherche #}
+	<form action="" method="post" {{ form_enctype(form) }} class="engine_search">			
+	    {{ form_widget(form.nom_fr, {'attr':{'class':'moteur_recherche','list':'listarea'}}) }}
+	    <datalist id="listarea">
+	    	{% for v in autocompletion %}
+	    		 <option value="{{ v.nom_fr }}">
+	    	{% endfor %}
+	    </datalist>
+	    <input type="submit" value="" class="loupe_moteur"/>
+	</form>
+
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addzones')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter une zone géographique</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="270" colspan=1>Nom fr</td>
+								<td width="270">Nom en</td>
+							</tr>	
+								{% if number == 1 %}
+									{% for p in zones %}
+										<tr>
+											<td colspan=1><a href="{{path('_Dashboard_updatezones',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updatezones',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+										</tr>
+									{% endfor %}
+									{% if zones is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+									{% endif %}		
+								{% elseif number == 3 %}
+									{% for p in lettre %}
+										<tr>
+											<td colspan=1><a href="{{path('_Dashboard_updatezones',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updatezones',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+										</tr>
+									{% endfor %}
+									{% if lettre is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+									{% endif %}	
+								{% elseif number == 2 %}
+									{% for p in result %}
+										<tr>
+											<td colspan=1><a href="{{path('_Dashboard_updatezones',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updatezones',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+										</tr>
+									{% endfor %}
+									{% if number is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+									{% endif %}	
+								{% endif %}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				{% if nbzone > 30 %}
+				<tr>
+					<td>
+						{% if number == 1 %}
+							<a class="pagination_customer" href=" {{ path('_Dashboard_zones',{'page':page - 1}) }}" >{% if firstpage < page %} << {% else %} {% endif %} </a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_zones',{'page':page + 1}) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+						{% else %}
+							<a class="pagination_customer" href=" {{ path('_Dashboard_zones',{'page':page - 1}) }}" > </a> page 1 / {{ displaypage }} <a href="{{ path('_Dashboard_zones',{'page':1 }) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td class="letter_alpha">
+						{% for letter in 'a'|upper ..'z'|upper %}
+						<a href="{{ path('_Dashboard_zones',{'page':page, 'letter':letter}) }}">{{ letter }}</a>
+						{% endfor %}
+					<td>
+				</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

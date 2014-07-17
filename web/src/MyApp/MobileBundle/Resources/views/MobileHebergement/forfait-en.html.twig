@@ -1,0 +1,33 @@
+
+<h2>{{ "forfait" | trans }}  {{ p.nomen }}</h2>
+  <div class="fiche">
+    {% for w in forfait %}
+      <div itemscope itemtype="http://schema.org/Event">            
+         {% if w.imageprincipale != null %}
+               <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ w.id }}/{{ w.imageprincipale }}" class="img_liste_forfait" alt="{{ w.hebergementid.nomen }}" />
+         {% else %}
+               <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="{{ w.hebergementid.nomen }}" />
+         {% endif %}
+               <h3 id="{{ w.id }}" itemprop="name"><strong>{{ w.forfaitclientid.nomen }}</strong></h3>
+               <h4 class="titreForfaitMiniSite">{{ w.nomen }}</h4>
+          <div>	          
+          <h4>This package includes:</h4>
+          <p itemprop="description">{{ w.texteen|raw }}</p>
+          <div>
+          <p>Price from <strong>{{ w.tarif }}</strong></p>
+          <meta itemprop="startDate" content="{{ w.datedebut|date("Y-m-d") }}T8H00">
+          <meta itemprop="endDate" content="{{ w.datedefin|date("Y-m-d") }}">
+          <p>{{ w.datedebut|date("M d ") }}  to  {{ w.datedefin|date("M d Y") }}  </p>
+          </div>
+          </div>
+          <span>{% if p.reservitid is not empty and w.reserverforfaitenligne is not empty %}<a href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ p.reservitid }}&lang=en" target="_blank" title="Book this package online">Reserve online package</a> {% endif %} {{ "prix.sujet.changement.sans.preavis" | trans }}</span> 
+          <br class="clearfloat" />
+      </div>
+    {% endfor %}  
+  </div>
+        {% if p.politiquehebergementen.politiqueannulationen is not empty or p.politiquehebergementen.politiquetarifen is not empty %}
+            <div class="condition">
+                {% if p.politiquehebergementen.politiqueannulationen is not empty %}<p><span>Cancellation policy</span> : {{ p.politiquehebergementen.politiqueannulationen }}</p>{% endif %}
+                {% if p.politiquehebergementen.politiquetarifen is not empty %}<p><span>Pricing policy</span> : {{ p.politiquehebergementen.politiquetarifen }}</p>{% endif %}
+            </div>
+        {% endif %}

@@ -1,0 +1,76 @@
+{# FORMULAIRE DE RÉSERVATION EN LIGNE #}
+	   <div class="reservation hackReservation">
+	  		{% if menuReservation is not defined %}<div id="structureformonline">{% else %}<div id="structureformonline2">{% endif %}
+				<div class="blancback" >
+				 <h2 class="reserveonline">{{ "reservation.en.ligne" | trans }} {% for w in client %} {% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %} {% endfor %}
+				 </h2>{#}<span style="font-size:10px; font-weight:normal; color:#333">{{ "voir.disponibilite" | trans }}</span>#}
+				    <form action="" method="post" {{ form_enctype(formGlobal) }} class="reserveonline">
+					    {{ form_widget(formGlobal) }}
+					  <div class="datebegin">{{ form_label(formGlobal.datedebut, "date.arriver"|trans) }}</div>
+					    {{ form_widget(formGlobal.datedebut) }}
+					  <div class="nbchambre">{{ form_label(formGlobal.chambre, "nombre.chambre"|trans) }}</div>
+					    {{ form_widget(formGlobal.chambre) }}
+					  <div class="dateend">{{ form_label(formGlobal.datefin, "date.depart"|trans) }}</div>
+					    {{ form_widget(formGlobal.datefin) }}
+					  <div class="personneadulte">{{ form_label(formGlobal.adulte, "adulte"|trans) }}</div>
+					    {{ form_widget(formGlobal.adulte) }}
+					  <div class="personneenfant">{{ form_label(formGlobal.enfant, "enfant"|trans) }}</div>
+					    {{ form_widget(formGlobal.enfant) }}
+					    {{ form_rest(formGlobal) }}
+					   <div class="envoyersubmit"><input type="submit" value="" class="btreserver"/></div>   
+					</form>
+					<div class="inforeservationonline">
+						<p>{{ "amerique.nord" | trans }}<br />
+						<strong><a href="callTo:18777788977" >1 877 778-8977</a></strong></p>
+				      	<p>International<br />
+						<strong><a href="callTo:0014182662165" >001-418-266-2165</a></strong></p>
+				  	</div>
+				 </div>
+			 </div>
+	   </div>
+	   
+	   <script>
+	   //Ajuste les jours du calendrier
+			 dateToday = new Date();
+			 dateToday.getDate();
+
+			 jourArrive = document.getElementById("reservationOnline_datedebut_day");
+			//Met à jour les jours pour la date arrivée 
+			 for(i = 0; i < jourArrive.options.length; i++)
+			 {
+				 if(jourArrive.options[i].value == dateToday.getDate())
+				 {
+					jourArrive.selectedIndex = i;
+				 }
+			 }
+
+			jourDepart = document.getElementById("reservationOnline_datefin_day");
+			//Met à jour les jours pour la date départ
+			for(i = 0; i < jourDepart.options.length; i++)
+			{
+				if(jourDepart.options[i].value == (dateToday.getDate() + 1) )
+				{
+					jourDepart.selectedIndex = i;
+				}
+			}
+
+			moisArrive = document.getElementById("reservationOnline_datedebut_month");
+			//Met à jour le mois pour la date arrivée
+			for(i = 0; i < moisArrive.options.length; i++)
+			{
+				if(moisArrive.options[i].value == dateToday.getMonth() + 1)
+				{
+					moisArrive.selectedIndex = i;
+				}
+			}
+			
+			moisDepart = document.getElementById("reservationOnline_datefin_month");
+			//Met à jour le mois pour la date de départ 
+			for(i = 0; i < moisDepart.options.length; i++)
+			{
+				if(moisDepart.options[i].value == dateToday.getMonth() + 1)
+				{
+					moisDepart.selectedIndex = i;
+				}
+			}
+	   </script>

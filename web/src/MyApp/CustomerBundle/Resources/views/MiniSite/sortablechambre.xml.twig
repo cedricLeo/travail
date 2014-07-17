@@ -1,0 +1,52 @@
+<script>
+	  $(function() {
+		//Compte le nombre de tr dans le tableau
+		$nb = $("tbody#sortable > tr").length;
+		  
+	    $( "#sortable" ).sortable({
+	      placeholder: "ui-state-highlight",
+	    	  /*update: function() {  // callback quand l'ordre de la liste est changé
+	    		  $tab = new Array();
+					for($i = 0; $i < $nb; $i++){
+						$tab.push($("#sortable tr").eq($i).attr("id"));
+					}
+					if($tab != 0){
+					    var DATA = "ordre=" + $tab;
+					    $.ajax({
+					        type: "post",
+					    	url: "{{ path('_ordreaffichagechambre') }}",
+					        data: DATA,
+					        cache: false,
+					        success: function(data){}
+					    });  
+					    return false;
+					}
+	    		}	 */  
+	    });
+	    $( "#sortable" ).disableSelection();
+	   
+	  
+			
+			//persistance de l'ordre d'affichage
+			$("#valideordreliste").click(function(event){
+				//Recupère les id des chambres
+				$tab = new Array();
+				for($i = 0; $i < $nb; $i++){
+					$tab.push($("#sortable tr").eq($i).attr("id"));
+				}
+				if($tab != 0){
+				    var DATA = "ordre=" + $tab;
+				    $.ajax({
+				        type: "post",
+				    	url: "{{ path('_ordreaffichagechambre') }}",
+				        data: DATA,
+				        cache: false,
+				        success: function(data){}
+				    });  
+				    return false;
+				}
+			});
+	
+	 
+	  });
+</script>
