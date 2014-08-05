@@ -1,0 +1,95 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist == "false" %}
+	<h1>Ajouter une zone</h1>
+{% else %}
+	<h1>Modifier la zone « {{ infonom|upper }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					 {% if exist == "true" %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une zone">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une province"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	Voulez vous supprimez la zone:  {{ infonom }} ?
+						<a href="{{ path('_Dashboard_deletezones', {'id':infoid, 'name':infonom}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler"></a>
+				    </div>
+				    {% endif %}	
+                                    {{ form_label(form.region_id, "Région liée", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.region_id, {'attr':{'class':'txt_add_state'}}) }}			
+				    {{ form_label(form.nom_fr, "Nom FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.titre_fr, "Titre FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.titre_en, "Titre EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.titre_en, {'attr':{'class':'txt_add_state'}}) }}
+                                    {{ form_label(form.repertoire_fr, "Répertoire FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.repertoire_en, "Répertoire EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.repertoire_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metakeyword_fr, "Méta keywords FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metakeyword_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metakeyword_en, "Méta keywords EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metakeyword_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metadescription_fr, "Méta description FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metadescription_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.page_metadescription_en, "Méta description EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metadescription_en, {'attr':{'class':'txt_add_state'}}) }} 
+				    <p class="resize_p_form">&nbsp;</p>
+				     {{ form_label(form.texte_resume_fr, "Texte résumé FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_resume_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_resume_en, "Texte résumé EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_resume_en, {'attr':{'class':'txt_add_state'}}) }} 
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_fr, "Texte FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_fr, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				     <textarea id="editor1" name="editor1" ></textarea>
+					<script type="text/javascript">
+					CKEDITOR.replace( 'editor1' );
+					{% if exist == "true" %}
+						document.getElementById('editor1').innerHTML = "{{ txthomefr }}";
+					{% endif %}
+					</script>
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_en, "Texte EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_en, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				     <textarea id="editor2" name="editor2" ></textarea>
+					<script type="text/javascript">
+					CKEDITOR.replace( 'editor2' );
+					{% if exist == "true" %}
+						document.getElementById('editor2').innerHTML = "{{ txthomeen }}";
+					{% endif %}
+					</script>
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.latitude, "Latitude", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.latitude, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.longitude, "Longitude", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.longitude, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.image_haut_fr, "Image haut FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.image_haut_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.image_haut_en, "Image haut EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.image_haut_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.image_gauche, "Image gauche", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_gauche, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.image_centre, "Image centre", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_centre, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.image_suggestion_doctrine, "Image nos suggestions", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_suggestion_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+				    {% if exist == "true" %}
+				  		<img src="{{ asset('uploads/zones') }}/{{infoid}}/{{ imgSuggestion }}" class="img_paiement_update"/ style="width:154px; height:105px;">
+				  	{% endif %}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer"/>
+				    <a href="{{ path('_Dashboard_zones') }}" class="boutonannuler"></a>
+				</form>
+			   <br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

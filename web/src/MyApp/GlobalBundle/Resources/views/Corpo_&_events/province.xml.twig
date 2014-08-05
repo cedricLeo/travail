@@ -1,0 +1,71 @@
+{% if app.request.locale == "fr" %}
+   <div class="retour">
+	  	<select id="selectRegion">
+	  		{% if regionAjax is empty %}
+	  		<option>Choisissez une région </option>
+	  		{% endif %}
+	    	{% for w in regionAjax %}
+	    	{% if loop.index == 1 %}
+	    	<option>Choisissez une région </option>
+	    	{% endif %}
+			<option value="{{ w.sallecorporativehebergement.regionid.id }}">{{ w.sallecorporativehebergement.regionid.nomfr }}</option>
+			{% endfor %}
+		</select> <img src="{{ asset('bundles/myappglobal/images/loading.gif') }}" class="loadingRegion" />
+   </div>
+{% else %}
+	<div class="retour">
+	  	<select id="selectRegion">
+	  		{% if regionAjax is empty %}
+	  		<option>Choose a region </option>
+	  		{% endif %}
+	    	{% for w in regionAjax %}
+	    	{% if loop.index == 1 %}
+	    	<option>Choose a region </option>
+	    	{% endif %}
+			<option value="{{ w.sallecorporativehebergement.regionid.id }}">{{ w.sallecorporativehebergement.regionid.nomen }}</option>
+			{% endfor %}
+		</select> <img src="{{ asset('bundles/myappglobal/images/loading.gif') }}" class="loadingRegion" />
+   </div>
+{% endif %}
+{# AJAX #}
+	<script>
+		$(".loading").hide();
+		$("select#add_appel_offre_province_id ").change(function(){ 
+		    $(".loading").show();
+		    var provinceappel = $("#add_appel_offre_province_id").val();
+		    var DATA = 'provinceappel=' + provinceappel;
+                    $.ajax({
+                               type: "post",
+                               url: "{{ path('_formulaireprovinceappeloffre') }}",
+                               data: DATA,
+                               cache: false,
+                               success: function(data){
+                                   $('.retour').html(data);
+                                   $(".loading").hide();
+                               }
+                           }); 
+		    return false;
+		});
+
+		$(".loadingRegion").hide();
+		$(".retour .retour select#selectRegion ").change(function(){ 
+		    $(".loadingRegion").show();
+		    var region = $("#selectRegion").val();
+		    var DATA = 'region=' + region  ;
+		    $.ajax({
+		        type: "post",
+		        url: "{{ path('_formulaireregionappeloffre')}}",
+		        data: DATA,
+		        cache: false,
+		        success: function(data){
+			        //alert(data);
+			   $('.retour2').html(data);
+		           $(".loadingRegion").hide();
+		        }
+		    });    
+		    return false;
+		});
+
+		
+
+	</script>			

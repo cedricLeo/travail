@@ -1,0 +1,54 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+				{% for p in hebergementForfait %}
+					<td>
+						<form method="GET" action="{{path('MyAppForfaitAdd',{'idclient':p.id, 'name':p.repertoirefr, 'redirect':redirect })}}" >
+							<input type="submit" value="{{ "ajouter.forfait" | trans }}" class="btnAddFicheClient"/>
+						</form>
+						
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="270" colspan=1>{{ "nom.fr" | trans }}</td>
+								<td width="270">{{ "categorie.du.forfait" | trans }}</td>
+								<td width="270">{{ "nom.en" | trans }}</td>
+							</tr>	
+							{% for w in listeForfait %}
+								{% if w.datedefin|date("Y-m-d") < today|date("Y-m-d") or w.datedefin is empty %}{# FORFAITS PÉRIMÉ #}
+									<tr>
+										<td colspan=1 class="perime" title="{{ "perime" | trans }}"><a href="{{path('MyAppForfaitUpdate',{'idforfait':w.id, 'name':p.repertoirefr, 'idclient':p.id, 'redirect':redirect })}}" title="{{ "modifier.forfait" | trans }}">{{ w.nomfr }}</a></td>
+										{% if app.request.locale == "fr" %}
+										<td colspan=1 class="perime" title="{{ "perime" | trans }}"><a href="{{path('MyAppForfaitUpdate',{'idforfait':w.id, 'name':p.repertoirefr, 'idclient':p.id, 'redirect':redirect})}}" title="{{ "modifier.forfait" | trans }}"> {{ w.forfaitclientid.nomfr }}</a></td>
+										{% else %}
+										<td colspan=1 class="perime" title="{{ "perime" | trans }}"><a href="{{path('MyAppForfaitUpdate',{'idforfait':w.id, 'name':p.repertoireen, 'idclient':p.id, 'redirect':redirect})}}" title="{{ "modifier.forfait" | trans }}"> {{ w.forfaitclientid.nomen }}</a></td>
+										{% endif %}
+										<td colspan=1 class="perime" title="{{ "perime" | trans }}"><a href="{{path('MyAppForfaitUpdate',{'idforfait':w.id, 'name':p.repertoireen, 'idclient':p.id, 'redirect':redirect})}}" title="{{ "modifier.forfait" | trans }}">{{ w.nomen }}</a></td>
+									</tr>
+								{% else %}{# FORFAITS VALIDES #}
+									<tr>
+										<td colspan=1><a href="{{path('MyAppForfaitUpdate',{'idforfait':w.id, 'name':p.repertoirefr, 'idclient':p.id, 'redirect':redirect})}}" title="{{ "modifier.forfait" | trans }}">{{ w.nomfr }}</a></td>
+										{% if app.request.locale == "fr" %}
+										<td colspan=1><a href="{{path('MyAppForfaitUpdate',{'idforfait':w.id, 'name':p.repertoirefr, 'idclient':p.id, 'redirect':redirect})}}" title="{{ "modifier.forfait" | trans }}"> {{ w.forfaitclientid.nomfr }}</a></td>
+										{% else %}
+										<td colspan=1><a href="{{path('MyAppForfaitUpdate',{'idforfait':w.id, 'name':p.repertoireen, 'idclient':p.id, 'redirect':redirect})}}" title="{{ "modifier.forfait" | trans }}"> {{ w.forfaitclientid.nomen }} </a></td>
+										{% endif %}
+										<td colspan=1><a href="{{path('MyAppForfaitUpdate',{'idforfait':w.id, 'name':p.repertoireen, 'idclient':p.id, 'redirect':redirect})}}" title="{{ "modifier.forfait" | trans }}">{{ w.nomen }}</a></td>
+									</tr>
+								{% endif %}
+                                                        {% endfor %}
+							{% if listeForfait is empty %}
+								<p class="searchnull emptySearch">{{ "aucun.resultat" | trans }}</p>
+							{% endif %}		
+							</tbody>
+						</table>
+					</td>
+				 {% endfor %}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

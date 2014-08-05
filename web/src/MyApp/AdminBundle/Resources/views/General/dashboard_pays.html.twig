@@ -1,0 +1,188 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addpays')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter un pays</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="100">Drapeau</td>
+								<td width="270" colspan=1>Nom fr</td>
+								<td width="270">Nom en</td>
+							</tr>	
+							{% for p in pays %}
+							<tr>
+								<td colspan=1><a href="{{path('_Dashboard_updatepays',{'id':p.id})}}"><img src="{{ asset('uploads/pays/') }}/{{ p.id }}/{{ p.flag }}" style="width:60px; height:30px;"/></a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatepays',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatepays',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+							</tr>
+							{% endfor %}	
+							{% if pays is empty %}
+								<p class="searchnull">Pas de résultat trouvé</p>
+							{% endif %}	
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					{# Création du TreeView pour le Canada pays > provinces > régions > zones > villes #}
+						<img class="country_canada" src="{{ asset('bundles/myappadmin/images/country/canada.jpeg') }}" style="width:150px; height:75px;"/>
+						<ul class="country_canada">
+						 {% if listProvinceCanada is defined %}{# liste les provinces #}
+							{% for province in listProvinceCanada %}
+								<li >
+									<a class="link_treeView" href="{{ path("_Dashboard_pays",{"province":province.id}) }}#regionBis">{{ province.nomfr }}</a>
+									<ul class="province_canada">
+									{% if province.id == motcleprovince %}{# liste les régions #}
+										{% for region in listRegion %}
+										<a name="regionBis" ></a>
+											<li>
+												<a class="link_treeView" href="{{ path("_Dashboard_pays",{"province":province.id, "region":region.id}) }}#zoneBis">{{ region.nomfr }}</a>
+												<ul class="region_canada">
+												{% if region.id == motcleregion %}{# liste les zones #}
+													{% for zone in listZone %}
+													<a name="zoneBis"></a>
+													<li>
+														<a class="link_treeView" href="{{ path("_Dashboard_pays",{"province":province.id, "region":region.id, "zone":zone.id}) }}#villeBis">{{ zone.nomfr }}</a>
+														<ul>
+														<a name="villeBis"></a>
+														{% if zone.id == motclezone %}{# liste les villes #}
+															{% for ville in listVille %}
+																<li class="submit_province_treeview">{{ ville.nomfr }}</li>
+															{% endfor %}
+														{% endif %}
+														</ul>
+													</li>
+													{% endfor %}
+												{% endif %}
+												</ul>
+											</li>
+										{% endfor %} 
+									{% endif %}
+									</ul>
+								</li>
+							{% endfor %}
+						{% else %}
+							<li >Aucun résultat trouvé</li>
+						{% endif %}
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					{# Création du TreeView pour les Usa pays > provinces > régions > zones > villes #}
+						<img class="country_usa" src="{{ asset('bundles/myappadmin/images/country/usa.gif') }}" style="width:150px; height:75px;"/>
+						 <ul class="country_usa">
+						{% if listProvinceUsa is defined %}{# liste les provinces #}
+							{% for province in listProvinceUsa %}
+								<li >
+									<a class="link_treeView" href="{{ path("_Dashboard_pays",{"province":province.id}) }}#regionBis">{{ province.nomfr }}</a>
+									<ul class="province_canada">
+									{% if province.id == motcleprovince %}{# liste les régions #}
+										{% for region in listRegion %}
+										<a name="regionBis" ></a>
+											<li>
+												<a class="link_treeView" href="{{ path("_Dashboard_pays",{"province":province.id, "region":region.id}) }}#zoneBis">{{ region.nomfr }}</a>
+												<ul class="region_canada">
+												{% if region.id == motcleregion %}{# liste les zones #}
+													{% for zone in listZone %}
+													<a name="zoneBis"></a>
+													<li>
+														<a class="link_treeView" href="{{ path("_Dashboard_pays",{"province":province.id, "region":region.id, "zone":zone.id}) }}#villeBis">{{ zone.nomfr }}</a>
+														<ul>
+														<a name="villeBis"></a>
+														{% if zone.id == motclezone %}{# liste les villes #}
+															{% for ville in listVille %}
+																<li class="submit_province_treeview">{{ ville.nomfr }}</li>
+															{% endfor %}
+														{% endif %}
+														</ul>
+													</li>
+													{% endfor %}
+												{% endif %}
+												</ul>
+											</li>
+										{% endfor %} 
+									{% endif %}
+									</ul>
+								</li>
+							{% endfor %}
+						{% else %}
+							<li >Aucun résultat trouvé</li>
+						{% endif %}
+						 </ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					{# Création du TreeView pour le Mexique pays > provinces > régions > zones > villes #}
+						<img class="country_mexique" src="{{ asset('bundles/myappadmin/images/country/mexique.jpeg') }}" style="width:150px; height:75px;"/>
+						 <ul class="country_mexique">
+						{% if listProvinceMexique is defined %}{# liste les provinces #}
+							{% for province in listProvinceMexique %}
+								<li >
+									<a class="link_treeView" href="{{ path("_Dashboard_pays",{"province":province.id}) }}#regionBis">{{ province.nomfr }}</a>
+									<ul class="province_canada">
+									{% if province.id == motcleprovince %}{# liste les régions #}
+										{% for region in listRegion %}
+										<a name="regionBis" ></a>
+											<li>
+												<a class="link_treeView" href="{{ path("_Dashboard_pays",{"province":province.id, "region":region.id}) }}#zoneBis">{{ region.nomfr }}</a>
+												<ul class="region_canada">
+												{% if region.id == motcleregion %}{# liste les zones #}
+													{% for zone in listZone %}
+													<a name="zoneBis"></a>
+													<li>
+														<a class="link_treeView" href="{{ path("_Dashboard_pays",{"province":province.id, "region":region.id, "zone":zone.id}) }}#villeBis">{{ zone.nomfr }}</a>
+														<ul>
+														<a name="villeBis"></a>
+														{% if zone.id == motclezone %}{# liste les villes #}
+															{% for ville in listVille %}
+																<li class="submit_province_treeview">{{ ville.nomfr }}</li>
+															{% endfor %}
+														{% endif %}
+														</ul>
+													</li>
+													{% endfor %}
+												{% endif %}
+												</ul>
+											</li>
+										{% endfor %} 
+									{% endif %}
+									</ul>
+								</li>
+							{% endfor %}
+						{% else %}
+							<li >Aucun résultat trouvé</li>
+						{% endif %}
+						 </ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<!--  <script>
+		$(".loading").hide();
+		$(".form_recherche_region").submit(function(){
+			$(".loading").show();
+			var motcle = $(".recherche_region_motcle").val();
+			//alert(motcle);
+			var DATA = "motcle=" + motcle;
+			//alert(DATA);
+			$.ajax({
+				type: "POST",
+				url: "{{ path("_Dashboard_pays") }}",
+				data: DATA,
+				cache: false,
+				success: function(data){
+					$("#resultats_recherche").html(data);
+					$(".loading").hide();
+				}
+			});
+			return false;
+		})
+	</script>-->
+{% endblock %}

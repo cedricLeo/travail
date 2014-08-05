@@ -1,0 +1,74 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist =="false" %}
+	<h1>Ajouter un forfait</h1>
+{% else %}
+	<h1>Modifier le forfait « {{ infonom|upper }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					 {% if exist == "true" %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer le forfait {{ infonom }}">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer le forfait {{ infonom }}"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	Voulez vous supprimez le forfait:  {{ infonom }} ?
+						<a href="{{ path('_Dashboard_deleteforfaits', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler"></a>
+				    </div>
+				    {% endif %}		
+				    {{ form_errors(form.image_doctrine, {'attr':{'class': 'error_formu'}}) }}		
+				    {{ form_label(form.nom_fr, "Nom FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+                                    {{ form_label(form.repertoire_fr, "Répertoire FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.repertoire_en, "Répertoire EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.repertoire_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.meta_titre_fr, "Page titre FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.meta_titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.meta_titre_en, "Page titre EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.meta_titre_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metakeyword_fr, "Mots clés FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metakeyword_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metakeyword_en, "Mots clés EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metakeyword_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metadescription_fr, "Meta description FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metadescription_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.page_metadescription_en, "Meta description EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metadescription_en, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_fr, "Texte FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_fr, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				     <textarea id="editor1" name="editor1" ></textarea>
+				     <script>
+				    	 CKEDITOR.replace( 'editor1' );
+			    	     {% if exist == "true" %}    	
+							    document.getElementById('editor1').innerHTML = "{{ txt_fr }}";
+					     {% endif %}
+				     </script>
+				    {{ form_label(form.texte_en, "Texte EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_en, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				     <textarea id="editor2" name="editor2" ></textarea>
+				     <script>
+						 CKEDITOR.replace( 'editor2' );
+						 {% if exist == "true" %}
+								document.getElementById('editor2').innerHTML = "{{ txt_en }}";
+						 {% endif %}
+				     </script>
+				    {{ form_label(form.image_doctrine, "Image", {'attr':{'class':'lblnompays'}}) }}	   
+				    {{ form_widget(form.image_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+				    {% if exist == "true" %}
+				  		<img src="{{ asset('uploads/forfaits') }}/{{infoid}}/{{ infoimg }}" class="img_paiement_update"/ style="width:154px; height:105px;">
+				  	{% endif %}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer"/>
+				    <a href="{{ path('_Dashboard_zones') }}" class="boutonannuler"></a>
+				</form>
+			   <br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

@@ -1,0 +1,402 @@
+
+{% block corporatif %}
+	{% if tablo_doc is not empty %}
+		<h2>{{ "telecharger.info.corpo" | trans }}</h2>
+		{% for e in corpo %} 
+		  {% if app.request.locale == "fr" %}
+		  	{% if e.fichierlistesallesfr != "" %}
+		  	   <p>{{ "liste.salle" | trans }} : <a href="{{ asset('uploads/hebergement/liste/french') }}{{ e.id }}/{{ e.fichierlistesallesfr }}" target="_blank">{{ "voir.pdf" | trans }}</a></p>
+		  	{% endif %}
+		  	{% if e.fichierplansallesfr != "" %}
+		  	   <p>{{ "plan.salle" | trans }} : <a href="{{ asset('uploads/hebergement/plan/french') }}{{ e.id }}/{{ e.fichierplansallesfr }}" target="_blank">{{ "voir.pdf" | trans }}</a> </p>
+		  	{% endif %}
+		  {% else %}
+		  	{% if e.fichierlistesallesen != "" %}
+			   <p>Liste des salles : <a href="{{ asset('uploads/hebergement/liste/english') }}{{ e.id }}/{{ e.fichierlistesallesen }}" target="_blank">{{ "voir.pdf" | trans }}</a></p>
+			{% endif %}
+			{% if e.fichierplansallesen != "" %}
+			   <p>Plan des salles : <a href="{{ asset('uploads/hebergement/plan/english') }}{{ e.id }}/{{ e.fichierplansallesen }}" target="_blank">{{ "voir.pdf" | trans }}</a> </p>
+		  	{% endif %}
+		  {% endif %}
+		{% endfor %}
+	{% endif %}
+	
+	{% if corpo is not empty %}
+	<br class="clearfloat" />
+    <h2>{{ "salle.capacite" | trans }}</h2>
+   {# AFFICHE LES SALLES CORPORATIVES #}
+   {% if app.request.locale == "fr" %}
+   <div class="fiche">
+	{% for e in corpo %}
+	  <div>
+            {% for x in e.galeriecorpo %}
+                    <a class="fancybox" rel="group" href="{{ asset('uploads/galerie_corporative') }}/{{ x.id }}/{{ x.image }}" title="{{ x.legendefr }}">
+                        {% if x.image is not empty %}    
+                            <img src="{{ asset('uploads/galerie_corporative') }}/{{ x.id }}/{{ x.image }}" class="img_liste_forfait" alt="{{ x.legendefr }}" /></a>
+                        {% else %}
+                            <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="{{ x.legendefr }}" /></a>
+                        {% endif %}
+	    {% endfor %}
+	    <div>
+	      <h3><a name="corporatif1" id="corporatif1"></a>{{ e.nomfr }}</h3>
+	      <p>{{ e.textesallecorporativefr }}</p>
+	    </div>
+	    <table width="444" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+	        <td width="148" class="tabgris">Dimensions(pi 2)</td>
+	        <td colspan="4" align="left" class="tabgris">Disposition et capacité nombre de personne</td>
+	      </tr>
+	      <tr>
+	        <td align="center" class="tabgris2">{% if e.largeur != "" and e.profondeur != "" %} {{ e.largeur * e.profondeur }} {% else %} - {% endif %}</td>
+	        <td width="74" align="center" class="tabgris3">Banquet</td>
+	        <td width="74" align="center"  class="tabgris3">Carré ouvert</td>
+	        <td width="74" align="center" class="tabgris3">Chevrons<br /></td>
+	        <td width="74" align="center" class="tabgris3">Conférence</td>
+	      </tr>
+	      <tr>
+	        <td width="148" class="tabgris">Dimensions(m 2)</td>
+	        <td align="center" class="tabgris2">{% if e.banquet != "" %} {{ e.banquet }} {% else %} - {% endif %}</td>
+	        <td align="center"  class="tabgris2">{% if e.carreouvert != "" %} {{ e.carreouvert }} {% else %} - {% endif %}</td>
+	        <td align="center" class="tabgris2">{% if e.chevron != "" %} {{ e.chevron }} {% else %} - {% endif %}</td>
+	        <td align="center" class="tabgris2">{% if e.conference != "" %} {{ e.conference }} {% else %} - {% endif %}</td>
+	      </tr>
+	      <tr>
+	        <td align="center" class="tabgris2">{% if e.largeurmetre != "" and e.profondeurmetre != "" %} {{ e.largeurmetre * e.profondeurmetre }} {% else %} - {% endif %}</td>
+	        <td align="center" class="tabgris3">Demi-lune</td>
+	        <td align="center"  class="tabgris3">École</td>
+	        <td align="center" class="tabgris3">En T</td>
+	        <td align="center" class="tabgris3">En U</td>
+	      </tr>
+	      <tr>
+	        <td>&nbsp;</td>
+	        <td align="center" class="tabgris2">{% if e.demilune != "" %} {{ e.demilune }} {% else %} - {% endif %}</td>
+	        <td align="center"  class="tabgris2">{% if e.ecole != "" %} {{ e.ecole }} {% else %} - {% endif %}</td>
+	        <td align="center" class="tabgris2">{% if e.ent != "" %} {{ e.ent }} {% else %} - {% endif %}</td>
+	        <td align="center"  class="tabgris2">{% if e.enu != "" %} {{ e.enu }} {% else %} - {% endif %}</td>
+	      </tr>
+	      <tr>
+	        <td>&nbsp;</td>
+	        <td align="center" class="tabgris3">Salon commercial</td>
+	        <td align="center"  class="tabgris3">Théâtre</td>
+	        <td align="center">&nbsp;</td>
+	        <td align="center">&nbsp;</td>
+	      </tr>
+	      <tr>
+	        <td>&nbsp;</td>
+	        <td align="center" class="tabgris2">{% if e.saloncommercial != "" %} {{ e.saloncommercial }} {% else %} - {% endif %}</td>
+	        <td align="center" class="tabgris2">{% if e.theatre != "" %} {{ e.theatre }} {% else %} - {% endif %}</td>
+	        <td align="center">&nbsp;</td>
+	        <td align="center">&nbsp;</td>
+	      </tr>
+	      </table>
+	    <br class="clearfloat" />
+	  </div> 
+	  {% endfor %}
+    </div>
+   {% else %}
+   <div class="fiche">
+	{% for e in corpo %}
+	  <div>
+	    {% for x in e.galeriecorpo %}
+	  		<a class="fancybox" rel="group" href="{{ asset('uploads/galerie_corporative') }}/{{ x.id }}/{{ x.image }}" title="{{ x.legendeen }}">
+                             {% if x.image is not empty %}   
+                                <img src="{{ asset('uploads/galerie_corporative') }}/{{ x.id }}/{{ x.image }}" class="img_liste_forfait" alt="{{ x.legendeen }}" /></a>
+                             {% else %}
+                                <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="{{ x.legendeen }}" /></a>
+                             {% endif %}
+	    {% endfor %}
+	    <div>
+	      <h3><a name="corporatif1" id="corporatif1"></a>{{ e.nomen }}</h3>
+	      <p>{{ e.textesallecorporativeen }}</p>
+	    </div>
+	    <table width="444" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+	        <td width="148" class="tabgris">Dimensions(pi 2)</td>
+	        <td colspan="4" align="left" class="tabgris">Available capacity and number of person</td>
+	        </tr>
+	       <tr>
+	        <td align="center" class="tabgris2">{% if e.largeur != "" and e.profondeur != "" %} {{ e.largeur * e.profondeur }} {% else %} - {% endif %}</td>
+	        <td width="74" align="center" class="tabgris3">Banquet</td>
+	        <td width="74" align="center"  class="tabgris3">Open square</td>
+	        <td width="74" align="center" class="tabgris3">Chevrons<br /></td>
+	        <td width="74" align="center" class="tabgris3">Conférence</td>
+	      </tr>
+	      <tr>
+	        <td width="148" class="tabgris">Dimensions(m 2)</td>
+	        <td align="center" class="tabgris2">{% if e.banquet != "" %} {{ e.banquet }} {% else %} - {% endif %}</td>
+	        <td align="center"  class="tabgris2">{% if e.carreouvert != "" %} {{ e.carreouvert }} {% else %} - {% endif %}</td>
+	        <td align="center" class="tabgris2">{% if e.chevron != "" %} {{ e.chevron }} {% else %} - {% endif %}</td>
+	        <td align="center" class="tabgris2">{% if e.conference != "" %} {{ e.conference }} {% else %} - {% endif %}</td>
+	      </tr>
+	      <tr>
+	         <td align="center" class="tabgris2">{% if e.largeurmetre != "" and e.profondeurmetre != "" %} {{ e.largeurmetre * e.profondeurmetre }} {% else %} - {% endif %}</td>
+	        <td align="center" class="tabgris3">Half-moon</td>
+	        <td align="center"  class="tabgris3">School</td>
+	        <td align="center" class="tabgris3">In T</td>
+	        <td align="center" class="tabgris3">In U</td>
+	      </tr>
+	      <tr>
+	        <td>&nbsp;</td>
+	        <td align="center" class="tabgris2">{% if e.demilune != "" %} {{ e.demilune }} {% else %} - {% endif %}</td>
+	        <td align="center"  class="tabgris2">{% if e.ecole != "" %} {{ e.ecole }} {% else %} - {% endif %}</td>
+	        <td align="center" class="tabgris2">{% if e.ent != "" %} {{ e.ent }} {% else %} - {% endif %}</td>
+	        <td align="center"  class="tabgris2">{% if e.enu != "" %} {{ e.enu }} {% else %} - {% endif %}</td>
+	      </tr>
+	      <tr>
+	        <td>&nbsp;</td>
+	        <td align="center" class="tabgris3">Tradeshow</td>
+	        <td align="center"  class="tabgris3">Theater</td>
+	        <td align="center">&nbsp;</td>
+	        <td align="center">&nbsp;</td>
+	      </tr>
+	      <tr>
+	        <td>&nbsp;</td>
+	        <td align="center" class="tabgris2">{% if e.saloncommercial != "" %} {{ e.saloncommercial }} {% else %} - {% endif %}</td>
+	        <td align="center" class="tabgris2">{% if e.theatre != "" %} {{ e.theatre }} {% else %} - {% endif %}</td>
+	        <td align="center">&nbsp;</td>
+	        <td align="center">&nbsp;</td>
+	      </tr>
+	      </table>
+	    <br class="clearfloat" />
+	  </div> 
+	  {% endfor %}
+     </div>
+    {% endif %}
+  {% endif %}
+  
+  {% if forfaitAffaire is not empty %}
+	  <br class="clearfloat" />
+	  {# AFFICHE LES FORFAITS AFFAIRES #}
+	  <h2>Forfaits affaires <a href="#">{{ "haut" | trans }}</a></h2>
+	  {% if app.request.locale == "fr" %}
+		  <div class="fiche">
+		  {% for m in forfaitAffaire %}
+			  <div>
+			  	{% for w in m.galerieforfaits %}
+			  	<a class="fancybox" rel="group" href="{{ asset('uploads/galerie_forfaits') }}/{{ w.id }}/{{ w.image }}" title="{{ w.legendefr }}"><img src="{{ asset('uploads/galerie_forfaits') }}/{{ w.id }}/{{ w.image }}" class="img_liste_forfait" alt="Forfait affaire" title="{{ w.legendefr }}"/></a>
+			    {% endfor %}
+			    <h3><a name="forfait3" id="forfait3"></a><strong>{{ m.forfaitclientid.nomfr }}</strong></h3>
+			    <div>
+			      <h4>Ce forfait comprend:</h4>
+			      <p>{{ m.textefr }}</p>
+			      
+			      <div>
+			        <p>Tarif à partir de <strong>{{ m.tarif|replace({"%$%":""}) }} $</strong></p>
+			        <p>Valide du {{ m.datedebut|date('d') }} 
+                                    {# On convertie les mois en fançais #}
+                                    {% if m.datedebut|date('m') == '01' %} jan
+                                    {% elseif m.datedebut|date('m') == '02' %} fév
+                                    {% elseif m.datedebut|date('m') == '03' %} mars
+                                    {% elseif m.datedebut|date('m') == '04' %} avr
+                                    {% elseif m.datedebut|date('m') == '05' %} mai
+                                    {% elseif m.datedebut|date('m') == '06' %} juin
+                                    {% elseif m.datedebut|date('m') == '07' %} juil
+                                    {% elseif m.datedebut|date('m') == '08' %} août
+                                    {% elseif m.datedebut|date('m') == '09' %} sep
+                                    {% elseif m.datedebut|date('m') == '10' %} oct
+                                    {% elseif m.datedebut|date('m') == '11' %} nov
+                                    {% else %}déc
+                                    {% endif %} 
+                                    {{ m.datedebut|date('Y') }} au
+                                    {{ m.datedefin|date('d') }} 
+                                    {# On convertie les mois en fançais #}
+                                    {% if m.datedefin|date('m') == '01' %} jan 
+                                    {% elseif m.datedefin|date('m') == '02' %} fév
+                                    {% elseif m.datedefin|date('m') == '03' %} mars
+                                    {% elseif m.datedefin|date('m') == '04' %} avr
+                                    {% elseif m.datedefin|date('m') == '05' %} mai
+                                    {% elseif m.datedefin|date('m') == '06' %} juin
+                                    {% elseif m.datedefin|date('m') == '07' %} juil
+                                    {% elseif m.datedefin|date('m') == '08' %} août
+                                    {% elseif m.datedefin|date('m') == '09' %} sep
+                                    {% elseif m.datedefin|date('m') == '10' %} oct
+                                    {% elseif m.datedefin|date('m') == '11' %} nov
+                                    {% else %}déc
+                                    {% endif %} 
+                                    {{ m.datedefin|date('Y') }} </p>
+			      </div>
+			    </div>
+			    <span><strong>Forfaits affaires</strong></span> <br class="clearfloat" />
+			  </div>
+		  {% endfor %}
+		  </div>
+		  <div class="condition">
+		 <p><span>Politique d’annulation</span> : Aucune pénalité si annulation 24 h avant l’arrivée</p>
+		 <p><span>Prix sujets à changements sans préavis</span></p>
+		 <p><span>Prix à titre indicatif seulement</span></p>
+	   </div>
+	  <p>&nbsp;</p>
+	  {# PUB GOOGLE #}
+	  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+	  	<script type='text/javascript'>
+			googletag.cmd.push(function() { googletag.display('zone_01'); });
+		</script>
+	  </div>	
+	  {% else %}
+	  	  <div class="fiche">
+		  {% for m in forfaitAffaire %}
+			  <div>
+			  {% for w in m.galerieforfaits %}
+			  	<a class="fancybox" rel="group" href="{{ asset('uploads/galerie_forfaits') }}/{{ w.id }}/{{ w.image }}" title="{{ w.legendeen }}"><img src="{{ asset('uploads/galerie_forfaits') }}/{{ w.id }}/{{ w.image }}" class="img_liste_forfait" alt="Forfait affaire" title="{{ w.legendeen }}"/></a>
+			  {% endfor %}
+			    <h3><a name="forfait3" id="forfait3"></a><strong>{{ m.forfaitclientid.nomen }}</strong></h3>
+			    <div>
+			      <h4>This package includes:</h4>
+			      <p>{{ m.texteen }}</p>			     
+			      <div>
+			        <p>Price from <strong>{{ m.tarif|replace({"%$%":""}) }} $</strong></p>
+			        <p>Valid {{ m.datedebut|date("M d") }} to {{ m.datedefin|date("M d Y") }} </p>
+			      </div>
+			    </div>
+			    <span><strong>Business packages</strong></span> <br class="clearfloat" />
+			  </div>
+		  {% endfor %}
+		  </div>
+		  <div class="condition">
+		 <p><span></span>Cancellation Policy : Aucune pénalité si annulation 24 h avant l’arrivée</p>
+		 <p><span>Prices subject to change without notice</span></p>
+		 <p><span>Price for illustrative purposes only</span></p>
+	   </div>
+	  <p>&nbsp;</p>
+	  {# PUB GOOGLE #}
+	  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" style="margin-top:20px">
+	  	<script type='text/javascript'>
+			googletag.cmd.push(function() { googletag.display('zone_01'); });
+		</script>
+	  </div>
+	  {% endif %}	
+  {% endif %}
+    
+  {# FORMULAIRE DE DEMANDE D'INFORMATION #}
+  <br class="clearfloat" />
+  <h2 class="titleDemandeInformation">{{ "formulaire.demande.information.corpo" | trans }} <a href="#">{{ "haut" | trans }}</a></h2>
+  <form action="" method="post" {{ form_enctype(form) }} class="renseignements_coorporatif" id="formuSugg">	
+	{{ form_label(form.salle, "salle" | trans, {'attr':{'class':'lbldemandeinformationradiosallehebergement modifmarginsalle'}}) }}
+	{{ form_widget(form.salle, {'attr':{'class':'radiosallehebergement','checked':'checked'}}) }}	
+    {{ form_label(form.hebergement, "hebergement" | trans, {'attr':{'class':'lbldemandeinformationradiosallehebergement'}}) }}
+	{{ form_widget(form.hebergement, {'attr':{'class':'radiosallehebergement'}}) }}	
+	{% if app.request.locale == "fr" %}
+	{{ form_label(form.salle_hebergement, "salle.hebergement" | trans, {'attr':{'class':'lbldemandeinformationradiosallehebergement'}}) }}
+	{{ form_widget(form.salle_hebergement, {'attr':{'class':'radiosallehebergement'}}) }}	
+	{% else %}
+	{{ form_label(form.salle_hebergement, "salle.hebergement" | trans, {'attr':{'class':'lbldemandeinformationradiosallehebergement radiocorpoenglish'}}) }}
+	{{ form_widget(form.salle_hebergement, {'attr':{'class':'radiosallehebergement'}}) }}
+	{% endif %}
+	<div class="arrierePlanBleu">1 <span>{{ "renseignements.personnels" | trans }}</span></div>
+	{{ form_label(form.prenom, "prenom" | trans, {'attr':{'class':'lblrenseignementpersonnel modifmarginsalle obligatoire'}}) }}
+	{{ form_errors(form.prenom) }}
+	{{ form_widget(form.prenom, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+	{{ form_label(form.nom, "nom" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+	{{ form_errors(form.nom) }}
+	{{ form_widget(form.nom, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+	{{ form_label(form.courriel, "Courriel" | trans, {'attr':{'class':'lblrenseignementpersonnel modifmarginsalle obligatoire'}}) }}
+	{{ form_errors(form.courriel) }}
+	{{ form_widget(form.courriel, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+	{{ form_label(form.nom_entreprise, "nom.d.entreprise" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+	{{ form_widget(form.nom_entreprise, {'attr':{'class':'input_renseignement_personnel'}}) }}
+	{{ form_label(form.adresse, "adresse" | trans, {'attr':{'class':'lblrenseignementpersonnel modifmarginsalle'}}) }}
+	{{ form_widget(form.adresse, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+	{{ form_label(form.ville, "ville" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+	{{ form_widget(form.ville, {'attr':{'class':'input_renseignement_personnel'}}) }}
+	{{ form_label(form.province, "province" | trans, {'attr':{'class':'lblrenseignementpersonnel modifmarginsalle'}}) }}
+	{{ form_widget(form.province, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+	{{ form_label(form.code_postal, "code.postal" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+	{{ form_widget(form.code_postal, {'attr':{'class':'input_renseignement_personnel', 'maxlength': '7'}}) }}		
+	{{ form_label(form.pays, "pays" | trans, {'attr':{'class':'lblrenseignementpersonnel modifmarginsalle'}}) }}
+	{{ form_widget(form.pays, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+	{{ form_label(form.telephone, "telephone" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+	{{ form_errors(form.telephone) }}
+	{{ form_widget(form.telephone, {'attr':{'class':'input_renseignement_personnel', 'maxlength': '22'}}) }}		
+	{{ form_label(form.telecopieur, "telecopieur" | trans, {'attr':{'class':'lblrenseignementpersonnel modifmarginsalle'}}) }}
+	{{ form_widget(form.telecopieur, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+	<div class="arrierePlanBleu renseignementHebergement">2 <span>{{ "renseignements.hebergement" | trans }}</span></div>
+	{{ form_label(form.nombre_chambre, "nombre.de.chambre" | trans, {'attr':{'class':'lblselectrenseignementhebergement modifmarginsalle'}}) }}
+	{{ form_widget(form.nombre_chambre, {'attr':{'class':'selectrenseignementhebergement'}}) }}	
+	{{ form_label(form.simple, "Simple" | trans, {'attr':{'class':'lblradiorenseignementhebergement'}}) }}
+	{{ form_widget(form.simple, {'attr':{'class':'radiorenseignementhebergement radiogauche', 'checked':'checked'}}) }}	
+	{{ form_label(form.simple_double, "simple.double" | trans, {'attr':{'class':'lblradiorenseignementhebergement'}}) }}
+	{{ form_widget(form.simple_double, {'attr':{'class':'radiorenseignementhebergement radiodroit'}}) }}	
+	{{ form_label(form.double, "Double" | trans, {'attr':{'class':'lblradiorenseignementhebergement lblradioajustemarginleft'}}) }}
+	{{ form_widget(form.double, {'attr':{'class':'radiorenseignementhebergement radiogauche '}}) }}	
+	{{ form_label(form.suite, "Suite" | trans, {'attr':{'class':'lblradiorenseignementhebergement'}}) }}
+	{{ form_widget(form.suite, {'attr':{'class':'radiorenseignementhebergement radiodroit'}}) }}	
+	{{ form_label(form.demandes_specifiques, "demandes.specifiques" | trans, {'attr':{'class':'lbltextarearenseignementhebergement modifmarginsalle'}}) }}
+	{{ form_widget(form.demandes_specifiques, {'attr':{'class':'textarearenseignementhebergement'}}) }}	
+	<div class="arrierePlanBleu renseignementHebergement">3 <span>{{ "renseignements.sur.salle" | trans }}</span></div>
+	{{ form_label(form.nom_reunion, "nom.reunion" | trans, {'attr':{'class':'lblrenseignementsalle modifmarginsalle'}}) }}
+	{{ form_widget(form.nom_reunion, {'attr':{'class':'input_renseignement_salle'}}) }}	
+	{{ form_label(form.nombre_personne, "nombre.personne" | trans, {'attr':{'class':'lblrenseignementsalle obligatoire'}}) }}
+	{{ form_widget(form.nombre_personne, {'attr':{'class':'input_renseignement_salle ajusteinputrenseignementsalle', 'required':'required'}}) }}	
+	{{ form_label(form.type_evenement, "type.d.evenement" | trans, {'attr':{'class':'lblrenseignementsalle modifmarginsalle'}}) }}
+	{{ form_widget(form.type_evenement, {'attr':{'class':'selectrenseignementsalle'}}) }}	
+	{{ form_label(form.date_arrivee, "date.arrivee" | trans, {'attr':{'class':'lblrenseignementsalle modifmarginsalle obligatoire'}}) }}
+	{{ form_errors(form.date_arrivee) }}
+	{{ form_widget(form.date_arrivee, {'attr':{'class':'input_renseignement_salle'}}) }}	
+	{{ form_label(form.date_depart, "date.du.depart" | trans, {'attr':{'class':'lblrenseignementsalle obligatoire'}}) }}
+	{{ form_errors(form.date_depart) }}
+	{{ form_widget(form.date_depart, {'attr':{'class':'input_renseignement_salle'}}) }}	
+	{{ form_label(form.vos_dates_flexibles, "vos.dates.flexibles" | trans, {'attr':{'class':'lblrenseignementsalle modifmarginsalle'}}) }}
+	{{ form_widget(form.vos_dates_flexibles, {'attr':{'class':'selectrenseignementsalle'}}) }}	
+	{{ form_label(form.disposition_salle, "disposition.salle" | trans, {'attr':{'class':'lblrenseignementsalle modifmarginsalle'}}) }}
+	{{ form_widget(form.disposition_salle, {'attr':{'class':'selectrenseignementsalle'}}) }}
+	{{ form_label(form.decrire_equipement, "decrire.equipement" | trans, {'attr':{'class':'lbltextarearenseignementsalle modifmarginsalle'}}) }}
+	{{ form_widget(form.decrire_equipement, {'attr':{'class':'textarearenseignementhebergement'}}) }}		
+	{#{% form_theme form 'MyAppGlobalBundle:Hebergement:Captcha.html.twig' %}
+	{{ form_widget(form.captcha) }}#}
+    {{ form_rest(form) }}	
+	<input type="submit" value="{{ "envoyer.la.demande" | trans }}" class="submit_demandeinfo_corpo" />
+	{% if messageEnvoye is defined %} <p class="confirm_msg">{{ "message.demande.information.corpo.envoye" | trans }}: {{ nomClientfr }}</p> {% endif %}
+  </form>
+ 
+  	<script>
+	  $(function() {
+		    $( "#add_demande_information_date_arrivee" ).datepicker();//date d'arrivée
+			$( "#add_demande_information_date_depart" ).datepicker(); //date départ
+
+			minDate = new Date();
+			today = minDate.getDate(); 
+			 			 
+			// Disable all dates till today
+			$('#add_demande_information_date_arrivee').datepicker({
+				minDate: minDate,
+				beforeShowDay: enabledDay
+									
+			});
+
+			function enabledDay(date)
+			{
+				var day = date.getDate();
+				return [day <= today, ''];
+			}
+		
+	  });
+  	</script>
+  	
+  	{% if app.request.locale == "fr" %}
+  		<script>
+	  		jQuery(function($){
+				$.datepicker.regional['fr'] = {
+					closeText: 'Fermer',
+					prevText: 'Précédent',
+					nextText: 'Suivant',
+					currentText: 'Aujourd\'hui',
+					monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
+					'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+					monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin',
+					'Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
+					dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+					dayNamesShort: ['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'],
+					dayNamesMin: ['D','L','M','M','J','V','S'],
+					weekHeader: 'Sem.',
+					dateFormat: 'dd/mm/yy',
+					firstDay: 1,
+					isRTL: false,
+					showMonthAfterYear: false,
+					yearSuffix: ''};
+				$.datepicker.setDefaults($.datepicker.regional['fr']);
+			});
+  		</script>
+  	{% endif %}
+  
+{% endblock %}
+

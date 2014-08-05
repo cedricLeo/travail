@@ -1,0 +1,51 @@
+{% if app.request.locale == "fr" %}
+    <div class="returnville">
+        <select id="idville" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+            <option value="0">{{ choixville }}</option>
+            {% for p in listeVille %}
+            <option id="{{ p.hebergementid.villeid.repertoirefr|lower }}" value="{{ p.hebergementid.villeid.id }}">{{ p.hebergementid.nomfr }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% else %}
+     <div class="returnville">
+        <select id="idville" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+            <option value="0">{{ choixville }}</option>
+            {% for p in listeVille %}
+            <option id="{{ p.hebergementid.villeid.repertoireen|lower }}" value="{{ p.hebergementid.villeid.id }}">{{ p.hebergementid.villeid.nomen }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% endif %}
+<script>
+    $(function(){
+        $("select#idville").change(function(){               
+               $("span.titleville ").text($("#idville option:selected").text());    
+               var villeargu = parseInt($("#idville option:selected").val());  
+               var villerepertoire = $("#idville option:selected").attr("id");
+               //stoke la ville dans le navigateur
+               localStorage.setItem("idVille", villeargu);      
+               if(typeof(villeargu) === "number"){        
+                    var urlResultatVille = "{{ path('MyAppMobileBundle_hebergement_resultat_ville_ajax',{'id':"villerepertoire"})|replace({'villerepertoire':'"+villerepertoire+"'})|raw }}";
+                    $("#recherche").replaceWith("<a id='recherche' href='"+urlResultatVille+"' >Rechercher</a>");
+               }
+        });
+         
+     //       $("#idville-button span").text("{{ "choix.ville" | trans }}");
+        
+       
+        $("#idregion").change(function(){ 
+            var regionargu = parseInt($("#idregion option:selected").val());     
+            if(typeof(regionargu) === "number"){        
+                 var urlResultatRegion = "{{ path('MyAppMobileBundle_hebergement_resultat_region_ajax',{'id':"regionargu"})|replace({'regionargu':'"+regionargu+"'})|raw }}";
+                 $("#recherche").replaceWith("<a id='recherche' href='"+urlResultatRegion+"' >Rechercher</a>");                 
+            }
+        });
+        
+        //remonte le menu lors du clique sur le bouton
+       $("#recherche").on("click", function(){
+           $("#menu").slideUp();
+           $(".telephone").html("<img src='{{ asset("bundles/myappmobile/images/fleche_bas") }}' alt='fleche pour afficher le menu '/>");
+       });
+    });
+</script>    

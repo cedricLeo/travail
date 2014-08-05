@@ -1,0 +1,143 @@
+{% block nosSuggestionAttrait %}
+<div class="suggestion ">
+  <h5>{{ "nos.suggestions.attraits" | trans }}</h5>
+ 	 {% if app.request.locale == "fr" %}	
+			<div> 
+			  <h2>
+				{% for s in listeSuggestion %}
+			   		{% if loop.index == 1 %}
+			   		<a href="{{ path('_attraitsactivitedefault',{'name':s.categorieattrait.repertoirefr|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomfr }}">{{ s.categorieattrait.nomfr }}</a>
+			   		{% endif %}
+			    {% endfor %}
+			  </h2>
+			  <ul>
+				  {% for s in listeClientAttrait %}
+				  		{% if loop.index == 1 %}
+				   		<li><a target="_blank" href="{{ s.regionid.urlfr }}/{{ s.zoneid.repertoirefr }}/{{ s.repertoirefr }}" title="{% for w in listeSuggestion %} {% if loop.index == 1 %} {{ w.categorieattrait.nomfr }} {{ s.nomfr }} {% endif %} {% endfor %}">{{ s.nomfr }}</a></li>
+				   		{% endif %}
+				  {% endfor %}
+			  </ul>    
+			  <br class="clearfloat" />
+			   {% for s in listeSuggestion %}
+			   		{% if loop.index == 1 %}
+		      		<h4>[<a href="{{ path('_attraitsactivitedefault',{'name':s.categorieattrait.repertoirefr|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomfr }}">{{ s.categorieattrait.nomfr }}</a>]</h4>
+		      		{% endif %}
+			  {% endfor %}
+			</div>
+
+			<div> 
+			   <h2>
+			   {% for s in listeSuggestion %}
+			   		{% if loop.index == 2 %}
+			   		<a href="{{ path('_attraitsactivitedefault',{'name':s.categorieattrait.repertoirefr|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomfr }}">{{ s.categorieattrait.nomfr }}</a>
+			   		{% endif %}
+			   {% endfor %}
+			   </h2>
+			   <ul>
+			       {% for s in listeClientAttrait %}
+				   		{% if loop.index == 2 %}
+				   		<li><a target="_blank" href="{{ s.regionid.urlfr }}/{{ s.zoneid.repertoirefr }}/{{ s.repertoirefr }}" title="{% for w in listeSuggestion %} {% if loop.index == 2 %} {{ w.categorieattrait.nomfr }} {{ s.nomfr }} {% endif %} {% endfor %}">{{ s.nomfr }}</a></li>
+				   		{% endif %}
+				  {% endfor %}
+			   </ul>   
+			    {% for s in listeSuggestion %}
+			   		{% if loop.index == 2 %}
+		      		<h4>[<a href="{{ path('_attraitsactivitedefault',{'name':s.categorieattrait.repertoirefr|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomfr }}">{{ s.categorieattrait.nomfr }}</a>]</h4>
+		      		{% endif %}
+			  {% endfor %}
+		   </div>
+		
+		   <div> 
+		     <h2>
+				{% for s in listeSuggestion %}
+			   		{% if loop.index == 3 %}
+			   		<a href="{{ path('_attraitsactivitedefault',{'name':s.categorieattrait.repertoirefr|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomfr }}">{{ s.categorieattrait.nomfr }}</a>
+			   		{% endif %}
+			    {% endfor %}
+		     </h2>
+			  <ul>
+			       {% for s in listeClientAttrait %}
+				   		{% if loop.index == 3 %}
+				   		<li><a target="_blank" href="{{ s.regionid.urlfr }}/{{ s.zoneid.repertoirefr }}/{{ s.repertoirefr }}" title="{% for w in listeSuggestion %} {% if loop.index == 3 %} {{ w.categorieattrait.nomfr }} {{ s.nomfr }} {% endif %} {% endfor %}">{{ s.nomfr }}</a></li>
+				   		{% endif %}
+				   {% endfor %}
+			  </ul> 
+			  {% for s in listeSuggestion %}
+			   		{% if loop.index == 3 %}
+		      		<h4>[<a href="{{ path('_attraitsactivitedefault',{'name':s.categorieattrait.repertoirefr|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomfr }}">{{ s.categorieattrait.nomfr }}</a>]</h4>
+		      		{% endif %}
+			  {% endfor %}
+		     </div>
+		    <br class="clearfloat" />
+	     </div>
+	 {% else %}
+ 		<div> 
+		  <h2>
+			   {% for s in listeSuggestion %}
+			   		{% if loop.index == 1 %}
+			   		<a href="{{ path('_attraitsactivitedefaulten',{'name':s.categorieattrait.repertoireen|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomen }}">{{ s.categorieattrait.nomen }}</a>
+			   		{% endif %}
+			   {% endfor %}
+		  </h2>
+		  <ul>
+		      {% for s in listeClientAttrait %}
+			  		{% if loop.index == 1 %}
+			   		<li><a target="_blank" href="{{ s.regionid.urlen }}/{{ s.zoneid.repertoireen }}/{{ s.repertoireen }}" title="{% for w in listeSuggestion %} {% if loop.index == 1 %} {{ w.categorieattrait.nomen }} {{ s.nomen }} {% endif %} {% endfor %}">{{ s.nomen }}</a></li>
+			   		{% endif %}
+			  {% endfor %}
+		  </ul>    
+		  <br class="clearfloat" />
+		  	   {% for s in listeSuggestion %}
+			   		{% if loop.index == 1 %}
+		      		<h4>[<a href="{{ path('_attraitsactivitedefaulten',{'name':s.categorieattrait.repertoireen|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomen }}">{{ s.categorieattrait.nomen }}</a>]</h4>
+		      		{% endif %}
+			  {% endfor %}
+		</div>
+		
+		 <div> 
+		   <h2>
+				{% for s in listeSuggestion %}
+			   		{% if loop.index == 2 %}
+			   		<a href="{{ path('_attraitsactivitedefaulten',{'name':s.categorieattrait.repertoireen|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomen }}">{{ s.categorieattrait.nomen }}</a>
+			   		{% endif %}
+			   	{% endfor %}
+		   </h2>
+		  <ul>
+		      {% for s in listeClientAttrait %}
+			  		{% if loop.index == 2 %}
+			   		<li><a target="_blank" href="{{ s.regionid.urlen }}/{{ s.zoneid.repertoireen }}/{{ s.repertoireen }}" title="{% for w in listeSuggestion %} {% if loop.index == 2 %} {{ w.categorieattrait.nomen }} {{ s.nomen }} {% endif %} {% endfor %}">{{ s.nomen }}</a></li>
+			   		{% endif %}
+			  {% endfor %}
+		  </ul>   
+		  	  {% for s in listeSuggestion %}
+			   		{% if loop.index == 2 %}
+		      		<h4>[<a href="{{ path('_attraitsactivitedefaulten',{'name':s.categorieattrait.repertoireen|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomen }}">{{ s.categorieattrait.nomen }}</a>]</h4>
+		      		{% endif %}
+			  {% endfor %}
+		 </div>
+		   
+		 <div> 
+		     <h2>
+				{% for s in listeSuggestion %}
+			   		{% if loop.index == 3 %}
+			   		<a href="{{ path('_attraitsactivitedefaulten',{'name':s.categorieattrait.repertoireen|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomen }}">{{ s.categorieattrait.nomen }}</a>
+			   		{% endif %}
+			   {% endfor %}	
+		     </h2>
+		  <ul>
+		      {% for s in listeClientAttrait %}
+			  		{% if loop.index == 3 %}
+			   		<li><a target="_blank" href="{{ s.regionid.urlen }}/{{ s.zoneid.repertoireen }}/{{ s.repertoireen }}" title="{% for w in listeSuggestion %} {% if loop.index == 3 %} {{ w.categorieattrait.nomen }} {{ s.nomen }} {% endif %} {% endfor %}">{{ s.nomen }}</a></li>
+			   		{% endif %}
+			  {% endfor %}
+		  </ul> 
+		  	   {% for s in listeSuggestion %}
+			   		{% if loop.index == 3 %}
+		      		<h4>[<a href="{{ path('_attraitsactivitedefaulten',{'name':s.categorieattrait.repertoireen|lower}) }}" title="{{ "attrait.activite" | trans }} {{ s.categorieattrait.nomen }}">{{ s.categorieattrait.nomen }}</a>]</h4>
+		      		{% endif %}
+			  {% endfor %}
+	    </div>
+		   <br class="clearfloat" />
+	 </div>
+	 {% endif %}
+{% endblock %}

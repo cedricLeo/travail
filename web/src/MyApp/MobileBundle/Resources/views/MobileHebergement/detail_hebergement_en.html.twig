@@ -1,0 +1,70 @@
+{% extends "::base_mobile.html.twig" %}
+
+{% block body %}
+        {% include '::navigation_fiche_client_mobile.html.twig' %}
+        {% for p in retourDetail %}
+            <h1>{{ p.nomfr }}</h1>
+            {# affichage de la présentation de l'hébergement #}
+            <div id="home">                
+                {% include 'MyAppMobileBundle:MobileHebergement:presentation.html.twig' %}                    
+            </div>
+            {# fin de l'affichage de la présentation de l'hébergement #}
+            
+            {# affichage des chambres #}
+            <div id="room">
+                {% include 'MyAppMobileBundle:MobileHebergement:chambre.html.twig' %}
+            </div>
+            {# fin de l'affichage des chambres #}
+            
+            {# affichage des forfaits #}
+            <div id="package">
+                {% include 'MyAppMobileBundle:MobileHebergement:forfait.html.twig' %}
+            </div>
+            {# fin de l'affichage des forfaits #}
+            
+            {# affichage des activités et services #}
+          {#  <div id="activities">
+                {% include 'MyAppMobileBundle:MobileHebergement:activite.html.twig' %}
+            </div>
+            {# fin de l'affichage des activités et services #}
+
+            {# affichage du corporatif #}
+         {#   {% if corporatif is not empty %}
+            <div id="corporate">
+                {% include 'MyAppMobileBundle:MobileHebergement:corporatif.html.twig' %}
+            </div>
+            {% endif %}
+            {# fin de l'affichage du corporatif #}
+            
+            {# affichage de la galerie photo #}
+           {# <div id="gallery">
+                {% include 'MyAppMobileBundle:MobileHebergement:galerie.html.twig' %}
+            </div>
+            {# fin de l'affichage de la galerie photo #}
+            
+            {# affichage des soins santé #}
+            {#<div id="sante">
+                santé
+            </div>
+            {# fin des soins de santé #}
+
+            {# affichage du restaurant #}
+            {#<div id="restaurant">
+                restaurant
+            </div>
+            {# fin de l'affichage du restaurant #}
+
+            {# affichage des informations et réservation #}
+            <div id="information">
+                {% include 'MyAppMobileBundle:MobileHebergement:reservation.html.twig' %}
+            </div>
+            {# fin des informations et réservation #}
+
+            {# affichage des directions routières #}
+           {# <div id="direction">                  
+                {% include 'MyAppMobileBundle:MobileHebergement:direction-en.html.twig' %}
+            </div>
+            {# fin des directions routières #}
+        {% endfor %}    
+{% endblock %}
+

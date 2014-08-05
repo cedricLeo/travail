@@ -1,0 +1,32 @@
+{% extends '::base2.html.twig' %}
+				
+{% block body %}
+<h1>Search Result <mark>{{ champRecherche }}</mark></h1>
+<div id="resultatRecherche">
+    {% for r in resultat %}
+        {% for w in r %} 
+        <div class="resultatListeRecherche">
+            {% if w.photocategoriepayante != "" %}
+                <a href="{{ path('_hebergementinfoclienten',{"name":w.repertoireen|lower}) }}" target="_blank" title="Hébergement {{ w.nomen }}">
+                        <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante')}}{{ w.id }}/{{ w.photocategoriepayante }}" class="imgListeRegion" alt="{{ w.nomeb }}" />
+                </a>
+            {% elseif w.photopayante != "" %}
+                <a href="{{ path('_hebergementinfoclienten',{"name":w.repertoireen|lower}) }}" target="_blank" title="Hébergement {{ w.nomen }}">
+                        <img src="{{ asset('uploads/hebergement/photo_payante/photo_payante')}}{{ w.id }}/{{ w.photopayante }}" class="imgListeRegion" alt="{{ w.nomeb }}" />
+                </a>
+            {% else %}
+                <a href="{{ path('_hebergementinfoclienten',{"name":w.repertoireen|lower}) }}" target="_blank" title="Hébergement {{ w.nomen }}">
+                    <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="imgListeRegion" alt="Image replacement {{ w.nomen }}" />
+                </a>
+            {% endif %}
+                 <h2><a href="{{ path('_hebergementinfoclienten',{"name":w.repertoireen|lower}) }}" target="_blank" title="Hébergement {{ w.nomen }}">{{ w.nomen }}</a></h2>   
+                 <p class="description_recherche">{{ w.textedescriptionen|truncate(200, '[...]')|raw }}</p>            
+                 <p>{{ "tarif.a.partir" | trans }}: <strong>{{ w.prixapartir }} $</strong></p>
+        </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}
+		
+		
+		

@@ -1,0 +1,1306 @@
+@charset "utf-8";
+
+/* CSS Document */
+#photoprincipale {
+	width: 602px;
+	height: 336px;
+	background-color: #0073ae;
+	margin: 0 10px 12px 0px;
+	/*float: left;*/
+}
+
+#photoprincipale img {
+	border: 1px solid #FFF;
+	margin: 3px 0 0 3px;
+}
+
+* html #photoprincipale {
+	margin: 0 10px 0 4px;
+}
+
+.nomHotel {
+	float: left;
+	position: absolute;
+	z-index: 2;
+	margin: 12px;
+	width:578px;
+}
+
+.nomHotel h1 {
+	color: #FFF;
+	font-size: 24px;
+	padding: 0 10px 0 4px;
+	background-color: #0073ae;
+}
+
+.nomHotel h1 a:link {
+	text-decoration: none;
+	color: #fff;
+}
+
+.nomHotel h1 a:visited {
+	text-decoration: none;
+	color: #fff;
+}
+
+.nomHotel h1 a:hover {
+	text-decoration: underline;
+	color: #fff;
+}
+
+.nomHotel h1 a:active {
+	text-decoration: none;
+	color: #fff;
+}
+
+.nomHotel img {
+	border: none !important; /*padding:180px 0 0 0px*/
+	position: absolute;
+	top: 200px;
+}
+
+#droit {
+	float: right;
+	width: 351px;
+	padding-right: 8px;
+	display: inline-block;
+	margin: 0px;
+}
+
+#droit .navclient ul {
+	margin: 0;
+}
+
+#droit .navclient {
+	height: 322px;
+}
+
+#droit .navclient li {
+	font-weight: bold;
+	font-size: 16px;
+	padding: 4px 0;
+	list-style: none;
+	width: 280px;
+	display: block;
+	color: #0073ae;
+	border-bottom: 1px dashed #666;
+}
+
+#droit .navclient li a:link {
+	text-decoration: none;
+	color: #999;
+}
+
+#droit .navclient li a:visited {
+	text-decoration: none;
+	color: #999;
+}
+
+#droit .navclient li a:hover {
+	text-decoration: none;
+	color: #0073ae;
+}
+
+#droit .navclient li a:active {
+	text-decoration: none;
+	color: #999;
+}
+
+#droit p {
+	font-size: 14px;
+	margin: 12px 0 0 0;
+	line-height: 18px;
+}
+
+#droit p a:link {
+	text-decoration: none;
+	color: #0073ae;
+	border-bottom: 1px dashed #CCC;
+}
+
+#droit p a:visited {
+	text-decoration: none;
+	color: #0073ae;
+	border-bottom: 1px dashed #CCC;
+}
+
+#droit p a:hover {
+	text-decoration: none;
+	color: #333;
+	border-bottom: 0px dashed #CCC;
+}
+
+#droit p a:active {
+	text-decoration: none;
+	color: #0073ae;
+	border-bottom: 1px dashed #CCC;
+}
+
+#droit  h1 {
+	color: #0073ae;
+	font-size: 18px;
+	margin: 21px 0 0 0;
+	border-bottom: 2px solid #fb9f3c;
+	padding-bottom: 3px;
+}
+
+#droit  h2 {
+	font-size: 14px;
+	color: #666;
+}
+
+#droit  h3 {
+	background-color: #0073ae;
+	color: #FFF;
+	font-size: 14px;
+	margin: 18px 0 15px 0;
+	padding-left: 3px;
+}
+
+#droit  ul {
+	margin-bottom: 12px;
+}
+
+#droit  li {
+	font-size: 12px;
+	list-style: none;
+}
+
+#droit ol {
+	margin: 12px 0 12px 16px;
+}
+
+#droit ol li {
+	font-size: 14px;
+	list-style: circle;
+	padding: 3px 0 3px 0
+}
+
+#droit .telepnone {
+	margin-bottom: 18px;
+	border-bottom: 2px solid #fb9f3c;
+	border-top: 2px solid #dcdcdc;
+	padding: 4px 0 2px 0;
+}
+
+#droit .telepnone p {
+	margin: 0px;
+	font-weight: bold;
+	font-size: 11px;
+}
+
+#droit .telepnone img {
+	float: left;
+	margin: 2px 6px 30px 0;
+}
+
+#droit iframe {
+	border: 3px solid #CCC;
+	margin-bottom: 18px;
+}
+/*
+#droit .logo {
+	margin: 72px 0 8px 0;
+}*/
+
+a.btreservation {
+    width: 131px;
+    height: 21px;
+    float: right;
+    margin: 6px 8px 0 0;
+    color:white;
+    font-size:13px;
+    text-decoration: none;
+    background-color: #E73E01;
+    border-radius: 5px;
+    display: block;
+    font-weight: bold;
+    padding: 7px 5px 5px;
+}
+
+.btreserver {
+	width: 74px;
+	height: 21px;
+	float: left;
+	margin: 8px 8px 0 0;
+}
+
+a.btreserver {
+	background-image: url(../images/btReserver.gif);
+	display: block;
+	width: 74px;
+}
+
+a.btreserver:hover {
+	background: url(../images/btReserver.gif) 0 -21px
+}
+
+#gauche .photo {
+	padding: 0 24px;
+}
+
+#gauche .photo img {
+	border: 3px solid #dcdcdc;
+	margin: 9px;
+}
+
+#gauche {
+	float: left;
+	width: 602px;
+	padding-left: 12px;
+}
+
+#gauche h2 { /*background-image:url(../images/fondTitreFiche.jpg); */
+	background-color: #eaeaea;
+	font-size: 18px;
+	color: #0073ae;
+	/*height: 24px;*/
+	padding: 6px;
+	margin: 12px 0 6px 0;
+	clear: left;
+	display: inline-block;
+	width: 590px;
+}
+
+#gauche h2 a {
+	float: right;
+	display: inline;
+	margin-top: -21px;
+	font-size: 14px;
+}
+
+#gauche h2 a:link {
+	color: #999;
+	text-decoration: underline;
+}
+
+#gauche h2 a:visited {
+	color: #999;
+	text-decoration: underline;
+}
+
+#gauche h2 a:hover {
+	color: #999;
+	text-decoration: none;
+}
+
+#gauche h2 a:active {
+	color: #999;
+	text-decoration: underline;
+}
+
+#gauche p {
+	font-size: 12px;
+}
+
+#gauche p a:link {
+	color: #0073ae;
+	text-decoration: none;
+	border-bottom: 1px dotted #dcdcdc;
+}
+
+#gauche p a:visited {
+	color: #0073ae;
+	text-decoration: none;
+	border-bottom: 1px dotted #dcdcdc;
+}
+
+#gauche p a:hover {
+	color: #0073ae;
+	text-decoration: none;
+	border-bottom: none;
+}
+
+*+html  #gauche p a:hover {
+	color: #0073ae;
+	text-decoration: underline;
+	border-bottom: none;
+}
+
+#gauche p a:active {
+	color: #0073ae;
+	text-decoration: none;
+	border-bottom: 1px dotted #dcdcdc;
+}
+
+#gauche table {
+	font-size: 12px
+}
+
+#gauche table .titreTab {
+	background-color: #0073ae;
+	color: #FFF;
+	font-weight: bold
+}
+
+#gauche table .titreTab span {
+	font-size: 36px;
+	padding-left: 2px;
+}
+
+#gauche h5 {
+	background-color: #0073ae;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 16px;
+	margin-top: 12px;
+}
+
+#gauche h5 span {
+	font-size: 36px;
+	padding-left: 2px;
+}
+
+#gauche .rss {
+	height: 39px;
+}
+
+#gauche .rss p {
+	padding-top: 12px
+}
+
+.btrss {
+	width: 30px;
+	height: 39px;
+	float: left;
+	margin-right: 6px;
+}
+
+a.btrss {
+	background-image: url(../images/rss.gif);
+	display: block;
+	width: 30px;
+}
+
+a.btrss:hover {
+	background: url(../images/rss.gif) 0 -39px
+}
+#gauche .reservation table {
+	background-color: #FFF;
+	border: 3px solid #999;
+	padding: 3px;
+	color: #333;
+	clear: left
+}
+
+#gauche .reservation table p {
+	margin-bottom: 8px
+}
+
+#gauche .reservation table select {
+	font-size: 12px;
+}
+
+#gauche .reservation td {
+	background-color: #EAEAEA;
+	font-size: 12px;
+	padding-left: 4px;
+}
+
+#gauche .fiche div {
+	margin: 6px 0 0px 0;
+	display: inline-block;
+}
+
+#gauche .fiche div img {
+	float: left;
+	border: 3px solid #dcdcdc;
+	margin-right: 6px;
+}
+
+#gauche .fiche div h3 {
+	background-color: #0073ae;
+	color: #FFF;
+	font-size: 14px;
+	width: 430px;
+	padding-left: 6px;
+	margin-top: 3px;
+	float: right
+}
+
+#gauche .fiche div h3 a:link {
+	text-decoration: none;
+	color: #FFF;
+}
+
+#gauche .fiche div h3 a:visited {
+	text-decoration: none;
+	color: #FFF;
+}
+
+#gauche .fiche div h3 a:hover {
+	text-decoration: underline;
+	color: #FFF;
+}
+
+#gauche .fiche div h3 a:active {
+	text-decoration: none;
+	color: #FFF;
+}
+
+#gauche .fiche div p {
+	font-size: 12px;
+	padding: 8px 0 6px 6px;
+	margin-top:15px;
+}
+
+#gauche .fiche div table {
+	float: right;
+	font-size: 12px;
+}
+
+#gauche .fiche div table td {
+	border: 1px solid #fff;
+}
+
+#gauche .fiche div table img {
+	border: 0;
+}
+
+#gauche .fiche div ul {
+	display: inline-block;
+	font-size: 12px;
+	list-style: circle;
+	padding: 6px 0;
+	width: 300px;
+}
+
+#gauche .fiche div li {
+	margin-left: 24px;
+}
+
+#gauche .fiche div div {
+	width: 436px;
+	float: right;
+	margin-top: 0px;
+}
+
+#gauche .fiche div span {
+	clear: right;
+	/*display: block;*/
+	width: 439px;
+	background-color: #eaeaea;
+	color: #C00;
+	float: right;
+	font-size: 11px;
+	text-align: right;
+	padding-right: 3px;
+}
+
+#gauche .fiche div span strong {
+	font-weight: normal;
+	color: #666;
+}
+
+#gauche .fiche div span a {
+	float: left;
+}
+
+#gauche .fiche div span a:link {
+	text-decoration: none;
+	color: #666;
+}
+
+#gauche .fiche div span a:visited {
+	text-decoration: none;
+	color: #666;
+}
+
+#gauche .fiche div span a:hover {
+	text-decoration: underline;
+	color: #666;
+}
+
+#gauche .fiche div span a:active {
+	text-decoration: none;
+	color: #666;
+}
+
+#gauche .fiche h4 {
+	font-size: 12px;
+	padding: 8px 0 0 6px;
+	color: #0073ae;
+}
+
+#gauche .fiche div div div {
+	width: 436px;
+	margin: 12px 0 0 0;
+	padding: 0 0 6px 6px;
+	background-image: url(../images/telephone.gif);
+	background-repeat: no-repeat;
+	position: letf;
+	border-top: 2px solid #dcdcdc;
+}
+
+#gauche .fiche div div div p {
+	padding: 0;
+	color: #999;
+	text-align: right;
+	font-weight: bold;
+}
+
+#gauche .fiche div div div strong {
+	font-size: 24px;
+	color: #0073ae;
+}
+
+#gauche .info ul {
+	float: left;
+	width: 290px;
+	font-size: 12px;
+	list-style: none;
+	margin-left: 6px;
+}
+
+#gauche .info img {
+	margin: 0;
+}
+
+#gauche .resto {
+	margin-bottom: 12px;
+}
+
+#gauche .resto div {
+	float: left;
+	width: 295px;
+	margin-left: 5px;
+	padding-bottom: 21px
+}
+
+#gauche .resto div h3 {
+	background-color: #0073ae;
+	font-size: 14px;
+	padding: 0 0 0 3px;
+	color: #fff
+}
+
+#gauche .resto div p {
+	padding: 2px 0 0 3px;
+}
+
+#gauche .resto div p.specialite_culinaire {
+	padding: 2px 0 0 3px;
+	display:inline;
+}
+
+#gauche .resto div ul {
+	font-size: 12px
+}
+
+#gauche .resto div li {
+	float: left;
+	display: block;
+	width: 140px;
+}
+
+#gauche .condition {
+	font-size: 12px;
+	width: 428px;
+	/*float: right;*/
+	border: 4px solid #999;
+	padding: 4px;
+	background-color: #eaeaea;
+	/*margin-bottom: 8px;*/
+	margin:15px 0 15px 150px;
+}
+
+#gauche .condition sup {
+	color: #C00
+}
+
+#gauche .condition span {
+	color: #C00
+}
+
+#gauche .opinion {
+	/*clear: left;*/
+	background-image: url(../images/opinion.jpg);
+	background-repaet:no-repeat;
+	font-size: 12px;
+	height: 43px;
+	margin: 12px 0;
+	padding: 12px 0 0 56px;
+}
+
+#gauche .unite li {
+	float: left;
+	width: 194px;
+	font-size: 12px;
+	margin: 3px;
+	list-style: none
+}
+
+#gauche .col4 {
+	margin-top: 12px;
+}
+
+#gauche .col4  div {
+	width: 144px;
+	float: left;
+	margin-right: 6px;
+}
+
+#gauche .col4  div img {
+	border: 1px solid #fff;
+	margin: 0;
+}
+
+#gauche .col4  div h3 {
+	font-size: 12px;
+	background-color: #0073ae;
+	padding-left: 2px;
+}
+
+#gauche .col4  div h3 a:link {
+	text-decoration: none;
+	color: #fff;
+}
+
+#gauche .col4  div h3 a:visited {
+	text-decoration: none;
+	color: #fff;
+}
+
+#gauche .col4  div h3 a:hover {
+	text-decoration: underline;
+	color: #fff;
+}
+
+#gauche .col4  div h3 a:active {
+	text-decoration: none;
+	color: #fff;
+}
+
+#gauche .liste {
+	width: 602px;
+	margin-top: 12px;
+}
+
+#gauche .liste div {
+	border-bottom: 1px dotted #CCC;
+	height: 105px;
+	margin-top: 6px;
+}
+
+#gauche .liste div a img {
+	float: left;
+	position: absolute;
+	z-index: 100;
+	border: 2px solid #CCC;
+	margin-right: 8px;
+}
+
+#gauche .liste div div {
+	float: left;
+	position: absolute;
+	z-index: 2;
+	margin: 0;
+	border-bottom: none;
+	margin-top: 0px;
+}
+
+#gauche .liste div div img {
+	border: 0px;
+}
+
+#gauche .liste div span {
+	float: right;
+	width: 445px;
+}
+
+#gauche .liste div span div {
+	position: static;
+	height: 16px;
+	font-size: 12px;
+	background-color: #dcdcdc;
+	width: 441px;
+	padding-left: 4px
+}
+
+#gauche .liste div span div a:link {
+	color: #0073ae;
+	text-decoration: underline;
+}
+
+#gauche .liste div span div a:visited {
+	color: #0073ae;
+	text-decoration: underline;
+}
+
+#gauche .liste div span div a:hover {
+	color: #0073ae;
+	text-decoration: none;
+}
+
+#gauche .liste div span div a:active {
+	color: #0073ae;
+	text-decoration: underline;
+}
+
+#gauche .liste div p {
+	font-size: 12px;
+	margin: 6px 0;
+	height: 55px;
+}
+
+#gauche .liste div h3 {
+	font-size: 14px;
+	display: block-inline;
+	background-color: #0073ae;
+	width: 445px;
+}
+
+#gauche .liste div h3 a:link {
+	color: #fff;
+	text-decoration: none;
+	padding-left:5px;
+}
+
+#gauche .liste div h3 a:visited {
+	color: #fff;
+	text-decoration: none;
+}
+
+#gauche .liste div h3 a:hover {
+	color: #FC0;
+	text-decoration: none;
+}
+
+#gauche .liste div h3 a:active {
+	color: #fff;
+	text-decoration: none;
+}
+
+#gauche .liste .pages select {
+	font-size: 12px;
+}
+
+#gauche .liste .pages {
+	height: 22px;
+	background-color: #e5e5e5;
+	margin: 6px 0;
+	font-size: 12px;
+	padding: 3px 6px 0 6px;
+}
+
+#gauche .liste .pages div {
+	height: 22px;
+}
+
+#gauche .liste .pages ul {
+	float: right;
+	padding: 3px 0;
+}
+
+#gauche .liste .pages li {
+	display: inline;
+	border: 1px solid #999;
+	padding: 2px 0;
+	margin: 0px 3px 0 0;
+}
+
+*+html  #gauche .liste .pages li {
+	display: inline;
+	border: 1px solid #999;
+	padding: 0px 0;
+	margin: 0px 3px 0 0;
+}
+
+#gauche .liste .pages li a {
+	padding: 0px;
+}
+
+#gauche .liste .pages li a:link {
+	color: #0073ae;
+	text-decoration: none;
+	background-color: #f6f6f6;
+	padding: 2px 6px;
+	margin: 0;
+}
+
+#gauche .liste .pages li a:visited {
+	color: #0073ae;
+	text-decoration: none;
+	background-color: #f6f6f6;
+	padding: 2px 6px;
+	margin: 0;
+}
+
+#gauche .liste .pages li a:hover {
+	color: #fff;
+	text-decoration: none;
+	background-color: #999;
+	padding: 2px 6px;
+	margin: 0;
+}
+
+#gauche .liste .pages li a:active {
+	color: #0073ae;
+	text-decoration: none;
+	background-color: #f6f6f6;
+	padding: 2px 6px;
+	margin: 0;
+}
+
+#gauche .form_gr {
+	font-size: 12px;
+	padding: 12px;
+}
+
+#gauche .form_gr input {
+	margin: 0 8px;
+}
+
+#gauche .form_gr textarea {
+	margin: 0 8px;
+}
+
+#gauche .tel {
+	padding: 12px 12px 0 12px;
+}
+
+#gauche .tel p {
+	padding: 6px 0;
+}
+
+.red {
+	color: #C00
+}
+
+.critere {
+	display: inline-block;
+	margin-bottom: 12px;
+        width:610px;
+}
+
+.critere h2 { /*background-image: url(../images/fondTitreCritere.jpg);*/
+	background-color: #e5e5e5;
+	font-size: 18px;
+	color: #0073ae;
+	/*height: 18px;*/
+	padding: 6px;
+	margin: 12px 12px 4px 6px;
+        width:590px;
+}
+
+.critere ul {
+	margin-left: 8px;
+	font-size: 12px;
+}
+
+.critere li {
+	display: inline;
+}
+
+.critere li a:link {
+	text-decoration: none;
+	color: #999;
+}
+
+.critere li a:visited {
+	text-decoration: none;
+	color: #999;
+}
+
+.critere li a:hover {
+	text-decoration: underline;
+	color: #999;
+}
+
+.critere li a:active {
+	text-decoration: none;
+	color: #999;
+}
+
+.critere div {
+	width: 146px;
+	float: left;
+	margin-left: 6px;
+	display: block;
+}
+
+.critere div img {
+	border: 1px solid #999;
+}
+
+.critere div h3 {
+	font-size: 12px;
+	background-color: #f1f1f1;
+        height:50px;
+}
+
+.critere div h3 a:link {
+	text-decoration: none;
+	color: #0073ae;
+}
+
+.critere div h3 a:visited {
+	text-decoration: none;
+	color: #0073ae;
+}
+
+.critere div h3 a:hover {
+	text-decoration: underline;
+	color: #0073ae;
+}
+
+.critere div h3 a:active {
+	text-decoration: none;
+	color: #0073ae;
+}
+
+/*.navBasClient ul { width:90%; margin:0 auto;}
+.navBasClient li{ display:inline; font-size:12px; float:left; margin:0 6px;}
+.navBasClient li a:link{text-decoration:none; color:#333;}
+.navBasClient li a:visited{text-decoration:none; color:#333;}
+.navBasClient li a:hover{text-decoration:underline; color:#333;}
+.navBasClient li a:active{text-decoration:none; color:#333;}*/
+#gauche .commentaire {
+	padding-top: 12px;
+}
+
+.tabgris {
+	background-color: #666;
+	color: #fff;
+}
+
+.tabgris2 {
+	background-color: #eaeaea;
+	color: #333;
+}
+
+.tabgris3 {
+	background-color: #999;
+	color: #fff;
+}
+
+#formdevise{
+	width:36px;
+	height:13px;
+	color:grey;
+	border:1px solid grey;
+}
+/*########################################## FORMULAIRE RESERVATION EN LIGNE ##################################################*/
+#gauche div.reservation #structureformonline{
+	width:590px;
+	float:left;
+	border:3px solid #999;
+	padding:3px;
+	color:#333;
+	height:137px;
+	margin:35px 0 15px 0;
+	border-image:initial;
+}
+#gauche div.reservation #structureformonline2{
+	width:590px;
+	border:3px solid #999;
+	padding:3px;
+	color:#333;
+	height:137px;
+	margin:35px 0 15px 0;
+	border-image:initial;
+}
+#gauche div.reservation #structureformonline .blancback, #gauche div.reservation #structureformonline2 .blancback {
+	background-color:#EAEAEA;
+	border:1px solid white;
+	padding:1px;
+	height:133px;
+}
+#gauche div.reservation #structureformonline h2.reserveonline, #gauche div.reservation #structureformonline2 h2.reserveonline{
+	font-size:16px;
+	font-weight:800;
+	color:#0073ae;
+	background:none;
+	/*width:170px;*/	
+	margin:-10px 0 0 0;
+}
+#gauche div.reservation #structureformonline form.reserveonline, #gauche div.reservation #structureformonline2 form.reserveonline{	
+	width:432px;
+	height:100px;
+	margin:-5px 0 0 3px;
+}
+#gauche form.reserveonline label{
+	font-size:12px;
+	font-weight:100;
+	color:black;
+	display:block;
+}
+#gauche div.reservation #structureformonline form.reserveonline .datebegin label, #gauche div.reservation #structureformonline2 form.reserveonline .datebegin label{
+	float:left;
+	margin:-100px 0 0 -210px;
+}
+#gauche div.reservation #structureformonline form.reserveonline .dateend label, #gauche div.reservation #structureformonline2 form.reserveonline .dateend label{
+	float:left;
+	margin-top:-100px;
+}
+#gauche div.reservation #structureformonline form.reserveonline .nbchambre label, #gauche div.reservation #structureformonline2 form.reserveonline .nbchambre label{
+	float:left;
+	margin:-150px 0 0 240px;
+}
+#gauche form.reserveonline div#reservationOnline{
+	display:block;
+	margin:0;
+	padding:0;
+}
+#gauche form.reserveonline div#reservationOnline div{
+	width:212px;
+	height:50px;
+	display:block;
+	float:left;
+}
+#gauche form.reserveonline div#reservationOnline div #reservationOnline_datedebut{
+	width:210px;
+	height:25px;
+	clear:left;
+	display:block;
+	margin-top:20px;
+}
+#reservationOnline_datedebut select#reservationOnline_datedebut_day{
+	float:left;
+	margin-top:1px;
+}
+#reservationOnline_datedebut select#reservationOnline_datedebut_year{
+	float:right;
+	margin:1px 14px 0 0;
+}
+#gauche form.reserveonline div#reservationOnline div #reservationOnline_datefin{
+	width:210px;
+	height:25px;
+	clear:left;
+	display:block;
+	margin-top:20px;
+}
+#reservationOnline_datefin select#reservationOnline_datefin_day{
+	float:left;
+	margin-top:1px;
+}
+#reservationOnline_datefin select#reservationOnline_datefin_year{
+	float:right;
+	margin:1px 14px 0 0;
+}
+#gauche form.reserveonline div#reservationOnline div select#reservationOnline_chambre{
+	/*height:25px;
+	clear:left;*/
+	display:block;
+	margin:20px 0 0 30px;
+}
+#gauche form.reserveonline div#reservationOnline div select#reservationOnline_adulte{
+	/*height:25px;*/
+	/*clear:left;*/
+	display:block;
+	margin:20px 0 0 30px;
+}
+#gauche form.reserveonline div#reservationOnline div select#reservationOnline_enfant{
+	/*height:25px;*/
+	/*clear:left;*/
+	display:block;
+    position: relative;
+    top: -30px;
+    left:300px;
+    margin:0 0 0 30px;
+}
+#gauche div.reservation #structureformonline form.reserveonline .personneadulte label, #gauche div.reservation #structureformonline2 form.reserveonline .personneadulte label{
+	float:left;
+	margin:-100px 0 0 240px;
+}
+#gauche div.reservation #structureformonline form.reserveonline .personneenfant label, #gauche div.reservation #structureformonline2 form.reserveonline .personneenfant label{
+	float:left;
+	/*margin:-100px 0 0 330px;*/
+	position:relative;
+	top:-100px;
+	left:330px;
+}
+#gauche form.reserveonline div#reservationOnline div label{
+	display:none;
+}
+div.inforeservationonline{
+	width:150px;
+	float:right;
+	position:relative;
+	top:-180px;
+}
+#gauche #structureformonline .blancback form.reserveonline .envoyersubmit input, #gauche #structureformonline2 .blancback form.reserveonline .envoyersubmit input {
+	background-image: url(../images/btReserver.gif);
+	background-repeat:none;
+	width:78px;
+	height:25px;
+	display:block;
+	position:relative;
+	left:430px;
+	top:-90px;
+	cursor:pointer;
+}
+.inforeservationonline p{
+	margin:10px 0;
+}
+
+/*################################# FORMULAIRE DE DEMANDE D'INFORMATION/RÉSERVATION ########################*/
+#gauche form.demandeinfo{
+	border:1px solid red;
+	width:100%;
+	height:700px;
+	margin:15px 0;
+}
+
+#gauche form.demandeinfo #inforeservation label.required{
+	display:none;
+}
+#gauche form.demandeinfo #inforeservation{
+	width:230px;
+	float:left;
+	display:block;
+}
+#gauche form.demandeinfo #inforeservation div{
+	width:230px;
+	display:block;
+	margin:0 0 10px 0;
+}
+#gauche form.demandeinfo .prenom, #gauche form.demandeinfo .nom, #gauche form.demandeinfo .adresse, #gauche form.demandeinfo .ville, #gauche form.demandeinfo .province,
+#gauche form.demandeinfo .pays, #gauche form.demandeinfo .codepostal, #gauche form.demandeinfo .telephone, #gauche form.demandeinfo .telecopieur, #gauche form.demandeinfo .email1,
+#gauche form.demandeinfo .email2, #gauche form.demandeinfo .datearrive, #gauche form.demandeinfo .nbnuit, #gauche form.demandeinfo .nbadulte, #gauche form.demandeinfo .nbenfant, 
+#gauche form.demandeinfo .ageenfant, #gauche form.demandeinfo .nbchambre, #gauche form.demandeinfo .chambrefumeur, #gauche form.demandeinfo .commentaire{
+	border:1px solid green;
+	display:block;
+	width:320px;
+	float:left;
+	height:22px;
+}
+#gauche form.demandeinfo #inforeservation div input, #gauche form.demandeinfo #inforeservation div textarea{
+	width:200px;
+}
+#gauche form.demandeinfo #inforeservation div input{
+	height:20px;
+}
+/*################# DIV DES LABELS ###############################*/
+#gauche form.demandeinfo div.nom{
+	margin:10px 0 25px 0;
+}
+#gauche form.demandeinfo div.adresse{
+	margin:0 0 24px 0;
+}
+#gauche form.demandeinfo div.province{
+	margin:10px 0;
+}
+#gauche form.demandeinfo div.codepostal{
+	margin:10px 0;
+}
+#gauche form.demandeinfo div.telecopieur{
+	margin:10px 0;
+}
+#gauche form.demandeinfo div.email2{
+	margin:10px 0;
+}
+#gauche form.demandeinfo div.nbnuit{
+	margin:10px 0;
+}
+#gauche form.demandeinfo div.nbenfant{
+	margin:10px 0;
+}
+#gauche form.demandeinfo div.nbchambre{
+	margin:10px 0;
+}
+#gauche form.demandeinfo div.commentaire{
+	margin: 20px 0 20px 0;
+}
+#droit h2.title_attrait{
+	border-bottom:2px solid #FB9F3C;
+	color: #0073AE;
+    font-size: 18px;
+    margin: 21px 0 0;
+    padding-bottom: 3px;
+}
+#droit h3.slogan_attrait{
+	color: #666666;
+    font-size: 14px;
+    margin:0px;
+    background:none;
+}
+#droit div.remplace_logo{/*height: 137px;*/ width: 202px; margin-bottom:25px;}
+
+#gauche .fiche .resto div{
+	float:left;
+	margin:-8px 0 0 5px;
+	padding-bottom:25px;
+	width:295px;
+	height:80px;
+}
+
+#gauche .fiche .resto h3{width:292px; margin-bottom:5px;}
+#gauche .fiche .resto img{margin-top:-4px; border:none;}
+#gauche .fiche .resto div ul li{margin-left:0; padding-bottom:8px;}
+#gauche p.legendeHome{color:#999999; font-size:13px; margin-top:-25px; padding: 15px 0 10px 0;}
+.google_apiV3{float:left;}
+ #map{
+ 	height: 520px;
+    margin: 0 auto 30px;
+    width: 580px;
+}
+form#direction{margin-bottom:20px;}
+form#direction label{
+	font-size:12px;
+ 	display:block;
+ 	margin:5px 30px 5px 10px;
+}
+form#direction input[type="text"]{width:570px; margin: 0 0 15px 10px;}
+form#direction input[type="button"]{margin-left:10px; padding:10px;}
+img.classification2, .classification1, .classification3, .classification4, .classification5{ height:15px;}
+img.imgGalery{width:154px; height:105px;}
+a.callTel{color:black !important;  font-size: 12px;}
+img.imgPresentationChambre{width:142px; height:98px;}
+p.dejeunerType{font-weight:600;}
+.reservation_en_ligne{margin:10px 0 0 0; border-top:none !important; border-bottom:none !important;}
+label.lbl_email_demande_info{clear:both;}
+input[type="email"]#add_demande_global_reservation_courriel{float:left; width:434px; margin-top:10px;}
+textarea.text_demande_info{min-width:530px; max-width:530px; min-height:60px; max-height:240px; margin-left:10px;}
+input[type="checkbox"]#add_demande_global_reservation_chambre_fumeur{float:left; margin:10px;}
+label.lbl_demande_specifique{clear:both; width:300px !important; }
+label.lbl_chambre_fumeur{clear:both;}
+input[type="text"].input_nombre_chambre{width:120px !important;}
+label.lbl_nombre_chambre{width:140px !important; clear:both;}
+.infoFormDemandeInformation{margin:15px 10px;}
+p.acheminerForm{line-height:50px;}
+.apercupreview{
+	position:fixed;
+	transform:rotate(30deg);
+	-ms-transform:rotate(30deg); /* IE 9 */
+	-webkit-transform:rotate(30deg); /* Safari and Chrome */
+}
+img.imgCotation{
+    height: 90px;
+    width: 60px;
+    float:left;
+    display:block;
+    margin:10px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

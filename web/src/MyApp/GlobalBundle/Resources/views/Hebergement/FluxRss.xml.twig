@@ -1,0 +1,67 @@
+{% if app.request.locale == "fr" %}
+	{{ nodexml }} 
+		{{ noderssopen }}<br />
+			{{ nodechannelouverture }}<br />
+				{{ nodetitlechannel }}<br />
+				{{ nodelinkchannel }}<br />
+				{{ nodedescriptionchannel }}<br />
+				{{ datepubopen }}{{ datecurrent }} {{ datepubclosed }}<br />
+				{{ nodelangagefr }}<br />
+				{{ nodecopyright1 }}{{ annneecopyright }}{{ nodecopyright2 }}<br />
+				{% for w in listeGps %}
+				    {{ nodeitemopen }}<br />
+				 		{{ nodeitemtitleitemouverture }}{{ w.nomfr }}{{ nodeitemtitleitemfermeture }}<br />
+				 		{{ nodelinkouverture }}http://www.{{ w.regionid.nomfr }}-guidetouristique.com/{{ w.zoneid.nomfr }}/{{ w.repertoirefr }}{{ nodelinkfermeture }}<br />
+				 		{{ nodequidouverture }}{{ w.id }}{{ nodequidfermeture }}<br />
+				 		{{ nodeitemdescriptionopen }}{{ w.texteresumefr|striptags|truncate(100, true, ' [...]') }}{{ nodeitemdescriptionclose }}<br />
+				 		{{nodeitempubdateopen  }}{{ w.datecreation|date("m d Y") }}{{ nodeitempubdateclose }}<br />
+				 	{{ nodeitemclose }}<br />	
+				 {% endfor %} 	 
+			 {{ nodechannelfermeture }}<br />
+		 {{ noderssclose }}	<br />
+{#<rss version="2.0">
+    <channel>
+        <title>Global-Réservation</title>
+        <link>
+            http://www.global-reservation.com/tarifs_derniere_minute_et_promotions.html
+        </link>
+        <description>
+            Global-Réservation vous donne la possibilité de pouvoir vous offrir une panoplie de séjour à petit prix.
+        </description>
+        <copyright>Copyright: (C) Global Internet inc.</copyright>
+        {% for w in rss %}
+            <item>
+                <title>{{ w.nomfr }}</title>
+                <description>
+                    {{ w.descriptifderniereminutefr }}
+                </description>            
+                <link>http://www.global-reservation.com/activites_services_{{ w.hebergementid.repertoirefr }}.html</link>
+                <author>Global Réservation</author>
+                <guid isPermaLink="true">http://www.global-reservation.com/tarifs_derniere_minute_et_promotions.html</guid>
+                <pubDate>{{ w.publication|date("d m Y") }}</pubDate>
+            </item>   
+        {% endfor %}
+    </channel>
+</rss>	#}			
+{% else %}
+	{{ nodexml }} 
+		{{ noderssopen }}<br />
+			{{ nodechannelouverture }}<br />
+				{{ nodetitlechannel }}<br />
+				{{ nodelinkchannel }}<br />
+				{{ nodedescriptionchannel }}<br />
+				{{ datepubopen }}{{ datecurrent }} {{ datepubclosed }}<br />
+				{{ nodelangageen }}<br />
+				{{ nodecopyright1 }}{{ annneecopyright }}{{ nodecopyright2 }}<br />
+				{% for w in listeGps %}
+				    {{ nodeitemopen }}<br />
+				 		{{ nodeitemtitleitemouverture }}{{ w.nomen }}{{ nodeitemtitleitemfermeture }}<br />
+				 		{{ nodelinkouverture }}http://www.{{ w.regionid.nomen }}-guidetouristique.com/{{ w.zoneid.nomen }}/{{ w.repertoireen }}{{ nodelinkfermeture }}<br />
+				 		{{ nodequidouverture }}{{ w.id }}{{ nodequidfermeture }}<br />
+				 		{{ nodeitemdescriptionopen }}{{ w.texteresumeen|striptags|truncate(100, true, ' [...]') }}{{ nodeitemdescriptionclose }}<br />
+				 		{{nodeitempubdateopen  }}{{ w.datecreation|date("m d Y") }}{{ nodeitempubdateclose }}<br />
+				 	{{ nodeitemclose }}<br />	
+				 {% endfor %} 	 
+			 {{ nodechannelfermeture }}<br />
+		 {{ noderssclose }}	<br />
+{% endif %}

@@ -1,0 +1,389 @@
+{% block presentation %}
+{# {% for z in client %}
+		{% if z.reservitid is not empty and z.reservit is not empty %}
+		  {# FORMULAIRE DDE RÉSERVATION #}
+		{#  {% include 'MyAppGlobalBundle:Hebergement:Formulaire_reservation_en_ligne.html.twig' %}
+		{% endif %}
+  	{% endfor %}#}
+  {# LISTE DES CHAMBRES #}
+  <div class="fiche">
+  {% if chambre|length != 0 %}
+      <h2>{{ "type.chambre" | trans }}</h2>
+      {% if app.request.locale == "fr" %}
+	      {% for w in chambre %}
+                        {% if w.typechambreid is not empty %} 
+                            <div itemscope itemtype="http://schema.org/Product">   
+                                {% for p in w.typechambreid %} 
+                                    {% if loop.index == 1 %}
+                                        <a href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoirefr }) }}#{{ w.id }}" class="link_ancre" title="{{ p.nomfr }} {{ w.hebergement.nomfr }}"> 
+                                            {% if w.photo1 is not empty  %}
+                                            <img src="{{ asset("uploads/chambres") }}/{{ w.id }}/{{ w.photo1 }}" class="imgPresentationChambre" alt="{{ p.nomfr }} {{ w.hebergement.nomfr }}" /> 
+                                            {% else %}
+                                            <img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="{{ p.nomfr }} {{ w.hebergement.nomfr }}" /> 
+                                            {% endif %}                                 
+                                        </a> 
+                                    {% endif %}
+                                {% endfor %}
+                                <div>
+                                    <h3 itemprop="name"><a itemprop="url" href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoirefr }) }}#{{ w.id }}" class="link_ancre" title="{% for p in w.typechambreid %}{{ p.nomfr }}{% endfor %} {{ w.hebergement.nomfr }}">
+                                    {% for p in w.typechambreid %} 	 
+                                            <strong>{{ p.nomfr }}</strong>
+                                    {% endfor %}
+                                   </a></h3>
+			 {% else %}
+                             <div itemscope itemtype="http://schema.org/Product">
+                               <a href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoirefr }) }}#{{ w.id }}" class="link_ancre" title="{{ w.nomfr }} {{ w.hebergement.nomfr }}"> 
+                                       {% if w.photo1 is not empty %}
+                                       <img src="{{ asset("uploads/chambres") }}/{{ w.id }}/{{ w.photo1 }}" class="imgPresentationChambre" alt="{{ w.nomfr }} {{ w.hebergement.nomfr }}" /> 
+                                       {% else %}
+                                       <img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="{{ w.nomfr }} {{ w.hebergement.nomfr }}" /> 
+                                       {% endif %}
+                               </a>
+                                 <div>
+                                     <h3 itemprop="name"><a itemprop="url" href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoirefr|lower }) }}#{{ w.id }}" class="link_ancre" title="{{ w.nomfr }} {{ w.hebergement.nomfr }}"> <strong>{{ w.nomfr }}</strong> </a></h3>
+			 {% endif %}
+                                <table width="220" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td width="48" align="center">
+                                            <select>
+                                            {% for q in w.hebergement.deviseid %}
+                                                <option name="{{ q.abreviation }}">{{ q.abreviation }}</option>
+                                            {% endfor %}
+                                            </select>	
+                                        </td>
+                                            <td width="86" align="center" class="tabgris">{{ "a.partir" | trans }}</td>
+                                            <td width="86" align="center" class="tabgris">{{ "jusqua" | trans }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td height="50" align="center">&nbsp;</td>
+                                            <td align="center" class="agranditprix"> <p itemprop="offers" itemscope itemtype="http://schema.org/Offer"><span itemprop="price" class="microdata">{{ w.tarifminbassesaison|replace({"%$%": ""})|number_format(2, '.', ',') }} $</span></p></td>
+                                            <td align="center" class="agranditprix"> <p>{{ w.tarifmaxhautesaison|replace({"%$%": ""})|number_format(2, '.', ',') }} $</p></td>
+                                          </tr>
+                                  </table>
+                                        {% if w.textepresentationfr is not empty %}
+                                            <p itemprop="description">{{ w.textepresentationfr|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(130, '[...]') }}</p>   
+                                        {% else %}
+                                            <p itemprop="description">{{ w.descriptionfr|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(130, '[...]') }}</p>
+                                        {% endif %}
+                                        <span><a class="link_ancre" href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoirefr|lower }) }}#{{ w.id }}" title="Description {{ w.nomfr }} {{ w.hebergement.nomfr }}">Description</a> {% if w.tarifpreferentiel != "" %}{{ "tarif.preferentiel" | trans }}{% endif %}</span>
+                                </div><br class="clearfloat" />
+                          </div>		  			
+		 {% endfor %}
+	 {% else %}
+	 	{% for w in chambre %}
+	 		{% if w.typechambreid is not empty %}
+		 		{% for p in w.typechambreid %}
+                                    <div itemscope itemtype="http://schema.org/Product">    
+                                       <a href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoireen|lower }) }}#{{ w.id }}" class="link_ancre" title="{{ p.nomen }} {{ w.hebergement.nomen }}"> 
+                                              {% if w.photo1 is not empty %}
+                                              <img src="{{ asset("uploads/chambres") }}/{{ w.id }}/{{ w.photo1 }}" class="imgPresentationChambre" alt="{{ p.nomen }} {{ w.hebergement.nomen }}" />
+                                              {% else %}
+                                              <img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="{{ p.nomen }} {{ w.hebergement.nomen }}" /> 
+                                              {% endif %}
+                                       </a>
+                                        <div>
+                                              <h3 itemprop="name"><a itemprop="url" class="link_ancre" href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoireen|lower }) }}#{{ w.id }}"  title="{% for p in w.typechambreid %}{{ p.nomen }}{% endfor %} {{ w.hebergement.nomen }}"> 
+                                                 {% for p in w.typechambreid %} 	 
+                                                      <strong>{{ p.nomen }}</strong>
+                                                 {% endfor %}
+                                              </a></h3>
+				{% endfor %}
+			{% else %}
+                                <div itemscope itemtype="http://schema.org/Product">    
+                                 <a href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoireen|lower }) }}#{{ w.id }}" class="link_ancre" title="{{ w.nomen }} {{ w.hebergement.nomen }}"> 
+                                        {% if w.photo1 is not empty %}
+                                        <img src="{{ asset("uploads/chambres") }}/{{ w.id }}/{{ w.photo1 }}" class="imgPresentationChambre" alt="{{ w.nomen }} {{ w.hebergement.nomen }}" />
+                                        {% else %}
+                                        <img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="{{ w.nomen }} {{ w.hebergement.nomen }}" /> 
+                                        {% endif %}
+                                 </a>
+                                 <div>
+                                      <h3 itemprop="name"><a itemprop="url" class="link_ancre" href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoireen|lower }) }}#{{ w.id }}"> <strong>{{ w.nomen }}</strong> </a></h3>
+			{% endif %}
+                                    <table width="220" border="0" cellspacing="0" cellpadding="0">
+                                              <tr>
+                                                <td width="48" align="center">
+                                                    <select>
+                                                    {% for q in w.hebergement.deviseid %}
+                                                            <option name="{{ q.abreviation }}">{{ q.abreviation }}</option>
+                                                    {% endfor %}
+                                                    </select>	
+                                                </td>
+                                                <td width="86" align="center" class="tabgris">{{ "a.partir" | trans }}</td>
+                                                <td width="86" align="center" class="tabgris">{{ "jusqua" | trans }}</td>
+                                              </tr>
+                                              <tr>
+                                                <td height="50" align="center">&nbsp;</td>
+                                                 <td align="center" class="agranditprix"> <p itemprop="offers" itemscope itemtype="http://schema.org/Offer"><span itemprop="price" class="microdata">{{ w.tarifminbassesaison|replace({"%$%": ""})|number_format(2, '.', ',') }} $</span></p></td>
+                                                 <td align="center" class="agranditprix"> <p>{{ w.tarifmaxhautesaison|replace({"%$%": ""})|number_format(2, '.', ',') }} $</p></td>
+                                              </tr>
+                                    </table>
+                                            {% if w.textepresentationen is not empty %}
+                                                <p itemprop="description">{{ w.textepresentationen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(130, '[...]') }}</p>    
+                                            {% else %}
+                                                <p itemprop="description">{{ w.descriptionen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(130, '[...]') }}</p>
+                                            {% endif %}
+                                            <span><a class="link_ancre" href="{{ path('_hebergementchambre',{'name':w.hebergement.repertoireen }) }}#{{ w.id }}" title="Description {{ w.nomen }} {{ w.hebergement.nomen }}">Description</a> {% if w.tarifpreferentiel != "" %}{{ "tarif.preferentiel" | trans }}{% endif %}</span>
+                                    </div><br class="clearfloat" />
+                             </div>
+		 {% endfor %}
+	 {% endif %}
+  {% endif %}
+  </div>
+  
+  {# INFORMATION CONCERNANT L'ÉTABLISSEMENT #}
+  <h2>{{ "information.concernant.etablissement" | trans }} <a href="#">haut</a></h2>
+  <div class="info">
+    <ul>
+	{% for s in client %}
+	    {# AFFICHE LE NOMBRE DE CHAMBRE #}
+            {% if s.nombrechambre is not empty %}
+            <li><strong>{{ "nombre.chambre" | trans }} : </strong>{{ s.nombrechambre }}</li>
+	    {% elseif nbChambre != null %}
+            <li><strong>{{ "nombre.chambre" | trans }} : </strong>{{ nbChambre }}</li>
+            {% endif %}
+	    {# AFFICHE LE NOMBRE D'ÉTAGE #} 
+	    {% if s.nombreetages > 0 %}
+	    <li><strong>{{ "nombre.etage" | trans }} :</strong> {{ s.nombreetages }}</li>
+	    {% endif %}
+	    {# AFFICHE LES TYPES DE SALLES #}
+	    {% if s.corporatif == 1 and salleCorporatif > 0 %}
+	    <li><strong>{{ "salle.etablissement" | trans }} :</strong> {{ salleCorporatif }}</li>
+	    {% endif %}
+	    {# AFFICHE L'HEURE D'ARRIVÉ POUR LA POSSESSION ET L'HEURE DE DÉPART #}
+	    <li><strong>{{ "heure.arriver.etablissement" | trans }} :</strong>  {{ s.checkin }} </li>
+	    <li><strong>{{ "heure.depart.etablissement"  | trans }} :</strong>  {{ s.checkout }} </li>
+    	{# AFFICHE LES MODES DE PAIEMENTS #}
+	    	{% for w in devise %}
+		    	 <li><strong>{{ "modalite.paiement" | trans }} :</strong><br />
+		    	 {% if app.request.locale == "fr" %} 
+		    		{% for h in s.hebergementpaiementsid %} <img src="{{ asset('uploads/modes_paiements') }}/{{ h.id }}/{{ h.image }}" alt="{{ h.nomfr }}" class="thumbnailmodepaiement"/>  - {{ h.nomfr }}  <br />{% endfor %}
+		    	 {% else %} 
+		    	 	{% for h in s.hebergementpaiementsid %} <img src="{{ asset('uploads/modes_paiements') }}/{{ h.id }}/{{ h.image }}" alt="{{ h.nomen }}" class="thumbnailmodepaiement"/>  - {{ h.nomen }}  <br /> {% endfor %} 
+		    	 {% endif %}
+		    	 </li> 
+		    {% endfor %}
+	    <li><strong>{{ "devises" | trans }} :</strong> 
+	    <br />
+	    {# AFFICHE LES DEVISES #}
+	    	{% for w in devise %}
+		    	{% if w.deviseid|length > 2 %}
+		    		{% for a in w.deviseid %}
+                                    {{ a.symbole }}  {{ a.abreviation }}<br />
+	    			{% endfor %}
+	    		{% else %}
+	    			{% for a in w.deviseid %}
+                                    {{ a.symbole }}  {{ a.abreviation }}<br />
+	    			{% endfor %}
+		    	{% endif %}
+	    	{% endfor %}
+	    </li> 
+    </ul>
+    <ul>
+	    {# AFFICHE LA CLASSIFICATION #}
+	    <li><strong>Classification :</strong><img src="{{ asset('uploads/classifications/') }}{{ s.classificationid.id }}/{{ s.classificationid.image }}" class="classification2" alt="{{ s.classificationid.valeur }}" /></li> 
+            {# AFFICHE LA CATÉGORIE DE L'ÉTABLISSEMENT #}
+            {% if s.stylehebergementid is not empty %}
+	    <li><strong>{{ "style.hebergement" | trans }} :</strong> {% for h in s.stylehebergementid %} {% if app.request.locale == "fr" %} {{ h.nomfr }}, {% else %} {{ h.nomen }}, {% endif %} {% endfor %} </li>
+            {% endif %}
+            {# AFFICHE LA POLITIQUE POUR LES ANIMAUX #}
+                {% if s.politiquehebergementfr.politiqueanimauxfr is not empty or s.politiquehebergementen.politiqueanimauxen is not empty %}
+                   <li><strong>{{ "politique.animaux" | trans}} :</strong>{% if app.request.locale == "fr" %} {{ s.politiquehebergementfr.politiqueanimauxfr }} {% else %} {{ s.politiquehebergementen.politiqueanimauxen }} {% endif %}</li>
+                {% endif %}
+                {% if s.prixapartir is not empty %}
+                   <strong>{{ "tarif.a.partir" | trans }}</strong> {{ s.prixapartir|replace("%$%", "") }} $
+                {% endif %}
+        {% endfor %}
+    </ul>
+  </div>
+  <br class="clearfloat" />
+  {% for s in client %}
+       {% if s.politiquehebergementfr.politiquegeneralefr is not empty %}
+            {% if app.request.locale == "fr" %}
+            <div class="condition">           
+                  <p><span>{{ "politique.generale" | trans }}</span> : {{ s.politiquehebergementfr.politiquegeneralefr|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>                
+            </div>
+            {% endif %}
+       {% elseif s.politiquehebergementen.politiquegeneraleen is not empty %}
+            {% if app.request.locale == "fr" %}
+            <div class="condition">           
+                  <p><span>{{ "politique.generale" | trans }}</span> : {{ s.politiquehebergementen.politiquegeneraleen|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>                
+            </div>
+            {% endif %}
+       {% endif %}
+  {% endfor %}
+  {# PUB GOOGLE #}
+	  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" style="margin-top:25px;">
+	  	<script type='text/javascript'>
+			googletag.cmd.push(function() { googletag.display('zone_01'); });
+		</script>
+	  </div>
+  {# OPINION #}
+	{#  <div class="opinion">
+		  {% if app.request.locale == "fr" %}
+			  {% for p in client %}
+			  	 {% if p.nomfr is defined %}
+			 	 	 <p>Déjà séjourné dans l'établissement {{ p.nomfr }}</p>
+			 	 {% endif %}		 	
+			  {% endfor %}
+		  {% else %}
+		  	 {% for p in client %}
+			  	 {% if p.nomen is defined %}
+			 	 	 <p>Already stay {{ p.nomen }}</p>
+			 	 {% endif %}
+			 {% endfor %}
+		  {% endif %}
+		  	<p>{{ "votre.opinion" | trans }} <a href="#">opinion</a></p>
+	  </div>#}
+  
+  {# Options de l'hébergement #}
+  <div class="col4">
+    {% if aleatoireCorpo != "" %}
+	  <div> 
+          {% if app.request.locale == "fr" %}
+                {% if imageCorpo != "" %}
+                  <a href="{{ path('_hebergementcorporatif',{'name':aleatoireCorpo.sallecorporativehebergement.repertoirefr|lower}) }}"><img src="{{ asset('uploads/galerie_corporative') }}/{{ imageCorpo.id }}/{{ imageCorpo.image }}" class="img_liste_forfait" alt="Corporatif et groupes" /></a>
+                {% else %}
+                  <a href="{{ path('_hebergementcorporatif',{'name':aleatoireCorpo.sallecorporativehebergement.repertoirefr|lower}) }}"><img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Corporatif et groupes" /></a>
+                {% endif %}
+	      <h3><a href="{{ path('_hebergementcorporatif',{'name':aleatoireCorpo.sallecorporativehebergement.repertoirefr|lower}) }}">Corporatif et groupes</a></h3>
+	      <p>Salle{% if salleCorporatif > 0 %}s{% endif %} de réunion : {{ salleCorporatif }}</p>
+	  {% else %}
+                {% if imageCorpo != "" %}
+                  <a href="{{ path('_hebergementcorporatif',{'name':aleatoireCorpo.sallecorporativehebergement.repertoireen|lower}) }}"><img src="{{ asset('uploads/galerie_corporative') }}/{{ imageCorpo.id }}/{{ imageCorpo.image }}" class="img_liste_forfait" alt="Corporate group" /></a>
+                {% else %}
+                  <a href="{{ path('_hebergementcorporatif',{'name':aleatoireCorpo.sallecorporativehebergement.repertoireen|lower}) }}"><img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Corporate groups" /></a>
+                {% endif %}
+	  	  <h3><a href="{{ path('_hebergementcorporatif',{'name':aleatoireCorpo.sallecorporativehebergement.repertoireen|lower}) }}">Corporate groups </a></h3>
+	      <p>Room{% if salleCorporatif > 0 %}s{% endif %} meeting : {{ salleCorporatif }}</p>
+	  {% endif %}
+	  </div>  
+    {% endif %}
+	
+	{% if app.request.locale == "fr" %}
+		{% for p in forfait %}
+			{% if loop.index == 1 %}
+		 	<div> 
+		      <a href="{{ path('_hebergementforfait',{'name':p.hebergementid.repertoirefr}) }}">
+		      	{% if p.imagecategorie is not empty %}
+		      		<img src="{{ asset('uploads/forfaits-client/image_categorie') }}/{{ p.id }}/{{ p.imagecategorie }}"class="img_liste_forfait" alt="{{ p.forfaitclientid.nomfr }} - {{ p.nomfr }}" />
+		        {% else %}
+		        	<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Image de remplacement" />
+		        {% endif %}
+		      </a>
+		      <h3><a href="{{ path('_hebergementforfait',{'name':p.hebergementid.repertoirefr|lower}) }}">{{ p.forfaitclientid.nomfr }}</a></h3>
+		      <p>  {{ p.datedebut|date('d') }} 
+                            {# On convertit les mois en français #}
+                            {% if p.datedebut|date('m') == '01' %} jan
+                            {% elseif p.datedebut|date('m') == '02' %} fév
+                            {% elseif p.datedebut|date('m') == '03' %} mars
+                            {% elseif p.datedebut|date('m') == '04' %} avr
+                            {% elseif p.datedebut|date('m') == '05' %} mai
+                            {% elseif p.datedebut|date('m') == '06' %} juin
+                            {% elseif p.datedebut|date('m') == '07' %} juil
+                            {% elseif p.datedebut|date('m') == '08' %} août
+                            {% elseif p.datedebut|date('m') == '01' %} sep
+                            {% elseif p.datedebut|date('m') == '01' %} oct
+                            {% elseif p.datedebut|date('m') == '01' %} nov
+                            {% else %}déc
+                            {% endif %} 
+                            {{ p.datedebut|date('Y') }} -
+                            {{ p.datedefin|date('d') }} 
+                            {# On convertit les mois en français #}
+                            {% if p.datedefin|date('m') == '01' %} jan 
+                            {% elseif p.datedefin|date('m') == '02' %} fév
+                            {% elseif p.datedefin|date('m') == '03' %} mars
+                            {% elseif p.datedefin|date('m') == '04' %} avr
+                            {% elseif p.datedefin|date('m') == '05' %} mai
+                            {% elseif p.datedefin|date('m') == '06' %} juin
+                            {% elseif p.datedefin|date('m') == '07' %} juil
+                            {% elseif p.datedefin|date('m') == '08' %} août
+                            {% elseif p.datedefin|date('m') == '01' %} sep
+                            {% elseif p.datedefin|date('m') == '01' %} oct
+                            {% elseif p.datedefin|date('m') == '01' %} nov
+                            {% else %}déc
+                            {% endif %} 
+                            {{ p.datedefin|date('Y') }}
+		      </p>
+		      <p>Tarif à partir de {{ p.tarif }} </p>  
+		    </div>
+		    {% endif %}
+		{% endfor %}
+	{% else %}
+		{% for p in forfait %}
+		 	<div> 
+		      <a href="{{ path('_hebergementforfait',{'name':p.hebergementid.repertoireen|lower}) }}">
+		      	{% if p.imagecategorie is not empty %}
+		      		<img src="{{ asset('uploads/forfaits-client/image_categorie') }}/{{ p.id }}/{{ p.imagecategorie }}"class="img_liste_forfait" alt="{{  p.forfaitclientid.nomen }} - {{ p.nomen }}" />
+		      	{% else %}
+		      		<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Replacement image " />
+		      	{% endif %}
+		      </a>
+		      <h3><a href="{{ path('_hebergementforfait',{'name':p.hebergementid.repertoireen|lower}) }}">{{ p.forfaitclientid.nomen }}</a></h3>
+		      <p> {{ p.datedebut|date('d m Y') }} - {{ p.datedefin|date('d m Y') }} </p>
+		      <p>Price from {{ p.tarif }} </p>  
+		    </div>
+		{% endfor %}
+	{% endif %}  
+	{% for w in listeGps %}
+		{% if app.request.locale == "fr" %}
+		  <div > 
+		    <a href="{% for p in client %} {{ path('_hebergementactivite',{'name':p.repertoirefr|lower}) }} {% endfor %}" title="Voir les activités et services à proximité">
+		    	{% if w.image is not empty %}
+		    		<img src="{{ asset('uploads/attrait') }}/{{ w.id }}/{{ w.image }}" class="img_liste_forfait" alt="{{ w.nom_fr }}" />
+		    	{% else %}
+		    		<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Image de remplacement " />
+		    	{% endif %}
+		    </a>
+		      <h3><a href="{% for p in client %} {{ path('_hebergementactivite',{'name':p.repertoirefr|lower}) }} {% endfor %}" title="Voir les activités et services à proximité">{{ "activite.service" | trans }}</a></h3>
+		      <p>Voir les attraits et activités à proximité de {% for p in client %} {% if p.hebergementid is not defined  %} {{ p.nomfr }} {% else %} {{ w.nom_fr }} {% endif %} {% endfor %}</p>
+		  </div>
+	  	{% else %}
+	  	  <div > 
+		    <a href="{% for p in client %} {{ path('_hebergementactivite',{'name':p.repertoireen|lower}) }} {% endfor %}" title="See the activities and services nearby">
+		    	{% if w.image is not empty %}
+		    		<img src="{{ asset('uploads/attrait') }}/{{ w.id }}/{{ w.image }}" class="img_liste_forfait" alt="{{ w.nom_en }}" />
+		   		{% else %}
+		   			<img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Replacement image " />
+		   		{% endif %}
+		    </a>
+		      <h3><a href="{% for p in client %}{{ path('_hebergementactivite',{'name': p.repertoireen|lower}) }} {% endfor %}" title="See the activities and services nearby">{{ "activite.service" | trans }}</a></h3>
+		      <p>See the attractions and activities near {% for p in client %} {% if p.hebergementid is not defined  %} {{ p.nomen }} {% else %} {{ w.nom_en }} {% endif %} {% endfor %}</p>
+		  </div>
+	  	{% endif %}
+    {% endfor %}
+    {% for r in restaurantDirection %}
+          {% if app.request.locale == "fr" %}
+	       <div > 
+		    <a href="{{ path('_hebergementrestaurant',{ 'name':r.repertoirefr|lower }) }}">
+		    	{% if r.image is not empty %}
+                            <img src="{{ asset('uploads/attrait') }}/{{ r.id}}/{{ r.image }}" class="img_liste_forfait" alt="Restaurant {{ r.nomfr }}" />
+                        {% else %}
+                            <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Image de remplacement " />
+                        {% endif %}
+		    </a>
+		      <h3><a href="{{ path('_hebergementrestaurant',{ 'name':r.repertoirefr|lower }) }}">Restaurant</a></h3>
+		      <p>Découvrez le restaurant - {{ r.nomfr }}</p>    
+		  </div>
+	      {% else %}
+	       <div > 
+		    <a href="{{ path('_hebergementrestaurant',{ 'name':r.repertoireen|lower }) }}">
+		    	{% if r.image is not empty %}
+                            <img src="{{ asset('uploads/attrait') }}/{{ r.id}}/{{ r.image }}" class="img_liste_forfait" alt="{{ r.nomen }} restaurant" />
+		    	{% else %}
+                            <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Replacement image " />
+		    	{% endif %}
+		    </a>
+		      <h3><a href="{{ path('_hebergementrestaurant',{ 'name':r.repertoireen|lower }) }}">Restaurant</a></h3>
+		      <p>Discover the restaurant - {{ r.nomen }}</p>    
+		  </div>
+          {% endif %}
+    {% endfor %}
+	  <br class="clearfloat" />
+  </div> 
+  {# Partager votre experience #}
+	{#<div class="commentaire">
+		<h2>{{ "partager.experience" | trans }} <a href="#">haut</a></h2>
+		<p>à développer</p>
+	</div>#}
+{% endblock %}

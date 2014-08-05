@@ -1,0 +1,48 @@
+ {% for p in client %}
+ {# {% if p.reservitid is not empty and p.reservit is not empty %}
+ 		{# FORMULAIRE DDE RÉSERVATION #}
+  	{#}	{% include 'MyAppGlobalBundle:Hebergement:Formulaire_reservation_en_ligne.html.twig' %}
+ 	{% endif %}#}
+	{% if app.request.locale == "fr" %}
+		{% if p.galeriehebergement is not empty %}
+			<h2>Galerie photo - {{ p.nomfr }}</h2>
+		{% endif %}
+	{% else %}
+		{% if p.galeriehebergement is not empty %}
+			<h2>Photo gallery - {{ p.nomen }}</h2>
+		{% endif %}
+	{% endif %}
+  <div class="photo">
+  {# Galerie photo #}
+  	{% if app.request.locale == "fr" %}
+	  	{% for q in p.galeriehebergement %}
+	  		{% if q.image != "" %}
+	  			<a class="fancybox" rel="group" href="{{ asset('uploads/galerie_hebergement') }}/{{ q.id }}/{{ q.image }}" title="{{ q.legendefr }}" ><img src="{{ asset('uploads/galerie_hebergement') }}/{{ q.id }}/{{ q.image }}" title="{{ q.legendefr }}" class="imgGalery"  /></a>	
+	  		{% endif %}
+	  	{% endfor %}
+  	{% else %}
+	  	{% for q in p.galeriehebergement %}
+	  		{% if q.image != "" %}
+	  			<a class="fancybox" rel="group" href="{{ asset('uploads/galerie_hebergement') }}/{{ q.id }}/{{ q.image }}" title="{{ q.legendeen }}"><img src="{{ asset('uploads/galerie_hebergement') }}/{{ q.id }}/{{ q.image }}" title="{{ q.legendeen }}" class="imgGalery"  /></a>	
+	  		{% endif %}
+	  	{% endfor %}
+  	{% endif %}
+  </div>
+  <br class="clearfloat" />
+  {% if app.request.locale == "fr" %}
+	  <h2>{#Galerie photos des internautes  {{ p.nomfr }}#} <a href="#">haut</a></h2>
+	  <div class="photo">
+	  </div>
+  {% else %}
+  	  <h2>{# Internet users gallery  {{ p.nomen }} #}<a href="#">top</a></h2>
+	  <div class="photo">
+	  </div>
+  {% endif %}
+  <br class="clearfloat" />  
+{% endfor %}
+{# PUB GOOGLE #}
+	<div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+		<script type='text/javascript'>
+			googletag.cmd.push(function() { googletag.display('zone_01'); });
+		</script>
+	</div>

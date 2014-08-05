@@ -1,0 +1,50 @@
+{% if app.request.locale == "fr" %}
+	<select id="formtopprovince" name="formtopprovince">
+		{% for w in reservationProvince %}
+			{% if loop.index == 1 %}
+			<option value="default">Choisissez une province </option>
+			{% endif %}
+			<option value="{{ w.reservit_id }}" class="reservationPro">{{ w.nom_fr }}</option>
+		{% endfor %}
+	</select> <img src="{{ asset('bundles/myappglobal/images/loading.gif') }}" class="formtopprovince" />
+{% else %}
+	<select id="formtopprovince" name="formtopprovince">
+		{% for w in reservationProvince %}
+			{% if loop.index == 1 %}
+			<option value="default">Choose a Province </option>
+			{% endif %}
+			<option value="{{ w.reservit_id }}" class="reservationPro">{{ w.nom_en }}</option>
+		{% endfor %}
+	</select> <img src="{{ asset('bundles/myappglobal/images/loading.gif') }}" class="formtopprovince" />
+{% endif %}
+        
+<script>
+	$(function(){
+            $(".temp").hide();
+		$(".formtopprovince").hide();
+		$("select#formtopprovince ").change(function(){ 
+		    $(".formtopprovince").show();
+		    var reservationregion = parseInt($("#formtopprovince").val());
+		    $("#dest").attr('value', $("#formtopprovince option:selected").text().toUpperCase());
+                    if(typeof(reservationregion) === "number"){
+                        var DATA = 'reservationregion=' + reservationregion ;
+                        $.ajax({
+                            type: "post",
+                            url: "{{ path('_corpoeventsprovincefrajax') }}",
+                            data: DATA,
+                            cache: false,
+                            success: function(data){                                 
+                               $('.retourregion').html(data);    
+                               $('.retourville').not(".displayReponseListeVille").remove();
+                               $(".temp").not(":first").remove();
+                               $(".labelTemp").remove();
+                               $('.displayReponseListeVille').css({"display":"block"});
+                               $(".formtopprovince").hide();  
+                               $(".temp").show();
+                            }
+                        });  
+                        return false;
+                    }                   
+		});                
+	});
+</script>

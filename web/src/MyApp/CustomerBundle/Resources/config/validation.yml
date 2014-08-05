@@ -1,0 +1,185 @@
+MyApp\CustomerBundle\Entity\Utilisateurs:
+    properties:
+      email:
+         - Email:
+             message: L'adresse "{{ value }}" n'est pas un courriel valide.
+             checkMX: true
+#MyApp\GlobalBundle\Entity\Hebergements:
+#    properties:
+#      paiement_id:
+#         - NotNull: ~
+#      devise_id:
+#         - NotNull: ~   
+#    logo_doctrine:
+#        - Image:
+#          maxSize: 2048k
+#          mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+#          mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.         
+#          maxSizeMessage: Le poids de l'image est trop important maximum 2Mo.  
+#    photo_categorie_payante_doctrine:
+#        - File:
+#          maxSize: 2048k
+#          mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+#          mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.         
+#          maxSizeMessage: Le poids de l'image est trop important maximum 2Mo.  
+#    photo_payante_doctrine:
+#        - File:
+#          maxSize: 2048k
+#          mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+#          mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.         
+#          maxSizeMessage: Le poid de l'image est trop important maximum 2Mo.
+MyApp\GlobalBundle\Entity\Coupons:
+    properties:
+      titre_fr:
+         - NotBlank: ~
+      titre_en:
+         - NotBlank: ~ 
+      description_fr:
+         - NotBlank: ~
+      description_en:
+         - NotBlank: ~  
+MyApp\GlobalBundle\Entity\Galerie_hebergements:
+    properties:  
+    image_doctrine:
+        - Image:
+          maxSize: 2048k
+          mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+          mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.         
+          maxSizeMessage: Le poids de l'image est trop important maximum 2Mo.  
+MyApp\GlobalBundle\Entity\Hebergements: 
+    photo_payante:
+        - Image:
+          maxSize: 2048k
+          mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+          mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.         
+          maxSizeMessage: Le poids de l'image est trop important maximum 2Mo. 
+    photo_categorie_payante:
+        - Image:
+          maxSize: 2048k
+          mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+          mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.         
+          maxSizeMessage: Le poids de l'image est trop important maximum 2Mo. 
+    logo:
+        - Image:
+          maxSize: 2048k
+          mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+          mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.         
+          maxSizeMessage: Le poids de l'image est trop important maximum 2Mo.
+    checkin:
+        - Length:
+          min: 5
+          max: 8
+          maxMessage: Maximum 8 caractères exemple 15h00 pm
+          minMessage: Format minimum exemple 12h00
+    checkout:
+        - Length:
+          min: 5
+          max: 8
+          maxMessage: Maximum 8 caractères exemple 15h00 pm
+          minMessage: Format minimum exemple 12h00
+MyApp\GlobalBunlde\Entity\Hebergements_salles_corporatives:
+    fichier_liste_salles_fr_doctrine:
+       - File:
+         maxSize: 1024k
+         mimeTypes: [application/pdf, application/x-pdf, application/msword]
+         mimeTypesMessage: L'extention du document est pas valide
+    fichier_liste_salles_en_doctrine:
+       - File:
+         maxSize: 1024k
+         mimeTypes: [application/pdf, application/x-pdf, application/msword]
+         mimeTypesMessage: L'extention du document est pas valide
+    fichier_plan_salles_fr_doctrine:     
+       - File:
+         maxSize: 1024k
+         mimeTypes: [application/pdf, application/x-pdf, application/msword]
+         mimeTypesMessage: L'extention du document est pas valide
+    fichier_plan_salles_en_doctrine:
+       - File:
+         maxSize: 1024k
+         mimeTypes: [application/pdf, application/x-pdf, application/msword]
+         mimeTypesMessage: L'extention du document est pas valide
+MyApp\GlobalBundle\Entity\Corporatif_galerie_photo:
+    image:
+      - Image:
+        maxSize: 2048k
+        mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+        mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.         
+        maxSizeMessage: Le poids de l'image est trop important maximum 2Mo.      
+MyApp\GlobalBundle\Entity\Chambres:
+    photo1_doctrine:
+      - Image:
+        maxSize: 2048k
+        mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+        mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.         
+        maxSizeMessage: Le poids de l'image est trop important maximum 2Mo.  
+MyApp\GlobalBundle\Entity\Galerie_photo_chambres:
+    image:
+      - Image:
+        maxSize: 2048k
+        mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+        mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.
+MyApp\GlobalBundle\Entity\Forfaits_clients:
+    image_principale_doctrine:
+      - Image:
+        maxSize: 2048k
+        mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+        mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.
+MyApp\GlobalBundle\Entity\Galerie_forfaits:
+    image:
+      - Image:
+        maxSize: 2048k
+        mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+        mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.
+MyApp\GlobalBundle\Entity\Galerie_attraits:
+    image:
+     - Image:
+       maxSize: 2048k
+       mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+       mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.
+MyApp\GlobalBundle\Entity\Attraits:
+    image:
+     - Image:
+       maxSize: 2048k
+       mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+       mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.
+    logo:
+     - Image:
+       maxSize: 2048k
+       mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+       mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.  
+    categorie_payante:  
+     - Image:
+       maxSize: 2048k
+       mimeTypes: [image/jpg, image/png, image/gif, image/jpeg]
+       mimeTypesMessage: L'extension du fichier n'est pas correcte seulement les .JPG, .PNG et .GIF sont permises.    
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           

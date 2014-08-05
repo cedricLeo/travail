@@ -1,0 +1,76 @@
+#fc_Featured {
+	POSITION: relative;
+	PADDING: 0 11px 10px 5px;
+	MARGIN: 0px 0px 40px 5px;
+	WIDTH: 602px;
+	HEIGHT: 284px;
+	float: left;
+}
+
+#fc_FeaturedImages {
+	POSITION: relative;
+	WIDTH: 602px;
+	HEIGHT: 337px;
+	OVERFLOW: hidden
+}
+
+#fc_FeaturedImages IMG {
+	POSITION: absolute;
+	TOP: -50px;
+	LEFT: -51px;
+	border: 1px solid #FFF;
+	margin: 2px 0 0 3px;
+}
+
+#fc_Featured A {
+	DISPLAY: block;
+}
+
+#fc_Featured li {
+	list-style: none;
+	margin-top: 2px;
+	display: inline-block
+}
+
+#fc_FeaturedTabs ul {
+	padding-left: 420px;
+	margin-left: 0px;
+}
+
+#fc_FeaturedTabs {
+	POSITION: absolute;
+	HEIGHT: 15px;
+	TOP: 300px;
+	LEFT: 5px;
+}
+
+#fc_FeaturedTabs A {
+	HEIGHT: 15px;
+	PADDING: 2px 5px 0px 0px;
+}
+
+#fc_FeaturedTabs li A {
+	HEIGHT: 15px;
+	PADDING: 2px 5px 0px 5px;
+	text-decoration: none;
+	border: 1px solid #0073ae;
+}
+
+#fc_FeaturedTabs A {
+	COLOR: #000;
+	FONT-SIZE: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#fc_FeaturedTabs li A {
+	background-color: #FFF;
+}
+
+#fc_FeaturedTabs A.fc_Active {
+	background-color: #FFF;
+}
+
+#fc_FeaturedTabs li A.fc_Active {
+	background-color: #0073ae;
+	color: #FFF;
+}

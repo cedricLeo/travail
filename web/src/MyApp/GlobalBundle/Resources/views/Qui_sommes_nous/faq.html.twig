@@ -1,0 +1,36 @@
+{% extends '::base2.html.twig' %}
+
+{% block body %}
+	<h1 class="titlePageStatic">{{ "titlefaq" | trans }}</h1>
+		<p class="faqquestion">{{ "Q.reservation.en.ligne.securitaire" | trans }}</p>
+		<p>{{ "R.reservation.en.ligne.securitaire" | trans }}</p>
+		<p class="faqquestion">{{ "Q.prix.eleves" | trans }}</p>
+		<p>{{ "R.prix.eleves" | trans }}</p>
+		<p class="faqquestion">{{ "Q.nous.devons.payer.les.service" | trans }}</p>
+		<p>{{ "R.nous.devons.payer.les.service" | trans }}</p>
+		<p class="faqquestion">{{ "Q.nous.pouvons.annuler" | trans }}</p>
+		<p>{{ "R.nous.pouvons.annuler" | trans }}</p>
+		<p class="faqquestion">{{ "Q.forfait.disponible" | trans }}</p>
+		<p>{{ "R.forfait.disponible" | trans }}</p>
+		<p class="faqquestion">{{ "Q.tarif.corpo.gouvernement" | trans }}</p>
+		<p>{{ "R.tarif.corpo.gouvernement" | trans }}</p>
+		<p class="faqquestion">{{ "Q.global.prend.paiement" | trans }}</p>
+		<p>{{ "R.global.prend.paiement" | trans }}</p>
+		<p class="faqquestion">{{ "Q.remboursement.communiquer" | trans }}</p>
+		<p>{{ "R.remboursement.communiquer" | trans }}</p>
+		<p class="faqquestion">{{ "Q.type.hebergement.reserver.avec.nous" | trans }}</p>
+		<p>{{ "R.type.hebergement.reserver.avec.nous" | trans }}</p>
+		<br />
+		{# PUB GOOGLE #}
+			<div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			</div>
+		<script>
+			$(function(){
+				$("ul.ulAriane li").css("padding","0");
+				$("#navhaut nav ul li").css("font-size","16px");
+			});
+		</script>
+{% endblock %}

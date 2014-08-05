@@ -1,0 +1,12 @@
+<div class="photo">
+  {# Galerie photo #}
+    {% for q in p.galeriehebergement %}
+        {% if q.image != "" %}
+            <a class="fancybox" rel="group" href="{{ asset('uploads/galerie_hebergement') }}/{{ q.id }}/{{ q.image }}" title="{{ q.legendefr }}" ><img src="{{ asset('uploads/galerie_hebergement') }}/{{ q.id }}/{{ q.image }}" title="{{ q.legendefr }}" class="imgGalery"  /></a>	
+        {% endif %}
+    {% endfor %}  	
+  </div>
+    <br class="clearfloat" />
+    <h2>{#Galerie photos des internautes  {{ p.nomfr }}#} <a href="#">haut</a></h2>
+    <div class="photo" />
+ 

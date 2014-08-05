@@ -1,0 +1,58 @@
+{% extends '::base1.html.twig' %}
+
+{% block content %}
+<div class="gris" style="margin-top:50px;">
+	<h2 style="margin-left:0px;">
+		<a id="movieExterne">
+			{{ "video.externe" | trans }}
+		</a>
+	</h2>	
+	{#}<form action="{{ path('MyAppVideoExterne',{'id':id}) }}" method="post" {{ form_enctype(formMovie) }} >		    
+	    {{ form_label(formMovie.titre_fr, "Titre.fr" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.titre_fr, {'attr':{'class':'txt_add_state2'}}) }}   
+	    <p>&nbsp;</p> 
+	    {{ form_label(formMovie.titre_en, "Titre.en" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.titre_en, {'attr':{'class':'txt_add_state2'}}) }}				    		   
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.url1_fr, "Url1.fr" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.urll_fr, {'attr':{'class':'txt_add_state2'}}) }}	
+		<p>&nbsp;</p>
+	    {{ form_label(formMovie.url2_fr, "Url2.fr" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.url2_fr, {'attr':{'class':'txt_add_state2'}}) }}
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.url3_fr, "Url3.fr" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.urll_fr, {'attr':{'class':'txt_add_state2'}}) }}
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.url1_en, "Url1.en" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.urll_en, {'attr':{'class':'txt_add_state2'}}) }}
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.url2_en, "Url2.en" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.url2_en, {'attr':{'class':'txt_add_state2'}}) }}
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.url3_en, "Url3.en" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.url3_en, {'attr':{'class':'txt_add_state2'}}) }}
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.path1_video_fr, "path1.fr" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.path1_video_fr, {'attr':{'class':'txt_add_state2'}}) }}
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.path2_video_fr, "path2.fr" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.path2_video_fr, {'attr':{'class':'txt_add_state2'}}) }}
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.path3_video_fr, "path3.fr" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.path3_video_fr, {'attr':{'class':'txt_add_state2'}}) }}
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.path1_video_en, "path1.en" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.path1_video_en, {'attr':{'class':'txt_add_state2'}}) }}
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.path2_video_en, "path2.en" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.path2_video_en, {'attr':{'class':'txt_add_state2'}}) }}
+	    <p>&nbsp;</p>
+	    {{ form_label(formMovie.path3_video_en, "path.en" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formMovie.path3_video_en, {'attr':{'class':'txt_add_state2'}}) }}
+	    	    		   
+	    <p>&nbsp;</p>		
+	    {{ form_rest(formMovie) }}	
+	    <input type="submit" value="{{"submit.texte.attrait" |trans}}" />
+	</form>	#}
+</div>
+{% endblock %}

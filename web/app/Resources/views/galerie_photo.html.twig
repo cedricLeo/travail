@@ -1,0 +1,57 @@
+<script>
+	//Get the div that holds the collection of tags
+	var collectionHolder = $('ul.tags');
+	
+	// setup an "add a tag" link
+	var $addTagLink = $('<a href="#" class="add_tag_link">{{ "ajouter.une.photo" | trans }}</a>');
+	var $newLinkLi = $('<li></li>').append($addTagLink);
+	
+	jQuery(document).ready(function() {
+	    // add the "add a tag" anchor and li to the tags ul
+	    collectionHolder.append($newLinkLi);
+	
+	    $addTagLink.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+	
+	        // add a new tag form (see next code block)
+	        addTagForm(collectionHolder, $newLinkLi);
+	    });
+	});
+	function addTagForm(collectionHolder, $newLinkLi) {
+	    // Get the data-prototype explained earlier
+	    var prototype = collectionHolder.attr('data-prototype');
+	
+	    // count the current form inputs we have (e.g. 2), use that as the new index (e.g. 2)
+	    var newIndex = collectionHolder.find(':input').length;
+
+	    // Replace '$$name$$' in the prototype's HTML to
+	    // instead be a number based on how many items we have
+	    var newForm = prototype.replace(/\$\$name\$\$/g, newIndex);
+	
+	    // Display the form in the page in an li, before the "Add a tag" link li
+	    var $newFormLi = $('<li></li>').append(newForm);
+	    $newLinkLi.before($newFormLi);
+
+	    // add a delete link to the new form
+	    addTagFormDeleteLink($newFormLi);
+	    //Ajoute le bouton upload
+	   // addUploadFile($newFormLi);                     
+	}
+	function addTagFormDeleteLink($tagFormLi) {
+	    var $removeFormA = $('<a href="#">{{ "supprimer.une.image" | trans }}</a>');
+	    $tagFormLi.append($removeFormA);
+	
+	    $removeFormA.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+	
+	        // remove the li for the tag form
+	        $tagFormLi.remove();
+	    });
+	}
+	/*function addUploadFile($tagFormLi){
+		var $btnupload = $('<a class="btnupload" href="#">{{ "enregistrer" | trans }}</a>');
+		$tagFormLi.append($btnupload);
+	}*/
+</script>

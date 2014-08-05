@@ -1,0 +1,101 @@
+<div id="dialog-confirm_del" title="{{ 'supprimer' | trans }}"></div>
+
+<div class="genereimgajax">			
+	{% if listeimgattrait is defined  %}
+		{% for l in listeimgattrait %}
+				<img src="{{ asset('uploads/galerie_attrait/') }}{{ l.id }}/{{ l.image }}" class="imgajax index{{ l.id }}"/> 
+		{% endfor %}
+	{% endif %}
+</div>
+
+<script>
+$(function(){
+	
+	//gestion de l'affichage des images pour la gestion de la galerie photo chambre
+	$("#galleriePhotoAttr").click(function(event){ 
+		//Retourne le nombre d'image dans la galerie
+		$nbinput = $("#add_texte_activite_galerie_attraits > div ").length;
+		//stocke dans le tableau les id des images
+		$tabarray = new Array();
+		for(var k = 0; k < $nbinput; k++){
+			$tabarray.push($("#add_texte_activite_galerie_attraits > div > div > input#add_texte_activite_galerie_attraits_"+k+"_id").val());
+		}	
+                console.log($tabarray);
+		if($tabarray != 0){
+		    var DATA = "listeimgattrait=" + $tabarray;
+		    $.ajax({
+		        type: "post",
+		    	url: "{{ path('_displayvignetteattrait') }}",
+		        data: DATA,
+		        cache: true,
+		        success: function(data){
+		        	$('.genereimgajax').html(data);	    
+			    }
+		    });  
+		    return false;
+		}
+	});
+	//Suppression des images de la galerie
+	/*$("#add_texte_activite_galerie_attraits > div > input.checkboxdeletegalerie").click(function(event){
+		$checkboxdelimg = $(this).prev().children().last().val();
+		$divparentimg = $(this).parent();
+		if($checkboxdelimg != 0){
+		    var DATA = "galimgdelete=" + $checkboxdelimg;
+		    $.ajax({
+		        type: "post",
+		    	url: "{{ path('_galerieAttraitdelete') }}",
+		        data: DATA,
+		        cache: false,
+		        success: function(data){
+		        	 $divparentimg.remove();
+		        	 $("#genereimgajax img.index"+$checkboxdelimg).remove();
+			    }
+		    });  
+		    return false;
+		}
+	});*/
+        
+        //Suppression des images de la galerie
+	$("#add_texte_activite_galerie_attraits > div > input.checkboxdeletegalerie").click(function(event){
+		$(".ui-dialog-buttons").last().remove();
+		$checkboxdelimg = $(this).prev().children().last().val();
+		//$divparentimg = $(this).parent();
+		$divparentimg = $(this).prev().attr("id");	 
+			 $("#dialog-confirm_del" ).dialog({
+				 resizable: false,
+				 height:140,
+				 modal: true,
+				 buttons: {
+					 "{{ 'supprimer' | trans }}": function() {
+					 	$( this ).dialog( "close" );
+						if($checkboxdelimg != 0){                                         
+						    var DATA = "galimgdelete=" + $checkboxdelimg;
+						    $.ajax({
+						        type: "post",
+						    	url: "{{ path('_galerieAttraitdelete') }}",
+						        data: DATA,
+						        cache: false,
+						        success: function(data){
+						        	 $("#"+$divparentimg).parent().remove(); 
+						        	 $(".genereimgajax img.index"+$checkboxdelimg).remove();
+							    }
+						    });  
+						    return false;
+						}
+					 },
+					 Cancel: function() {
+						 	$( this ).dialog( "close" );
+						 	$(".checkboxdeletegalerie").removeAttr("checked");
+						 }
+					 }
+				 });		 		 
+	});
+
+	//Outil crop
+	$("#genereimgajax #genereimgajax img.imgajax").click(function(event){
+		//retourne les class
+		$indeximgcrop = $(this).attr("class");
+	
+	});
+});
+</script>

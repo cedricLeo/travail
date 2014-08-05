@@ -1,0 +1,47 @@
+{% if app.request.locale == "fr" %}
+<div class="retourville">
+	<select id="formtopville" name="formtopville">
+		{% if reservationVilleAjax is empty %}
+			<option >Choisissez une ville</option>
+		{% else %}
+			{% for w in reservationVilleAjax %}
+                            {% if loop.index == 1 %}
+				<option >Choisissez une ville</option>
+                            {% endif %}
+				<option value="{{ w.reservit_id }}" >{{ w.nom_fr }}</option>
+			{% endfor %}
+		{% endif %}
+	</select> 
+</div>
+{% else %}
+<div class="retourville">
+	<select id="formtopville" name="formtopville">
+		{% if reservationVilleAjax is empty %}
+			<option >Choose a city</option>
+		{% else %}
+			{% for w in reservationVilleAjax %}
+                            {% if loop.index == 1 %}
+				<option >Choose a city</option>
+                            {% endif %}
+				<option value="{{ w.reservit_id }}" >{{ w.nom_en }}</option>
+			{% endfor %}
+		{% endif %}
+	</select> 
+</div>
+{% endif %}
+
+<script>
+	$(function(){
+            $("select#formtopville ").change(function(){                  
+               $("#namecity").attr('value', $("#formtopville option:selected").text().toUpperCase());                 
+               //updatelink(ajusteDate($("#formtopville").val()));           
+               //zoneIdMain = $("#formtopville").val(); 
+                $("select#formtopville ").click(function(){                    
+                    updatelink(ajusteDate($(this).val()));
+                    zoneIdMain = $(this).val();
+                });
+            });   
+            
+           
+	});
+</script>

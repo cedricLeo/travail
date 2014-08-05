@@ -1,0 +1,107 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}	
+		<p class="legendeHome">{{ "forfait" | trans }} {% include '::orthographe.html.twig' %}</p>
+	{# div qui va contenir la photo principal du sujet de la section #}
+		<div id="photoprincipale">
+		{% if app.request.locale == "fr" %}
+			<div class="nomSousCategorie">
+				<h1>{{ "forfait" | trans }} {% include '::orthographe.html.twig' %}</h1>
+				<h3><a href="{{ path('_hebergementforfait',{'name': clientAleatoire.hebergementid.repertoirefr|lower } ) }}" target="_blank" title="Forfaits {{ clientAleatoire.hebergementid.nomfr }}">{{ clientAleatoire.nomfr }}, {{ clientAleatoire.hebergementid.nomfr }} ville {{ clientAleatoire.hebergementid.villeid.nomfr }}</a></h3>
+			</div>
+			{% if clientAleatoire.imageprincipale is not empty %}
+		  		<img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.imageprincipale }}" class="big_picture" alt="{{ clientAleatoire.forfaitclientid.nomfr }}" />
+			{% else %}
+				<img src="{{ asset('uploads/forfaits/images_') }}{{ idActivite }}/{{ imgRandom }}" class="big_picture" alt="Forfait {{ clientAleatoire.forfaitclientid.nomfr }} {{ clientAleatoire.hebergementid.nomfr }}">
+			{% endif %}
+		{% else %}
+			<div class="nomSousCategorie">
+				<h1>{{ "forfait" | trans }}</h1>
+				<h3><a href="{{ path('_hebergementforfaiten',{'name': clientAleatoire.hebergementid.repertoireen|lower } ) }}" target="_blank" title="Packages {{ clientAleatoire.hebergementid.nomen }}">{{ clientAleatoire.nomen }}, {{ clientAleatoire.hebergementid.nomen }} city {{ clientAleatoire.hebergementid.villeid.nomen }}</a></h3>
+			</div>
+			{% if clientAleatoire.imageprincipale is not empty %}
+		  		<img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.imageprincipale }}" class="big_picture" alt="{{ clientAleatoire.forfaitclientid.nomen }}" />
+			{% else %}
+				<img src="{{ asset('uploads/forfaits/images_') }}{{ idActivite }}/{{ imgRandom }}" class="big_picture" alt="Replacement image for {{ clientAleatoire.hebergementid.nomen }} ">
+			{% endif %}
+		{% endif %}
+		</div>
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		
+		{% block body %} 
+				<div class="region">
+				      <h2>{{ "choisir.ville.profiter.forfait" | trans }} {% include '::orthographe.html.twig' %}</h2>
+				      {% if app.request.locale == "fr" %}
+                                              <ul>		
+                                                    {% for v in ville %}
+                                                        {% if loop.index == 1 %}
+                                                            <li class="province parent_li">{{ v.hebergementid.regionid.nomfr }}</li>
+                                                        {% endif %}
+                                                            <li><a href="{{ path('_forfaitsvillesfr',{'name':v.hebergementid.villeid.repertoirefr|lower}) }}" title="{{ "forfait" | trans }} ville {{ v.hebergementid.villeid.nomfr }}">{{ v.hebergementid.villeid.nomfr }}</a></li>
+                                                    {% endfor %}
+					      </ul>
+					       <br class="clearfloat" />
+					  {% else %}
+					       <ul>		
+                                                    {% for v in ville %}
+                                                        {% if loop.index == 1 %}
+                                                            <li class="province parent_li">{{ v.hebergementid.regionid.nomen }} </li>
+                                                        {% endif %}
+                                                            <li><a href="{{ path('_forfaitsvillesen',{'name':v.hebergementid.villeid.repertoireen|lower }) }}" title="{{ "forfait" | trans }} city {{ v.hebergementid.villeid.nomen }}">{{ v.hebergementid.villeid.nomen }}</a></li>
+                                                    {% endfor %}
+					      </ul>
+					       <br class="clearfloat" />
+					  {% endif %}
+				      <br class="clearfloat" />
+				       {# PUB GOOGLE #}
+                                        <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+                                              <script type='text/javascript'>
+                                                      googletag.cmd.push(function() { googletag.display('zone_01'); });
+                                              </script>
+                                        </div>
+				    </div>
+				   
+				<div class="colonnes4photo">
+				  <h2 class="retouche">{{ "lesforfaitsdela" | trans }} {% include '::orthographe.html.twig' %}</h2>
+			{% if app.request.locale == "fr" %}
+				{% for f in listforfait %}
+					<div> 
+						<h2><a href="{{ path('_forfaitsactiviteregion',{ 'activite':f.forfaitclientid.repertoirefr|lower, 'name':f.hebergementid.regionid.repertoirefr|lower }) }}" title="Forfaits {{ f.forfaitclientid.nomfr|lower }}">{{ f.forfaitclientid.nomfr }}</a></h2>
+                                                {% if f.imagecategorie is not empty %}
+                                                    <a href="{{ path('_forfaitsactiviteregion',{ 'activite':f.forfaitclientid.repertoirefr|lower, 'name':f.hebergementid.regionid.repertoirefr|lower }) }}" title="forfaits {{ f.nomfr }}"><img src="{{ asset('uploads/forfaits-client/image_categorie') }}/{{ f.id }}/{{ f.imagecategorie }}" class="img_categoie_portail" alt="{{ f.nomfr }}" title="{{ f.forfaitclientid.nomfr }} - {{ f.nomfr|lower }} " /></a>
+						{% else %}
+                                                    <a href="{{ path('_forfaitsactiviteregion',{ 'activite':f.forfaitclientid.repertoirefr|lower, 'name':f.hebergementid.regionid.repertoirefr|lower }) }}" title="forfaits {{ f.nomfr }}"><img src="{{ asset('uploads/forfaits') }}/{{ f.forfaitclientid.id }}/{{ f.forfaitclientid.image }}" class="img_categoie_portail" alt="{{ f.nomfr }}" title="{{ f.forfaitclientid.nomfr }} - {{ f.nomfr|lower }} " /></a>
+                                                {% endif %}
+                                                <h3><a href="{{ path('_hebergementforfait',{'name': f.hebergementid.repertoirefr|lower } ) }}" title="Forfaits {{ f.forfaitclientid.nomfr|lower }} - {{ f.hebergementid.nomfr }}" target="_blank">{{ f.hebergementid.nomfr|truncate(23, '...') }}</a></h3> 
+					</div>
+				{% endfor %}
+			{% else %}
+				{% for forfaits in listforfait %}
+					<div> 
+						<h2><a href="{{ path('_forfaitsactiviteregionen',{ 'activite':forfaits.forfaitclientid.repertoireen|lower, 'name':forfaits.hebergementid.regionid.repertoireen|lower }) }}" title="Package {{ forfaits.forfaitclientid.nomen|lower }}">{{ forfaits.forfaitclientid.nomen }}</a></h2>
+                                                {% if forfaits.imagecategorie is not empty %}
+                                                    <a href="{{ path('_forfaitsactiviteregionen',{ 'activite':forfaits.forfaitclientid.repertoireen|lower, 'name':forfaits.hebergementid.regionid.repertoireen|lower }) }}"><img src="{{ asset('uploads/forfaits-client/image_categorie') }}/{{ forfaits.id }}/{{ forfaits.imagecategorie }}" class="img_categoie_portail" alt="{{ forfaits.nomen }}" title="{{ forfaits.forfaitclientid.nomen }} - {{ forfaits.nomen|lower }}" /></a>
+						{% else %}
+                                                    <a href="{{ path('_forfaitsactiviteregionen',{ 'activite':forfaits.forfaitclientid.repertoireen|lower, 'name':forfaits.hebergementid.regionid.repertoireen|lower }) }}"><img src="{{ asset('uploads/forfaits') }}/{{ forfaits.forfaitclientid.id }}/{{ forfaits.forfaitclientid.image }}" class="img_categoie_portail" alt="{{ forfaits.nomen }}" title="{{ forfaits.forfaitclientid.nomen }} - {{ forfaits.nomen|lower }}" /></a>
+                                                {% endif %}
+                                                <h3><a href="{{ path('_hebergementforfaiten',{'name': forfaits.hebergementid.repertoireen|lower} ) }}" title="Package {{ forfaits.forfaitclientid.nomen|lower }} - {{ forfaits.hebergementid.nomen }}" target="_blank">{{ forfaits.hebergementid.repertoireen|truncate(23, '...') }}</a></h3> 
+					</div>
+				{% endfor %}
+			{% endif %}
+				<br class="clearfloat" />
+			</div>
+		{% endblock %}
+		
+		{% block gauche %}
+			{% include 'MyAppGlobalBundle:Forfaits:suggestionsCategorie.html.twig' %}
+		{% endblock %}
+		

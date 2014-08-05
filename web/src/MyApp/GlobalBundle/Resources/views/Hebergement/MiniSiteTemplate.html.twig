@@ -1,0 +1,757 @@
+{% extends '::base2.html.twig'%}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/myappglobal/css/clientgr.css') }}" type="text/css" media="all" />
+	<link rel="stylesheet" href="{{ asset('bundles/myappglobal/js/source/jquery.fancybox.css') }}" type="text/css" media="all" />
+	<link rel="stylesheet" href="{{ asset('bundles/myappglobal/css/css/ui-lightness/jquery-ui-1.9.1.custom.css') }}" type="text/css" media="all" />
+{% endblock %}
+
+{% block body %} 
+	 <div class="telepnone reservation_en_ligne">
+	 	{% for z in client %}
+	 		{% if app.request.locale == "fr" %}
+		 		{% if z.reservitid is defined and z.reservitid is not empty %}
+					<a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.reservitid }}&lang=fr" target="_blank" title="Réservation en ligne">{{ "reservation.ligne" | trans }}</a>
+		 		{% elseif z.hebergementid is defined and z.hebergementid is not empty and z.hebergementid.reservitid is not empty %}
+					<a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.hebergementid.reservitid }}&lang=fr" target="_blank" title="Réservation en ligne">{{ "reservation.ligne" | trans }}</a>
+		 		{% endif %}
+			{% else %}
+				{% if z.reservitid is defined and z.reservitid is not empty %}
+					<a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.reservitid }}&lang=en" target="_blank" title="Online Booking">{{ "reservation.ligne" | trans }}</a>
+				{% elseif z.hebergementid is defined and z.hebergementid.reservitid is not empty  %}
+					<a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.hebergementid.reservitid }}&lang=en" target="_blank" title="Online Booking">{{ "reservation.ligne" | trans }}</a>
+				{% endif %}
+			{% endif %}
+	 	{% endfor %}
+		<img src="{{ asset('bundles/myappglobal/images/pictoTelephone.gif') }}" width="37" height="29" alt="Téléphone Global Réservation" />
+		<p>{{ "sans.frais" | trans }} : <a href="callTo:18777788977" class="callTel" title="N° 1 877 778 8977" rel="nofollow" > 1 877 778-8977</a></p>
+                <p>Local : <a href="callTo:14182662165" class="callTel" title="N° 1-418-266-2165" rel="nofollow"> 1-418-266-2165</a></p>
+		<p>International : <a href="callTo:0014182662165" class="callTel" title="N° 001-418-266-2165" rel="nofollow" > 001-418-266-2165</a></p>
+                
+	 </div>
+	 <ul class="navclient">
+	 {% if categorieHebergement != "" %} {# ON VÉRIFIE SI LE CLIENT À UN HÉBERGEMENT #} 
+	 	{% for w in client %}
+                    {# PRÉSENTATION #}
+                    {% if menuPresentation is defined  %}
+		    	<li><a name="{{ views }}" >{{ "presentation" | trans }}</a></li>{# MENU ACTIF #}
+		    {% else %}
+		    	{% if app.request.locale == "fr" %}
+                        {% if w.hebergementid is defined and w.hebergementid != "" %}
+                            <li><a href="{{ path('_hebergementinfoclient',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "presentation" | trans }}</a></li>
+                        {% else %}
+                            <li><a href="{{ path('_hebergementinfoclient',{'name':w.repertoirefr|lower}) }}">{{ "presentation" | trans }}</a></li>
+                        {% endif %}
+		    	{% else %}
+                        {% if w.hebergementid is defined and w.hebergementid != "" %}
+                            <li><a href="{{ path('_hebergementinfoclient',{'name':w.repertoireen.repertoireen|lower}) }}">{{ "presentation" | trans }}</a></li>
+                        {% else %}
+                            <li><a href="{{ path('_hebergementinfoclient',{'name':w.repertoireen|lower}) }}">{{ "presentation" | trans }}</a></li>
+                        {% endif %}
+		    	{% endif %}
+		    {% endif %}
+		    {# CHAMBRES ET TARIFS #}
+		    {% if chambre is not empty %}
+			    {% if menuChambre is defined %}
+			    	<li><a name="{{views }}">{{ "chambre.tarif" | trans }}</a></li>{# MENU ACTIF #}
+			    {% else %}
+			    	{% if app.request.locale == "fr" %}
+			    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+			    			<li><a href="{{ path('_hebergementchambre',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "chambre.tarif" | trans }}</a></li>
+			    		{% else %}
+			    			<li><a href="{{ path('_hebergementchambre',{'name':w.repertoirefr|lower}) }}">{{ "chambre.tarif" | trans }}</a></li>
+			    		{% endif %}
+			    	{% else %}
+			    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+			    			<li><a href="{{ path('_hebergementchambreen',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "chambre.tarif" | trans }}</a></li>
+			    		{% else %}
+			    			<li><a href="{{ path('_hebergementchambreen',{'name':w.repertoireen|lower}) }}">{{ "chambre.tarif" | trans }}</a></li>
+			    		{% endif %}
+			    	{% endif %}
+			    {% endif %}
+			{% endif %}
+		    {# FORFAITS ET PROMOTIONS #}
+		      {% if w.acompteid.id is defined and w.acompteid.id != 1 %} {# On regarde si le client a un mini site payant #}
+			    {% if forfait is not empty %}
+				    {% if menuForfait is defined %}
+				    	<li><a name="{{ views }}" style="color:red;">{{ "forfait.promotion" | trans }}</a></li>{# MENU ACTIF #}
+				    {% else %}
+				    	{% if app.request.locale == "fr" %}
+				    			<li><a href="{{ path('_hebergementforfait',{'name':w.repertoirefr|lower}) }}" style="color:red;">{{ "forfait.promotion" | trans }}</a></li>
+				    	{% else %}
+				    			<li><a href="{{ path('_hebergementforfaiten',{'name':w.repertoireen|lower}) }}" style="color:red;">{{ "forfait.promotion" | trans }}</a></li>
+				    	{% endif %}
+				    {% endif %}
+				{% endif %}
+			{% elseif w.hebergementid is defined and w.hebergementid.acompteid.id != 1 %}	
+				{% if forfait is not empty %}
+				    {% if menuForfait is defined %}
+				    	<li><a name="{{ views }}" style="color:red;">{{ "forfait.promotion" | trans }}</a></li>{# MENU ACTIF #}
+				    {% else %}
+				    	{% if app.request.locale == "fr" %}
+				    			<li><a href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr|lower}) }}" style="color:red;">{{ "forfait.promotion" | trans }}</a></li>
+				    	{% else %}
+				    			<li><a href="{{ path('_hebergementforfaiten',{'name':w.hebergementid.repertoireen|lower}) }}" style="color:red;">{{ "forfait.promotion" | trans }}</a></li>
+				    	{% endif %}
+				    {% endif %}
+				{% endif %}
+			{% endif %}
+		    {# ACTIVITÉS ET SERVICES #}
+		    {% if menuService is defined %}
+		    	<li><a name="{{ views }}" >{{ "activite.service" | trans }}</a></li>{# MENU ACTIF #}
+		    {% else %}
+		    	{% if app.request.locale == "fr" %}
+		    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+		    			<li><a href="{{ path('_hebergementactivite',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "activite.service" | trans }}</a></li>
+		    		{% else %}
+		    			<li><a href="{{ path('_hebergementactivite',{'name':w.repertoirefr|lower}) }}">{{ "activite.service" | trans }}</a></li>
+		    		{% endif %}
+		    	{% else %}
+		    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+		    			<li><a href="{{ path('_hebergementactiviteen',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "activite.service" | trans }}</a></li>
+		    		{% else %}
+		    			<li><a href="{{ path('_hebergementactiviteen',{'name':w.repertoireen|lower}) }}">{{ "activite.service" | trans }}</a></li>
+		    		{% endif %}
+		    	{% endif %}
+		    {% endif %}
+		    {# CORPORATIF ET ÉVÉNEMENTS #}
+		    {% if w.hebergementid is not defined  %}
+		    	{% if w.corporatif == 1 %}
+				    {% if menuCorporatif is defined %}
+				    	<li><a name="{{ views }}" >{{ "corporatif.speciaux" | trans }}</a></li>{# MENU ACTIF #}
+				    {% else %}
+				    	{% if app.request.locale == "fr" %}
+				    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+                                                        <li><a href="{{ path('_hebergementcorporatif',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "corporatif.speciaux" | trans }}</a></li>
+                                                {% else %}
+                                                        <li><a href="{{ path('_hebergementcorporatif',{'name':w.repertoirefr|lower}) }}">{{ "corporatif.speciaux" | trans }}</a></li>
+                                                {% endif %}
+				    	{% else %}
+				    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+                                                        <li><a href="{{ path('_hebergementcorporatifen',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "corporatif.speciaux" | trans }}</a></li>
+                                                {% else %}
+                                                        <li><a href="{{ path('_hebergementcorporatifen',{'name':w.repertoireen|lower}) }}">{{ "corporatif.speciaux" | trans }}</a></li>
+                                                {% endif %}
+				    	{% endif %}
+				    {% endif %}
+				{% endif %}
+			{% elseif w.hebergementid is defined and w.hebergementid is defined and w.hebergementid.corporatif == 1 %}
+				{% if menuCorporatif is defined %}
+			    	<li><a name="{{ views }}" >{{ "corporatif.speciaux" | trans }}</a></li>{# MENU ACTIF #}
+			    {% else %}
+			    	{% if app.request.locale == "fr" %}
+			    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+                                                <li><a href="{{ path('_hebergementcorporatif',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "corporatif.speciaux" | trans }}</a></li>
+                                        {% else %}
+                                                <li><a href="{{ path('_hebergementcorporatif',{'name':w.repertoirefr|lower}) }}">{{ "corporatif.speciaux" | trans }}</a></li>
+                                        {% endif %}
+			    	{% else %}
+			    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+                                                <li><a href="{{ path('_hebergementcorporatifen',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "corporatif.speciaux" | trans }}</a></li>
+                                        {% else %}
+                                                <li><a href="{{ path('_hebergementcorporatifen',{'name':w.repertoireen|lower}) }}">{{ "corporatif.speciaux" | trans }}</a></li>
+                                        {% endif %}
+			    	{% endif %}
+			    {% endif %}
+			{% endif %}
+		    {# GALERIE PHOTO #}
+		    {% for p in client %}
+		    	{% if p.hebergementid is not defined %}
+					{% for q in p.galeriehebergement %}{# VÉRIFICATION SI LA GALERIE EST VIDE POUR NE PAS FAIRE AFFICHE DANS LE MENU #}
+						{% if q.image != "" and loop.index == 1 %}
+					    	{% if p.hebergementid is not defined and p.galeriehebergement is not empty %}
+							    {% if menuGalerie is defined %}
+							    	<li><a name="{{ views }}" >{{ "galerie.photo" | trans }}</a></li>{# MENU ACTIF #}
+							    {% else %}
+							    	{% if app.request.locale == "fr" %}
+							    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+							    			<li><a href="{{ path('_hebergementgalery',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+							    		{% else %}
+							    			<li><a href="{{ path('_hebergementgalery',{'name':w.repertoirefr|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+							    		{% endif %}
+							    	{% else %}
+							    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+							    			<li><a href="{{ path('_hebergementgaleryen',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+							    		{% else %}
+							    			<li><a href="{{ path('_hebergementgaleryen',{'name':w.repertoireen|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+							    		{% endif %}
+							    	{% endif %}
+							    {% endif %}
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				{% else %}			 
+				    {% if menuGalerie is defined %}
+				    	<li><a name="{{ views }}" >{{ "galerie.photo" | trans }}</a></li>{# MENU ACTIF #}
+				    {% else %}
+				    	{% if app.request.locale == "fr" %}
+				    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+				    			<li><a href="{{ path('_hebergementgalery',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+				    		{% else %}
+				    			<li><a href="{{ path('_hebergementgalery',{'name':w.repertoirefr|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+				    		{% endif %}
+				    	{% else %}
+				    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+				    			<li><a href="{{ path('_hebergementgaleryen',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+				    		{% else %}
+				    			<li><a href="{{ path('_hebergementgaleryen',{'name':w.repertoireen|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+				    		{% endif %}
+				    	{% endif %}
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		    {# CENTRES DE SANTÉ  ET SPAS #}
+		    {% if w.acompteid.id is defined and w.acompteid.id != 1 %}
+			    {% if soinsExiste != "" and soinsExiste != 126 %}
+		    		 {% if menuSoinSante is defined %}
+				    	<li><a name="{{ views }}" >{{ "centre.sante.spa" | trans }}</a></li>{# MENU ACTIF #}
+				     {% else %}
+					    {% if app.request.locale == "fr" %}
+					   	 		<li><a href="{{ path('_hebergementsoin',{'name':w.repertoirefr|lower}) }}">{{ "centre.sante.spa" | trans }}</a></li>
+					   	 {% else %}
+					   	 		<li><a href="{{ path('_hebergementsoinen',{'name':w.repertoireen|lower}) }}">{{ "centre.sante.spa" | trans }}</a></li>
+					   	 {% endif %}
+				     {% endif %}
+				{% endif %}
+			{% elseif w.hebergementid is defined and w.hebergementid.acompteid.id != 1 %}
+				{% if soinsExiste != "" and soinsExiste != 126 %}
+		    		 {% if menuSoinSante is defined %}
+				    	<li><a name="{{ views }}" >{{ "centre.sante.spa" | trans }}</a></li>{# MENU ACTIF #}
+				     {% else %}
+					    {% if app.request.locale == "fr" %}
+					   	 		<li><a href="{{ path('_hebergementsoin',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "centre.sante.spa" | trans }}</a></li>
+					   	 {% else %}
+					   	 		<li><a href="{{ path('_hebergementsoinen',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "centre.sante.spa" | trans }}</a></li>
+					   	 {% endif %}
+				     {% endif %}
+				{% endif %}
+			{% endif %}
+		    {# RESTAURANT #}
+		    {% if w.hebergementid is defined and w.hebergementid.acompteid.id != 1 %}
+			    {% if menuRestaurant is defined %}
+			    	<li><a name="{{ views }}" >Restaurant</a></li>{# MENU ACTIF #}
+			    {% else %}
+			    	{% if app.request.locale == "fr" %}
+	                        {% if w.hebergementid is defined %}
+	                            <li><a href="{{ path('_hebergementrestaurant',{'name':w.repertoirefr|lower}) }}">Restaurants</a></li>
+	                        {% else %}
+	                        	{% for t in restaurantDirection %}
+	                            <li><a href="{{ path('_hebergementrestaurant',{'name':t.repertoirefr|lower}) }}">Restaurant</a></li>
+	                            {% endfor %}
+	                        {% endif %}
+			    	{% else %}
+	                        {% if w.hebergementid is defined %}
+	                            <li><a href="{{ path('_hebergementrestaurant',{'name':w.repertoireen|lower}) }}">Restaurants</a></li>
+	                        {% else %}
+	                        	{% for t in restaurantDirection %}
+	                            <li><a href="{{ path('_hebergementrestaurant',{'name':t.repertoireen|lower}) }}">Restaurant</a></li>
+	                            {% endfor %}
+	                        {% endif %}
+			    	{% endif %}
+			    {% endif %}
+			{% elseif w.acompteid.id is defined and w.acompteid.id != 1 %}
+				{% if menuRestaurant is defined %}
+			    	<li><a name="{{ views }}" >Restaurant</a></li>{# MENU ACTIF #}
+			    {% else %}
+			    	{% if app.request.locale == "fr" %}
+	                        {% if w.hebergementid is defined %}
+	                            <li><a href="{{ path('_hebergementrestaurant',{'name':w.repertoirefr|lower}) }}">Restaurants</a></li>
+	                        {% else %}
+	                        	{% for t in restaurantDirection %}
+	                            <li><a href="{{ path('_hebergementrestaurant',{'name':t.repertoirefr|lower}) }}">Restaurant</a></li>
+	                            {% endfor %}
+	                        {% endif %}
+			    	{% else %}
+	                        {% if w.hebergementid is defined %}
+	                            <li><a href="{{ path('_hebergementrestaurant',{'name':w.repertoireen|lower}) }}">Restaurants</a></li>
+	                        {% else %}
+	                        	{% for t in restaurantDirection %}
+	                            <li><a href="{{ path('_hebergementrestaurant',{'name':t.repertoireen|lower}) }}">Restaurant</a></li>
+	                            {% endfor %}
+	                        {% endif %}
+			    	{% endif %}
+			    {% endif %}
+			{% endif %}
+		    {# INFORMATION / RÉSERVATION #}
+		    {% if menuReservation is defined %}
+		    		<li><a name="{{ views }}" >{{ "information.reservation" | trans }}</a></li>{# MENU ACTIF #}
+		    {% else %}
+		    	{% if app.request.locale == "fr" %}
+		    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+		    			<li><a href="{{ path('_hebergementreservation',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "information.reservation" | trans }}</a></li>
+		    		{% else %}
+		    			<li><a href="{{ path('_hebergementreservation',{'name':w.repertoirefr|lower}) }}">{{ "information.reservation" | trans }}</a></li>
+		    		{% endif %}
+		    	{% else %}
+		    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+		    			<li><a href="{{ path('_hebergementreservationen',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "information.reservation" | trans }}</a></li>
+		    		{% else %}
+		    			<li><a href="{{ path('_hebergementreservationen',{'name':w.repertoireen|lower}) }}">{{ "information.reservation" | trans }}</a></li>
+		    		{% endif %}
+		    	{% endif %}
+		    {% endif %}
+		    {# DIRECTIONS ROUTIÈRES #}
+		    {% if menuDirectionRoutiere is defined %}
+		    		<li><a name="{{ views }}" >{{ "direction.routiere" | trans }}</a></li>{# MENU ACTIF #}
+		    {% else %}
+		    	{% if app.request.locale == "fr" %}
+				    {% if w.hebergementid is defined and w.latitude != 0 and w.longitude != 0 %}
+				    	<li><a href="{{ path('_hebergementdirectionroutiere',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "direction.routiere" | trans }}</a></li>
+				    {% elseif w.latitude != 0 and w.longitude != 0 %}	
+				    	<li><a href="{{ path('_hebergementdirectionroutiere',{'name':w.repertoirefr|lower}) }}">{{ "direction.routiere" | trans }}</a></li>
+				    {% endif %}
+				 {% else %}
+                        {% if w.hebergementid is defined and w.latitude != 0 and w.longitude != 0 %}
+				    	<li><a href="{{ path('_hebergementdirectionroutiereen',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "direction.routiere" | trans }}</a></li>
+				    {% elseif w.latitude != 0 and w.longitude != 0 %}	
+				    	<li><a href="{{ path('_hebergementdirectionroutiereen',{'name':w.repertoireen|lower}) }}">{{ "direction.routiere" | trans }}</a></li>
+				    {% endif %}
+				 {% endif %}
+			{% endif %}
+			    <!--<li><a href="hotel71_commentaire.html#commentaire">Vos commentaires</a></li>
+			    <li><a href="hotel71_monItineraire.html#itineraire">Ajoutez à mon itinéraire</a></li>-->
+		{% endfor %}
+                    {% for w in client %}
+                        {% if w.hebergementid is not defined and w.cotationid.id != 28 %}
+                                <img src="{{ asset('uploads/cotations')}}/{{ w.cotationid.id }}/{{ w.cotationid.image }}" class="imgCotation" alt="{{ w.cotationid.valeur }}" />
+                        {% endif %}
+                    {% endfor %}
+	 {% else %}	{# CONDITION POUR QUE LES CLIENTS QUI ONT PAS D'HÉBERGEMENT #}
+	 	{% for w in client %}
+	 	 	{# FORFAITS ET PROMOTIONS #}
+		    {% if menuForfait is defined %}
+		    	<li><a name="{{ views }}" >{{ "forfait.promotion" | trans }}</a></li>{# MENU ACTIF #}
+		    {% else %}
+		    	{% if app.request.locale == "fr" %}
+		    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+		    			<li><a href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "forfait.promotion" | trans }}</a></li>
+		    		{% else %}
+		    			<li><a href="{{ path('_hebergementforfait',{'name':w.repertoirefr|lower}) }}">{{ "forfait.promotion" | trans }}</a></li>
+		    		{% endif %}
+		    	{% else %}
+		    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+		    			<li><a href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "forfait.promotion" | trans }}</a></li>
+		    		{% else %}
+		    			<li><a href="{{ path('_hebergementforfait',{'name':w.repertoireen|lower}) }}">{{ "forfait.promotion" | trans }}</a></li>
+		    		{% endif %}
+		    	{% endif %}
+		    {% endif %}
+		    {# ACTIVITÉS ET SERVICES #}
+		    {% if menuService is defined %}
+		    	<li><a name="{{ views }}" >{{ "activite.service" | trans }}</a></li>{# MENU ACTIF #}
+		    {% else %}
+		    	{% if app.request.locale == "fr" %}
+		    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+		    			<li><a href="{{ path('_hebergementactivite',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "activite.service" | trans }}</a></li>
+		    		{% else %}
+		    			<li><a href="{{ path('_hebergementactivite',{'name':w.repertoirefr|lower}) }}">{{ "activite.service" | trans }}</a></li>
+		    		{% endif %}
+		    	{% else %}
+		    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+		    			<li><a href="{{ path('_hebergementactivite',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "activite.service" | trans }}</a></li>
+		    		{% else %}
+		    			<li><a href="{{ path('_hebergementactivite',{'name':w.repertoireen|lower}) }}">{{ "activite.service" | trans }}</a></li>
+		    		{% endif %}
+		    	{% endif %}
+		    {% endif %}
+		    {# GALERIE PHOTO #}
+		    {% for q in p.galeriehebergement %}
+	  			{% if q.image != "" %}
+				    {% if menuGalerie is defined %}
+				    	<li><a name="{{ views }}" >{{ "galerie.photo" | trans }}</a></li>{# MENU ACTIF #}
+				    {% else %}
+				    	{% if app.request.locale == "fr" %}
+				    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+				    			<li><a href="{{ path('_hebergementgalery',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+				    		{% else %}
+				    			<li><a href="{{ path('_hebergementgalery',{'name':w.repertoirefr|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+				    		{% endif %}
+				    	{% else %}
+				    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+				    			<li><a href="{{ path('_hebergementgalery',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+				    		{% else %}
+				    			<li><a href="{{ path('_hebergementgalery',{'name':w.repertoireen|lower}) }}">{{ "galerie.photo" | trans }}</a></li>
+				    		{% endif %}
+				    	{% endif %}
+				    {% endif %}
+				{% endif %}
+			{% endfor %}
+		    {# CENTRES DE SANTÉ  ET SPAS #}
+		    {% if menuSoinSante is defined %}
+		    	<li><a name="{{ views }}" >{{ "centre.sante.spa" | trans }}</a></li>{# MENU ACTIF #}
+		    {% else %}
+			    {% if app.request.locale == "fr" %}
+			    	{% if w.hebergementid is defined and w.hebergementid != "" %}
+			   	 		<li><a href="{{ path('_hebergementsoin',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "centre.sante.spa" | trans }}</a></li>
+			   	 	{% else %}
+			   	 		<li><a href="{{ path('_hebergementsoin',{'name':w.repertoirefr|lower}) }}">{{ "centre.sante.spa" | trans }}</a></li>
+			   	 	{% endif %}
+			   	 {% else %}
+			   	 	{% if w.hebergementid is defined and w.hebergementid != "" %}
+			   	 		<li><a href="{{ path('_hebergementsoin',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "centre.sante.spa" | trans }}</a></li>
+			   	 	{% else %}
+			   	 		<li><a href="{{ path('_hebergementsoin',{'name':w.repertoireen|lower}) }}">{{ "centre.sante.spa" | trans }}</a></li>
+			   	 	{% endif %}
+			   	 {% endif %}
+		    {% endif %}
+		    {# RESTAURANT #}
+		    {% if menuRestaurant is defined %}
+		    	<li><a name="{{ views }}" >{{ "restaurant" | trans }}</a></li>{# MENU ACTIF #}
+		    {% else %}
+		    	{% if app.request.locale == "fr" %}
+                        {% if w.hebergementid is defined %}
+                            <li><a href="{{ path('_hebergementrestaurant',{'name':w.repertoirefr|lower}) }}">{{ "restaurant" | trans }}</a></li>
+                        {% else %}
+                        	{% for t in restaurantDirection %}
+                            <li><a href="{{ path('_hebergementrestaurant',{'name':t.repertoirefr|lower}) }}">{{ "restaurant" | trans }}</a></li>
+                            {% endfor %}
+                        {% endif %}
+		    	{% else %}
+                        {% if w.hebergementid is defined %}
+                            <li><a href="{{ path('_hebergementrestaurant',{'name':w.repertoireen|lower}) }}">{{ "restaurant" | trans }}</a></li>
+                        {% else %}
+                        	{% for t in restaurantDirection %}
+                            <li><a href="{{ path('_hebergementrestaurant',{'name':t.repertoireen|lower}) }}">{{ "restaurant" | trans }}</a></li>
+                            {% endfor %}
+                        {% endif %}
+		    	{% endif %}
+		    {% endif %}
+		    {# INFORMATION / RÉSERVATION #}
+		    {% if menuReservation is defined %}
+		    		<li><a name="{{ views }}" >{{ "information.reservation" | trans }}</a></li>{# MENU ACTIF #}
+		    {% else %}
+		    	{% if app.request.locale == "fr" %}
+		    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+		    			<li><a href="{{ path('_hebergementreservation',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "information.reservation" | trans }}</a></li>
+		    		{% else %}
+		    			<li><a href="{{ path('_hebergementreservation',{'name':w.repertoirefr|lower}) }}">{{ "information.reservation" | trans }}</a></li>
+		    		{% endif %}
+		    	{% else %}
+		    		{% if w.hebergementid is defined and w.hebergementid != "" %}
+		    			<li><a href="{{ path('_hebergementreservation',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "information.reservation" | trans }}</a></li>
+		    		{% else %}
+		    			<li><a href="{{ path('_hebergementreservation',{'name':w.repertoireen|lower}) }}">{{ "information.reservation" | trans }}</a></li>
+		    		{% endif %}
+		    	{% endif %}
+		    {% endif %}
+		    {# DIRECTIONS ROUTIÈRES #}
+		    {% if menuDirectionRoutiere is defined %}
+		    		<li><a name="{{ views }}" >{{ "direction.routiere" | trans }}</a></li>{# MENU ACTIF #}
+		    {% else %}
+		    	{% if app.request.locale == "fr" %}
+				    {% if w.hebergementid is defined and w.latitude != 0 and w.longitude != 0 %}
+				    	<li><a href="{{ path('_hebergementdirectionroutiere',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ "direction.routiere" | trans }}</a></li>
+				    {% elseif w.latitude != 0 and w.longitude != 0 %}	
+				    	<li><a href="{{ path('_hebergementdirectionroutiere',{'name':w.repertoirefr|lower}) }}">{{ "direction.routiere" | trans }}</a></li>
+				    {% endif %}
+				 {% else %}
+                        {% if w.hebergementid is defined and w.latitude != 0 and w.longitude != 0 %}
+				    	<li><a href="{{ path('_hebergementdirectionroutiere',{'name':w.hebergementid.repertoireen|lower}) }}">{{ "direction.routiere" | trans }}</a></li>
+				    {% elseif w.latitude != 0 and w.longitude != 0 %}	
+				    	<li><a href="{{ path('_hebergementdirectionroutiere',{'name':w.repertoireen|lower}) }}">{{ "direction.routiere" | trans }}</a></li>
+				    {% endif %}
+				 {% endif %}
+			{% endif %}
+
+		{% endfor %}
+	 {% endif %}
+	 </ul>
+	 {# COORDONNÉES DU CLIENT #}
+	 {% if app.request.locale == "fr" %}	
+	  	{% for p in client %}
+	  		{# INJECTION DE L'INCLUDE POUR LES TEXTES DANS LA COLONNE DE DROITE #}
+	  		{% include 'MyAppGlobalBundle:Hebergement:IncludeColonneDroiteMiniSite.html.twig' %}
+			    <div class="remplace_logo">
+			    	{% if p.hebergementid is defined %}
+			    		{% if p.hebergementid == "" %}
+			    			{% if p.logo is not empty %}
+			    				<img class="logo" src="{{ asset('uploads/attrait') }}/{{ p.id }}/{{ p.logo }}" alt="Logo {{ p.nomfr }}" />
+			    			{% endif %}
+			    		{% elseif p.hebergementid.id != "" %}
+			    			{% if p.hebergementid.logo is not empty %}
+			    				<img class="logo" src="{{ asset('uploads/hebergement/logos/logo') }}{{ p.hebergementid.id }}/{{ p.hebergementid.logo }}" alt="Logo {{ p.nomfr }}" />
+			    			{% endif %}
+			    		{% endif %}
+			    	{% else %}
+			    		{% if p.logo is not empty %}
+			    			<img class="logo" src="{{ asset('uploads/hebergement/logos/logo') }}{{ p.id }}/{{ p.logo }}" alt="Logo {{ p.nomfr }}" />
+			    		{% endif %}
+			    	{% endif %}
+			    </div>
+			    {# POUR LE WEB SÉMANTIQUE #}
+			    <div itemscope itemtype="http://data-vocabulary.org/Organization"> 
+				<h2><span itemprop="name">{{ p.nomfr }}</span></h2>
+				  <adresse>
+				     	<span itemprop="address" itemscope  itemtype="http://data-vocabulary.org/Address">
+						<ul>
+							<li><span itemprop="street-address">{{ p.adresse }}</span></li>
+							<li><span itemprop="locality">{{ p.villeid.nomfr }}</span> (<span itemprop="region">{{ p.regionid.provinceetatid.nomfr }}</span>)</li>
+                                                        <li>{{ p.regionid.provinceetatid.nomfr|upper }}</li>
+                                                        <li itemprop="postal-code">{{ p.codepostal|upper }} </li>
+							<span itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+							{% if p.latitude != 0 and p.latitude != "" and p.longitude != 0 and p.longitude != "" %}
+								<meta itemprop="latitude" content="{{ p.latitude }}" />
+								<meta itemprop="longitude" content="{{ p.longitude }}" />
+							{% endif %}
+							</span>
+						</ul>
+                                        </span>
+                                 </adresse>
+                           </div>
+                           <div class="telepnone">
+                            {% for z in client %}
+                                    {% if app.request.locale == "fr" %}
+                                            {% if z.reservitid is defined and z.reservitid is not empty  %}
+                                                    <a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.reservitid }}&lang=fr" target="_blank" title="Réservation en ligne">{{ "reservation.ligne" | trans }}</a>
+                                            {% elseif z.hebergementid is defined and z.hebergementid.reservitid is not empty and z.hebergementid.reservit is not empty %}
+                                                    <a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.hebergementid.reservitid }}&lang=fr" target="_blank" title="Réservation en ligne">{{ "reservation.ligne" | trans }}</a>
+                                            {% endif %}
+                                    {% else %}
+                                            {% if z.reservitid is defined and z.reservitid is not empty %}
+                                                    <a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.reservitid }}&lang=en" target="_blank" title="Online Booking">{{ "reservation.ligne" | trans }}</a>
+                                            {% elseif z.hebergementid is defined and z.hebergementid.reservitid is not empty and z.hebergementid.reservit is not empty %}
+                                                    <a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.hebergementid.reservitid }}&lang=en" target="_blank" title="Online Booking">{{ "reservation.ligne" | trans }}</a>
+                                            {% endif %}
+                                    {% endif %}
+                            {% endfor %}
+                                    <img src="{{ asset('bundles/myappglobal/images/pictoTelephone.gif') }}" width="37" height="29" />
+                                    <p>{{ "sans.frais" | trans }} : <a href="callTo:18777788977" class="callTel" title="N° 1 877 778 8977" rel="nofollow"> 1 877 778-8977</a></p>
+                                    <p>Local : <a href="callTo:14182662165" class="callTel" title="N° 1-418-266-2165" rel="nofollow"> 1-418-266-2165</a></p>
+                                    <p>International : <a href="callTo:0014182662165" class="callTel" title="N° 001-418-266-2165" rel="nofollow"> 001-418-266-2165</a></p>                
+                            </div>
+			{# LOGOS DES AFFILIATIONS#}
+			{% if p.hebergementid is not defined and p.affiliationid is not empty %}
+				<h3>Affiliation{% if p.affiliationid|length > 1 %}s{% endif %}</h3>
+				{% for w in p.affiliationid %}
+					<img src="{{ asset('uploads/affiliations') }}/{{ w.id }}/{{ w.image }}" alt="{{ w.nomfr}}" class="logo_affiliation_client" />
+				{% endfor %}
+			{% elseif p.hebergementid.affiliationid is defined and p.hebergementid.affiliationid is not empty %}
+				<h3>Affiliation{% if p.hebergementid.affiliationid|length > 1 %}s{% endif %}</h3>
+				{% for w in p.hebergementid.affiliationid %}
+					<img src="{{ asset('uploads/affiliations') }}/{{ w.id }}/{{ w.image }}" alt="{{ w.nomfr}}" class="logo_affiliation_client" />
+				{% endfor %}
+			{% endif %}
+		{% endfor %}
+	{% else %}	
+		{% for p in client %}
+			{# INJECTION DE L'INCLUDE POUR LES TEXTES DANS LA COLONNE DE DROITE #}
+		    {% include 'MyAppGlobalBundle:Hebergement:IncludeColonneDroiteMiniSite.html.twig' %}
+				 <div class="remplace_logo">
+			    	{% if p.hebergementid is defined %}
+			    		{% if p.hebergementid == "" %}
+			    			{% if p.logo is not empty %}
+			    				<img class="logo" src="{{ asset('uploads/attrait') }}/{{ p.id }}/{{ p.logo }}" alt="Logo {{ p.nomen }}" />
+			    			{% endif %}
+			    		{% elseif p.hebergementid.id != "" %}
+			    			{% if p.hebergementid.logo is not empty %}
+			    				<img class="logo" src="{{ asset('uploads/hebergement/logos/logo') }}/{{ p.hebergementid.id }}/{{ p.hebergementid.logo }}" alt="Logo {{ p.nomen }}" />
+			    			{% endif %}
+			    		{% endif %}
+			    	{% else %}
+			    		{% if p.logo is not empty %}
+			    			<img class="logo" src="{{ asset('uploads/hebergement/logos/logo') }}{{ p.id }}/{{ p.logo }}" alt="Logo {{ p.nomen }}" />
+			    		{% endif %}
+			    	{% endif %}
+			    </div>
+				<div itemscope itemtype="http://data-vocabulary.org/Organization"> 
+				    <h2><span itemprop="name">{{ p.nomen }}</span></h2>
+				     <adresse>
+				     	<span itemprop="address" itemscope  itemtype="http://data-vocabulary.org/Address">
+						<ul>
+							<li><span itemprop="street-address">{{ p.adresse }}</span></li>
+                                                        <li><span itemprop="locality">{{ p.villeid.nomen }}</span> (<span itemprop="region"> {{ p.regionid.provinceetatid.nomen }}</span>)</li>
+                                                        <li>{{ p.regionid.provinceetatid.nomen|upper }}</li>
+							<li>{{ p.codepostal|upper }} </li>
+							<span itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+							{% if p.latitude != 0 and p.latitude != "" and p.longitude != 0 and p.longitude != "" %}
+								<meta itemprop="latitude" content="{{ p.latitude }}" />
+								<meta itemprop="longitude" content="{{ p.longitude }}" />
+							{% endif %}
+							</span>
+						</ul>
+						</span>
+					</adresse>
+				</div>
+                               <div class="telepnone">
+                                    {% for z in client %}
+                                            {% if app.request.locale == "fr" %}
+                                                    {% if z.reservitid is defined and z.reservitid is not empty  %}
+                                                            <a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.reservitid }}&lang=fr" target="_blank" title="Réservation en ligne">{{ "reservation.ligne" | trans }}</a>
+                                                    {% elseif z.hebergementid is defined and z.hebergementid.reservitid is not empty and z.hebergementid.reservit is not empty %}
+                                                            <a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.hebergementid.reservitid }}&lang=fr" target="_blank" title="Réservation en ligne">{{ "reservation.ligne" | trans }}</a>
+                                                    {% endif %}
+                                            {% else %}
+                                                    {% if z.reservitid is defined and z.reservitid is not empty %}
+                                                            <a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.reservitid }}&lang=en" target="_blank" title="Online Booking">{{ "reservation.ligne" | trans }}</a>
+                                                    {% elseif z.hebergementid is defined and z.hebergementid.reservitid is not empty and z.hebergementid.reservit is not empty %}
+                                                            <a style="margin-top:0;" class="btreservation hackbtn" rel="nofollow" href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.hebergementid.reservitid }}&lang=en" target="_blank" title="Online Booking">{{ "reservation.ligne" | trans }}</a>
+                                                    {% endif %}
+                                            {% endif %}
+                                    {% endfor %}
+                                            <img src="{{ asset('bundles/myappglobal/images/pictoTelephone.gif') }}" width="37" height="29" />
+                                            <p>{{ "sans.frais" | trans }} : <a href="callTo:18777788977" class="callTel" title="N° 1 877 778 8977" > 1 877 778-8977</a></p>
+                                            <p>Local : <a href="callTo:14182662165" class="callTel" title="N° 1-418-266-2165" > 1-418-266-2165</a></p>
+                                            <p>International : <a href="callTo:0014182662165" class="callTel" title="N° 001-418-266-2165" > 001-418-266-2165</a></p>                
+                                    </div>
+                                    {# LOGOS DES AFFILIATIONS#}
+                                    {% if p.hebergementid is not defined and p.affiliationid is not empty %}
+                                            <h3>Affiliate{% if p.affiliationid|length > 1 %}s{% endif %}</h3>
+                                            {% for w in p.affiliationid %}
+                                                    <img src="{{ asset('uploads/affiliations') }}/{{ w.id }}/{{ w.image }}" alt="{{ w.nomen}}" class="logo_affiliation_client" />
+                                            {% endfor %}
+                                    {% elseif p.hebergementid.affiliationid is defined and p.hebergementid.affiliationid is not empty %}
+                                            <h3>Affiliate{% if p.hebergementid.affiliationid|length > 1 %}s{% endif %}</h3>
+                                            {% for w in p.hebergementid.affiliationid %}
+                                                    <img src="{{ asset('uploads/affiliations') }}/{{ w.id }}/{{ w.image }}" alt="{{ w.nomen}}" class="logo_affiliation_client" />
+                                            {% endfor %}
+                                    {% endif %}
+                            {% endfor %}
+                    {% endif %}
+	
+	{# météo #}
+	{% for z in client %}
+		{% if z.villeid.codemeteomedia is not empty %}
+			<iframe marginheight="0" marginwidth="0" name="wxButtonFrame" id="wxButtonFrame" height="160" src="http://btn.meteomedia.ca/weatherbuttons/template7.php?placeCode={{ z.villeid.codemeteomedia }}&category0=Cities&containerWidth=180&btnNo=&backgroundColor=blue&multipleCity=0&citySearch=0&celsiusF=C" align="top" frameborder="0" width="170" scrolling="no" class="styleMeteo" allowTransparency="true"></iframe>
+		{% endif %}
+	{% endfor %}
+	{# FIN DES COORDONNÉES #}
+{% endblock %}
+		
+{% block gauche %}
+{# LÉGENDE AU-DESSUS DE L'IMAGE PRINCIPALE #}
+	{% for k in client %}
+	    {% if k.hebergementid is defined and k.villeid != "" %}
+			{% if app.request.locale == "fr" %}
+				<p class="legendeHome">{{ k.nomfr }},  {{ k.villeid.nomfr }}</p>
+			{% else %}
+				<p class="legendeHome">{{ k.nomen }},  {{ k.villeid.nomen }}</p>
+			{% endif %}
+		{% else %} 
+			{% if app.request.locale == "fr" %}
+				<p class="legendeHome">{{ k.nomfr }},  {{ k.villeid.nomfr }}</p>
+			{% else %}
+				<p class="legendeHome">{{ k.nomen }},  {{ k.villeid.nomen }}</p>
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+	
+	{# PHOTO PRINCIPALE #}
+	<div id="photoprincipale">
+		{% for w in client %}
+		{#	{% if w.hebergementid is not defined and w.actif != 1 and w.aprouver != 1 %}
+				<img src="{{ asset("bundles/myappadmin/images/bande_rouge.jpg") }}" class="apercupreview"/>
+			{% endif %}#}
+			<div class="nomHotel">
+				{% if app.request.locale == "fr" %}
+						<h1>{{ w.nomfr }}</h1>
+				{% else %}
+						<h1>{{ w.nomen }}</h1>
+				{% endif %}
+				{# {% if w.hebergementid is not defined and w.cotationid != "" %}
+					<img src="{{ asset('uploads/cotations')}}/{{ w.cotationid.id }}/{{ w.cotationid.image }}" class="imgCotation" />
+				{% endif %}#}
+			</div>
+				{% if w.hebergementid is defined and w.cotationid != "" %}
+					<img src="{{ asset('uploads/attrait/')}}{{ w.id }}/{{ w.photopayante }}" class="big_picture" alt="{% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %}" />
+				{% else %}
+					{# AFFICHE L'IMAGE DU CLIENT EN FONCTION DE LA SECTION QUE L'ON EST SECTION FORFAIT DU MINI SITE #}
+					{% if menuForfait is defined %}
+						{% for w in forfaitAleatoire %}
+							{% if w.imageprincipale != "" %}
+							<img src="{{ asset('uploads/forfaits-client/image_principale')}}/{{ w.id }}/{{ w.imageprincipale }}" class="big_picture" alt="{% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %}" />
+							{% elseif w.hebergementid.photopayante != "" %}
+                                                        <img src="{{ asset('uploads/hebergement/photo_payante/photo_payante')}}{{ w.hebergementid.id }}/{{ w.hebergementid.photopayante }}" class="big_picture" alt="{% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %}" />
+                                                        {% else %}
+							<div class="imgRemplacementGlobal ajusteHauteurMinisite"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ w.nomfr }} "></div>
+							{% endif %}
+						{% endfor %}
+					{% elseif menuChambre is defined %}
+						{% if chambreAleatoire.photo1 is not empty %}
+						<img src="{{ asset('uploads/chambres') }}/{{ chambreAleatoire.id }}/{{ chambreAleatoire.photo1 }}" class="big_picture" alt="{% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %}" />
+						{% elseif w.photopayante is not empty %}
+						<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante')}}{{ w.id }}/{{ w.photopayante }}" class="big_picture" alt="{% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %}" />
+                                                {% else %}
+						<div class="imgRemplacementGlobal ajusteHauteurMinisite"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ w.nomfr }} "></div>
+						{% endif %}
+					{% else %}
+						{% if w.photopayante is not empty %}
+						<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante')}}{{ w.id }}/{{ w.photopayante }}" class="big_picture" alt="{% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %}" />
+						{% else %}
+						<div class="imgRemplacementGlobal ajusteHauteurMinisite"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ w.nomfr }} "></div>
+						{% endif %}
+					{% endif %}
+				{% endif %}
+		{% endfor %}
+	</div>
+	
+	{# CHARGEMENT DE L'INCLUDE DEMANDÉ #}
+	{# Restaurant #}
+	{% if menuRestaurant is defined %}
+		{% include 'MyAppGlobalBundle:Hebergement:MiniSiteRestaurant.html.twig' %}
+	{% endif %}
+	
+	{# Forfait #}
+	{% if menuForfait is defined %}
+		{% include 'MyAppGlobalBundle:Hebergement:MiniSiteForfaitPromotion.html.twig' %}
+	{% endif %}
+	
+	{# Chambre #}
+	{% if menuChambre is defined %}
+		{% include 'MyAppGlobalBundle:Hebergement:MiniSiteChambre.html.twig' %}
+	{% endif %}
+	
+	{# Activite #}
+	{% if menuService is defined %}
+		{% include 'MyAppGlobalBundle:Hebergement:MiniSiteActiviteService.html.twig' %}
+	{% endif %}
+	
+	{# Corporatif #}
+	{% if menuCorporatif is defined %}
+		{% include 'MyAppGlobalBundle:Hebergement:MiniSiteCorporatifEvenement.html.twig' %}
+	{% endif %}
+	
+	{# Soin de santé #}
+	{% if menuSoinSante is defined %}
+		{% include 'MyAppGlobalBundle:Hebergement:MiniSiteCentreSante.html.twig' %}
+	{% endif %}
+	
+	{# Direction routière #}
+	{% if menuDirectionRoutiere is defined %}
+		{% include 'MyAppGlobalBundle:Hebergement:MiniSiteDirectionRoutiere.html.twig' %}
+	{% endif %}
+	
+	{# Galerie #}
+	{% if menuGalerie is defined %}
+		{% include 'MyAppGlobalBundle:Hebergement:MiniSiteGaleriePhoto.html.twig' %}
+	{% endif %}
+	
+	{# Formulaire de réservation #}
+	{% if menuReservation is defined %}
+		{% include 'MyAppGlobalBundle:Hebergement:MiniSiteReservation.html.twig' %}
+	{% endif %}
+	
+	{# Présentation #}
+	{% if menuPresentation is defined %}
+		{% include 'MyAppGlobalBundle:Hebergement:MiniSitePresentation.html.twig' %}
+	{% endif %}
+	
+	{# OPINION #}
+	{#}  <div class="opinion">
+		  {% if app.request.locale == "fr" %}
+			  {% for p in client %}
+			  	{% if p.nomfr is defined %}
+			 	 <p>Déjà séjourné dans l'établissement {{ p.nomfr }}</p>
+			 	{% endif %}		 	
+			  {% endfor %}
+		  {% else %}
+		  	 {% for p in client %}
+			  	{% if p.nomen is defined %}
+			 	 <p>Already stay {{ p.nomen }}</p>
+			 	{% endif %}
+			 {% endfor %}
+		  {% endif %}
+		  	<p>{{ "votre.opinion" | trans }} <a href="#">opinion</a></p>
+	  </div>#}
+{% endblock %}
+
+
+

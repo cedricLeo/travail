@@ -1,0 +1,33 @@
+<script>
+    /**
+     * Modifie le lien en fonction de la province sélectionnée dans la liste déroulante
+     * On stocke dans le navigateur la valeur dde la province  qui va nous servir à garder cette valeur lors du rafraichissement de la page     
+     */
+     $("#idprovince").change(function(){ 
+            var provinceargu = $("#idprovince option:selected").attr("id");   
+            if(typeof(provinceargu) === "string"){                        
+                 $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_hebergement_resultat_province_ajax',{'id':"provinceargu" })|replace({'provinceargu':'"+provinceargu+"'})|raw }}' >Rechercher</a>");
+            }                       
+        {% if app.request.locale == "fr" %}
+               if(typeof(Storage) !== "undefined")
+               {
+                  localStorage.setItem("nomProvince", "{{ provinceListe.nom_fr }}");        
+                  $("#idprovince-button span").addClass("titleprovince").text(localStorage.getItem("nomProvince")); 
+               }
+               else
+               {
+                   console.log("Local storage non supporté");
+               }
+        {% else %}
+               if(typeof(Storage) !== "undefined")
+               {
+                  localStorage.setItem("nomProvince", "{{ provinceListe.nom_en }}"); 
+                  $("#idprovince-button span").addClass("titleprovince").text(localStorage.getItem("nomProvince")); 
+               }
+               else
+               {
+                   console.log("Local storage not supported");
+               }
+        {% endif %}
+    });  
+</script>

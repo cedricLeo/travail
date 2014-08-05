@@ -1,0 +1,13 @@
+{# {% stylesheets '@MyAppGlobalBundle/Resources/public/css/*' filter='yui_css' %}#}
+    {% if hidden is not defined %}
+	<link rel="stylesheet" href="{{ asset('bundles/myappglobal/css/globalreservation.css') }}" type="text/css" media="all" />
+	<link rel="stylesheet" href="{{ asset('bundles/myappglobal/css/anim2.css') }}" type="text/css" media="all" />
+    {% endif %}
+	{# STYLE POUR LES PAGES: FAQ, QUI SOMMES NOUS, CONTACTEZ NOUS, CONDITION D'UTILISATION ET PLAN DU SITE  #}
+	{% if pageStatic is defined %}
+	   <link rel="stylesheet" href="{{ asset('bundles/myappglobal/css/customStyle.css') }}" type="text/css" media="all" />
+	{% endif %}
+	{% if listeClient is defined %}
+		<link rel="stylesheet" href="{{ asset('bundles/myappglobal/js/jquery-ui-1.9.2.custom.css') }}" type="text/css" media="all" />
+	{% endif %}
+{# {% endstylesheets %}#}

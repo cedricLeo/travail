@@ -1,0 +1,91 @@
+<h2>{{ "recherche.enligne" | trans }}</h2>  
+  	<div class="descriptionReservationminisite">
+	  	<p>Make a real-time online reservation and receive your confirmation number directly. </p>
+	  	<p>Easy and simple, online reservation allows you complete an online reservation in an establishment of your choice. </p>
+	  	<p>You can book a room in a hotel, motel, bed & breakfast or cabin and reserve a package in an accommodation in Canada. </p>
+	  	<p>You choose the city, the dates as well as the number of persons, the number of rooms and the number of nights. </p>
+	  	<p>You will be able to see the list of establishments with availability.</p>
+	  	<p> Then, you can simply book by filling the forms and giving your credit card number to guarantee your reservation.</p>
+	  	<p> Each establishment has a cancellation policy. Therefore, if you wish so, you can easily cancel your reservation.</p>
+		<p>Online reservations made easy!</p>
+	</div>  	 
+	    <h5><span>1</span> {{ "reservation.telephone" | trans }}</h5>
+	    <div class="tel">	    	
+                <p>To talk to a tourism agent : <a href="callTo:18777788977">1-877-778-8977</a> / <a href="callTo:0014182662165">001-418-266-2165 </a> / <a href="callTo:14182662165">1-418-266-2165 </a></p>
+                <p>Email : <a href="mailTo:{{ emailGlobalReservation }}">{{ emailGlobalReservation }}</a></p>
+                <p>Monday to Friday from 8 a.m. to 4h30 p.m.</p>
+                <p>*** Do not forget that there are <span class="aucunFrais">NO ADDITIONAL FEES</span> for using the service of one of Global Reservation’s agents for your accommodation reservation.</p>
+                <p> We work for you!</p>
+	    </div>
+	   <h5 ><span>2</span> {{ "demande.information.reservation.internet" | trans }}</h5>
+
+  	<div class="infoFormDemandeInformation">  		
+            <p>Before sending a request, it is important to call us directly or make an online reservation directly, if your reservation date is made within a delay of less than 24 hours</p>
+            <p class="acheminerForm">To talk to a tourism agent : <a href="callTo:18777788977">1-877-778-8977</a> / <a href="callTo:0014182662165">001-418-266-2165 </a> / <a href="callTo:14182662165">1-418-266-2165 </a></p>
+            <p>Please fill in the form below</p>
+            <p>( * must be filled ) :</p>                        
+  	</div>
+	<form action="" method="post" {{ form_enctype(form) }} class="renseignements_coorporatif">	
+		{{ form_label(form.prenom, "prenom" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+		{{ form_widget(form.prenom, {'attr':{'class':'input_renseignement_personnel'}}) }}
+		{{ form_label(form.nom, "nom" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+		{{ form_widget(form.nom, {'attr':{'class':'input_renseignement_personnel'}}) }}
+		{{ form_label(form.adresse, "adresse" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+		{{ form_widget(form.adresse, {'attr':{'class':'input_renseignement_personnel'}}) }}
+		{{ form_label(form.ville, "ville" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+		{{ form_widget(form.ville, {'attr':{'class':'input_renseignement_personnel'}}) }}	
+		{{ form_label(form.code_postal, "code.postal" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+		{{ form_widget(form.code_postal, {'attr':{'class':'input_renseignement_personnel', 'maxlength' : "7"}}) }}
+		{{ form_label(form.telephone, "telephone" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+		{{ form_widget(form.telephone, {'attr':{'class':'input_renseignement_personnel', 'maxlength' : "20"}}) }}
+		{{ form_label(form.telecopieur, "telecopieur" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+		{{ form_widget(form.telecopieur, {'attr':{'class':'input_renseignement_personnel'}}) }}
+		{{ form_label(form.courriel, "courriel" | trans, {'attr':{'class':'lblrenseignementpersonnel lbl_email_demande_info obligatoire'}}) }}
+		{{ form_widget(form.courriel, {'attr':{'class':'input_renseignement_personnel '}}) }}
+		{{ form_label(form.date_arrive, "date.arrive" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+		{{ form_widget(form.date_arrive, {'attr':{'class':'input_renseignement_personnel'}}) }}
+		{{ form_label(form.date_depart, "date.depart" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+		{{ form_widget(form.date_depart, {'attr':{'class':'input_renseignement_personnel'}}) }}
+		{{ form_label(form.nombre_adulte, "nombre.adulte" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+		{{ form_widget(form.nombre_adulte, {'attr':{'class':'input_renseignement_personnel', 'maxlength' : "2"}}) }}
+		{{ form_label(form.nombre_enfant, "nombre.enfant" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+		{{ form_widget(form.nombre_enfant, {'attr':{'class':'input_renseignement_personnel', 'maxlength' : "2"}}) }}
+		{{ form_label(form.age_enfant, "age.enfant" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+		{{ form_widget(form.age_enfant, {'attr':{'class':'input_renseignement_personnel'}}) }}
+		{{ form_label(form.nombre_chambre, "nombre.chambre" | trans, {'attr':{'class':'lblrenseignementpersonnel lbl_nombre_chambre obligatoire'}}) }}
+		{{ form_widget(form.nombre_chambre, {'attr':{'class':'input_renseignement_personnel input_nombre_chambre', 'maxlength' : "2"}}) }}
+		{{ form_label(form.chambre_fumeur, "chambre.fumeur" | trans, {'attr':{'class':'lblrenseignementpersonnel lbl_chambre_fumeur'}}) }}
+		{{ form_widget(form.chambre_fumeur, {'attr':{'class':'input_renseignement_personnel'}}) }}
+		{{ form_label(form.demande_specifique, "demande.specifique" | trans, {'attr':{'class':'lblrenseignementpersonnel lbl_demande_specifique'}}) }}
+		{{ form_widget(form.demande_specifique, {'attr':{'class':'input_renseignement_personnel text_demande_info'}}) }}
+		{#{% form_theme form 'MyAppGlobalBundle:Hebergement:Captcha.html.twig' %}
+		{{ form_widget(form.captcha) }}#}
+		{{ form_rest(form) }}                
+		<input type="submit" value="{{ "envoyer.la.demande" | trans }}" class="submit_demandeinfo_corpo" />		
+	</form>
+	<div class="confirmationreponseDemandeInfo ">
+                {% if messageEnvoye is defined %} 
+                    <p class="confirm_msg">
+                        <script type='text/javascript'>                                     
+                            $(function() {
+                                $( "#dialog-modal" ).dialog({
+                                  height: 140,
+                                  modal: true
+                                });
+                              });
+                        </script>
+                        <div id="dialog-modal" title="Global Réservation">
+                            <p class="confirm_msg">{{ "message.demande.information.corpo.envoye" | trans }}</p>
+                        </div>
+                    </p> 
+                {% endif %}
+                <br />
+                <p>Be sure that one of our agents will contact you to inform you of the availability in the chosen establishment or the possibilities of reservation in other establishments according to your needs.</p>
+                <p> <span class="aucunFrais ajusteHauteur">We usually reply within 3 hours of office hours following your request for information on hours.</span></p>                
+	</div>
+	<script>
+	  $(function() {
+	    $( "#add_demande_global_reservation_date_arrive" ).datepicker();//date d'arrivée
+            $( "#add_demande_global_reservation_date_depart" ).datepicker(); //date départ
+	  });
+  	</script>{# empty Twig template #}

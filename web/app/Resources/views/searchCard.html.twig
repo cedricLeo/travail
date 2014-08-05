@@ -1,0 +1,50 @@
+{#
+{% block ouAller %}
+{# Recherche  avec la carte dans la colonne de gauche dans les templates #}
+{#	<img src="{{asset('bundles/myappglobal/images/oualler.jpg')}}" width="315" height="40" alt="Où souhaitez-vous aller?" class="map_interactive"/>
+			<div id="google_api">
+			<div class="header_google_api" ><h2>{{ "ou.aller" | trans }}</h2></div>
+				<form action="" method="POST" class="search_google">
+					<div class="map_google_api" > MAP GOOGLE API</div>
+					<div class="map_province">{{ form_label(form.province, "Province") }}</div>
+					<div class="map_region">{{ form_label(form.region, "region" | trans) }}</div>
+				    {{ form_widget(form.province) }}
+				    {{ form_widget(form.region) }}
+				    {{ form_widget(form.hebergement) }}			   
+				    <div class="map_hebergement">{{ form_label(form.hebergement, "hebergement.google" | trans) }}</div>
+				    {{ form_widget(form.forfait) }}
+				    <div class="map_forfait">{{ form_label(form.forfait, "forfait.google" | trans) }}</div>
+				{% if app.request.locale == "en" %}
+				    {{ form_widget(form.corporatif) }}
+				    <div class="map_corpo">{{ form_label(form.corporatif, "corporatif.evenement" | trans) }}</div>
+				{% endif %}
+				{% if app.request.locale == "fr" %}
+				    {{ form_widget(form.attrait) }}
+				    <div class="map_attrait">{{ form_label(form.attrait, "attrait.activite.google" | trans) }}</div>
+				    {{ form_widget(form.destination) }}
+				    <div class="map_destination">{{ form_label(form.destination, "destination.google" | trans) }}</div>
+				{% else %}
+				    {{ form_widget(form.destination) }}
+				    <div class="map_destination">{{ form_label(form.destination, "destination.google" | trans) }}</div>
+				    {{ form_widget(form.centresante) }}
+				    <div class="map_centre" style="width:130px;">{{ form_label(form.centresante, "centre.sante.spa.google" | trans) }}</div>
+				    {{ form_widget(form.restaurant) }}
+				    <div class="map_restaurant">{{ form_label(form.restaurant, "restaurant.google" | trans) }}</div>
+				    {{ form_widget(form.attrait) }}
+				    <div class="map_attrait">{{ form_label(form.attrait, "attrait.activite.google" | trans) }}</div>
+				{% endif %}
+				{% if app.request.locale == "fr" %}
+					{{ form_widget(form.restaurant) }}
+				    <div class="map_restaurant">{{ form_label(form.restaurant, "restaurant.google" | trans) }}</div>
+					 {{ form_widget(form.corporatif, {'attr':{'class':'HackCssMap'}} ) }}
+				    <div class="map_corpo">{{ form_label(form.corporatif, "corporatif.evenement" | trans) }}</div>
+				    {{ form_widget(form.centresante) }}
+				    <div class="map_centre">{{ form_label(form.centresante, "centre.sante.spa.google" | trans) }}</div>
+				{% endif %}
+				    {{ form_rest(form) }}
+				    <input type="submit" value="" class="btn_search_google"/>
+				</form>
+			</div>
+			
+{% endblock %}
+#}

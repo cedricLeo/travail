@@ -1,0 +1,53 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+
+<div class="menu_categorie_admin" style="margin-left:-190px; height:700px; overflow:scroll;">
+    <ul>
+        {% for w in listeCat %}
+            {% if categoryName.id == w.id %} 
+            <li><a style="color:red;" href="{{ path("_Dashboard_texteregionrestaurant",{'id':infoid, 'resto':w.id } ) }}">{{ w.nomfr }}</a></li>
+            {% else %}
+            <li><a href="{{ path("_Dashboard_texteregionrestaurant",{'id':infoid, 'resto':w.id } ) }}">{{ w.nomfr }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="boiteinfo">
+	<h1>Textes des types de restaurants pour la région « {{ infonom|upper }} »</h1>
+        <a class="linkAddTexteAdmin" href="{{ path("_Dashboard_regions") }}">Retour à la liste des régions</a> 
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+                                    {% if categoryName is not empty %}<span class="titleCategorieTexteRegion">{{ categoryName.nomfr }}</span>{% endif %}
+				    {{ form_label(form.page_titre_fr, "titre FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_titre_fr, {'attr':{'class':'txt_add_state '}}) }}
+                                    {{ form_label(form.page_metadescription_fr, "Meta description FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metadescription_fr, {'attr':{'class':'txt_add_state '}}) }}
+                                    {{ form_label(form.texte_fr, "Texte d'accueil FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_fr, {'attr':{'class':'txt_add_state '}}) }}
+                                    <p class="resize_p_form">&nbsp;</p>
+                                    {{ form_label(form.page_titre_en, "titre EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_titre_en, {'attr':{'class':'txt_add_state '}}) }}
+                                    {{ form_label(form.page_metadescription_en, "Meta description EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metadescription_en, {'attr':{'class':'txt_add_state '}}) }}
+                                    {{ form_label(form.texte_en, "Texte d'accueil EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_en, {'attr':{'class':'txt_add_state '}}) }}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit" />
+				    <a href="{{ path('_Dashboard_regions') }}" class="boutonannuler"></a>
+				</form>
+                                 <script>
+                                            //Texte accueil fr 
+                                            CKEDITOR.replace( 'add_texte_region_categorie_texte_fr' );
+                                            document.getElementById("add_texte_region_categorie_texte_fr").innerHTML = "{{ txtaccueilfr }}";
+                                            //Texte accueil en 
+                                            CKEDITOR.replace( 'add_texte_region_categorie_texte_en' );
+                                            document.getElementById("add_texte_region_categorie_texte_en").innerHTML = "{{ txtaccueilen }}";
+                                 </script>
+                                 
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

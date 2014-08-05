@@ -1,0 +1,270 @@
+<div id="pieddepage">    
+		{% if accueil is defined %} 
+    	 		<script type="text/javascript" src="{{ asset('bundles/myappglobal/js/combo.js') }}" ></script>
+    	 		<script type="text/javascript" src="{{ asset('bundles/myappglobal/js/fc.js') }}" ></script>
+		{# FOOTER #}
+		<div id="footer">
+			<div>
+				{#}<img src="{{ asset('bundles/myappglobal/images/logoGRfooter.png') }}" width="182" height="81" alt="Logo de Global Réservation" align="right"/>#}
+				<br class="clearfloat" />			
+				<p>{{ "descriptif.global" | trans }}</p> 
+				<p><a href="{{ path('_conditionUtilisation') }}">{{ "condition.utilisation" | trans }}</a></p>
+				<p><a href="{{ path('_contact') }}">{{ "contactez.nous" | trans }}</a></p>
+				<p><a href="{{ path('_sitemap') }}">{{ "plan.site" | trans }}</a></p>
+				<p><a href="{{ path('_faq') }}">FAQ</a></p>
+				<br class="clearfloat" />				
+				{#}<img src="{{ asset('bundles/myappglobal/images/logoFooter.gif') }}" width="274" height="49" alt="logo footer"  style="margin-top:18px" />#}
+				<br class="clearfloat" />
+				<p>&copy; Copyright {{ "now"|date('Y') }} Global Réservation inc.</p>
+				</div>
+				<div style="padding-left:8px; width:320px"><img src="{{ asset('bundles/myappglobal/images/telfooter.gif') }}" alt="Réservez un hôtel au 1 877 778-8977" width="286" height="32" style="margin:54px 0 12px 0;" />
+				{% if app.request.locale == "fr" %}
+                                <a class="btfacebook" href="http://www.facebook.com/pages/Global-Reservation/215568708901" title="Facebook de Global Réservation"><img border="0" src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="38" height="37" alt="Facebook de Global Réservation" /></a>
+				<h3 style="padding:8px 0 0 0;">
+				<a href="http://www.facebook.com/pages/Global-Reservation/215568708901" target="_blank" title="{{ 'suivez.facebook' | trans }}" style="text-decoration:none;">{{ 'suivez.facebook' | trans }}</a>
+				</h3>
+				<br class="clearfloat" />   
+				<a class="btrss" href="http://www.quebecensaisons.com/tourisme/index.php/feed/" title="Suivez nous sur votre lecteur RSS"><img border="0" src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="38" height="37" alt="RSS de Québec en Saisons" /></a>
+				{% else %}
+                                <a class="btfacebook" href="https://www.facebook.com/globalreservation" title="Facebook de Global Réservation"><img border="0" src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="38" height="37" alt="Facebook de Global Réservation" /></a>
+				<h3 style="padding:8px 0 0 0;">
+				<a href="https://www.facebook.com/globalreservation" target="_blank" title="{{ 'suivez.facebook' | trans }}" style="text-decoration:none;">{{ 'suivez.facebook' | trans }}</a>
+				</h3>
+				<br class="clearfloat" />  
+                                <a class="btrss" href="http://www.quebecensaisons.com/tourism/index.php/feed/" title="Follow us on your RSS reader"><img border="0" src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="38" height="37" alt="RSS Quebec's Seasons" /></a>
+                                {% endif %}                                
+                                <h3 style="padding:21px 0 0 0;">{{ "rss" | trans }}</h3>
+				<br class="clearfloat" />      
+                                {% if app.request.locale == "fr" %}
+                                <p style="margin-left:52px"><a href="http://www.quebecensaisons.com/tourisme/" title="{{ "info.blog" | trans }}" target="_blank">{{ "blog.quebec.saison" | trans }}</a><br />
+                                <a href="http://www.quebec-guidetouristique.travel/festivals-evenements/evenements.php" title="{{ "les.festivaux" | trans }}" target="_blank">{{ "festival.evenement.rss" | trans }}</a><br />
+				<a href="{{ path('_promotion') }}" title="{{ "tarif.minutes" | trans }}">{{ "tarif.derniere.minute" | trans }}</a><br />			
+                                {% else %}  
+                                <p style="margin-left:52px"><a href="http://www.quebecensaisons.com/tourism/" title="{{ "info.blog" | trans }}" target="_blank">{{ "blog.quebec.saison" | trans }}</a><br />   
+                                <a href="http://www.quebec-guidetouristique.travel/festivals-events/events.php" title="{{ "les.festivaux" | trans }}" target="_blank">{{ "festival.evenement.rss" | trans }}</a><br />
+				<a href="{{ path('_promotionen') }}" title="{{ "tarif.minutes" | trans }}">{{ "tarif.derniere.minute" | trans }}</a><br />				
+                                {% endif %}
+                                </div>
+				<div style="width:289px; margin-left:24px;"><img src="{{ asset('bundles/myappglobal/images/quebecensaisons.png') }}" width="289" height="113" alt="Inscrivez-vous à Québec en Saisons" />
+				<br class="clearfloat" />	
+				{% if app.request.locale == "fr" %}			
+				<p>Consultez régulièrement le bulletin d'information touristique Web Québec en Saisons pour vous donner des idées d'activités à faire, de festivals et événements en vigueur à visiter, de forfaits en vigueur au Québec, de tarifs de dernière minute en vigueur dans différents établissements d'hébergement au Québec et encore plus !!!  Il y a TOUJOURS un CONCOURS en vigueur pour vous inscrire, un magnifique forfait à gagner.  Ne rien manquer sur le tourisme au Québec!</p>
+				{% else %}
+				<p>Visit Quebec’s Seasons tourism newsletter regularly in order to get ideas of activities to do, current festivals and events, packages available in Quebec, last minute deals in different accommodations throughout Quebec and much more!!! There is ALWAYS a CONTEST offered with a very exciting prize. The perfect source in order to get all the information on Quebec tourism.</p>
+				{% endif %}
+				<br class="clearfloat" />
+				<p>{{ "adresse.courriel" | trans }}</p><br />
+				<br />		
+					{# FORMULAIRE NEW LETTER #}		
+					<form action="" method="post" {{ form_enctype(formNewLetter) }} class="update_state_form">	
+					    {{ form_label(formNewLetter.courriel, "", {'attr':{'class':' lbl_hidden'}}) }}
+					    {{ form_widget(formNewLetter.courriel, {'attr':{'class':'txt_add_state'}}) }}
+						{% if form_errors(formNewLetter.courriel) %}
+							<script>
+								//Affiche l'adresse incorrecte
+								 $(function(){
+									// $("#newletter_courriel").val("");
+									 $( "#dialog-error" ).dialog({
+									      modal: true,
+									      buttons: {
+									        Ok: function() {
+									          $( this ).dialog( "close" );
+									        }
+									      }
+									    });
+								 });
+							</script>
+						{% endif %}
+					    <div id="dialog-error" title="Erreur">{% if app.request.locale == "fr" %} {{ form_errors(formNewLetter.courriel) }}  {% else %} {{ form_errors(formNewLetter.courriel) }} {% endif %}</div>
+					    {{ form_rest(formNewLetter) }}	
+					    <input type="submit" value="{{ "minscrire" |trans  }}" id="idnewletter" />
+					</form>
+				</div>
+			</div>
+			
+			{% if courrielExiste is not empty and form_errors(formNewLetter.courriel) is empty %}
+				<script>
+					//Efface le champ pour l'adresse courriel
+					 $(function(){
+						 $("#newletter_courriel").val("");
+						 $( "#dialog-message" ).dialog({
+						      modal: true,
+						      buttons: {
+						        Ok: function() {
+						          $( this ).dialog( "close" );
+						        }
+						      }
+						    });
+					 });
+				</script>
+				<div id="dialog-message" title="Confirmation">{% if app.request.locale == "fr" %} Enregistrement confirmé pour la lettre d'information  {% else %} Registration confirmed for the newsletter {% endif %}</div>
+			{% endif %}
+		{% else %}
+			<div class="menuBottom">
+				<div>
+					<nav>
+						<ul>
+							{% if app.request.locale == "fr" %}
+								<li class="colonnesfooter entete_footer">Hôtels</li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'hotels-motels-auberges', 'region':'montreal'}) }}" title="hôtels, motels et auberges région de Montréal"> Hôtels Montréal</a></li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'hotels-motels-auberges', 'region':'quebec'}) }}" title="hôtels, motels et auberges région de Québec"> Hôtels Québec</a></li><br />  
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevillefr',{'name':'hotels-motels-auberges', 'ville':'quebec-vieux-quebec'}) }}" title="hôtels, motels et auberges du Vieux-Québec"> Hôtels Vieux-Québec</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'hotels-motels-auberges', 'region':'outaouais'}) }}" title="hôtels, motels et auberges région de l'Outaouais"> Hôtels Outaouais</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'hotels-motels-auberges', 'region':'laurentides'}) }}" title="hôtels, motels et auberges région des Laurentides"> Hôtels Laurentides</a></li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'hotels-motels-auberges', 'region':'charlevoix'}) }}" title="hôtels, motels et auberges région de Charlevoix"> Hôtels Charlevoix</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevillefr',{'name':'hotels-motels-auberges', 'ville':'toronto'}) }}" title="hôtels motels, et auberges de Toronto"> Hôtels Toronto</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevillefr',{'name':'hotels-motels-auberges', 'ville':'niagara-falls'}) }}" title="hôtels, motels et auberges Niagara Falls"> Hôtels Niagara Falls</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'hotels-motels-auberges', 'region':'saint-john'}) }}" title="hôtels, motels et auberges région de Saint-John"> Hôtels Saint-John</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'hotels-motels-auberges', 'region':'fredericton'}) }}" title="hôtels, motels et auberges région de Fredericton"> Hôtels Fredericton</a></li><br />  
+							{% else %}
+								<li class="colonnesfooter entete_footer">Hotels</li>
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'hotels-motels-inns', 'region':'montreal-en'}) }}" title="Hotels, motels and inns Montreal"> Hotels Montréal</a></li> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'hotels-motels-inns', 'region':'quebec-en'}) }}" title="Hotels, motels and inns Québec"> Hotels Québec city</a></li><br />  
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevilleen',{'name':'hotels-motels-inns', 'ville':'quebec-vieux-quebec-en'}) }}" title="Hotels, motels and inns Vieux-Québec"> Hotels Vieux-Québec</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'hotels-motels-inns', 'region':'outaouais-en'}) }}" title="Hotels, motels and inns outaouais"> Hotels Outaouais</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'hotels-motels-inns', 'region':'laurentides-en'}) }}" title="Hotels, motels and inns Laurentides"> Hotels Laurentides</a></li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'hotels-motels-inns', 'region':'charlevoix-en'}) }}" title="Hotels, motels and inns Charlevoix"> Hotels Charlevoix</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevilleen',{'name':'hotels-motels-inns', 'ville':'toronto-en'}) }}" title="Hotels, motels and inns Toronto"> Hotels Toronto</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevilleen',{'name':'hotels-motels-inns', 'ville':'niagara-falls-en'}) }}" title="Hotels, motels and inns Niagara Falls"> Hotels Niagara Falls</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'hotels-motels-inns', 'region':'saint-john-en'}) }}" title="Hotels, motels and inns Saint-John"> Hotels Saint-John</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'hotels-motels-inns', 'region':'fredericton-en'}) }}" title="Hotels, motels and inns Fredericton"> Hotels Fredericton</a></li><br />  
+							{% endif %}
+						</ul>
+					</nav>
+					<nav>
+						<ul>
+							{% if app.request.locale == "fr" %}
+								<li class="colonnesfooter entete_footer">Chalets et condos</li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'condos-chalets-maisons-refuges-pourvoiries', 'region':'quebec'}) }}" title="Condos région de Québec"> Condos Québec</a></li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'condos-chalets-maisons-refuges-pourvoiries', 'region':'laurentides'}) }}" title="Chalets région des laurentides"> Chalets Laurentides</a></li><br />  
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevillefr',{'name':'condos-chalets-maisons-refuges-pourvoiries', 'ville':'mont-tremblant'}) }}" title="Chalets à Mont Tremblant"> Chalets Mont-Tremblant</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevillefr',{'name':'condos-chalets-maisons-refuges-pourvoiries', 'ville':'mont-tremblant'}) }}" title="Condos à Mont Tremblant"> Condos Mont-Tremblant</a></li><br /> 
+                                                                <li class="colonnesfooter"><a href="{{ path('_hebergementtypevillefr',{'name':'condos-chalets-maisons-refuges-pourvoiries', 'ville':'bromont'}) }}" title="Chalets à Bromont"> Chalets Bromont</a></li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevillefr',{'name':'condos-chalets-maisons-refuges-pourvoiries', 'ville':'magog'}) }}" title="Condos à Magog"> Condos Magog</a></li><br /> 
+							{% else %}
+								<li class="colonnesfooter entete_footer">Condos and cottages</li>
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'condos-cottages-houses-refuges-outfitters', 'region':'quebec-en'}) }}" title="Condos Québec"> Condos Québec</a></li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'condos-cottages-houses-refuges-outfitters', 'region':'laurentides-en'}) }}" title="Cottages Laurentides"> Cottages Laurentides</a></li><br />  
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevilleen',{'name':'condos-cottages-houses-refuges-outfitters', 'ville':'mont-tremblant-en'}) }}" title="Cottages Magog"> Cottages Mont-Tremblant</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevilleen',{'name':'condos-cottages-houses-refuges-outfitters', 'ville':'mont-tremblant-en'}) }}" title="Condos Mont-Tremblant"> Condos Mont-Tremblant</a></li><br /> 
+                                                                <li class="colonnesfooter"><a href="{{ path('_hebergementtypevilleen',{'name':'condos-cottages-houses-refuges-outfitters', 'ville':'bromont-en'}) }}" title="Cottages Bromont"> Cottages Bromont</a></li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtypevilleen',{'name':'condos-cottages-houses-refuges-outfitters', 'ville':'magog-en'}) }}" title="Condos Magog"> Condos Magog</a></li><br />
+							{% endif %}
+						</ul>
+					</nav>
+					<nav>
+						<ul>
+							{% if app.request.locale == "fr" %}
+								<li class="colonnesfooter entete_footer">Gîtes B&B</li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'gites-bed-and-breakfasts', 'region':'quebec'}) }}" title="Gîtes région de Québec"> Gîtes Québec</a></li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'gites-bed-and-breakfasts', 'region':'quebec-vieux-quebec'}) }}" title="Gîtes du vieux Québec"> Gîtes Vieux-Québec</a></li><br />  
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'gites-bed-and-breakfasts', 'region':'laurentides'}) }}" title="Gîtes région des Laurentides"> Gîtes Laurentides</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionfr',{'name':'gites-bed-and-breakfasts', 'region':'charlevoix'}) }}" title="Gîtes région de Charlevoix"> Gîtes Charlevoix</a></li><br /> 
+							{% else %}
+								<li class="colonnesfooter entete_footer">B&B</li>
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'bed-and-breakfasts-en', 'region':'quebec-en'}) }}" title="B&B Québec"> B&B Québec</a></li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'bed-and-breakfasts-en', 'region':'quebec-vieux-quebec-en'}) }}" title="B&B Vieux-Québec"> B&B Vieux-Québec</a></li><br /> 
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'bed-and-breakfasts-en', 'region':'laurentides-en'}) }}" title="B&B Laurentides"> B&B Laurentides</a></li><br />
+								<li class="colonnesfooter"><a href="{{ path('_hebergementtyperegionen',{'name':'bed-and-breakfasts-en', 'region':'charlevoix-en'}) }}" title="B&B Charlevoix"> B&B Charlevoix</a></li><br />
+							{% endif %}
+						</ul>
+					</nav>
+				</div>
+				<div>
+					<nav>
+						<ul>
+							{% if app.request.locale == "fr" %}
+								{% for mqc in regionQcFooter %}
+									{% if loop.index == 1 %}
+									<li class="colonnesfooter entete_footer">Québec</li><br />
+									{% endif %}
+								<li class="colonnesfooter"><a href="{{ path('_hebergementregionsquebecfr',{'name':mqc.regionid.repertoirefr|lower}) }}" title="Hébergements région {{ mqc.regionid.nomfr }}"> Hébergements  {{ mqc.regionid.nomfr }}</a></li><br /> 
+								{% endfor %}
+							{% else %}
+								{% for mqc in regionQcFooter %}
+									{% if loop.index == 1 %}
+									<li class="colonnesfooter entete_footer">Quebec</li><br />
+									{% endif %}
+								<li class="colonnesfooter"><a href="{{ path('_hebergementregionsquebecen',{'name':mqc.regionid.repertoireen|lower}) }}" title="Hébergements region {{ mqc.regionid.nomen }}"> Accommodation  {{ mqc.regionid.nomen }}</a></li> 
+								{% endfor %}
+							{% endif %}
+						</ul>
+					</nav>
+				</div>
+				<div>
+					<nav>
+						<ul>
+							{% if app.request.locale == "fr" %}			
+								{% for mqc in regionOnFooter %}
+									{% if loop.index == 1 %}
+									<li class="colonnesfooter entete_footer">Ontario</li><br />
+									{% endif %}
+								<li class="colonnesfooter"><a href="{{ path('_hebergementregionsquebecfr',{'name':mqc.regionid.repertoirefr|lower}) }}" title="Hébergements région {{ mqc.regionid.nomfr }}" > Hébergements  {{ mqc.regionid.nomfr }}</a></li> 
+								{% endfor %}
+							{% else %}
+								{% for mqc in regionOnFooter %}
+									{% if loop.index == 1 %}
+									<li class="colonnesfooter entete_footer">Ontario</li><br />
+									{% endif %}
+								<li class="colonnesfooter"><a href="{{ path('_hebergementregionsquebecen',{'name':mqc.regionid.repertoireen|lower}) }}" title="Accommodation region {{ mqc.regionid.nomen }}"> Accommodation  {{ mqc.regionid.nomen }}</a></li> 
+								{% endfor %}
+							{% endif %}
+						</ul>
+					</nav>
+					<nav>
+						<ul>
+							{% if app.request.locale == "fr" %}
+								{% for mqc in regionNbFooter %}
+									{% if loop.index == 1 %}
+									<li class="colonnesfooter entete_footer">Nouveau brunswick</li><br />
+									{% endif %}
+								<li class="colonnesfooter"><a href="{{ path('_hebergementregionsquebecfr',{'name':mqc.regionid.repertoirefr|lower}) }}" title="Hébergements région {{ mqc.regionid.nomfr }}"> Hébergements  {{ mqc.regionid.nomfr }}</a></li> 
+								{% endfor %}
+							{% else %}
+								{% for mqc in regionNbFooter %}
+									{% if loop.index == 1 %}
+									<li class="colonnesfooter entete_footer">New Brunswick</li><br />
+									{% endif %}
+								<li class="colonnesfooter"><a href="{{ path('_hebergementregionsquebecen',{'name':mqc.regionid.repertoireen|lower}) }}" title="Accommodation region {{ mqc.regionid.nomen }}"> Accommodation  {{ mqc.regionid.nomen }}</a></li> 
+								{% endfor %}
+							{% endif %}
+						</ul>
+					</nav>
+				</div>
+				<div>
+					<nav>
+						<ul>
+							<li class="colonnesfooter entete_colonne_droite_footer"><a href="{{ path('_conditionUtilisation') }}" title="{{ "condition.utilisation" | trans }}">{{ "condition.utilisation" | trans }}</a></li>
+							<li class="colonnesfooter"><a href="{{ path('_quisommesnous') }}" title="{{ "qui.sommes.nous" | trans }}">{{ "qui.sommes.nous" | trans }}</a></li>
+							<li class="colonnesfooter"><a href="{{ path('_contact') }}" title="{{ "contactez.nous" | trans }}">{{ "contactez.nous" | trans }}</a></li>
+							<li class="colonnesfooter"><a href="{{ path('_sitemap') }}" title="{{ "plan.site" | trans }}">{{ "plan.site" | trans }}</a></li>
+							<li class="colonnesfooter"><a href="{{ path('_faq') }}" title={{ "titlefaq" | trans }}>FAQ</a></li>
+							<li class="colonnesfooter">
+							{% if app.request.locale == "fr"  %}
+								<a href="{{ path('_transaction_langue_global',{'langue':'en'}) }}" title="translation"> English</a> 
+							{% else %}
+								<a href="{{ path('_transaction_langue_global',{'langue':'fr'}) }}" title="traduction"> Français</a>
+							{% endif %}
+							</li>
+						</ul>
+					</nav>
+				</div>
+				<p class="copyrightGlobal">&copy; Copyright {{ "now"|date('Y') }} Global Réservation inc.</p>
+			</div>
+		{% endif %}
+                     <!-- Google Analytics -->
+                     <script type="text/javascript">
+                        var _gaq = _gaq || [];
+                        _gaq.push(['_setAccount', 'UA-1340116-1']);
+                        _gaq.push(['_setDomainName', 'global-reservation.com']);
+                        _gaq.push(['_trackPageview']);
+
+                        (function() {
+                          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                         // ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                          ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+                          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                        })();
+                     </script>
+                     <!-- End Google Analytics -->
+		</div>

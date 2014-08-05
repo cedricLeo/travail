@@ -1,0 +1,773 @@
+
+_accueil:
+  pattern: /
+  defaults: { _controller: MyAppGlobalBundle:Default:index } 
+  
+_accueilen:
+  pattern: /
+  defaults: { _controller: MyAppGlobalBundle:Default:index } 
+  
+_accueil_province:
+  pattern: /accueil_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Default:showprovince, name:name}
+  
+_accueil_provinceen:
+  pattern: /home_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Default:showprovince, name:name}
+
+_accueil_region:
+  pattern: /accueil_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Default:showregion, name:name }
+  
+_accueil_regionen:
+  pattern: /home_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Default:showregion, name:name }
+   
+##############################################################  
+#routes pour la section forfaits et ses views
+##############################################################  
+
+_forfaitsfr:
+  pattern: /forfaits.html
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:index }
+   
+_forfaitsen:
+  pattern: /packages.html
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:index }
+  
+_forfaitsprovincefr:
+  pattern: /forfaits_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:provinceforfait, name:name}
+   
+_forfaitsprovinceen:
+  pattern: /packages_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:provinceforfait, name:name}
+   
+_forfaitsregionsfr:
+  pattern: /forfaits_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:regionforfait, name:name}
+   
+_forfaitsregionsen:
+  pattern: /package_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:regionforfait, name:name}
+  
+_forfaitsvillesfr:
+  pattern: /forfaits_ville_{name}.html/
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:villeforfait, name:name}
+   
+_forfaitsvillesen:
+  pattern: /city_packages_{name}.html/
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:villeforfait, name:name}
+  
+_forfaitsactiviteprovincefr:
+  pattern: /forfaits_{activite}_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:displayActiviteProvince, activite:activite, name:name}
+   
+_forfaitsactiviteprovinceen:
+  pattern: /packages_{activite}_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:displayActiviteProvince, activite:activite, name:name}
+   
+_forfaitsactiviteregion:
+  pattern: /forfaits_{activite}_region_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:displayActiviteRegion, activite:activite, name:name, page:page}
+  
+_forfaitsactiviteregionen:
+  pattern: /packages_{activite}_region_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:displayActiviteRegion, activite:activite, name:name, page:page}
+  
+_forfaitsactiviteville:
+  pattern: /forfaits_{activite}_ville_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:displayActiviteVille, activite:activite, name:name, page:page}
+  
+_forfaitsactivitevilleen:
+  pattern: /packages_{activite}_city_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:displayActiviteVille, activite:activite, name:name, page:page}
+   
+_forfaitsactiviteindexfr:
+  pattern: /forfaits_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:displayActiviteIndex, name:name}
+   
+_forfaitsactiviteindexen:
+  pattern: /packages_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Forfaits:displayActiviteIndex, name:name}
+   
+###############################################################  
+#routes pour la section corporatif & evenements et ses views
+###############################################################
+
+_corpoeventsfr:
+  pattern: /corporatif_evenement.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:index }
+  
+_corpoeventsen:
+  pattern: /corporate_events.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:index }
+
+_corpoeventsprovince:
+  pattern: /corporatif_evenements_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:listerProvince,  name:name}
+  
+_corpoeventsprovincefrajax:
+  pattern: /reservation.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:reservationFormulaire}
+  requirements:
+    _method: POST
+  
+_corpoeteventsprovinceen:
+  pattern: /corporate_events_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:listerProvince,  name:name}
+
+_corpoeventsregions:
+  pattern: /corporatif_evenements_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:listerRegion,  name:name}
+  
+_corpoeventsregionsen:
+  pattern: /corporate_events_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:listerRegion,  name:name}
+   
+_corpoeventsville:
+  pattern: /corporatif_evenements_ville_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:listerVille,  name:name}
+   
+_corpoeventsvilleen:
+  pattern: /corporate_events_city_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:listerVille,  name:name}
+   
+_appeloffrefr:
+  pattern: /corporatif_appel_offre.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:appelOffre }
+   
+_appeloffreen:
+  pattern: /corporate_call_offers.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:appelOffre }
+  
+_formulaireprovinceappeloffre:
+  pattern: /corporatif_province_appel_offre.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:appelOffreProvinceAjax }
+  requirements:
+    _method: POST
+    
+_formulaireregionappeloffre:
+  pattern: /corporatif_region_appel_offre.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:appelOffreRegionAjax }
+  requirements:
+    _method: POST
+    
+_formulairevilleappeloffre:
+ pattern: /corporatif_ville_appel_offre.html
+ defaults: { _controller: MyAppGlobalBundle:Corpoevents:appelOffreVilleAjax }
+ requirements:
+   _method: POST
+  
+#_appeloffreenAjax:
+#  pattern: /corporate_call_offers.html
+#  defaults: { _controller: MyAppGlobalBundle:Corpoevents:appelOffre }
+#  requirements:
+#    _method: POST
+    
+_activiteCorporativeGroupefr:
+  pattern: /activite_corporative.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:corpoActivite}
+  
+_activitecorpoprovincefr:
+  pattern: /activite_corporative_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:corpoActiviteProvince, name:name}
+  
+_activitecorporegionfr:
+  pattern: /activite_corporative_region_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:corpoActiviteRegion, name:name, page:page}
+  
+_activitecorpovillefr:
+  pattern: /activite_corporative_ville_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:corpoActiviteVille, name:name, page:page}
+  
+_activiteCorporativeGroupeen:
+  pattern: /corporate_activities.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:corpoActivite}
+  
+_activitecorpoprovinceen:
+  pattern: /corporate_activities_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:corpoActiviteProvince, name:name}
+  
+_activitecorporegionen:
+  pattern: /corporate_activities_region_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:corpoActiviteRegion, name:name, page:page}
+  
+_activitecorpovilleen:
+  pattern: /corporate_activities_city_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:corpoActiviteVille, name:name, page:page}
+   
+_forfaitaffaireindexfr:
+  pattern: /forfait_affaire.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:forfaitAffaireIndex}
+   
+_forfaitaffaireindexen:
+  pattern: /business_packages.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:forfaitAffaireIndex}
+
+_forfaitaffaireprovincefr:
+  pattern: /forfait_affaire_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:forfaitAffaireProvince, name:name}
+   
+_forfaitaffaireprovinceen:
+  pattern: /business_packages_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:forfaitAffaireProvince, name:name}
+   
+_chambreaffairefr:
+  pattern: /corporatif_chambre_affaire.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:chambreAffaire}
+   
+_chambreaffaireen:
+  pattern: /corporate_room_business.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:chambreAffaire}
+  
+_chambreaffaireprovincefr:
+  pattern: /corporatif_chambre_affaire_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:chambreAffaireProvince, name:name}
+   
+_chambreaffaireprovinceen:
+  pattern: /corporate_room_business_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:chambreAffaireProvince, name:name}
+  
+_chambreaffaireregionfr:
+  pattern: /corporatif_chambre_affaire_region_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:chambreAffaireRegion, name:name, page:page}
+   
+_chambreaffaireregionen:
+  pattern: /corporate_room_business_region_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:chambreAffaireRegion, name:name, page:page}
+  
+_chambreaffairevillefr:
+  pattern: /corporatif_chambre_affaire_ville_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:chambreAffaireVille, name:name, page:page}
+   
+_chambreaffairevilleen:
+  pattern: /corporate_room_business_city_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:chambreAffaireVille, name:name, page:page}
+   
+_locationsallereunionfr:
+  pattern: /location_salle_reunion.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:locationSalleReunion}
+   
+_locationsallereunionen:
+  pattern: /meeting room rental.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:locationSalleReunion}
+  
+_locationsallereunionprovincefr:
+  pattern: /location_salle_reunion_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:locationSalleReunionProvince, name:name}
+   
+_locationsallereunionprovinceen:
+  pattern: /meeting room rental_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:locationSalleReunionProvince, name:name}
+  
+_locationsallereunionregionfr:
+  pattern: /location_salle_reunion_region_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:locationSalleReunionRegion, name:name, page:page}
+   
+_locationsallereunionregionen:
+  pattern: /meeting room rental_region_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:locationSalleReunionRegion, name:name, page:page}
+  
+_locationsallereunionvillefr:
+  pattern: /location_salle_reunion_ville_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:locationSalleReunionVille, name:name, page:page}
+   
+_locationsallereunionvilleen:
+  pattern: /meeting room rental_ville_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Corpoevents:locationSalleReunionVille, name:name, page:page}
+  
+###############################################################  
+#routes pour la section centres de sante et spas et ses views
+###############################################################
+
+_centersante:
+  pattern: /centres_sante_spas.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:index } 
+  
+_centersanteen:
+  pattern: /health_centers_spas.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:index }
+
+_choisirprovincesoin:
+  pattern: /centres_sante_spas_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:provincesoin, name:name }
+  
+_choisirprovincesoinen:
+  pattern: /health_centers_spas_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:provincesoin, name:name }
+
+_centersanteIndex:
+  pattern: /centres_sante_spas_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:lister, name:name}
+  
+_centersanteIndexen:
+  pattern: /health_centers_spas_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:lister, name:name}
+  
+_centersanteville:
+  pattern: /centres_sante_spas_ville_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:villesoin, name:name}
+  
+_centersantevilleen:
+  pattern: /health_centers_spas_city_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:villesoin, name:name}
+
+_typesdesoins:
+  pattern: /centres_sante_spas_soin_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:detailsoin, name:name }
+  
+_typesdesoinsen:
+  pattern: /health_centers_spas_care_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:detailsoin, name:name }
+   
+_provincetypesoin:
+  pattern: /soin_{name}_province_{province}.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:typedesoinprovince, name:name, province:province }
+
+_provincetypesoinen:
+  pattern: /care_{name}_province_{province}.html
+  defaults: { _controller: MyAppGlobalBundle:Centersante:typedesoinprovince, name:name, province:province }
+
+_typedesoinregion:
+  pattern: /soin_{name}_region_{region}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Centersante:typedesoinregion, name:name, region:region, page:page }
+  
+_typedesoinregionen:
+  pattern: /care_{name}_region_{region}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Centersante:typedesoinregion, name:name, region:region,  page:page }
+   
+_typedesoinville:
+  pattern: /soin_{name}_ville_{ville}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Centersante:typedesoinville, name:name, ville:ville, page:page }
+  
+_typedesoinvilleen:
+  pattern: /care_{name}_city_{ville}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Centersante:typedesoinville, name:name, ville:ville, page:page }
+   
+##############################################################  
+#routes pour la section attraits et activites et ses views
+##############################################################
+
+_attraitsactivity:
+  pattern: /attraits_activites.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:index }
+  
+_attraitsactivityen:
+  pattern: /activities_attractions.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:index }
+
+_attraitsIndex:
+  pattern: /attraits_activites_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:listerRegion, name:name} 
+  
+_attraitsIndexen:
+  pattern: /activities_attractions_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:listerRegion, name:name} 
+
+_attraitsVille:
+  pattern: /attraits_activites_ville_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:listerVille, name:name} 
+  
+_attraitsVilleen:
+  pattern: /activities_attractions_city_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:listerVille, name:name} 
+
+_attraitsprovince:
+  pattern: /attraits_activites_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitprovince, name:name}
+  
+_attraitsprovinceen:
+  pattern: /activities_attractions_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitprovince, name:name}
+  
+_attraitsactivitedefault:
+  pattern: /attraits_activites_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitActiviteDefault, name:name}
+  
+_attraitsactivitedefaulten:
+  pattern: /activities_attractions_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitActiviteDefault, name:name}
+  
+_attraitsprovinceactivite:
+  pattern: /province_{province}_attraits_activites_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitProvinceActivite, province:province, name:name}
+  
+_attraitsprovinceactiviteen:
+  pattern: /province_{province}_activities_attractions_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitProvinceActivite, province:province, name:name}
+   
+_attraitslistactivity:
+  pattern: /region_{region}_attraits_activites_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitRegionActivite, region:region, name:name, page:page}
+  
+_attraitslistactivityen:
+  pattern: /activities_attractions_{name}_region_{region}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitRegionActivite, region:region, name:name, page:page}
+  
+_attraitslistactivityajax:
+  pattern: /region_{region}_attraits_activites_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitRegionActivite, region:region, name:name, page:page}
+  requirements:
+    _method: POST
+  
+_attraitslistactivityville:
+  pattern: /ville_{ville}_attraits_activites_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitVilleActivite, ville:ville, name:name, page:page}
+  
+_attraitslistactivityvilleen:
+  pattern: /city_{ville}_activities_attractions_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Attraitsactivity:attraitVilleActivite, ville:ville, name:name, page:page}
+   
+############################################################## 
+#routes pour la section promotion et ses views
+###############################################################
+
+_promotion:
+  pattern: /tarifs_derniere_minute_et_promotions.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Destination:index, page:page }
+  
+_promotionen:
+  pattern: /last_minute_deals_and_promotions.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Destination:index, page:page }
+  
+_promotionstarifderniereminuteprovince:
+  pattern: /tarifs_derniere_minute_et_promotions_province_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Destination:provincePromotion, name:name, page:page}
+  
+_promotionstarifderniereminuteprovinceen:
+  pattern: /last_minute_deals_and_promotions_province_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Destination:provincePromotion, name:name, page:page}
+  
+_promotionstarifderniereminuteregion:
+  pattern: /tarifs_derniere_minute_et_promotions_region_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Destination:regionPromotion, name:name, page:page}
+  
+_promotionstarifderniereminuteregionen:
+  pattern: /last_minute_deals_and_promotions_region_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Destination:regionPromotion, name:name, page:page}
+  
+_promotionfluxrss:
+  pattern: /rss_promotions.xml
+  defaults: { _controller: MyAppGlobalBundle:Destination:fluxRSS, name:name}
+  
+_promotionfluxrssen:
+  pattern: /rss_promotions-en.xml
+  defaults: { _controller: MyAppGlobalBundle:Destination:fluxRSSEnglish, name:name}
+  
+_promotionfluxrssprovince:
+  pattern: /rss_promotions_province_{name}.xml
+  defaults: { _controller: MyAppGlobalBundle:Destination:fluxRSSProvince, name:name}
+  
+_promotionfluxrssprovinceen:
+  pattern: /rss_promotions_province_{name}.xml
+  defaults: { _controller: MyAppGlobalBundle:Destination:fluxRSSProvince, name:name}
+  
+_promotionfluxrssregion:
+  pattern: /rss_promotions_region_{name}.xml
+  defaults: { _controller: MyAppGlobalBundle:Destination:fluxRSSRegion, name:name}
+  
+_promotionfluxrssregionen:
+  pattern: /rss_promotions_region_{name}.xml
+  defaults: { _controller: MyAppGlobalBundle:Destination:fluxRSSRegion, name:name}
+  
+###############################################################  
+#routes pour la section restaurant et ses views
+###############################################################
+
+_restaurant:
+  pattern: /restaurants.html
+  defaults: { _controller: MyAppGlobalBundle:Restaurant:index }
+  
+#_restaurantsindex:
+#  pattern: /restaurants/2/{name}
+#  defaults: { _controller: MyAppGlobalBundle:Restaurant:lister, name:name }
+
+#_restaurantsuggestion:
+#  pattern: /restaurants/3/{id}/{name}.html
+#  defaults: { _controller: MyAppGlobalBundle:Restaurant:showsuggestion,  name:name}
+   
+#_restaurantnationalite:
+#  pattern: /restaurants/4/{name}.html
+#  defaults: { _controller: MyAppGlobalBundle:Restaurant:displaynationalite, name:name}
+   
+_restaurant_province_index:
+  pattern: /restaurants_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Restaurant:displayprovince, name:name}
+   
+_restaurantspecialite:
+  pattern: /restaurants_specialite_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Restaurant:displayspecialite, name:name}
+   
+#_restaurantnationaliteville:
+#  pattern: /restaurants/7/{id}/{name}/
+#  defaults: { _controller: MyAppGlobalBundle:Restaurant:displaynationville, name:name}
+   
+_restaurantregion:
+  pattern: /restaurants_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Restaurant:restaurantregion, name:name}
+  
+_listespecialiteregion:
+  pattern: /restaurants_{name}_region_{region}.html
+  defaults: { _controller: MyAppGlobalBundle:Restaurant:listeSpecialiteRegion, name:name, region:region}
+  
+_restaurantprovincenationalite:
+  pattern: /restaurants_{nationalite}_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Restaurant:displayProvinceNationalite, nationalite:nationalite, name:name}
+ 
+  
+###############################################################  
+#routes pour la section hebergement et ses views
+###############################################################
+
+_hebergementfr:
+  pattern: /hebergements.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:index }
+  
+_hebergementen:
+  pattern: /accommodation.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:index }
+
+_hebergementregionsquebecfr:
+  pattern: /hebergements_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:lister, name:name}
+   
+_hebergementregionsquebecen:
+  pattern: /accommodation_region_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:lister, name:name}
+
+_hebergementprovincefr:
+  pattern: /hebergements_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:showProvince, name:name }
+   
+_hebergementprovinceen:
+  pattern: /accommodation_province_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:showProvince, name:name }
+  
+_hebergementreservationenligne:
+  pattern: /hebergements_reservation.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:reservation }
+   
+_hebergementdisplayfr:
+  pattern: /hebergements_ville_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:villeHebergement, name:name}
+   
+_hebergementdisplayen:
+  pattern: /accommodation_city_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:villeHebergement, name:name}
+  
+_hebergementtypefr:
+  pattern: /hebergements_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:stylehebergement, name:name}
+   
+_hebergementtypeen:
+  pattern: /accommodation_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:stylehebergement, name:name}
+   
+_hebergementtypeprovincefr:
+  pattern: /categorie_{name}_province_{province}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:styleHebergementProvince, name:name, province:province}
+   
+_hebergementtypeprovinceen:
+  pattern: /category_{name}_province_{province}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:styleHebergementProvince, name:name, province:province}
+   
+_hebergementtyperegionfr:
+  pattern: /categorie_{name}_region_{region}.html/{page}/{ordre}
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:styleHebergementRegion, name:name, region:region, page:page, ordre:ordre}
+   
+_hebergementtyperegionen:
+  pattern: /category_{name}_region_{region}.html/{page}/{ordre}
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:styleHebergementRegion, name:name, region:region, page:page, ordre:ordre}
+   
+_hebergementtypevillefr:
+  pattern: /categorie_{name}_ville_{ville}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:styleHebergementVille, name:name, ville:ville, page:page}
+   
+_hebergementtypevilleen:
+  pattern: /category_{name}_city_{ville}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:styleHebergementVille, name:name, ville:ville, page:page}
+   
+#Routes pour le mini site
+   
+_hebergementinfoclient:
+  pattern: /accueil_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoclient, name:name}
+  
+_hebergementinfoclienten:
+  pattern: /home_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoclient, name:name}
+   
+_hebergementchambre:
+  pattern: /chambres_tarifs_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infochambre, name:name} 
+  
+_hebergementchambreen:
+  pattern: /rooms_rates_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infochambre, name:name} 
+
+_hebergementforfait:
+  pattern: /forfait_promotion_{name}.html/{index}
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoForfait, name:name, index:index}
+  
+_hebergementforfaiten:
+  pattern: /package_promotion_{name}.html/{index}
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoForfait, name:name, index:index}
+   
+_hebergementactivite:
+  pattern: /activites_services_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoactivite, name:name, page:page}
+  
+_hebergementactiviteen:
+  pattern: /activities_services_{name}.html/{page}
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoactivite, name:name, page:page}
+   
+_hebergementcorporatif:
+  pattern: /corporatif_evenement_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infocorporatif, name:name}
+  
+_hebergementcorporatifen:
+  pattern: /corporate_event_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infocorporatif, name:name}
+
+_hebergementgalery:
+  pattern: /galerie_photo_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infogalery, name:name}
+  
+_hebergementgaleryen:
+  pattern: /photo_gallery_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infogalery, name:name}
+   
+_hebergementsoin:
+  pattern: /centre_sante_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infosoin, name:name}
+  
+_hebergementsoinen:
+  pattern: /health_center_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infosoin, name:name}
+   
+_hebergementrestaurant:
+  pattern: /restaurant_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoRestaurant, name:name}
+  
+_hebergementrestauranten:
+  pattern: /restaurant-en_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoRestaurant, name:name}
+   
+_hebergementreservation:
+  pattern: /information_reservation_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:inforeservation, name:name}
+  
+_hebergementreservationen:
+  pattern: /information_booking_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:inforeservation, name:name}
+   
+_hebergementdirectionroutiere:
+  pattern: /directions_routieres_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoDirectionRoutiere, name:name, culture:fr}
+  requirements:
+      culture: fr
+_hebergementdirectionroutiereen:
+  pattern: /driving_directions_{name}.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoDirectionRoutiere, name:name, culture:en}
+  requirements:
+      culture: en
+#_hebergementinfosuggestion:
+#  pattern: /20/{name}.html
+#  defaults: { _controller: MyAppGlobalBundle:Hebergement:infosuggestion, name:name}
+  
+_classementhebergementregionajax:
+  pattern: /classement.html
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:classementListe}
+  requirements:
+    _method: POST
+  
+_hebergementfluxrss:
+  pattern: /rss_{name}.xml
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoRSS, name:name}
+  
+_hebergementfluxenrss:
+  pattern: /rss_{name}-en.xml
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:infoRSSEn, name:name}
+   
+###############################################################  
+#route pour la section qui sommes nous 
+###############################################################
+_quisommesnous:
+  pattern: /qui_sommes_nous.html
+  defaults: { _controller: MyAppGlobalBundle:Quisommesnous:index }
+###############################################################  
+#route pour la section FAQ
+###############################################################
+_faq:
+  pattern: /FAQ.html
+  defaults: { _controller: MyAppGlobalBundle:Quisommesnous:faq }
+###############################################################  
+#route pour la section contactez nous
+###############################################################
+_contact:
+  pattern: /contact.html
+  defaults: { _controller: MyAppGlobalBundle:Quisommesnous:contacteznous }
+###############################################################  
+#route pour la section condition d'utilisation
+###############################################################
+_conditionUtilisation:
+  pattern: /condition_utilisation.html
+  defaults: { _controller: MyAppGlobalBundle:Quisommesnous:conditionutilisation }
+  
+_conditionUtilisation_en:
+  pattern: /provided use.html
+  defaults: { _controller: MyAppGlobalBundle:Quisommesnous:conditionutilisation }
+###############################################################  
+#route pour la section plan du site
+###############################################################
+_sitemap:
+  pattern: /plan.html
+  defaults: { _controller: MyAppGlobalBundle:Quisommesnous:plandusite }  
+  
+_sitemapxml:
+  pattern: /sitemap.xml
+  defaults: { _controller: MyAppGlobalBundle:Quisommesnous:getReturnSchemaSitemap } 
+###############################################################  
+#Traduction 
+###############################################################
+_transaction_langue_global:
+    pattern:  /traduction/{langue}
+    defaults: { _controller: MyAppGlobalBundle:Default:choisirLangueClient, langue:langue}
+    requirements:
+        _locale: en|fr
+    
+###############################################################  
+#Route pour si on pas d'item dans cette section
+###############################################################
+_demandesansitem:
+  pattern: /{section}.html
+  defaults: { _controller: MyAppGlobalBundle:Default:demandeSansItem , section:section}  
+    
+###############################################################  
+#Route proposition moteur de recherche
+###############################################################
+_propositionmoteurrecherche:
+  pattern: /resultats.html/{resultats}
+  defaults: { _controller: MyAppGlobalBundle:Hebergement:propositionResultat , resultats:resultats}
+  
+#_propositionFullSearchEngine:
+#  pattern: /resultats_recherche.html/{rep}
+#  defaults: { _controller: MyAppGlobalBundle:Hebergement:getSimuleGoogleSearch, rep:rep}
+  
+################################################################
+#Route pour la recherche par carte
+################################################################
+
+#_map_hebergement:
+#    pattern: /ou_souhaitez_vous_aller.html
+#    defaults: { _controller: MyAppGlobalBundle:Hebergement:redirigeVersLaBonnePage}
+#    requirements:
+#     id: \d+
+#     _method: POST
+
+
+  
+  
+  
+  

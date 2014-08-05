@@ -1,0 +1,117 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">	
+	{# Moteur de recherche #}
+	<form action="" method="post" {{ form_enctype(form) }} class="engine_search">					
+	    {{ form_widget(form.nom_fr, {'attr':{'class':'moteur_recherche', 'list':'listhebergement'}}) }}
+	     <datalist id="listhebergement">
+	    	{% for v in autocompletion %}
+	    		 <option value="{{ v.nom_fr }}">
+	    	{% endfor %}
+	    </datalist>
+	    <input type="submit" value="" class="loupe_moteur"/>
+	</form>
+	 
+	 <div class="rectangle_rouge">
+	 	<p>Clients actifs <span id="nbactif">{{ nbClientActif }}</span></p>
+     	<p>Clients inactifs <span id="nbinactif">{{ nbClientInactif }}</span></p>
+     	<p>Publication de fiche en attente <span id="nbpublication">{{ nbNonPublication }}</span></p>
+	 </div>
+	
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="template_etroit">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addhebergement')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter un hébergement</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0" class="menu_mobile">
+							<tbody>
+									<tr class="rowsubheader">
+										<td width="270" colspan=1>Nom FR</td>
+										<td width="70" colspan=1>Statut</td>
+										<td width="270">Nom EN</td>
+									</tr>
+							</tbody>
+						</table>
+					    
+						<table align="center" class="info_scroll" cellpadding="0" border="0">
+							<tbody>
+							{% if number == 1 %}{# Affiche par défaut la pagination #}
+								{% for p in hebergement %}
+									<tr>
+										<td colspan=1 width="270"><a href="{{path('_Dashboard_updatehebergement',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+										<td colspan=1 width="65"><a href="{{path('_Dashboard_updatehebergement',{'id':p.id})}}">{% if p.actif == 0 %}<img src="{{ asset('bundles/myappadmin/images/buttons_cancel_xxl.png') }}" title="{{ p.nom_fr }} n'est pas actif" alt="img non actif"/>{% else %}<img src="{{ asset('bundles/myappadmin/images/buttons_ok_xxl.png') }}" title="{{ p.nom_fr }} est actif" alt="img actif" />{% endif %} </a></td>
+										<td colspan=1 width="270"><a href="{{path('_Dashboard_updatehebergement',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+									</tr>
+								{% endfor %}	
+								{% if hebergement is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+								{% endif %}	
+							{% elseif number == 2 %}{#  Affiche le résultat si on entre un nom ou un n°interne dans le moteur de recherche #}
+								{% if result2 is empty %}
+									{% for q in result %}
+										<tr>
+											<td colspan=1><a href="{{path('_Dashboard_updatehebergement',{'id':q.id})}}">{{ q.nom_fr }}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updatehebergement',{'id':q.id})}}">{% if q.actif == 0 %}<img src="{{ asset('bundles/myappadmin/images/buttons_cancel_xxl.png') }}" title="{{ q.nom_fr }} n'est pas actif" alt="img non actif"/>{% else %}<img src="{{ asset('bundles/myappadmin/images/buttons_ok_xxl.png') }}" title="{{ q.nom_fr }} est actif" alt="img actif" />{% endif %}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updatehebergement',{'id':q.id})}}">{{ q.nom_en }}</a></td>
+										</tr>
+									{% endfor %}
+								{% endif %}
+								{% if searchByNInterne == true and result2 is not empty %}
+									{% for p in result2 %}
+										<tr>
+											<td colspan=1><a href="{{path('_Dashboard_updatehebergement',{'id':p.id})}}">{{ p.nomfr }}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updatehebergement',{'id':p.id})}}">{% if p.actif == 0 %}<img src="{{ asset('bundles/myappadmin/images/buttons_cancel_xxl.png') }}" title="{{ p.nomfr }} n'est pas actif" alt="img non actif"/>{% else %}<img src="{{ asset('bundles/myappadmin/images/buttons_ok_xxl.png') }}" title="{{ p.nomfr }} est actif" alt="img actif" />{% endif %}</a></td>
+											<td colspan=1><a href="{{path('_Dashboard_updatehebergement',{'id':p.id})}}">{{ p.nomen }}</a></td>
+										</tr>
+									{% endfor %}
+								{% endif %}
+								{% if result is empty and result2 is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+								{% endif %}	
+							{% elseif number == 3 %}
+								{% for p in lettre %}{# Affiche le résultat de tous les nom_fr qui commencent par cette première lettre #}
+									<tr>
+										<td colspan=1><a href="{{path('_Dashboard_updatehebergement',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+										<td colspan=1><a href="{{path('_Dashboard_updatehebergement',{'id':p.id})}}">{% if p.actif == 0 %}<img src="{{ asset('bundles/myappadmin/images/buttons_cancel_xxl.png') }}" title="{{ p.nom_fr }} n'est pas actif" alt="img non actif"/>{% else %}<img src="{{ asset('bundles/myappadmin/images/buttons_ok_xxl.png') }}" title="{{ p.nom_fr }} est actif" alt="img actif" />{% endif %}</a></td>
+										<td colspan=1><a href="{{path('_Dashboard_updatehebergement',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+									</tr>
+								{% endfor %}
+								{% if number is empty %}
+										<p class="searchnull">Pas de résultat trouvé</p>
+								{% endif %}	
+							{% endif %}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				{% if nbhebergement > 30 %}
+					{% if number == 2 %}
+					<tr>
+						<td>
+							<a class="pagination_customer" href=" {{ path('_Dashboard_hebergement',{'page':page - 1}) }}" >{% if firstpage < page %} << {% else %} {% endif %} </a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_hebergement',{'page':page }) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+						</td>
+					</tr>
+					{% else %}
+						{% if number != 3 %}
+						<tr>
+							<td>
+								<a class="pagination_customer" href=" {{ path('_Dashboard_hebergement',{'page':page - 1}) }}" >{% if firstpage < page %} << {% else %} {% endif %} </a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_hebergement',{'page':page + 1}) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+							</td>
+						</tr>
+						{% endif %}
+					{% endif %}
+					<tr>
+						<td class="letter_alpha petite_pagination" {% if number == 3 %} style="margin-top:0;" {% endif %} >
+							{% for letter in 'a'|upper ..'z'|upper %}
+							<a href="{{ path('_Dashboard_hebergement',{'page':page, 'letter':letter}) }}">{{ letter }}</a>
+							{% endfor %}
+						<td>
+					</tr>
+				{% endif %}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

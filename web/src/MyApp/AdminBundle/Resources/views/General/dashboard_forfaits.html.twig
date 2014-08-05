@@ -1,0 +1,31 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addforfaits')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter un forfait</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="270" colspan=1>Nom fr</td>
+								<td width="270">Nom en</td>
+							</tr>	
+							{% for p in forfaits %}
+							<tr>
+								<td colspan=1><a href="{{path('_Dashboard_updateforfaits',{'id':p.id})}}">{{ p.nomfr }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updateforfaits',{'id':p.id})}}">{{ p.nomen }}</a></td>
+							</tr>
+							{% endfor %}
+							{% if forfaits is empty %}
+								<p class="searchnull">Pas de résultat trouvé</p>
+							{% endif %}		
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

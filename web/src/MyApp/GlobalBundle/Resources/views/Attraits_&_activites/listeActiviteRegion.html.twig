@@ -1,0 +1,232 @@
+{% extends '::base2.html.twig' %}
+		
+		{% block picture %}	
+		<p class="legendeHome">{{ "attrait.activite" | trans }} {% if app.request.locale == "fr" %} {{ clientAleatoire.categorieattrait.nomfr|lower }} {% include'::orthographe.html.twig' %} {% else %} {{ clientAleatoire.categorieattrait.nomen|lower }} {% include'::orthographe.html.twig' %} {% endif %}</p>	
+		{# photo principale qui va afficher le sujet de la section #}
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+			{% if app.request.locale == "fr" %}
+				<h1>{{ clientAleatoire.categorieattrait.nomfr }} région {{ clientAleatoire.regionid.nomfr }}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlfr }}/{{ clientAleatoire.zoneid.repertoirefr }}/{{ clientAleatoire.repertoirefr }}" target="_blank" title="{{ clientAleatoire.categorieattrait.nomfr }} {{ clientAleatoire.nomfr }} région {{ clientAleatoire.regionid.nomfr }}">{{ clientAleatoire.nomfr }} région {{ clientAleatoire.regionid.nomfr }}</a></h3>
+			</div>
+				{% if clientAleatoire.image is not empty %}
+		  			<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.image }}" class="big_picture" alt="{{ clientAleatoire.nomfr }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+				{% endif %}
+			{% else %}
+				<h1>{{ clientAleatoire.categorieattrait.nomen }} region {{ clientAleatoire.regionid.nomen }}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlen }}/{{ clientAleatoire.zoneid.repertoireen }}/{{ clientAleatoire.repertoireen }}" target="_blank" title="{{ clientAleatoire.categorieattrait.nomen }} {{ clientAleatoire.nomen }} region {{ clientAleatoire.regionid.nomen }}">{{ clientAleatoire.nomen }} region {{ clientAleatoire.regionid.nomen }}</a></h3>
+			</div>
+				{% if clientAleatoire.image is not empty %}
+		  			<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.image }}" class="big_picture" alt="{{ clientAleatoire.nomen }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+				{% endif %}
+			{% endif %}
+		</div>	
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		
+		{% block body %}
+			<h6>
+				 {% for nomCat in category %} 
+					{% if app.request.locale == "fr" %}
+						{{ nomCat.nomfr }} région {{ clientAleatoire.regionid.nomfr }}
+					{% else %}
+						{{ nomCat.nomen }} region {{ clientAleatoire.regionid.nomen }}
+					{% endif %}
+				 {% endfor %}
+		    </h6>
+		   <div class="pages ">
+		     {# <div style="float:left" > Classés par :
+		        <form id="form_recherche" {{ form_enctype(formRecherche) }} action="{{ path('_attraitslistactivity',{'region':clientAleatoire.regionid.repertoirefr|lower, 'name':clientAleatoire.categorieattrait.repertoirefr|lower, 'page':1}) }}" method="post">
+					{{ form_widget(formRecherche.recherche) }}
+				</form>
+		      </div>#}
+		      {% if app.request.locale == "fr" %}
+			      <ul>
+			       	{% if nbClient < 10 %} {{ "resultat.liste" | trans }} 1 à {{ nbClient }} {% endif %} 
+			       		{% if nbClient > 10 %} 
+					       	<li><a href="{{ path('_attraitslistactivity',{'region':clientAleatoire.regionid.repertoirefr|lower, 'name':clientAleatoire.categorieattrait.repertoirefr|lower, 'page':page-1}) }}" class="pagescolor"> {% if page < 1 %} << {% endif %} page {{ page }}</a></li>
+					      	<li><a href="{{ path('_attraitslistactivity',{'region':clientAleatoire.regionid.repertoirefr|lower, 'name':clientAleatoire.categorieattrait.repertoirefr|lower, 'page':page+1}) }}">à {{ page+1 }} {% if page < displaypage %} >> {% endif %} </a></li>
+					    {% endif %}
+			      </ul>
+			  {% else %}
+			  	  <ul>
+					{% if nbClient < 10 %} {{ "resultat.liste" | trans }} 1 to {{ nbClient }} {% endif %} 
+			       		{% if nbClient > 10 %} 
+					       	<li><a href="{{ path('_attraitslistactivity',{'region':clientAleatoire.regionid.repertoireen|lower, 'name':clientAleatoire.categorieattrait.repertoireen|lower, 'page':page-1}) }}" class="pagescolor"> {% if page < 1 %} << {% endif %} page {{ page }}</a></li>
+					      	<li><a href="{{ path('_attraitslistactivity',{'region':clientAleatoire.regionid.repertoireen|lower, 'name':clientAleatoire.categorieattrait.repertoireen|lower, 'page':page+1}) }}">to {{ page+1 }} {% if page < displaypage %} >> {% endif %} </a></li>
+					    {% endif %}
+		          </ul>
+			  {% endif %}
+		  </div>
+		  <div class="liste attrait">
+		  {# Liste des activités #}
+		  {% for list in listActivite %}
+		  	 {% if app.request.locale == "fr" %}
+			    <div>
+			       <a href="{{ list.regionid.urlfr }}/{{ list.zoneid.repertoirefr }}/{{ list.repertoirefr }}" target="_blank" title="{{ list.nomfr }}">
+			       		{% if list.image != "" %}
+			       			<img class="ph" src="{{ asset('uploads/attrait') }}/{{ list.id }}/{{ list.image }}" class="ph" alt="{{ list.nomfr }}" />
+			       		{% else %}
+			       			<img class="ph" src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="ph" alt="{{ list.nomfr }}" />
+			        	{% endif %}
+			       </a> 
+			       <div class="listetexte">
+			        <h2><a href="{{ list.regionid.urlfr }}/{{ list.zoneid.repertoirefr }}/{{ list.repertoirefr }}" target="_blank" title="{{ list.nomfr }}">{{ list.nomfr }}</a></h2>
+			        <p> {{ list.texteresumefr|striptags | truncate(200, true, ' ... ' )  }} <a href="{{ list.regionid.urlfr }}/{{ list.zoneid.repertoirefr }}/{{ list.repertoirefr }}" target="_blank" title="{{ list.nomen }}"> Plus d'info sur {{ list.nomfr }}</a></p>
+			      </div> 
+			    </div> 
+		     {% else %} 
+		    	 <div>
+			       <a href="{{ list.regionid.urlen }}/{{ list.zoneid.repertoireen }}/{{ list.repertoireen }}" target="_blank" title="{{ list.nomen }}">
+			       		{% if list.image != "" %}
+			       			<img class="ph" src="{{ asset('uploads/attrait') }}/{{ list.id }}/{{ list.image }}" class="ph" alt="{{ list.nomen }}" />
+				       	{% else %}
+				       		<img class="ph" src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="ph" alt="{{ list.nomen }}" />
+				        {% endif %}
+			       </a> 
+			       <div class="listetexte">
+			        <h2><a href="{{ list.regionid.urlen }}/{{ list.zoneid.repertoireen }}/{{ list.repertoireen }}" target="_blank" title="{{ list.nomen }}">{{ list.nomen }}</a></h2>
+			        <p> {{ list.texteresumeen| truncate(200, true, ' ... ' )  }} <a href="{{ list.regionid.urlen }}/{{ list.zoneid.repertoireen }}/{{ list.repertoireen }}" target="_blank" title="{{ list.nomen }}"> More info on {{ list.nomen }}</a></p>
+			      </div> 
+			    </div> 
+		     {% endif %}
+		  {% endfor %} 
+		  </div>
+		  <div class="pages">
+		      {#<div style="float:left" > Classés par :
+		        <form id="form_recherche2" {{ form_enctype(formRecherche) }} action="{{ path('_attraitslistactivity',{'region':clientAleatoire.regionid.repertoirefr|lower, 'name':clientAleatoire.categorieattrait.nomfr|lower, 'page':1}) }}" method="post">
+					{{ form_widget(formRecherche.recherche) }}
+				</form>
+		      </div>#}
+			   {% if app.request.locale == "fr" %}
+			      <ul>
+			       	{% if nbClient < 10 %} {{ "resultat.liste" | trans }} 1 à {{ nbClient }} {% endif %} 
+			       		{% if nbClient > 10 %} 
+					       	<li><a href="{{ path('_attraitslistactivity',{'region':clientAleatoire.regionid.repertoirefr|lower, 'name':clientAleatoire.categorieattrait.repertoirefr|lower, 'page':page-1}) }}" class="pagescolor"> {% if page < 1 %} << {% endif %} page {{ page }}</a></li>
+					      	<li><a href="{{ path('_attraitslistactivity',{'region':clientAleatoire.regionid.repertoirefr|lower, 'name':clientAleatoire.categorieattrait.repertoirefr|lower, 'page':page+1}) }}">à {{ page+1 }} {% if page < displaypage %} >> {% endif %} </a></li>
+					    {% endif %}
+			      </ul>
+			  {% else %}
+			  	  <ul>
+					{% if nbClient < 10 %} {{ "resultat.liste" | trans }} 1 to {{ nbClient }} {% endif %} 
+			       		{% if nbClient > 10 %} 
+					       	<li><a href="{{ path('_attraitslistactivity',{'region':clientAleatoire.regionid.repertoireen|lower, 'name':clientAleatoire.categorieattrait.repertoireen|lower, 'page':page-1}) }}" class="pagescolor"> {% if page < 1 %} << {% endif %} page {{ page }}</a></li>
+					      	<li><a href="{{ path('_attraitslistactivity',{'region':clientAleatoire.regionid.repertoireen|lower, 'name':clientAleatoire.categorieattrait.repertoireen|lower, 'page':page+1}) }}">to {{ page+1 }} {% if page < displaypage %} >> {% endif %} </a></li>
+					    {% endif %}
+		          </ul>
+			  {% endif %}
+		    </div>
+		  <p>&nbsp;</p>
+		  {# PUB GOOGLE #}
+		  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+		  	<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_01'); });
+			</script>
+		  </div>
+		  <div class="colonnes4">
+		    <h4>{{ "nos.suggestions.hotels.proximite" | trans }} {% include'::orthographe.html.twig' %} {{ "a.proximiter" | trans }}  
+				{% if app.request.locale == "fr" %}
+					{{ clientAleatoire.categorieattrait.nomfr|lower }}
+				{% else %}
+					{{ clientAleatoire.categorieattrait.nomen|lower }}
+				{% endif %}
+			</h4>
+			{% if app.request.locale == "fr" %}
+				{% for w in suggestions %}
+				    <div> <a href="{{ path('_hebergementinfoclient',{'name':w.repertoirefr|lower}) }}" target="_blank" title=" {{ w.nomfr }} région {{ w.regionid.nomfr }} "><img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.id }}/{{ w.photocategoriepayante }}" alt="{{ w.nomfr }}" class="img_categoie_portail" /></a>
+				      <div>
+				        <h3><a href="{{ path('_hebergementinfoclient',{'name':w.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} région {{ w.regionid.nomfr }}">{{ w.nomfr }}</a></h3>
+				        <p>{{ w.texteresumefr | truncate(250, true, ' [...]') }}</p>
+				      </div>
+				      <h2><a href="{{ path('_hebergementinfoclient',{'name':w.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} région {{ w.regionid.nomfr }}">{{ w.nomfr }}</a></h2>
+				    </div>
+				{% endfor %}
+			{% else %}
+				 {% for w in suggestions %}
+				    <div> <a href="{{ path('_hebergementinfoclient',{'name':w.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} region {{ w.regionid.nomen }}"><img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.id }}/{{ w.photocategoriepayante }}" alt="{{ w.nomen }}" class="img_categoie_portail" /></a>
+				      <div>
+				        <h3><a href="{{ path('_hebergementinfoclient',{'name':w.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} region {{ w.regionid.nomen }}">{{ w.nomen }}</a></h3>
+				        <p>{{ w.texteresumeen | truncate(250, true, ' [...]') }}</p>
+				      </div>
+				      <h2><a href="{{ path('_hebergementinfoclient',{'name':w.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} region {{ w.regionid.nomen }}">{{ w.nomen }}</a></h2>
+				    </div>
+				 {% endfor %}
+			{% endif %}
+		    <br class="clearfloat" />
+		</div>
+		{#}
+		<script>
+		$(function(){
+			$request->request  //Variables passées en POST
+			$request->query    //Variables passées en GET
+						
+			 var region = "{{ clientAleatoire.regionid.nomfr }}";
+			var name = "{{ clientAleatoire.categorieattrait.nomfr }}";
+			var page = 1;
+			$("#add_selectAttrait_recherche").click(function(){ 
+			    var motcle = $("#add_selectAttrait_recherche").val();
+			    var DATA = 'motcle=' + motcle;
+			    $.ajax({
+			        type: "POST",
+			        url: "{{ path('_attraitslistactivityajax',{'region':region, 'name':name})}}",
+			        data: DATA,
+			        cache: false,
+			        success: function(data){
+			           $('.liste attrait').html("ok");
+			        }
+			    });    
+			    return false; 
+			});
+		});
+		</script>#}
+		{% endblock %}
+		
+		{% block gauche %}	
+		{# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %} 
+			  <div class="region">
+			  {% if app.request.locale == "fr" %}
+			    <h3>{{ "choisir.ville" | trans }} pour {{  clientAleatoire.categorieattrait.nomfr|lower }} : {% include'::orthographe.html.twig' %}
+			  {% else %}
+			  	<h3>{{ "choisir.ville" | trans }} for {{  clientAleatoire.categorieattrait.nomen|lower }} : {% include'::orthographe.html.twig' %}
+			  {% endif %}
+			    <ul>
+				    {% if app.request.locale == "fr" %}
+				      	<dt>{% for nomRegion in region %} {{ nomRegion.nomfr }} {% endfor %}</dt>
+				      {% for nomVille in listeVille %}
+				      	<li><a href="{{ path('_attraitslistactivityville',{'ville':clientAleatoire.villeid.nomfr|lower, 'name':clientAleatoire.categorieattrait.nomfr|lower}) }}" title="{{  nomVille.villeid.nomfr }}">{{ nomVille.villeid.nomfr }}</a></li>
+				      {% endfor %}
+				    {% else %}
+				      	<dt>{% for nomRegion in region %} {{ nomRegion.nomen }} {% endfor %}</dt>
+				      {% for nomVille in listeVille %}
+				      	<li><a href="{{ path('_attraitslistactivityvilleen',{'ville':clientAleatoire.villeid.nomen|lower, 'name':clientAleatoire.categorieattrait.nomen|lower}) }}" title="{{ nomVille.villeid.nomen }}">{{ nomVille.villeid.nomen }}</a></li>
+				      {% endfor %}
+				    {% endif %}
+			    </ul>
+			    <br class="clearfloat" />
+			  </div>
+			  {% if app.request.locale == "fr" %}
+			  	<img src="{{ asset('bundles/myappglobal/images/telephoneGauche.jpg') }}" width="304" height="65" />
+			  {% else %}
+			  	<img src="{{ asset('bundles/myappglobal/images/telephoneGaucheEn.png') }}" width="304" height="65" />
+			  {% endif %}
+			  {# PUB GOOGLE #}
+			  <div id="zone_02" class="styleBigBox" style="float:left;">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			 </div>
+			<br class="clearfloat" />
+		{% endblock %}

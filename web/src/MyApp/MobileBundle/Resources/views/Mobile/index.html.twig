@@ -1,0 +1,29 @@
+{% extends "::base_mobile.html.twig" %}
+
+{% block body %} 
+    {% if app.request.locale == "fr" %}
+        <nav id="menu">
+            <ul>
+                <li><a href="{{ path('MyAppMobileBundle_hebergement') }}" title="{{ "hebergement.google" | trans }}">{{ "hebergement.google" | trans }}</a></li>
+                <li><a href="{{ path('MyAppMobileBundle_forfait') }}" title="{{ "forfait.google" | trans }}">{{ "forfait.google" | trans }}</a></li>
+                <li><a href="{{ path('MyAppMobileBundle_corpo') }}" title="{{ "corporatif.evenement" | trans }}">{{ "corporatif.evenement" | trans }}</a></li>
+                <li><a href="http://www.quebec-guidetouristique.travel/activites-quebec/centres-sante-spas/centres-sante-spas.php" target="_blank" title="{{ "centre.sante.spa" | trans }}">{{ "centre.sante.spa" | trans }}</a></li>
+                <li><a href="http://www.quebec-guidetouristique.travel/activites-quebec/" target="_blank" title="{{ "attrait.activite.google" | trans }}">{{ "attrait.activite.google" | trans }}</a></li>
+                <li><a href="{{ path('MyAppMobileBundle_promotion') }}" title="{{ "promotion" | trans }}">{{ "promotion" | trans }}</a></li>
+                <li><a href="http://www.quebec-guidetouristique.travel/activites-quebec/restaurants/restaurants.php" target="_blank" title="{{ "restaurant.google" | trans }}">{{ "restaurant.google" | trans }}</a></li>
+            </ul>
+        </nav>
+    {% else %}
+        <nav id="menu">
+            <ul>
+                <li><a href="{{ path('MyAppMobileBundle_hebergement_en') }}" title="{{ "hebergement.google" | trans }}">{{ "hebergement.google" | trans }}</a></li>
+                <li><a href="{{ path('MyAppMobileBundle_forfait_en') }}" title="{{ "forfait.google" | trans }}">{{ "forfait.google" | trans }}</a></li>
+                <li><a href="{{ path('MyAppMobileBundle_corpo_en') }}" title="{{ "corporatif.evenement" | trans }}">{{ "corporatif.evenement" | trans }}</a></li>
+                <li><a href="http://www.quebec-guidetouristique.travel/quebec-activities/health-centres-spas/health-centres-spas.php" target="_blank" title="{{ "centre.sante.spa" | trans }}">{{ "centre.sante.spa" | trans }}</a></li>
+                <li><a href="http://www.quebec-guidetouristique.travel/quebec-activities/health-centres-spas/health-centres-spas.php" target="_blank" title="{{ "attrait.activite.google" | trans }}">{{ "attrait.activite.google" | trans }}</a></li>
+                <li><a href="{{ path('MyAppMobileBundle_promotion_en') }}" title="{{ "promotion" | trans }}">{{ "promotion" | trans }}</a></li>
+                <li><a href="http://www.quebec-guidetouristique.travel/quebec-activities/restaurants-en/restaurants.php" target="_blank" title="{{ "restaurant.google" | trans }}">{{ "restaurant.google" | trans }}</a></li>
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}

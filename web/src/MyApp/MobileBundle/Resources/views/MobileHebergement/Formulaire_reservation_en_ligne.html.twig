@@ -1,0 +1,45 @@
+{# FORMULAIRE DE RÉSERVATION EN LIGNE #}
+	   <div class="reservation hackReservation">
+	  		<div id="structureformonline">
+				<div class="blancback" >
+				 <h2 class="reserveonline">{{ "reservation.en.ligne" | trans }} {% for w in client %} {% if app.request.locale == "fr" %} {{ w.nomfr }} {% else %} {{ w.nomen }} {% endif %} {% endfor %} </h2>{#}<span style="font-size:10px; font-weight:normal; color:#333">{{ "voir.disponibilite" | trans }}</span>#}
+				   	 {% for z in client %}
+				   	 	{% if z.reservitid is defined %}	
+                                        {#}<form action="http://reservation.global-reservation.com/reservit/avail.php?hotelid={{ z.reservitid }}" method="post" {{ form_enctype(form) }} target="_blank" class="reserveonline">#}
+                                        <form action="http://reservation.global-reservation.com/reservit/avail.php?hotelid=50447" method="post" {{ form_enctype(form) }} target="_blank" class="reserveonline">
+					 <input type="hidden" value="50447" name="hotelid" />
+					 {#}<input type="hidden" value="{{ z.reservitid }}" name="hotelid" />#}
+					 <input type="hidden" value="{% if app.request.locale == "fr" %}fr{% else %}en{% endif %}" name="lang" />
+					 	{% else %}
+					<form action="http://reservation.global-reservation.com/reservit/avail.php?hotelid={{ z.hebergementid.reservitid }}" method="post" {{ form_enctype(form) }} target="_blank" class="reserveonline">
+					 <input type="hidden" value="{{ z.hebergementid.reservitid }}" name="hotelid" />
+					 	{% endif %}
+					 {% endfor %}
+					 <input id="begindate" type="hidden" value="" name="begindate">
+					 <input id="enddate" type="hidden" value="" name="enddate">
+					 <input id="currentroomid" type="hidden" value="" name="currentroomid">
+					 <input id="roomidavailinfo" type="hidden" value="" name="roomidavailinfo">
+					    {{ form_widget(form) }}
+					  <div class="datebegin">{{ form_label(form.datedebut, "date.arriver"|trans) }}</div>
+					    {{ form_widget(form.datedebut) }}
+					  <div class="nbchambre">{{ form_label(form.chambre, "nombre.chambre"|trans) }}</div>
+					    {{ form_widget(form.chambre) }}
+					  <div class="dateend">{{ form_label(form.datefin, "date.depart"|trans) }}</div>
+					    {{ form_widget(form.datefin) }}
+					  <div class="personneadulte">{{ form_label(form.adulte, "adulte"|trans) }}</div>
+					    {{ form_widget(form.adulte) }}
+					  <div class="personneenfant">{{ form_label(form.enfant, "enfant"|trans) }}</div>
+					    {{ form_widget(form.enfant) }}
+					    {{ form_rest(form) }}
+					   <div class="envoyersubmit"><input type="submit" value="" class="btreserver"/></div>   
+					</form>
+					<div class="inforeservationonline">
+						<p>{{ "amerique.nord" | trans }}<br />
+						<strong><a href="callTo:18777788977" >1 877 778-8977</a></strong></p>
+				      	<p>International<br />
+						<strong><a href="callTo:4182662165" >(418) 266-2165</a></strong></p>
+				  	</div>
+				 </div>
+			 </div>
+	   </div>
+	   <p class="hackopinion"></p>   

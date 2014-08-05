@@ -1,0 +1,98 @@
+{% block suggestionHotel %}
+	<div class="suggestion ">
+	  <h3>{{ "suggestion.hebergement" | trans }}</h3>
+	  
+	  {# Région 1 #}
+		<div >
+		   {% for r1 in displayregionLeft1 %}
+		   	   {% if app.request.locale == "fr" %} 
+			   <h2><a href="{{ path('_hebergementtyperegionfr',{'name':categorie.repertoire_fr|lower , 'region':r1.repertoirefr|lower}) }}" title="Hôtel{% if listClientGauche1|length > 1 %}s{% endif %} région {{ r1.nomfr }}">Hôtel{% if listClientGauche1|length > 1 %}s{% endif %} {{ r1.nomfr }}</a></h2>
+			         <ul>
+			         {% for qc in listClientGauche1 %}
+			           <li><a href="{{ path('_hebergementinfoclient',{'name':qc.repertoirefr|lower}) }}" target="_blank" title="Hôtel {{ qc.nomfr }}">{{ qc.nomfr }}</a> {% if qc.prixapartir is not empty %} <span>{{ "a.partir" | trans }} {{ qc.prixapartir|replace({"$":""}) }}$</span>{% endif %}</li>
+			         {% endfor %}
+			         </ul>
+			   <h4>[<a href="{{ path('_hebergementtyperegionfr',{'name':categorie.repertoire_fr|lower , 'region':r1.repertoirefr|lower}) }}" title="Hôtels région {{ r1.nomfr }}" >Voir les hôtels région {{ r1.nomfr }}</a>]</h4>
+			   {% else %}
+			   <h2><a href="{{ path('_hebergementtyperegionen',{'name':categorie.repertoire_en|lower , 'region':r1.repertoireen|lower}) }}" title="Hotel{% if listClientGauche1|length > 1 %}s{% endif %} region {{ r1.nomen }}">Hotel{% if listClientGauche1|length > 1 %}s{% endif %} {{ r1.nomen }}</a></h2>
+			         <ul>
+			         {% for qc in listClientGauche1 %}
+			           <li><a href="{{ path('_hebergementinfoclienten',{'name':qc.repertoireen|lower}) }}" target="_blank" title="Hotel {{ qc.nomen }}">{{ qc.nomen }}</a> {% if qc.prixapartir is not empty %} <span>{{ "a.partir" | trans }} {{ qc.prixapartir|replace({"$":""}) }}$</span>{% endif %}</li>
+			         {% endfor %}
+			         </ul>
+			   <h4>[<a href="{{ path('_hebergementtyperegionen',{'name':categorie.repertoire_en|lower , 'region':r1.repertoireen|lower}) }}" title="Hotels region {{ r1.nomen }}" >Show hotels region {{ r1.nomen }}</a>]</h4>
+			   {% endif %}
+		  {% endfor %}
+		</div>
+		
+	   {# Région 2 #}
+		<div >
+		   {% for r2 in displayregionLeft2 %}
+		   	   {% if app.request.locale == "fr" %}
+			   <h2><a href="{{ path('_hebergementtyperegionfr',{'name':categorie.repertoire_fr|lower , 'region':r2.repertoirefr|lower}) }}" title="Hôtel{% if listClientGauche2|length > 1 %}s{% endif %} région {{ r2.nomfr }}">Hôtel{% if listClientGauche2|length > 1 %}s{% endif %} {{ r2.nomfr }}</a></h2>
+			         <ul>
+			         {% for qc in listClientGauche2 %}
+			           <li><a href="{{ path('_hebergementinfoclient',{'name':qc.repertoirefr|lower}) }}" target="_blank" title="Hôtel {{ qc.nomfr }}">{{ qc.nomfr }}</a> {% if qc.prixapartir is not empty %} <span>{{ "a.partir" | trans }} {{ qc.prixapartir|replace({"$":""}) }}$</span>{% endif %}</li>
+			         {% endfor %}
+			         </ul>
+			   <h4>[<a href="{{ path('_hebergementtyperegionfr',{'name':categorie.repertoire_fr|lower , 'region':r2.repertoirefr|lower}) }}" title="Hôtels région {{ r2.nomfr }}" >Voir les hôtels région {{ r2.nomfr }}</a>]</h4>
+			   {% else %}
+			   <h2><a href="{{ path('_hebergementtyperegionen',{'name':categorie.repertoire_en|lower , 'region':r2.repertoireen|lower}) }}" title="Hotel{% if listClientGauche2|length > 1 %}s{% endif %} region {{ r2.nomen }}">Hotel{% if listClientGauche2|length > 1 %}s{% endif %} {{ r2.nomen }}</a></h2>
+			         <ul>
+			         {% for qc in listClientGauche2 %}
+			           <li><a href="{{ path('_hebergementinfoclienten',{'name':qc.repertoireen|lower}) }}" target="_blank" title="Hotel {{ qc.nomen }}">{{ qc.nomen }}</a>  {% if qc.prixapartir is not empty %}  <span>{{ "a.partir" | trans }} {{ qc.prixapartir|replace({"$":""}) }}$</span>{% endif %}</li>
+			         {% endfor %}
+			         </ul>
+			   <h4>[<a href="{{ path('_hebergementtyperegionen',{'name':categorie.repertoire_en|lower , 'region':r2.repertoireen|lower}) }}" title="Hotels region {{ r2.nomen }}" >Show hotels region {{ r2.nomen }}</a>]</h4>
+			   {% endif %}
+		  {% endfor %}
+		</div>
+		
+		{# Région 3 #}
+		<div >
+		   {% for r3 in displayregionLeft3 %}
+		   	   {% if app.request.locale == "fr" %}
+			   <h2><a href="{{ path('_hebergementtyperegionfr',{'name':categorie.repertoire_fr|lower , 'region':r3.repertoirefr|lower}) }}" title="Hôtel{% if listClientGauche3|length > 1 %}s{% endif %} région {{ r3.nomfr }}">Hôtel{% if listClientGauche3|length > 1 %}s{% endif %} {{ r3.nomfr }}</a></h2>
+			         <ul>
+			         {% for qc in listClientGauche3 %}
+			           <li><a href="{{ path('_hebergementinfoclient',{'name':qc.repertoirefr|lower}) }}" target="_blank" title="Hôtel {{ qc.nomfr }}">{{ qc.nomfr }}</a> {% if qc.prixapartir is not empty %} <span>{{ "a.partir" | trans }} {{ qc.prixapartir|replace({"$":""}) }}$</span>{% endif %}</li>
+			         {% endfor %}
+			         </ul>
+			   <h4>[<a href="{{ path('_hebergementtyperegionfr',{'name':categorie.repertoire_fr|lower , 'region':r3.repertoirefr|lower}) }}" title="Hôtels région {{ r3.nomfr }}">Voir les hôtels région {{ r3.nomfr }}</a>]</h4>
+			   {% else %}
+			   <h2><a href="{{ path('_hebergementtyperegionen',{'name':categorie.repertoire_en|lower , 'region':r3.repertoireen|lower}) }}" title="Hotel{% if listClientGauche3|length > 1 %}s{% endif %} region {{ r3.nomen }}">Hotel{% if listClientGauche3|length > 1 %}s{% endif %} {{ r3.nomen }}</a></h2>
+			         <ul>
+			         {% for qc in listClientGauche3 %}
+			           <li><a href="{{ path('_hebergementinfoclienten',{'name':qc.repertoireen|lower}) }}" target="_blank" title="Hotel {{ qc.nomen }}">{{ qc.nomen }}</a> {% if qc.prixapartir is not empty %}  <span>{{ "a.partir" | trans }} {{ qc.prixapartir|replace({"$":""}) }}$</span>{% endif %}</li>
+			         {% endfor %}
+			         </ul>
+			   <h4>[<a href="{{ path('_hebergementtyperegionen',{'name':categorie.repertoire_en|lower , 'region':r3.repertoireen|lower}) }}" title="Hotels region {{ r3.nomen }}" >Show hotels region {{ r3.nomen }}</a>]</h4>
+			   {% endif %}
+		  {% endfor %}
+		</div>
+		
+		{# Région 4 #}
+		<div >
+		   {% for r4 in displayregionLeft4 %}
+		   	   {% if app.request.locale == "fr" %}
+			   <h2><a href="{{ path('_hebergementtyperegionfr',{'name':categorie.repertoire_fr|lower , 'region':r4.repertoirefr|lower}) }}" title="Hôtel{% if listClientGauche4|length > 1 %}s{% endif %} région {{ r4.nomfr }}">Hôtel{% if listClientGauche4|length > 1 %}s{% endif %} {{ r4.nomfr }}</a></h2>
+			         <ul>
+			         {% for qc in listClientGauche4 %}
+			           <li><a href="{{ path('_hebergementinfoclient',{'name':qc.repertoirefr|lower}) }}" target="_blank" title="Hôtel {{ qc.nomfr }}">{{ qc.nomfr }}</a> {% if qc.prixapartir is not empty %} <span>{{ "a.partir" | trans }} {{ qc.prixapartir|replace({"$":""}) }}$</span>{% endif %}</li>
+			         {% endfor %}
+			         </ul>
+			   <h4>[<a href="{{ path('_hebergementtyperegionfr',{'name':categorie.repertoire_fr|lower , 'region':r4.repertoirefr|lower}) }}" title="Hôtels région {{ r4.nomfr }}" >Voir les hôtels région {{ r4.nomfr }}</a>]</h4>
+			   {% else %}
+			   <h2><a href="{{ path('_hebergementtyperegionen',{'name':categorie.repertoire_en|lower , 'region':r4.repertoireen}) }}" title="Hotel{% if listClientGauche4|length > 1 %}s{% endif %} region {{ r4.nomen }}">Hotel{% if listClientGauche4|length > 1 %}s{% endif %} {{ r4.nomen }}</a></h2>
+			         <ul>
+			         {% for qc in listClientGauche4 %}
+			           <li><a href="{{ path('_hebergementinfoclienten',{'name':qc.repertoireen|lower}) }}" target="_blank" title="Hotel {{ qc.nomen }}">{{ qc.nomen }}</a> {% if qc.prixapartir is not empty %} <span>{{ "a.partir" | trans }} {{ qc.prixapartir|replace({"$":""}) }}$</span>{% endif %}</li>
+			         {% endfor %}
+			         </ul>
+			   <h4>[<a href="{{ path('_hebergementtyperegionen',{'name':categorie.repertoire_en|lower , 'region':r4.repertoireen|lower}) }}" title="Hotels region {{ r4.nomen }}" >Show hotels region {{ r4.nomen }}</a>]</h4>
+			   {% endif %}
+		  {% endfor %}
+		</div>
+	   <br class="clearfloat" />
+	 </div>
+{% endblock %}

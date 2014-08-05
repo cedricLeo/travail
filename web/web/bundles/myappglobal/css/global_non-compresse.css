@@ -1,0 +1,963 @@
+@charset "utf-8";
+
+/* CSS Document */ /* Information qu'on retrouve partout sur le site */
+.clearfloat {
+	clear: both;
+	height: 0;
+	font-size: 1px;
+	line-height: 0px;
+}
+
+body,h1,h2,h3,h4,h5,h6,p,form,fieldset,ul,li,select,input,dd,dt {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+:focus {
+	-moz-outline-style: none;
+}
+
+img {
+	behavior: url(pngHack/pngHack.htc);
+}
+
+body {
+	background-color: #dcdcdc;
+	margin: 0px;
+	/*background-image: url(../images/fond.jpg);*/
+	background-position: top;
+	background-repeat: repeat-x;
+}
+
+#global {
+	width: 1250px;
+	margin: 0px ;
+	position:relative;
+}
+
+#container {
+	width: 984px;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-bottom: 1px solid #000;
+	background-color: #FFF;
+	display: inline-block;
+	margin-left:10px;
+}
+
+.pagescolor {
+	background: #CCC !important;
+	font-weight: bold;
+}
+
+.invisible {
+	visibility: hidden;
+	display: none;
+	margin-top: 5px;
+}
+
+.visible {
+	visibility: visible;
+	display: block;
+	margin-top: 5px;
+}
+
+#entete {
+	background-image: url(../images/fond_entete.jpg);
+	background-repeat: repeat-x;
+	height: 124px;
+	width: 100%;
+	color: #FFF;
+	font-size: 14px;
+}
+
+#entete img {
+	float: right;
+        border:0px;
+}
+
+#entete img.imgreservation{
+	margin:20px 150px 0 0;
+        border:0px;
+}
+
+#entete img#logoblanc{float:left; border:0px;}
+
+#entete img.logoblanc{display:none; border:0px;}
+
+#entete div {
+	float: right;
+	width: 600px;
+	text-align: right;
+	padding-right: 12px;
+}
+
+#entete div a:link {
+	text-decoration: none;
+}
+
+#entete div a:visited {
+	text-decoration: none;
+}
+
+#entete div a:hover {
+	text-decoration: underline;
+}
+
+#entete div a:active {
+	text-decoration: none;
+}
+
+#entete p {
+	clear: left;
+	padding: 3px 0 0 12px;
+}
+
+#entete a {
+	text-decoration: none;
+	color: #FFF;
+}
+
+#entete a:link {
+	text-decoration: underline;
+}
+
+#entete a:visited {
+	text-decoration: underline;
+}
+
+#entete a:hover {
+	text-decoration: none;
+}
+
+#entete a:active {
+	text-decoration: underline;
+}
+
+#navhaut {
+	width: 100%;
+	height: 44px;
+	background-image: url(../images/navhaut.gif);
+	background-repeat: repeat-x;
+	vertical-align: bottom;
+	/*margin-top: -21px;*/
+	/font-size:11px;
+}
+
+#navhaut .inSection {
+	text-decoration: none;
+	color: #0073ae;
+	background-image: url(../images/navhautactive.gif);
+	background-position: top left;
+	padding:12px 7px;
+	font-weight: bold;
+}
+
+#navhaut li#inSection {
+	text-decoration: none;
+	color: #0073ae;
+	background-image: url(../images/navhautactive.gif);
+	background-position: top left;
+	padding:12px 0px;
+	font-weight: bold;
+}
+
+#navhaut li#inSection a{
+	color:#0073ae;	
+}
+
+#navhaut ul {
+	width: 100%;
+	height: 44px;
+}
+
+#navhaut li {
+	float: left;
+	list-style: none;
+	color: #000;
+	display: block;
+	border:none;
+	padding: 13px 0px;
+	/padding:10px 0px;
+}
+@-moz-document url-prefix()
+{
+    #navhaut li{padding:12px 0px;}
+}
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+    #navhaut li.menulinkenglishcss{padding:13px 0px;}
+    #navhaut li{padding:12px 0px;}
+}
+
+#navhaut li#inSection a{
+	/padding: 12px 3px;
+}
+
+#navhaut li a:link {
+	text-decoration: none;
+	color: #333;
+	border:none;
+	background-image: none;
+	padding: 12px 7px;
+	/padding:12px 5px;
+        /font-size:15px;
+}
+
+#navhaut li a:visited {
+	text-decoration: none;
+	color: #333;
+	border:none;
+	background-image: none;
+	padding: 12px 7px;
+}
+
+#navhaut li a:hover {
+	text-decoration: none;
+	color: #333;
+	border:none;
+	background-image: url(../images/navhautactive.gif);
+	background-position: top left;
+	padding: 13px 7px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#navhaut li a:hover {
+		padding: 12px 7px;
+		/padding: 12px 5px;
+	}
+	#navhaut li a:link {
+		padding: 12px 7px;
+		/padding: 12px 5px;
+	}
+	#navhaut li a:visited {
+		padding: 12px 7px;
+		/padding: 12px 5px;
+	}
+	#navhaut li a:active {
+		padding: 12px 7px;
+		/padding: 12px 5px;
+	}
+	#navhaut li#inSection {
+		padding: 12px 0px;
+	}
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	#navhaut li a.typoMenuEnglish:hover {
+		padding: 12px 5px;
+	}
+	#navhaut li a.typoMenuEnglish:link {
+		padding: 12px 5px;
+	}
+	#navhaut li a.typoMenuEnglish:visited {
+		padding: 12px 5px;
+	}
+	#navhaut li a.typoMenuEnglish:active {
+		padding: 12px 5px;
+	}
+	#navhaut li#inSection {
+		padding: 12px 0px;
+	}
+}
+#navhaut li a:active {
+	text-decoration: none;
+	color: #333;
+	border:none;
+	background-image: none;
+	padding: 12px 7px;
+	/padding: 12px 5px;
+}
+
+*+html #navhaut li a:hover {
+	text-decoration: none;
+	color: #333;
+	background-image: url(../images/navhautactive.gif);
+	background-position: top left;
+	/*padding: 12px 7px;*/
+	/padding:12px 5;
+}
+
+* html #navhaut li a:hover {
+	text-decoration: none;
+	color: #333;
+	background-image: url(../images/navhautactive.gif);
+	background-position: top left;
+	/*padding: 12px 7px;*/
+	/padding:12px 5;
+}
+/** Hack css pour les vieux ie **/
+#navhaut li a:hover {
+	/padding: 12px 5px;
+}
+#navhaut li a:link {
+	/padding: 12px 5px;
+}
+#navhaut li a:visited {
+	/padding: 12px 5px;
+}
+#navhaut li a:active {
+	/padding: 12px 5px;
+}
+#navhaut li.menulinkenglishcss a:link{padding:12px 5px; font-size:15px\9;}
+#navhaut li.menulinkenglishcss a:active{padding:12px 5px; font-size:15px\9;}
+#navhaut li.menulinkenglishcss a:visited{padding:12px 5px; font-size:15px\9;}
+#navhaut li.menulinkenglishcss a:hover{padding:13px 5px; font-size:15px\9; padding:11px 5px\9;}
+#navhaut li#insection a:hover{padding:12px 5px; font-size:15px\9; padding:12px 5px\9;}
+/*La liste c'est le fil d'arianne */
+#logogr {
+	margin:180px 0 0 12px;
+	/*height:110px;*/
+	zoom:1\9;
+}
+
+#logogr ul {
+	width: 100%;
+	height: 50px;
+	margin: 5px 0;
+}
+
+#logogr li {
+	float: left;
+	font-size: 13px;
+	color: #0073ae;
+	padding:0 10px 6px 0;
+	list-style: none;
+	font-weight: bold;
+}
+
+#logogr li a:link {
+	text-decoration: none;
+	color: #666;
+	font-weight: normal;
+}
+
+#logogr li a:visited {
+	text-decoration: none;
+	color: #666;
+	font-weight: normal;
+}
+
+#logogr li a:hover {
+	text-decoration: none;
+	color: #0073ae;
+	font-weight: normal;
+}
+
+#logogr li a:active {
+	text-decoration: none;
+	color: #666;
+	font-weight: normal;
+}
+
+#logogr img {
+	padding: 12px 0 10px 0;
+	width:181px;
+	height:81px;
+	border:0;
+	display:block\9;
+	overflow:hidden\9;
+}
+
+#logogr p {
+	clear: both;
+	font-size: 11px;
+	color: #999;
+	padding: 6px 0;
+}
+
+#logogr .pub {
+	float: left;
+	background-color: #dcdcdc;
+	padding: 6px;
+	width: 728px;
+	height: 90px;
+	float: right;
+	margin-right:15px;
+}
+
+#logogr .pub img {
+	padding: 0;
+}
+
+/*Css de la pub est dans contenu.css*/
+#sectionrecherche {
+	/*position: relative;*/
+	float: right;
+	margin-right:5px;
+	width: 351px;
+}
+
+#sectionrecherche h2 {
+	background-color: #0073ae;
+	color: #fff;
+	font-size: 12px;
+	display: inline;
+}
+
+#sectionrecherche p {
+	font-size: 13px;
+	padding-right:10px;
+}
+
+.btRechercheAvancee {
+	width: 103px;
+	height: 82px;
+	float: left;
+	margin: 0 10px 0 0;
+}
+
+a.btRechercheAvancee {
+	background-image: url(../images/RechercheAvancee.jpg);
+	display: block;
+	width: 103px;
+}
+
+a.btRechercheAvancee:hover {
+	background: url(../images/RechercheAvancee.jpg) 0 -82px
+}
+
+.btRechercheCarte {
+	width: 103px;
+	height: 82px;
+	float: left;
+	margin: 0 10px;
+}
+
+a.btRechercheCarte {
+	background-image: url(../images/RechercheCarte.jpg);
+	display: block;
+	width: 103px;
+}
+
+a.btRechercheCarte:hover {
+	background: url(../images/RechercheCarte.jpg) 0 -82px;
+}
+
+.btReservationEnLigne {
+	width: 103px;
+	height: 82px;
+	float: left;
+	margin: 0 0 0 10px;
+}
+
+a.btReservationEnLigne {
+	background-image: url(../images/ReservationEnLigne.jpg);
+	display: block;
+	width: 103px;
+}
+
+a.btReservationEnLigne:hover {
+	background: url(../images/ReservationEnLigne.jpg) 0 -82px;
+}
+
+.navRecherche li {
+	float: left;
+	list-style: none;
+	color: #fb9f3c;
+	font-size: 14px;
+	margin: 0 5px 0 0;
+	font-weight: bold;
+}
+
+.navRecherche li a:link {
+	text-decoration: none;
+	color: #333;
+	font-weight: normal;
+	font-size: 11px;
+}
+
+.navRecherche li a:visited {
+	text-decoration: none;
+	color: #333;
+	font-weight: normal;
+	font-size: 11px;
+}
+
+.navRecherche li a:hover {
+	text-decoration: underline;
+	color: #333;
+	font-weight: normal;
+	font-size: 11px;
+}
+
+.navRecherche li a:active {
+	text-decoration: none;
+	color: #333;
+	font-weight: normal;
+	font-size: 11px;
+}
+
+#recherche {
+	background-image: url(../images/fondRecherche.gif);
+	width: 351px;
+	height: 47px;
+	float: left;
+	background-repeat: no-repeat;
+	margin: 0 0 6px 0;
+	display: inline;
+}
+
+#recherche input {
+	border: #0073ae solid 1px;
+	margin: 12px 0px 0 12px;
+	float: left
+}
+
+.btRecherche {
+	width: 72px;
+	height: 20px;
+	float: right;
+	margin: 12px 12px 0 0;
+}
+
+a.btRecherche {
+	background-image: url(../images/btRecherche.png);
+	display: block;
+	width: 72px;
+}
+
+a.btRecherche:hover {
+	background: url(../images/btRecherche.png) 0 -20px
+}
+
+#pieddepage {
+        background: url(../images/ombrefooter.jpg) no-repeat top;
+	width: 984px;
+	margin: 0 0 0 10px;
+	font-size: 12px;
+}
+
+#pieddepage p {
+	clear: left;
+	float: left;
+	color: #333;
+	margin: 6px 0 0 6px;
+}
+
+#pieddepage ul {
+	margin-left: 5px;
+}
+
+#pieddepage li {
+	float: left;
+	list-style: none;
+	color: #000;
+	display: block;
+	padding: 6px 0 0 6px;
+	margin-left:-5px;
+}
+
+#pieddepage li a:link {
+	text-decoration: none;
+	color: #333;
+}
+
+#pieddepage li a:visited {
+	text-decoration: none;
+	color: #333;
+}
+
+#pieddepage li a:hover {
+	text-decoration: underline;
+	color: #333;
+}
+
+#pieddepage li a:active {
+	text-decoration: none;
+	color: #333;
+}
+
+#pieddepage img {
+	float: right;
+	margin: 6px 6px 0 0;
+}
+
+#colgauche {
+	width: 300px;
+	float: left;
+	margin: 0 0 12px 12px;
+}
+
+#navhaut ul li a.inSection{
+	color: #0073AE;
+}
+
+#global #gauche #google_api{
+	width:315px;
+	height:413px;	
+	background:url(../images/background_google_api_02.gif) repeat;
+	overflow:hidden;
+	margin:0;
+	padding:0;
+}
+#global #gauche #google_api .map_google_api{
+	width:295px;
+	height:195px;
+	margin:15px 10px;
+	border:1px solid red;
+}
+
+#global #container #gauche .header_google_api h2{
+	color:#0073AE;
+	font-size:19px;
+	text-align:left;
+	padding:6px 0 0 10px;
+	font-weight:400;
+}
+#global #gauche #google_api form input.btn_search_google{
+	background:url(../images/btn_search_03.png) no-repeat;
+	width:73px;
+	height:20px;
+	border:none;
+	cursor:pointer;
+	display:block;
+	float:left;
+	margin:5px 0 0 30px;
+}
+#gauche .map_interactive{
+	cursor:pointer;
+}
+#gauche form.search_google  div{
+	width:130px;
+	float:left;
+}
+#gauche form.search_google  label{
+	font-size:12px;
+	font-weight:700;
+	font-family: Arial, Helvetica, sans-serif;
+	display:block;
+	float:left;
+	padding-left:5px;
+}
+#gauche form.search_google  select{
+	float:left;
+	width:140px;
+	margin:2px 5px 15px 10px;
+	font-size:12px;
+}
+#gauche form.search_google input[type="radio"]{
+	margin:5px 0 0 10px;
+	float:left;
+}
+#gauche form.search_google .map_province{
+	width:140px;
+	margin:0 0 0 5px;
+	padding:0;
+}
+#gauche form.search_google .map_region{
+	width:140px;
+	float:right;
+	margin:0 12px 0 0;
+	padding:0;
+}
+#gauche form.search_google .map_hebergement, #gauche form.search_google .map_forfait, #gauche form.search_google .map_corpo, #gauche form.search_google .map_centre,
+#gauche form.search_google .map_attrait, #gauche form.search_google .map_destination, #gauche form.search_google .map_restaurant{
+	width:130px;
+	margin:4px 0 0 0;
+}
+#gauche form.search_google .map_centre{
+	width:150px;
+}
+img.logo{max-width:200px; /*height:137px;*/ font-size:12px; }
+.parent_li{
+	text-decoration: none;
+	color: white;
+	border-bottom: 1px dotted gainsboro;
+	background-color: #FB9F3C;
+	text-transform: uppercase;
+}
+.typoMenuEnglish{font-size:15.5px; font-family: sans-serif;}
+@-moz-document url-prefix()
+{
+   .typoMenuEnglish{font-size:16px; font-family: sans-serif; padding: 13px 5px !important;}
+}
+.menuBottom{
+	width:984px;
+	margin:0 auto;
+	float:left;
+	background-color: gray;
+	border:1px solid black;
+	border-top:none;
+}
+.menuBottom div{width:328px; float:left;}
+li.colonnesfooter a{color:white !important;}
+.listeOntario{float:left; margin-bottom:15px;}
+.listeNewBrunswick{margin-top:25px;}
+.menuBottom p.copyrightGlobal{width:984px; text-align:center; padding:15px 0; color:white !important;}
+#pieddepage li{padding: 0px;}
+img.big_picture{width:594px; height:328px;}
+img.promotion{width:187px; height:136px;}
+input[type="text"].input_appel_offre{width:180px;/* height:15px;*/}
+textarea.text_appel_offre{max-width:630px; min-width:630px;}
+select#add_appel_offre_salle_corporative_hebergement_id{width:350px;}
+img.corpothumbnail{width:80px; height:80px;}
+.entete_footer{margin:15px 120px 10px 15px; font-weight:600; color:#CACACA !important;}
+li.colonnesfooter{clear:both; padding:1px 15px !important;}
+li.entete_colonne_droite_footer{margin-top:30px;}
+.imprimerItineraire{background-color:none !important;}
+#moteur_recherche_portail_nom{width:220px; height:20px;}
+.img_categoie_portail{width:154px; height:105px;}
+img.ph{width:187px; height:137px;}
+img.img_liste_forfait{width:154px; height:105px; border:1px solid silver !important;}
+img.thumbnailCorpo{width:80px; height:80px;}
+a.linkPagination{margin-left:15px !important; font-size:15px; text-decoration:none !important; color: #0073AE !important;}
+h1.contacteznous{font-size:20px; margin-bottom:10px;}
+h2.contacteznous{font-size:15px; text-decoration:underline; margin: 15px 0;}
+img.logo_affiliation_client{max-width: 100px !important; min-width:100px !impotant; max-height:60px;}
+.pubGoogleBottom{ margin:25px auto 0 auto; }
+label.lbldemandeinformationradiosallehebergement{display:inline; margin-right:40px;}
+input[type="radio"].radiosallehebergement{display:inline; margin-right:48px;}
+.arrierePlanBleu{background-color: #0073ae; color:white; width:560px; height:45px; margin:25px auto 15px; font-weight:bold; font-size:40px; }
+.arrierePlanBleu span{font-size:13px}
+h2.titleDemandeInformation{margin-bottom:15px !important;}
+label.modifmarginsalle{margin-left:25px;}
+label.lblrenseignementpersonnel{display:block; width:110px; float:left; margin:10px 0 0 25px;}
+input[type="text"].input_renseignement_personnel{display:block; float:left; width:150px; margin-right:10px; margin-top:10px;}
+.renseignementHebergement{float:left !important; margin-left:20px;}
+label.lblselectrenseignementhebergement{float:left;}
+select.selectrenseignementhebergement{float:left; margin:0 50px 0 10px;}
+label.lblradiorenseignementhebergement, input[type="radio"].radiorenseignementhebergement{float:left;}
+label.lblradiorenseignementhebergement{ margin:0 0 10px 0; display:block; width:100px;}
+input[type="checkbox"].radiogauche{margin-right:60px; float:left;}
+input[type="checkbox"].radiodroit{margin-right:30px; float:right;}
+label.lblradioajustemarginleft{margin-left:258px;}
+label.lbltextarearenseignementhebergement{float:left;}
+textarea.textarearenseignementhebergement{min-width:450px; max-width:560px; min-height:60px; max-height:300px; margin-left:25px;}
+form.renseignements_coorporatif label{font-size:13px;}
+select.selectrenseignementsalle{float:left; margin:10px 280px 0 0; }
+input[type="submit"].submit_demandeinfo_corpo{padding:5px 10px; display:block; margin:15px auto ;}
+label.lblrenseignementsalle{display:block; float:left; margin-top:10px; margin-right:20px;}
+input[type="text"].input_renseignement_salle{
+	display: block;
+	float: left;
+	width: 150px;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+input[type="text"].ajusteinputrenseignementsalle{width:50px;}
+label.lbltextarearenseignementsalle{
+	display: block;
+	float: left;
+	margin: 10px 0 10px 25px;
+}
+p.confirm_msg{text-align:center; font-weight:bold; font-size:18px !important; margin:25px 0;}
+/*.hackReservation{margin-top:-20px;}*/
+a.link_contact{color:#0073ae;}
+.tel span.aucunFrais, .confirmationreponseDemandeInfo span.aucunFrais{font-weight:600;}
+.confirmationreponseDemandeInfo{margin:15px 0 0 10px;}
+.confirmationreponseDemandeInfo span.ajusteHauteur{line-height:25px;}
+.descriptionReservationminisite p{margin:10px 0 0 10px;}
+.zipcodehidden{display:none;}
+span.asterisquerequired{color:red; padding-left:5px; position:relative; top:5px;}
+.pubGoogleAttrait{margin-bottom: 25px;}
+.styleBigBox{margin:15px 5px !important;}
+.agranditprix{font-size:16px;}
+.bigBox{margin:15px 0 15px 5px !important;}
+div#zone_01 {width:468px; height:60px; margin:15px auto 25px auto; z-index:1000;}
+div#zone_02 {width:300px; height:250px; /*margin-bottom:25px;*/ margin:0 0 25px 25px;}
+input[type="text"]#add_demande_global_reservation_captcha, input[type="text"]#add_demande_information_captcha{margin:0 auto 25px auto; display:block;}
+form.renseignements_coorporatif img{margin:15px auto; display:block;}
+p.hackopinion{padding-top:45px;}
+div.hackopinion{margin-bottom:30px !important;}
+.taxeQc{margin-bottom:15px !important;}
+.ajuste_div_home span img{width:80px; height:80px;}
+.hackPub{float:left; margin:0 89px 25px 89px !important;}
+#droit .colonnes4 div h2.numberHotelListBottom {text-align:left;}
+#droit .colonnes4 div h2.numberHotelListBottom a{color:#0073ae;}
+.ajustepub1{float:left; margin:0 89px 25px 89px;}
+ul.paginationHebergement{text-align:right;}
+#navhaut nav ul li a.promotionVisible{color:red;}
+.listepromotion{width:100% !important; /*height:140px !important;*/ }
+.listepromotion img{float:left;}
+.listepromotion h2{float:left; margin:0px 0px 15px 20px; display:block; width:420px; text-align:left !important;}
+.listepromotion h2 a{font-size:14px; color:#0073ae !important; }
+.listepromotion p{float:left; margin:0 0 0 20px; font-size:12px !important;}
+.listepromotion p a{color:#0073ae !important;}
+select#select, select#add_appel_offre_province_id, select#selectVille, select#selectRegion{width:200px;}
+#add_appel_offre_type_chambre{width:350px; height:75px; float:right;}
+#add_appel_offre_type_chambre label{float:left; display:block; width:145px; padding-left:10px; margin-bottom:20px;}
+#add_appel_offre_type_chambre input[type="radio"]{float:left; display:block; width:15px;}
+/*.partage{ width:400px; height:100%; float:right;}*/
+/*.containerpubtop{width:728px; height:200px; background-color:white;}*/
+.partage form#grpaidbooking_form select.reservationpays, select#formtopprovince, select#formtopregion, select#formtopville {width:200px; float:left; margin:5px 20px 5px 5px;}
+.partage form#grpaidbooking_form select#formtopregion, select#jourReservation, select#moisReservation, select#anneeReservation, select#nombrenuit{float:left;}
+.partage form#grpaidbooking_form label{font-size:14px; float:left; margin: 5px; width:100%;}
+.partage form#grpaidbooking_form select#anneeReservation{margin:5px 0px 5px 5px;}
+.partage form#grpaidbooking_form select#jourReservation, select#moisReservation, select#nombrenuit{ margin:5px 0px 5px 5px;}
+label.nombrenuit{position:relative; left:0px;}
+/*.containerpubtop input[type="button"], .containerpubtop input[type="submit"]{margin:20px 0px 0px 8px;}*/
+.imgquebecensaison{width:240px; height:180px; border-radius:10px 10px 0 0; border:none\9;}
+img.formtopprovince, img.formtopregion{float:right; }
+#grpaidbooking_form input[type="button"]{margin:0 10px 0 5px; padding:2px 5px;}
+#grpaidbooking_form input[type="submit"], .update_state_form input[type="submit"] {margin:0 ; padding:2px 5px;}
+.ajustehauteurpub{margin-top:20px !important;}
+form.update_state_form input[type="text"]{border-radius:5px; margin-bottom:40px;}
+form.update_state_form input[type="submit"]{border-radius:5px; /*float:left;*/}
+label.radiocorpoenglish{margin-right:30px;}
+form#appeloffrecorpo input[type="submit"]{padding:5px; border-radius:10px;}
+h4.titreForfaitMiniSite{font-weight:bold; margin:20px 0!important; color:black!important;}
+/*#entete, #navhaut, #logogr{position:fixed; top:0px;}*/
+#slidercontent{ position:fixed; width:984px; background-color:white; z-index:3;}
+#bodycontent{ margin-top:0px;}
+#reservationexterne{position:fixed; margin:20px 0 0 1010px; border:1px solid black; border-radius: 0 0 10px 10px; width:240px; background-color:white;}
+.partage form#grpaidbooking_form a#searchadvanced{margin:5px 5px 20px 5px; float:left; padding: 5px 7px; clear: left;}
+.partage form#grpaidbooking_form select#nombrenuit{margin-right:100%;}
+p.textedirectionperso, div.textedirectionperso{border:2px solid silver; padding:10px; margin-bottom:5px;}
+.reservationglobal img{float:left; margin:0 5px 15px 5px}
+.reservationglobal p{ 
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    float:left;
+}
+p.hacktelInternational{
+    margin-bottom:20px;
+}
+#reservationexterne a{color:black;}
+.titlereservation{background-color: #0073AE; color: #FFFFFF; font-weight:bold; margin-top:-10px; padding-top:8px;}
+.titlereservation p{margin-left:5px;}
+#navhaut li{font-size:15px\9;}
+#coresphere_consolebundle_console{position:fixed; z-index:1000; margin:150px; width:1000px; }
+#coresphere_consolebundle_console .console_log_container, #coresphere_consolebundle_console .console_prompt .console_input {font-size:14px;}
+.imgRemplacementGlobal{height:325px; width:592px; background-color:white; margin:5px;}
+.imgRemplacementGlobal img{margin:122px 205px !important; background:no-repeat; width:181px; height:81px;}
+.ajusteHauteurMinisite{position:relative !important; top:5px !important;}
+/* Ajuste le design automatiquement */
+@media only screen and (min-width: 1280px) and (max-width: 4000px) {
+        #global{
+            width:1250px;
+            margin:0 auto;
+        }
+	#container{
+            width:984px; 
+            margin:0px auto; 
+	}
+        #pieddepage{
+            width:1250px;
+            margin:0 auto;
+        }
+}
+img.thumbnailmodepaiement{width:23px; height:20px;}
+a.linkversionmobile{text-decoration:none !important; position:relative; top:85px; float:right;}
+h2.ajustewidthTitle{
+    display:block !important;
+    width:350px !important;
+}
+.hackbtn{
+    margin:-5px 0px 0 0;
+}
+a.linkVMobile{
+    /*text-decoration:none;*/
+    font-size:14px;
+    float:right;
+    margin: 10px 20px 0 0;
+}
+p.ajusteLargeurText, h2.correctionLargeurH2{
+    width:420px;
+}
+.ui-corner-all{ font-size:14px;}
+img.drapeau_traduction{
+    width:32px;
+    height:32px;
+    margin: 0 -5px 0 5px !important;
+    border:0px;
+}
+.hackImgMain{
+    height:20px;
+}
+.fluxrss{
+    float:right;
+}
+.partage form#grpaidbooking_form a#submitReservit{
+    border-radius: 5px;
+    background-color: #E73E01;
+    color: #FFFFFF;
+    font-weight:bold;
+    margin:15px 5px 0px 5px;
+    padding: 5px 7px;
+    float:left;
+    text-decoration: none;
+}
+.partage form#grpaidbooking_form a#submitReservitGeneral{
+    border-radius: 5px;
+    background-color: grey;
+    color: white;
+    font-weight:bold;
+    margin:10px 5px 10px 5px;
+    padding: 5px 7px;
+    float:left;
+    text-decoration: none;
+}
+.reservationglobal{
+    float:left;
+}
+p.tarifForfait{    
+    font-size:14px !important;
+    font-weight:bold;
+    color:#E73E01;
+}
+.listeEtablissement{
+    max-width:390px; 
+    min-width:390px; 
+    min-height:150px; 
+    max-height:400px;
+    margin-right:20px;
+}
+#appeloffrecorpo table{
+    width:100%;
+}
+.agranditprix p{font-size:16px !important; color:black !important;}
+.agranditprix p span.microdata{
+    background: none!important;
+    width: 86px!important;
+    font-size:16px !important; 
+    color:black !important;
+    float:none !important;
+    text-align: center !important;
+}
+.styleMeteo{
+    display:block;
+    margin-top:25px;
+}
+.microdataVille{color:black !important; font-weight:bold !important;}
+#sectionrecherche a{
+    color:#0073ae;
+}
+.colonneDroiteMinisitepromotion img{
+    width:350px !important;
+}
+.legendeAccueil{
+    font-size: 20px;
+    float: right;
+    margin-right: 20px;
+    clear:none !important;
+    padding: 0 !important;
+}
+.legendeAccueilen{
+    font-size: 20px;
+    float: right;
+    margin-right: 105px;
+    clear:none !important;
+    padding: 0 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

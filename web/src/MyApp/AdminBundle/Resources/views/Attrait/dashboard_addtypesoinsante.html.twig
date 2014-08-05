@@ -1,0 +1,63 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist == "false" %}
+	<h1>Ajouter un type de soin</h1>
+{% else %}
+	<h1>Modifier le type de soin « {{ infonom }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist == "true" %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer un service">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une province"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimez le type de soin {{ infonom }} ?</p>
+						<a href="{{ path('_Dashboard_deleteattraitsoins', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler retouchBtnCancel"></a>
+				    </div>	
+				    {% endif %}					
+				    {{ form_label(form.nom_fr, "Nom fr", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom en", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+                                    {{ form_label(form.repertoire_fr, "Répertoire fr", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.repertoire_en, "Répertoire en", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.repertoire_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.metakeyword_fr, "Metakeyword FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.metakeyword_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.metakeyword_en, "Metakeyword EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.metakeyword_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.metadescription_fr, "Metadescription FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.metadescription_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p>&nbsp;</p>
+				    {{ form_label(form.metadescription_en, "Metadescription EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.metadescription_en, {'attr':{'class':'txt_add_state'}}) }}
+				    <p>&nbsp;</p>
+				    {{ form_label(form.texte_fr, "Texte FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_fr, {'attr':{'class':'txt_add_state'}}) }}
+					<p>&nbsp;</p>
+				    {{ form_label(form.texte_en, "Texte EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_en, {'attr':{'class':'txt_add_state'}}) }}
+					<p>&nbsp;</p>
+				    {{ form_label(form.resume_fr, "Resume FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.resume_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p>&nbsp;</p>
+				    {{ form_label(form.resume_en, "Resume EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.resume_en, {'attr':{'class':'txt_add_state'}}) }}
+				    <p>&nbsp;</p>
+				    {{ form_label(form.image_doctrine, "Image", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+				    {% if exist == "true" %}
+				   	 	<img src="{{ asset('uploads/type_soin')}}/{{infoid}}/{{ infoimg }}" style="width:240px; height:160px; position:relative; left:600px; top:-40px;" />
+				    {% endif %}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_attraitsoins') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

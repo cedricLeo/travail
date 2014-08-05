@@ -1,0 +1,40 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist is defined %}
+	<h1>Ajouter des photos pour les attraits</h1>
+{% else %}
+	<h1>Modifier les photos des attraits</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist is not defined %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une photo">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une photo"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimez la photo {{ infoimg }} ?</p>
+						<a href="{{ path('_Dashboard_deleteattraitphotos', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler retouchBtnCancel"></a>
+				    </div>	
+				    {% endif %}		
+				    {{ form_label(form.attraitsId, "Attraits", {'attr':{'class':'lblnompays'}}) }}	
+				    {{ form_widget(form.attraitsId, {'attr':{'class':'txt_add_state'}}) }}		
+				    <p class="resize_p_form">&nbsp;</p>		
+				    {{ form_label(form.image1, "Image ", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image1, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.legende1_fr, "Légende FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.legende1_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.legende1_en, "Légende EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.legende1_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {% if infoimg is defined %}
+				   	 	<img src="{{ asset('uploads/attrait_photo') }}/{{ infoid }}/{{ infoimg }}" style="width:275px; height:183px; margin-left:350px;"/>
+				    {% endif %}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_attraitphotos') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

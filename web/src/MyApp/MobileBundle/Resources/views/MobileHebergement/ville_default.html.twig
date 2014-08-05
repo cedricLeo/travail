@@ -1,0 +1,112 @@
+{% extends "::base_mobile.html.twig" %}
+
+{% block body %}
+    {# {% include 'MyAppMobileBundle:MobileHebergement:Formulaire_reservation_en_ligne.html.twig' %} #}
+    <div id="menu">
+        {% if app.request.locale == "fr" %} 
+            <select id="idprovince" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+                {% for p in listeProvince %}          
+                <option id="{{ p.repertoire_fr|lower }}" value="{{ p.id }}">{{ p.nom_fr }}</option>
+                {% endfor %}
+            </select>
+        {% else %}
+            <select id="idprovince" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+                {% for p in listeProvince %}          
+                <option id="{{ p.repertoire_en|lower }}" value="{{ p.id }}">{{ p.nom_en }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+    </div>
+    {% include 'MyAppMobileBundle:MobileHebergement:region.js.twig' %}
+    {% include 'MyAppMobileBundle:MobileHebergement:ville.js.twig' %}
+    {% include 'MyAppMobileBundle:MobileHebergement:provinceListe.js.twig' %}
+    <p><a href="{{ path('MyAppMobileBundle_hebergement_resultat_canada') }}" id="recherche">{{ "rechercher" | trans }}</a></p>
+    {% if app.request.locale == "fr" %} 
+        <div class="linkNavigation linkNavigationTop">
+            {% if page > 1 %}
+            <a href="{{ path('MyAppMobileBundle_hebergement_resultat_ville_ajax',{'id':repertoire|lower, "page":page-1 }) }}" ><img src="{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}" alt="page précedente" /></a>
+            {% endif %}
+            {% if page < total %}
+            <a href="{{ path('MyAppMobileBundle_hebergement_resultat_ville_ajax',{'id':repertoire|lower, "page":page+1 }) }}" ><img src="{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}" alt="page suivante" /></a>
+            {% endif %}
+        </div>
+        <div id="resultat">
+            {% if listeResultat is defined %} 
+                {% for w in listeResultat %}
+                    <div>
+                        <h2>{{ w.nom_fr }}</h2>
+                        <p>{{ w.texte_description_fr|truncate(200, '[...]')|striptags|raw }}</p>                        
+                        <p>Ville: {{w.ville}}</p>
+                        {% if w.prix_a_partir is not empty %}
+                        <p>{{ "tarif.a.partir" | trans }} {{ w.prix_a_partir|replace("%$%", "") }} $</p>
+                        {% endif %}
+                        <img src="{{ asset('uploads/classifications/') }}{{ w.classification }}/{{ w.image }}" alt="{{ w.valeur }}" />
+                        <p><a href="{{ path('mobile_generic_detail',{"section": section, 'id':w.repertoire_fr|lower}) }}" title="Hébergement {{ w.nom_fr }}" target="_blank">En savoir plus</a></p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="linkNavigation">
+            {% if page > 1 %}
+            <a href="{{ path('MyAppMobileBundle_hebergement_resultat_ville_ajax',{'id':repertoire|lower, "page":page-1 }) }}" ><img src="{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}" alt="page précedente" /></a>
+            {% endif %}
+            {% if page < total %}
+            <a href="{{ path('MyAppMobileBundle_hebergement_resultat_ville_ajax',{'id':repertoire|lower, "page":page+1 }) }}" ><img src="{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}" alt="page suivante" /></a>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="linkNavigation linkNavigationTop">
+            {% if page > 1 %}
+            <a href="{{ path('MyAppMobileBundle_hebergement_resultat_ville_ajax',{'id':repertoire|lower, "page":page-1 }) }}" ><img src="{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}" alt="prev" /></a>
+            {% endif %}
+            {% if page < total %}
+            <a href="{{ path('MyAppMobileBundle_hebergement_resultat_ville_ajax',{'id':repertoire|lower, "page":page+1 }) }}" ><img src="{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}" alt="next" /></a>
+            {% endif %}
+        </div>
+        <div id="resultat">
+            {% if listeResultat is defined %} 
+                {% for w in listeResultat %}
+                    <div>
+                        <h2>{{ w.nom_en }}</h2>
+                        <p>{{ w.texte_description_en|striptags|truncate(200, '[...]')|raw }}</p>
+                        <p>City: {{w.ville}}</p>
+                         {% if w.prix_a_partir is not empty %}
+                        <p>{{ "tarif.a.partir" | trans }} {{ w.prix_a_partir|replace("%$%", "") }} $</p>
+                        {% endif %}
+                        <img src="{{ asset('uploads/classifications/') }}{{ w.classification }}/{{ w.image }}" alt="{{ w.valeur }}" />
+                        <p><a href="{{ path('mobile_generic_detail',{"section": section, 'id':w.repertoire_en|lower}) }}" title="Accommodation {{ w.nom_en }}" target="_blank">Learn more</a></p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="linkNavigation">
+            {% if page > 1 %}
+            <a href="{{ path('MyAppMobileBundle_hebergement_resultat_ville_ajax',{'id':repertoire|lower, "page":page-1 }) }}" ><img src="{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}" alt="prev" /></a>
+            {% endif %}
+            {% if page < total %}
+            <a href="{{ path('MyAppMobileBundle_hebergement_resultat_ville_ajax',{'id':repertoire|lower, "page":page+1 }) }}" ><img src="{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}" alt="next" /></a>
+            {% endif %}
+        </div>
+    {% endif %}
+    <script>
+        
+        $(function(){
+            //redonne le selected au bon option de la province            
+            if(localStorage.getItem("idProvince") == localStorage.getItem("idProvince"))
+            {
+                $("#idprovince option[value="+localStorage.getItem('idProvince')+"]").attr("selected", "selected");                                
+            }    
+            //redonne le selected au bon option de la région          
+            if(localStorage.getItem("idRegion") == localStorage.getItem("idRegion"))
+            {
+                $("#idregion option[value="+localStorage.getItem('idRegion')+"]").attr("selected", "selected");                                
+            }      
+            //redonne le selected au bon option de la ville           
+            if(localStorage.getItem("idVille") == localStorage.getItem("idVille"))
+            {
+                $("#idville option[value="+localStorage.getItem('idVille')+"]").attr("selected", "selected");                                
+            }      
+        });
+    </script>
+{% endblock %}
+{# empty Twig template #}

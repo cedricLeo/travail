@@ -1,0 +1,402 @@
+{% extends '::base2.html.twig'%}
+	
+		{% block picture %}	
+			{% if app.request.locale == "fr" %}	
+				<p class="legendeHome">{{ "forfait.singulier" | trans |lower }} {{ clientAleatoire.forfaitclientid.nomfr|lower }} région {{ clientAleatoire.hebergementid.regionid.nomfr }} </p>
+				{# div qui va contenir la photo principal du sujet de la section #}
+				<div id="photoprincipale">
+					<div class="nomSousCategorie">
+						<h1>{{ "forfait.singulier" | trans |lower }} {{ clientAleatoire.forfaitclientid.nomfr|lower }} région {{ clientAleatoire.hebergementid.regionid.nomfr }}</h1>
+						<h3><a href="{{ path('_hebergementforfait',{'name': clientAleatoire.hebergementid.repertoirefr|lower } ) }}" target="_blank" title="Forfait {{ clientAleatoire.forfaitclientid.nomfr }} ville {{ clientAleatoire.hebergementid.villeid.nomfr }} {{ clientAleatoire.hebergementid.nomfr }}">{{ clientAleatoire.nomfr }}, {{ clientAleatoire.hebergementid.nomfr }} ville {{ clientAleatoire.hebergementid.villeid.nomfr }}</a></h3>
+					</div>
+					{% if clientAleatoire.imageprincipale is not empty %}
+				  		<img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.imageprincipale }}" class="big_picture" alt="Forfait {{ clientAleatoire.forfaitclientid.nomfr }} - {{ clientAleatoire.nomfr }}" />
+					{% else %}
+						<img src="{{ asset('uploads/forfaits/images_') }}{{ style }}/{{ imgRandom }}" class="big_picture" alt="Forfait {{ clientAleatoire.forfaitclientid.nomfr }} {{ clientAleatoire.hebergementid.nomfr }}">
+					{% endif %}
+				</div>	
+			{% else %}
+				<p class="legendeHome">{{ "forfait" | trans }}, {{ clientAleatoire.forfaitclientid.nomen|lower }} region {{ clientAleatoire.hebergementid.regionid.nomen }}</p>
+				{# div qui va contenir la photo principal du sujet de la section #}
+				<div id="photoprincipale">
+					<div class="nomSousCategorie">
+						<h1>{{ "forfait.singulier" | trans |lower }} {{ clientAleatoire.forfaitclientid.nomen|lower }} region {{ clientAleatoire.hebergementid.regionid.nomen }}</h1>
+						<h3><a href="{{ path('_hebergementforfaiten',{'name': clientAleatoire.hebergementid.repertoireen|lower } ) }}" target="_blank" title="Package {{ clientAleatoire.forfaitclientid.nomen }} city {{ clientAleatoire.hebergementid.villeid.nomen }} {{ clientAleatoire.hebergementid.nomen }}">{{ clientAleatoire.nomen }}, {{ clientAleatoire.hebergementid.nomen }} city {{ clientAleatoire.hebergementid.villeid.nomen }}</a></h3>
+					</div>
+					{% if clientAleatoire.imageprincipale is not empty %}
+			  	  		<img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.imageprincipale }}" class="big_picture" alt="Package {{ clientAleatoire.forfaitclientid.nomen }} - {{ clientAleatoire.nomen }}" />
+					{% else %}
+						<img src="{{ asset('uploads/forfaits/images_') }}{{ style }}/{{ imgRandom }}" class="big_picture" alt="Replacement image for {{ clientAleatoire.hebergementid.nomen }} ">
+					{% endif %}
+				</div>	
+			{% endif %}		
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+                    {% if app.request.locale == "fr" %}
+                        <p>{{ texte_accueilfr|striptags|nl2br }}</p>
+                    {% else %}	
+                        <p>{{ texte_accueilen|striptags|nl2br }}</p>
+                    {% endif %}
+		{% endblock %}
+		
+		{% block body %} 
+			  <div>
+			    <div class="colonnes4">
+			    {% if app.request.locale == "fr" %}
+			      <h4>Nos suggestions - {{ "forfait.singulier" | trans |lower }} {{ clientAleatoire.forfaitclientid.nomfr|lower }} région {{ clientAleatoire.hebergementid.regionid.nomfr }}</h4>
+				      {% for p in listeSuggestion %} 
+					      <div> 
+                                                  <a href="{{ path('_hebergementforfait',{'name':p.hebergementid.repertoirefr}) }}" target="_blank" title="Forfait {{ p.forfaitclientid.nomfr }} ville {{ p.hebergementid.villeid.nomfr }} {{ p.hebergementid.nomfr }}">
+                                                    {% if p.imageprincipale is not empty %}  
+                                                        <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ p.id }}/{{ p.imageprincipale }}" alt="{{ p.forfaitclientid.nomfr }} {{ p.hebergementid.villeid.nomfr }}" class="img_categoie_portail" />
+                                                    {% else %}
+                                                         {% if loop.index == 1 %}
+                                                         <img src="{{ asset('uploads/forfaits/images_') }}{{p.forfaitclientid.id }}/{{ imageColBas1 }}" alt="Forfaits {{ p.forfaitclientid.nomfr }} {{ p.hebergementid.nomfr }}" class="img_categoie_portail" />
+                                                         {% elseif loop.index == 2 %}
+                                                         <img src="{{ asset('uploads/forfaits/images_') }}{{p.forfaitclientid.id }}/{{ imageColBas2 }}" alt="Forfaits {{ p.forfaitclientid.nomfr }} {{ p.hebergementid.nomfr }}" class="img_categoie_portail" />
+                                                         {% elseif loop.index == 3 %}
+                                                         <img src="{{ asset('uploads/forfaits/images_') }}{{p.forfaitclientid.id }}/{{ imageColBas3 }}" alt="Forfaits {{ p.forfaitclientid.nomfr }} {{ p.hebergementid.nomfr }}" class="img_categoie_portail" />
+                                                         {% elseif loop.index == 4 %}
+                                                         <img src="{{ asset('uploads/forfaits/images_') }}{{p.forfaitclientid.id }}/{{ imageColBas4 }}" alt="Forfaits {{ p.forfaitclientid.nomfr }} {{ p.hebergementid.nomfr }}" class="img_categoie_portail" />
+                                                         {% endif %}
+                                                    {% endif %}                                                  
+                                                  </a>
+					        <div>
+					        <h3><a href="{{ path('_hebergementforfait',{'name':p.hebergementid.repertoirefr}) }}" target="_blank" title="Forfait {{ p.forfaitclientid.nomfr }} ville {{ p.hebergementid.villeid.nomfr }} {{ p.hebergementid.nomfr }}" >{{ p.nomfr }}</a></h3>
+					        <p style="font-weight:bold;">{{ p.hebergementid.nomfr }}</p> 
+					        <p>Ville de {{ p.hebergementid.villeid.nomfr }}</p>
+					        <p>Forfait à partir de : {{ p.tarif }} </p> 
+							<p>Période de validité : <br />
+							 {{ p.datedebut|date('d') }} 
+								 {# On convertie les mois en fançais #}
+								 {% if p.datedebut|date('m') == '01' %} jan
+								 {% elseif p.datedebut|date('m') == '02' %} fév
+								 {% elseif p.datedebut|date('m') == '03' %} mars
+								 {% elseif p.datedebut|date('m') == '04' %} avr
+								 {% elseif p.datedebut|date('m') == '05' %} mai
+								 {% elseif p.datedebut|date('m') == '06' %} juin
+								 {% elseif p.datedebut|date('m') == '07' %} juil
+								 {% elseif p.datedebut|date('m') == '08' %} août
+								 {% elseif p.datedebut|date('m') == '09' %} sep
+								 {% elseif p.datedebut|date('m') == '10' %} oct
+								 {% elseif p.datedebut|date('m') == '11' %} nov
+								 {% else %}déc
+								 {% endif %} 
+								 {{ p.datedebut|date('Y') }} -
+								 {{ p.datedefin|date('d') }} 
+								 {# On convertie les mois en fançais #}
+								 {% if p.datedefin|date('m') == '01' %} jan 
+								 {% elseif p.datedefin|date('m') == '02' %} fév
+								 {% elseif p.datedefin|date('m') == '03' %} mars
+								 {% elseif p.datedefin|date('m') == '04' %} avr
+								 {% elseif p.datedefin|date('m') == '05' %} mai
+								 {% elseif p.datedefin|date('m') == '06' %} juin
+								 {% elseif p.datedefin|date('m') == '07' %} juil
+								 {% elseif p.datedefin|date('m') == '08' %} août
+								 {% elseif p.datedefin|date('m') == '09' %} sep
+								 {% elseif p.datedefin|date('m') == '10' %} oct
+								 {% elseif p.datedefin|date('m') == '11' %} nov
+								 {% else %}déc
+								 {% endif %} 
+								 {{ p.datedefin|date('Y') }}
+					        </div> 
+					        <h2><a href="{{ path('_hebergementforfait',{'name':p.hebergementid.repertoirefr}) }}" title="Forfait {{ p.forfaitclientid.nomfr }} {{ p.hebergementid.nomfr }} ville {{ p.hebergementid.villeid.nomfr }} " target="_blank">Plus d'info sur le forfait</a></h2>
+					      </div>
+				      {% endfor %}
+			    {% else %}
+			       <h4>Our suggestions - {{ "forfait.singulier" | trans |lower }} {{ clientAleatoire.forfaitclientid.nomen|lower }}</h4>
+			    	 {% for p in listeSuggestion %}
+					      <div> 
+                                                  <a href="{{ path('_hebergementforfait',{'name':p.hebergementid.repertoireen}) }}" target="_blank" title="Package {{ p.forfaitclientid.nomen }} city {{ p.hebergementid.nomen }} {{ p.hebergementid.nomen }}">
+                                                      {% if p.imageprincipale is not empty %}
+                                                           <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ p.id }}/{{ p.imageprincipale }}" alt="{{ p.forfaitclientid.nomen }} {{ p.hebergementid.villeid.nomen }}" class="img_categoie_portail" />                                                           
+                                                      {% else %}                                                         
+                                                         {% if loop.index == 1 %}
+                                                         <img src="{{ asset('uploads/forfaits/images_') }}{{p.forfaitclientid.id }}/{{ imageColBas1 }}" alt="Package {{ p.forfaitclientid.nomen }} {{ p.hebergementid.nomen }} " class="img_categoie_portail" />
+                                                         {% elseif loop.index == 2 %}
+                                                         <img src="{{ asset('uploads/forfaits/images_') }}{{p.forfaitclientid.id }}/{{ imageColBas2 }}" alt="Package {{ p.forfaitclientid.nomen }} {{ p.hebergementid.nomen }}" class="img_categoie_portail" />
+                                                         {% elseif loop.index == 3 %}
+                                                         <img src="{{ asset('uploads/forfaits/images_') }}{{p.forfaitclientid.id }}/{{ imageColBas3 }}" alt="Package {{ p.forfaitclientid.nomen }} {{ p.hebergementid.nomen }}" class="img_categoie_portail" />
+                                                         {% elseif loop.index == 4 %}
+                                                         <img src="{{ asset('uploads/forfaits/images_') }}{{p.forfaitclientid.id }}/{{ imageColBas4 }}" alt="Package {{ p.forfaitclientid.nomen }} {{ p.hebergementid.nomen }}" class="img_categoie_portail" />
+                                                         {% endif %}
+                                                      {% endif %}
+                                                  </a>                                                  
+					        <div>
+					        <h3><a href="{{ path('_hebergementforfait',{'name':p.hebergementid.repertoireen}) }}" title="{{ p.nomen }} {{ p.hebergementid.nomen }}">{{ p.nomen }}</a></h3>
+					        <p>{{ p.hebergementid.nomen }}</p> 
+					        <p>City of {{ p.hebergementid.villeid.nomen }}</p>
+					        <p>Package from : {{ p.tarif }} </p> 
+                                                    <p>Period of validity : {{ p.datedefin|date('M')}}  <br /> {{ p.datedebut|date('M d Y') }} - {{ p.datedefin|date('M d Y') }}</p>  
+					        </div> 
+					        <h2><a href="{{ path('_hebergementforfaiten',{'name':p.hebergementid.repertoireen}) }}" title="Package {{ p.forfaitclientid.nomen }} {{ p.hebergementid.nomen }} city {{ p.hebergementid.villeid.nomen }} " target="_blank">More info on the package</a></h2>
+					      </div>
+				      {% endfor %}
+			    {% endif %}
+			    <br class="clearfloat" />
+			</div>
+			<br class="clearfloat" />
+		     {# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+			{# LISTE DES FORFAITS DE LA RÉGION AVEC LE FORFAIT RECHERCHÉ #}
+			</div>
+			{% if app.request.locale == "fr" %}
+			  <h6>{{ "forfait.singulier" | trans |lower }} {{ clientAleatoire.forfaitclientid.nomfr|lower }} région de  {{ clientAleatoire.hebergementid.regionid.nomfr }}</h6>
+			{% else %}
+			  <h6>{{ "forfait.singulier" | trans |lower }} {{ clientAleatoire.forfaitclientid.nomen|lower }} region of  {{ clientAleatoire.hebergementid.regionid.nomen }}</h6>
+			{% endif %}
+			    <div class="pages">
+			      {#<div style="float:left" >
+			       Classés par :
+			         <select name="select">
+			           <option>Popularité </option>
+			           <option>Nom d’établissement</option>
+			           <option>Aléatoire </option>
+			           <option>Villes </option>
+			           <option>Étoiles </option>
+			           <option>Tarif </option>
+			           <option>Réservation en ligne</option>
+			         </select>
+			      </div>#}
+				 <ul>
+			        {% if app.request.locale == "fr" %}
+			       		{% if displaypage == 1 %}
+			      	 	Résultats de 1 à {{ total }}
+			      	 	{% elseif page < displaypage %}
+                                            {% if page == 1 %}
+                                                {% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name': w.hebergementid.regionid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page +1 }} </a></li>
+                                                {% endfor %}
+                                            {% else %}
+				      	 	{% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name': w.hebergementid.regionid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+                                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name': w.hebergementid.regionid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ page+1 }} >> </a></li>
+				      	 	{% endfor %}
+                                            {% endif %}
+			      	 	{% elseif page == displaypage and displaypage > 1 %}
+				      	 	{% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name': w.hebergementid.regionid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+				      	 	{% endfor %}			      	 	
+			       		{% endif %}
+			       	{% else %}
+			       		{% if displaypage == 1 %}
+			      	 	Result of 1 to {{ total }}
+			      	 	{% elseif page < displaypage %}
+                                            {% if page == 1 %}
+                                                {% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregionen',{'activite':w.forfaitclientid.repertoireen|lower, 'name': w.hebergementid.regionid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page+1 }} </a></li>
+                                                {% endfor %}
+                                            {% else %}
+			      	 		{% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregionen',{'activite':w.forfaitclientid.repertoireen|lower, 'name': w.hebergementid.regionid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+                                                    <li><a href="{{ path('_forfaitsactiviteregionen',{'activite':w.forfaitclientid.repertoireen|lower, 'name': w.hebergementid.regionid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ page+1 }} >> </a></li>
+				      	 	{% endfor %}
+                                            {% endif %}
+			      	 	{% elseif page == displaypage and displaypage > 1 %}
+			      	 		{% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregionen',{'activite':w.forfaitclientid.repertoireen|lower, 'name': w.hebergementid.regionid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+				      	 	{% endfor %}			      	 	
+			       		{% endif %}
+			       	{% endif %}
+			       </ul>
+			  </div>
+			       
+			  <div class="liste">  
+			  {% if app.request.locale == "fr" %} 
+				   {% for w in listeRegion %}
+				       <div itemscope itemtype="http://schema.org/Event">
+					       {#<div>
+					       		<a href="#"><img src="images/monItineraire.png" width="187" height="136" alt="Mon itinéraire" /></a>
+					       </div>#}
+					         <a href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr|lower}) }}#{{w.id }}" target="_blank" title="{{ clientAleatoire.forfaitclientid.nomfr }} {{ w.hebergementid.nomfr }} région {{ w.hebergementid.regionid.nomfr }}">
+                                                     {% if w.imageprincipale is not empty %}
+                                                        <img class="ph" src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ w.id }}/{{ w.imageprincipale }}" alt="{{ w.hebergementid.nomfr }}" />
+                                                     {% else %}
+                                                        <img class="ph" src="{{ asset('uploads/forfaits') }}/{{ w.forfaitclientid.id }}/{{ w.forfaitclientid.image }}" alt="{{ w.hebergementid.nomfr }}" />
+                                                     {% endif %}
+                                                 </a>
+					         <div class="listetexte">
+                                                     <h2 itemprop="name"><a itemprop="url" href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr|lower }) }}#{{w.id }}" target="_blank" title="{{ clientAleatoire.forfaitclientid.nomfr }} {{ w.hebergementid.nomfr }} région {{ w.hebergementid.regionid.nomfr }}"><img src="{{ asset('uploads/classifications') }}/{{ w.hebergementid.classificationid.id }}/{{ w.hebergementid.classificationid.image }}"  alt="{{ w.hebergementid.classificationid.valeur }}" /><strong>{{ w.nomfr }}</strong> </a></h2>
+                                                                 <p itemprop="description">{{ w.textefr|truncate(200, '...')|striptags }} <br />
+                                                                 <a href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr|lower }) }}#{{w.id }}" target="_blank" title="{{ clientAleatoire.forfaitclientid.nomfr }} {{ w.hebergementid.nomfr }} région {{ w.hebergementid.regionid.nomfr }}">Plus d’information</a></p>
+                                                                 <meta itemprop="startDate" content="{{ w.datedebut|date('Y-m-d') }}T8:00">
+                                                                 <meta itemprop="endDate" content="{{ w.datedefin|date('Y-m-d') }}">
+                                                             <ul>
+                                                                 <li>Forfait à partir de : {{ w.tarif }} <select>{% for u in w.hebergementid.deviseid %} <option>{{ u.abreviation }}</option> {% endfor %}</select></li>
+                                                                 <li itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">Ville de <span itemprop="addressLocality" class="microdatavilleforfait">{{ w.hebergementid.villeid.nomfr }}</span> {% if w.hebergementid.latitude != 0 and w.hebergementid.longitude != 0 %}{# [<a href="{{ path('_hebergementdirectionroutiere',{'name':w.hebergementid.repertoirefr}) }}">Voir sur la carte</a>] #}{% endif %}</li>
+                                                                 <li>Période de validité :                                                                         
+                                                                        {{ w.datedebut|date('d') }} 
+                                                                         {# On convertie les mois en fançais de la date du début #}
+                                                                         {% if w.datedebut|date('m') == '01' %} jan 
+                                                                         {% elseif w.datedebut|date('m') == '02' %} fév
+                                                                         {% elseif w.datedebut|date('m') == '03' %} mars
+                                                                         {% elseif w.datedebut|date('m') == '04' %} avr
+                                                                         {% elseif w.datedebut|date('m') == '05' %} mai
+                                                                         {% elseif w.datedebut|date('m') == '06' %} juin
+                                                                         {% elseif w.datedebut|date('m') == '07' %} juil
+                                                                         {% elseif w.datedebut|date('m') == '08' %} août
+                                                                         {% elseif w.datedebut|date('m') == '01' %} sept
+                                                                         {% elseif w.datedebut|date('m') == '01' %} oct
+                                                                         {% elseif w.datedebut|date('m') == '01' %} nov
+                                                                         {% else %}déc
+                                                                         {% endif %} 
+                                                                         {{ w.datedebut|date('Y') }} -
+                                                                         {{ w.datedefin|date('d') }} 
+                                                                         {# On convertie les mois en fançais de la date de fin  #}
+                                                                         {% if w.datedefin|date('m') == '01' %} jan
+                                                                         {% elseif w.datedefin|date('m') == '02' %} fév
+                                                                         {% elseif w.datedefin|date('m') == '03' %} mars
+                                                                         {% elseif w.datedefin|date('m') == '04' %} avr
+                                                                         {% elseif w.datedefin|date('m') == '05' %} mai
+                                                                         {% elseif w.datedefin|date('m') == '06' %} juin
+                                                                         {% elseif w.datedefin|date('m') == '07' %} juil
+                                                                         {% elseif w.datedefin|date('m') == '08' %} août
+                                                                         {% elseif w.datedefin|date('m') == '01' %} sept
+                                                                         {% elseif w.datedefin|date('m') == '01' %} oct
+                                                                         {% elseif w.datedefin|date('m') == '01' %} nov
+                                                                         {% else %}déc
+                                                                         {% endif %} 
+                                                                         {{ w.datedefin|date('Y') }}
+                                                                 </li>
+							          {#<li class="itineraire"><a href="#">Voir mon itinéraire</a></li>#}
+						           </ul>
+					        </div>
+				       </div> 
+				    {% endfor %}
+			   {% else %}
+			   		{% for w in listeRegion %}
+				       <div itemscope itemtype="http://schema.org/Event"> 
+					       {#<div>
+					       		<a href="#"><img src="images/monItineraire.png" width="187" height="136" alt="Mon itinéraire" /></a>
+					       </div>#}
+					       		<a href="{{ path('_hebergementforfaiten',{'name':w.hebergementid.repertoireen|lower }) }}#{{w.id }}" target="_blank" title="{{ clientAleatoire.forfaitclientid.nomen }} {{ w.hebergementid.nomen }} region {{ w.hebergementid.regionid.nomen }}">
+                                                            {% if w.imageprincipale is not empty %}
+                                                                <img class="ph" src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ w.id }}/{{ w.imageprincipale }}" alt="{{ w.hebergementid.nomen }}" />
+                                                            {% else %}
+                                                                <img class="ph" src="{{ asset('uploads/forfaits') }}/{{ w.forfaitclientid.id }}/{{ w.forfaitclientid.image }}" alt="{{ w.hebergementid.nomen }}" />
+                                                            {% endif %}
+                                                        </a>
+					         <div class="listetexte">
+                                                     <h2><a itemprop="url" href="{{ path('_hebergementforfaiten',{'name':w.hebergementid.repertoireen|lower }) }}#{{w.id }}" target="_blank" title="{{ clientAleatoire.forfaitclientid.nomen }} {{ w.hebergementid.nomen }} region {{ w.hebergementid.regionid.nomen }}"><img src="{{ asset('uploads/classifications') }}/{{ w.hebergementid.classificationid.id }}/{{ w.hebergementid.classificationid.image }}" alt="{{ w.hebergementid.classificationid.valeur }}" /><strong>{{ w.nomen }}</strong> </a></h2>
+                                                                <p itemprop="description">{{ w.texteen|truncate(200, '...')|striptags }} <br />
+                                                                <a href="{{ path('_hebergementforfaiten',{'name':w.hebergementid.repertoireen|lower }) }}#{{w.id }}" target="_blank" title="{{ clientAleatoire.forfaitclientid.nomen }} {{ w.hebergementid.nomen }} region {{ w.hebergementid.regionid.nomen }}">More information</a></p>
+                                                                <meta itemprop="startDate" content="{{ w.datedebut|date('Y-m-d') }}T8:00">
+                                                                <meta itemprop="endDate" content="{{ w.datedefin|date('Y-m-d') }}">
+                                                         <ul>
+                                                                <li>Package from : {{ w.tarif }} <select>{% for u in w.hebergementid.deviseid %} <option>{{ u.abreviation }}</option> {% endfor %}</select></li>
+                                                                <li itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">City <span itemprop="addressLocality" class="microdatavilleforfait">{{ w.hebergementid.villeid.nomfr }}</span> {% if w.hebergementid.latitude != 0 and w.hebergementid.longitude != 0 %} {#[<a href="{{ path('_hebergementdirectionroutiere',{'name':w.hebergementid.repertoireen}) }}">View on map</a>]#} {% endif %}</li>                                                               
+                                                                <li>Validity :  {{ w.datedebut|date('M d Y') }} - {{ w.datedefin|date('M d Y') }} </li>
+                                                                {#<li class="itineraire"><a href="#">Voir mon itinéraire</a></li>#}
+						         </ul>
+					        </div>
+				       </div> 
+				    {% endfor %}
+			   {% endif %}
+			  </div>
+			    <div class="pages">
+                                <ul>
+			         {% if app.request.locale == "fr" %}
+			       		{% if displaypage == 1 %}
+			      	 	Résultats de 1 à {{ total }}
+			      	 	{% elseif page < displaypage %}
+                                            {% if page == 1 %}
+                                                {% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name': w.hebergementid.regionid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page +1 }} </a></li>
+                                                {% endfor %}
+                                            {% else %}
+				      	 	{% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name': w.hebergementid.regionid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+                                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name': w.hebergementid.regionid.repertoirefr|lower, 'page':page +1}) }}" class="pagescolor"> {{ page+1 }} >> </a></li>
+				      	 	{% endfor %}
+                                            {% endif %}
+			      	 	{% elseif page == displaypage and displaypage > 1 %}
+				      	 	{% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name': w.hebergementid.regionid.repertoirefr|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+				      	 	{% endfor %}			      	 	
+			       		{% endif %}
+			       	{% else %}
+			       		{% if displaypage == 1 %}
+			      	 	Result of 1 to {{ total }}
+			      	 	{% elseif page < displaypage %}
+                                            {% if page == 1 %}
+                                                {% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregionen',{'activite':w.forfaitclientid.repertoireen|lower, 'name': w.hebergementid.regionid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> >> {{ page+1 }} </a></li>
+                                                {% endfor %}
+                                            {% else %}
+			      	 		{% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregionen',{'activite':w.forfaitclientid.repertoireen|lower, 'name': w.hebergementid.regionid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+                                                    <li><a href="{{ path('_forfaitsactiviteregionen',{'activite':w.forfaitclientid.repertoireen|lower, 'name': w.hebergementid.regionid.repertoireen|lower, 'page':page +1}) }}" class="pagescolor"> {{ page+1 }} >> </a></li>
+				      	 	{% endfor %}
+                                            {% endif %}
+			      	 	{% elseif page == displaypage and displaypage > 1 %}
+			      	 		{% for w in client %}
+                                                    <li><a href="{{ path('_forfaitsactiviteregionen',{'activite':w.forfaitclientid.repertoireen|lower, 'name': w.hebergementid.regionid.repertoireen|lower, 'page':page -1}) }}" class="pagescolor"> << {{ page-1 }} </a></li>
+				      	 	{% endfor %}			      	 	
+			       		{% endif %}
+			       	{% endif %}
+			       </ul>
+			   </div>
+		{% endblock %}
+		
+		{% block gauche %}
+			{# Implémentation de la recherche par carte #}
+         	{% block ouAller %} {% include '::searchCard.html.twig' %} {% endblock %}
+                    {% if app.request.locale == "fr" %}
+                            <div class="region">
+                                <h3>Choisir la ville où profiter d'un forfait {{ clientAleatoire.forfaitclientid.nomfr|lower }} dans la région {{ clientAleatoire.hebergementid.regionid.nomfr }}</h3>
+                                    <ul>
+                                      <dt>{{ clientAleatoire.hebergementid.regionid.nomfr }}</dt>
+                                      {% for x in listeVilleColonneGauche %}
+                                      <li><a href="{{ path('_forfaitsactiviteville',{'activite':x.forfaitclientid.repertoirefr|lower, 'name':x.hebergementid.villeid.repertoirefr|lower}) }}" title="Forfaits {{ x.forfaitclientid.nomfr|lower }} ville {{ x.hebergementid.villeid.nomfr }}">{{ x.hebergementid.villeid.nomfr }}</a></li>
+                                      {% endfor %}
+                                      </ul>
+                                    <br class="clearfloat" />
+                            </div>
+                                    <img src="{{ asset('bundles/myappglobal/images/telephoneGauche.jpg') }}" width="304" height="65" />
+                            {% if tarifDerniereMinute is not empty %}	
+                            <div class="region" >
+                                <h3>Nouveaux forfaits {{ clientAleatoire.forfaitclientid.nomfr|lower }} région de {{ clientAleatoire.hebergementid.regionid.nomfr }}</h3>
+                                <ul>
+                                    {% for x in tarifDerniereMinute %}
+                                        <li><a href="{{ path('_hebergementforfait',{'name': x.hebergementid.repertoirefr|lower } ) }}#{{x.id }}" target="_blank" title="Forfait {{ x.forfaitclientid.nomfr|lower }} {{ x.hebergementid.nomfr }}">{{ x.nomfr }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                    {% else %}
+                            <div class="region">
+                                <h3>Choose the city where you can enjoy a package {{ clientAleatoire.forfaitclientid.nomen|lower }} in the region {{ clientAleatoire.hebergementid.regionid.nomen }}</h3>
+                                    <ul>
+                                      <dt>{{ clientAleatoire.hebergementid.regionid.nomen }}</dt>
+                                      {% for x in listeVilleColonneGauche %}
+                                      <li><a href="{{ path('_forfaitsactivitevilleen',{'activite':x.forfaitclientid.repertoireen|lower, 'name':x.hebergementid.villeid.repertoireen|lower}) }}" title="Packages {{ x.forfaitclientid.nomen|lower }} city {{ x.hebergementid.villeid.nomen }}">{{ x.hebergementid.villeid.nomen }}</a></li>
+                                      {% endfor %}
+                                      </ul>
+                                    <br class="clearfloat" />
+                            </div>
+                                    <img src="{{ asset('bundles/myappglobal/images/telephoneGaucheEn.png') }}" width="304" height="65" />
+                            {% if tarifDerniereMinute is not empty %}
+                            <div class="region" >
+                                <h3>New packages {{ clientAleatoire.forfaitclientid.nomen|lower }} region of {{ clientAleatoire.hebergementid.regionid.nomen }}</h3>
+                                <ul>
+                                    {% for x in tarifDerniereMinute %}
+                                        <li><a href="{{ path('_hebergementforfaiten',{'name': x.hebergementid.repertoireen|lower }) }}#{{x.id }}" target="_blank" title="Package {{ x.forfaitclientid.nomen|lower }} {{ x.hebergementid.nomen }}">{{ x.nomen }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                    {% endif %}
+                    {# PUB GOOGLE #}
+                    <div id="zone_02" class="bigBox" style="float:left;">
+                            <script type='text/javascript'>
+                                    googletag.cmd.push(function() { googletag.display('zone_02'); });
+                            </script>
+                    </div>
+                    <br class="clearfloat" />
+		{% endblock %}

@@ -1,0 +1,130 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist == false %}
+	<h1>Ajouter une ville</h1>
+{% else %}
+	<h1>Modifier la ville « {{ infonom|upper }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					 {% if exist == "true" %}
+				   <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer la ville {{ infonom }}">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer la ville {{ infonom }}"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+                                        <p>Voulez vous supprimez la ville:  {{ infonom }} ?</p>
+                                        <a href="{{ path('_Dashboard_deletevilles', {'id':infoid, 'name':infonom}) }}" class="detroye_state" >Supprimer</a>
+                                        <a href="#reset" class="boutonannuler"></a>
+				    </div>
+				    {% endif %}	
+                                    {{ form_label(form.region_id, "Région liée", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.region_id, {'attr':{'class':'txt_add_state'}}) }}	
+                                    {{ form_label(form.zone_id, "Zone liée", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.zone_id, {'attr':{'class':'txt_add_state'}}) }}		
+				    {{ form_label(form.nom_fr, "Nom FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+                                    {{ form_label(form.repertoire_fr, "Répertoire FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.repertoire_en, "Répertopire EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.repertoire_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.code_meteo_media, "Code Météo Media", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.code_meteo_media, {'attr':{'class':'txt_add_state'}}) }}                                    
+				    {{ form_label(form.reservit_id, "Reservit id", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.reservit_id, {'attr':{'class':'txt_add_state'}}) }}  
+				    {{ form_label(form.affiche, "Affiche dans reservit", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.affiche, {'attr':{'class':'checkbox'}}) }} 
+				    {{ form_label(form.page_titre_fr, "Titre FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_titre_en, "Titre EN", {'attr':{'class':'lblnompays flag_en'}}) }} 
+				    {{ form_widget(form.page_titre_en, {'attr':{'class':'txt_add_state'}}) }}	
+                                    {{ form_label(form.page_metakeyword_fr, "Méta keywords FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metakeyword_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metakeyword_en, "Méta keywords EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metakeyword_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metadescription_fr, "Méta description FR", {'attr':{'class':'lblnompays flag_fr lbl_txt_area'}}) }}
+				    {{ form_widget(form.page_metadescription_fr, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.page_metadescription_en, "Méta description EN", {'attr':{'class':'lblnompays flag_en lbl_txt_area'}}) }}
+				    {{ form_widget(form.page_metadescription_en, {'attr':{'class':'txt_add_state txt_area'}}) }} 
+				    <p class="resize_p_form">&nbsp;</p>    
+				    {{ form_label(form.texte_fr, "Texte FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_fr, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+				    <textarea id="editor1" name="editor1" ></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace( 'editor1' );
+					</script>
+					{% if exist == "true" %}
+					<script type="text/javascript">
+						document.getElementById('editor1').innerHTML = "{{ txthomefr }}";
+					</script>
+					{% endif %}
+					 <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_en, "Texte EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_en, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+					<textarea id="editor2" name="editor2"></textarea>
+					<script type="text/javascript">
+						CKEDITOR.replace( 'editor2' );
+					</script>
+					{% if exist == "true" %}
+					<script type="text/javascript">
+						document.getElementById('editor2').innerHTML = "{{ txthomeen }}";
+					</script>
+					{% endif %}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.latitude, "Latitude", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.latitude, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.longitude, "Longitude", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.longitude, {'attr':{'class':'txt_add_state'}}) }}			   
+				 {#   {{ form_label(form.texte_accueil_fr, "Texte accueil FR", {'attr':{'class':'lblnompays flag_fr lbl_txt_area'}}) }}
+				    {{ form_widget(form.texte_accueil_fr, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>   
+				    {{ form_label(form.texte_accueil_en, "Texte accueil EN", {'attr':{'class':'lblnompays flag_en lbl_txt_area'}}) }}
+				    {{ form_widget(form.texte_accueil_en, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>   #}
+                                    
+				{#     <h3><a href="#guide">Vidéo pour la ville</a></h3>
+				    <div class="formu_cache">
+				    <a name="#guide"></a>
+				    {{ form_label(form_movie_town.titre_fr, "Titre de la vidéo FR", {'attr':{'class':'lblnompays lbl_txt_area flag_fr'}}) }}
+				    {{ form_widget(form_movie_town.titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form_movie_town.titre_en, "Titre de la vidéo EN", {'attr':{'class':'lblnompays lbl_txt_area flag_en'}}) }}
+				    {{ form_widget(form_movie_town.titre_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form_movie_town.url_fr, "Vidéo extrene FR", {'attr':{'class':'lblnompays lbl_txt_area flag_fr'}}) }}
+				    {{ form_widget(form_movie_town.url_fr, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form_movie_town.url_en, "Vidéo externe EN", {'attr':{'class':'lblnompays lbl_txt_area flag_en'}}) }}
+				    {{ form_widget(form_movie_town.url_en, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form_movie_town.path_video_fr, "Vidéo téléchargé FR", {'attr':{'class':'lblnompays lbl_txt_area flag_fr'}}) }}
+				    {{ form_widget(form_movie_town.path_video_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form_movie_town.path_video_en, "Vidéo téléchargé EN", {'attr':{'class':'lblnompays lbl_txt_area flag_en'}}) }}
+				    {{ form_widget(form_movie_town.path_video_en, {'attr':{'class':'txt_add_state'}}) }}   
+				    {{ form_label(form_movie_town.titre_fr, "Titre de la vidéo FR", {'attr':{'class':'lblnompays lbl_txt_area flag_fr'}}) }}
+				    {{ form_widget(form_movie_town.titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form_movie_town.titre_en, "Titre de la vidéo EN", {'attr':{'class':'lblnompays lbl_txt_area flag_en'}}) }}
+				    {{ form_widget(form_movie_town.titre_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form_movie_town.url_fr, "Vidéo extrene FR", {'attr':{'class':'lblnompays lbl_txt_area flag_fr'}}) }}
+				    {{ form_widget(form_movie_town.url_fr, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form_movie_town.url_en, "Vidéo externe EN", {'attr':{'class':'lblnompays lbl_txt_area flag_en'}}) }}
+				    {{ form_widget(form_movie_town.url_en, {'attr':{'class':'txt_add_state txt_area'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form_movie_town.path_video_fr, "Vidéo téléchargé FR", {'attr':{'class':'lblnompays lbl_txt_area flag_fr'}}) }}
+				    {{ form_widget(form_movie_town.path_video_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form_movie_town.path_video_en, "Vidéo téléchargé EN", {'attr':{'class':'lblnompays lbl_txt_area flag_en'}}) }}
+				    {{ form_widget(form_movie_town.path_video_en, {'attr':{'class':'txt_add_state'}}) }}			    
+				    </div>	#}	     
+				    {{ form_rest(form) }}				   
+				    <input type="submit" value="" class="boutonvalidenregistrer"/>
+				    <a href="{{ path('_Dashboard_zones') }}" class="boutonannuler"></a>
+				</form>
+			   <br class="clearfloat">
+			</div>
+		</div>
+</div>
+<script>
+    document.getElementById("add_ville_nom_reservit").setAttribute("placeholder","pas d'accent, pas de paranthèse ni de tiret dans le nom et pas ne nom de grande ville devant Ex Sainte Foy");
+</script>
+{% endblock %}

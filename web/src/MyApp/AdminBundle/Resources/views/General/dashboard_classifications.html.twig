@@ -1,0 +1,35 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addclassifications')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter une classification</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0"  class="menu_mobile">
+							<tbody>
+								<tr class="rowsubheader">
+									<td width="270" colspan=1>Valeur</td>
+									<td width="270">Image</td>
+								</tr>	
+							</tbody>
+						</table>
+						{% if classification is empty %}
+								<p class="searchnull">Pas de résultat trouvé</p>
+						{% else %}	
+						<table align="center" class="info_scroll" cellpadding="0" border="0">
+							<tbody>
+								{% for p in classification %}
+								<tr>
+									<td colspan=1 width="270"><a href="{{path('_Dashboard_updateclassifications',{'id':p.id})}}">{{ p.valeur }}</a></td>
+									<td width="270"><a href="{{path('_Dashboard_updateclassifications',{'id':p.id})}}"><img src="{{ asset('uploads/classifications/') }}{{ p.id }}/{{ p.image }}" title="{{ p.valeur }}" alt="{{ p.valeur }}" /></a></td>
+								</tr>
+								{% endfor %}	
+							</tbody>
+						</table>
+						{% endif %}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

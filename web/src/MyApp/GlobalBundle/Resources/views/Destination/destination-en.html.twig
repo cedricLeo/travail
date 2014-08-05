@@ -1,0 +1,142 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}		
+		<p class="legendeHome">{{ "tarif.derniere.minute.promotion" | trans }}</p>
+	{# photo principale qui va afficher le sujet de la section #}
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+			<h1>{{ "tarif.derniere.minute.promotion" | trans }}</h1>			
+                            {% for z in clientAleatoire %}
+                                {% if loop.index == 1 %}
+                                    <h3><a href="{{ path('_hebergementforfaiten',{'name':z.hebergementid.repertoireen|lower}) }}#{{ z.id }}" title="{{ "tarif.derniere.minute.promotion" | trans }} {{ z.hebergementid.nomen }} region {{ z.hebergementid.regionid.nomen }}" target="_blank">{{ z.hebergementid.nomen }} {{ z.hebergementid.regionid.nomfr }}</a></h3>
+                                    </div>
+                                        {% if z.imageprincipale is not empty %}
+                                            <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ z.id }}/{{ z.imageprincipale }} " class="big_picture" alt="{{ "tarif.derniere.minute.promotion" | trans }} {{ z.hebergementid.nomen }} region {{ z.hebergementid.regionid.nomen }}" />
+                                        {% else %}
+                                            <img src="{{ asset('uploads/forfaits/images_') }}{{ idActivite }}/{{ imgRandom }}" class="big_picture" alt="{{ "tarif.derniere.minute.promotion" | trans }} {{ z.hebergementid.nomen }} région {{ z.hebergementid.regionid.nomen }}">
+                                        {% endif %}
+                                {% endif %}
+                            {% endfor %}
+		</div>	
+		{% endblock %}               
+        {# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}                  
+                        <p>{{ texte_accueilen|striptags|nl2br }}</p>
+                        <a href="{{ path('_promotionfluxrssen') }}"  title="Flux rss" class="fluxrss"><img src="{{ asset('bundles/myappglobal/images/rss.png') }}" alt="Flux rss" /></a>                                          
+		{% endblock %}		
+		{% block body %} 
+			<div class="region">
+                            <h2>{{ "tarif.derniere.minute.promotion" | trans }}</h2>                      
+                            {# VERSION ANGLAISE #}
+                            <ul>		
+                                {% for nomprovinceqc in provinceqc %}
+                                        {% if loop.index == 1 %}
+                                        <li class="province"><a href="{{ path('_promotionstarifderniereminuteprovince', {'name':nomprovinceqc.hebergementid.provinceid.repertoireen|lower}) }}" title="{{ "tarif.derniere.minute.promotion" | trans }} for the province {{  nomprovinceqc.hebergementid.provinceid.nomen }}">{{  nomprovinceqc.hebergementid.provinceid.nomen }}</a></li>
+                                        {% endif %}
+                                {% endfor %}
+                                {% for listeregionqc in provinceqc %}
+                                <li><a href="{{ path('_promotionstarifderniereminuteregion', {'name':listeregionqc.hebergementid.regionid.repertoireen|lower}) }}" title="{{ "tarif.derniere.minute.promotion" | trans }} for the region {{ listeregionqc.hebergementid.regionid.nomen }}">{{ listeregionqc.hebergementid.regionid.nomen }}</a></li>
+                                {% endfor %}
+                             </ul>
+                             <ul>	
+                                {% for nomprovinceon in provinceon %}
+                                        {% if loop.index == 1 %}
+                                        <li class="province"><a href="{{ path('_promotionstarifderniereminuteprovince', {'name': nomprovinceqc.hebergementid.provinceid.repertoireen|lower}) }}" title="{{ "tarif.derniere.minute.promotion" | trans }} for the province {{  nomprovinceqc.hebergementid.provinceid.nomen }}">{{  nomprovinceqc.hebergementid.provinceid.nomen }}</a></li>
+                                        {% endif %}
+                                {% endfor %}
+                                {% for listeregionon in provinceon %}
+                                <li><a href="{{ path('_promotionstarifderniereminuteregion', {'name':listeregionon.hebergementid.regionid.repertoireen|lower}) }}" title="{{ "tarif.derniere.minute.promotion" | trans }} for the region {{ listeregionon.hebergementid.regionid.nomen }}">{{ listeregionon.hebergementid.regionid.nomen }}</a></li>
+                                {% endfor %}
+                             </ul>
+                             <ul>
+                                {% for nomprovincenb in provincenb %}
+                                        {% if loop.index == 1 %}
+                                        <li class="province"><a href="{{ path('_promotionstarifderniereminuteprovince', {'name': nomprovinceqc.hebergementid.provinceid.repertoireen|lower}) }}" title="{{ "tarif.derniere.minute.promotion" | trans }} for the province {{  nomprovinceqc.hebergementid.provinceid.nomen }}">{{ nomprovinceqc.hebergementid.provinceid.nomen }}</a></li>
+                                        {% endif %}
+                                {% endfor %}
+                                {% for listeregionnb in provincenb %}			        	
+                                <li><a href="{{ path('_promotionstarifderniereminuteregion', {'name':listeregionnb.hebergementid.regionid.repertoireen|lower}) }}" title="{{ "tarif.derniere.minute.promotion" | trans }} for the region {{ listeregionnb.hebergementid.regionid.nomen }}">{{ listeregionnb.hebergementid.regionid.nomen }}</a></li>
+                                {% endfor %}
+                             </ul>
+			</div> 
+			<br class="clearfloat" />
+            {# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait hackPub" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>    
+			<br class="clearfloat" />
+			<div class="colonnes4">
+			   <div class="pages" style="width:632px;" >
+			    <ul>		       
+		       		{% if displaypage == 1 %}
+		      	 	Result of 1 to {{ total }}
+		      	 	{% elseif page < displaypage %}		      	 	
+                                    {% if page > 1 %}<li><a href="{{ path('_promotionen',{'page':page -1}) }}" class="pagescolor"> << {{ page - 1 }} </a></li>{% endif %}
+                                    <li><a href="{{ path('_promotionen',{'page':page +1}) }}" class="pagescolor"> {{ page + 1 }} >> </a></li>			      	 	
+		      	 	{% elseif page == displaypage and displaypage > 1 %}		      	 		
+                                    <li><a href="{{ path('_promotionen',{'page':page -1}) }}" class="pagescolor"> << {{ page - 1 }} </a></li>			       				      	 				       		
+		       		{% endif %}
+		            </ul>
+			   </div>                           
+			    	{% for s in listePromotion %}
+                                    {#{% if s.datedebut|date_modify("+30 day")|date("m/d/Y") >= dateToday %}#}
+                                        <div itemscope itemtype="http://schema.org/Product" class="listepromotion">
+                                            <a href="{{ path('_hebergementforfaiten',{'name':s.hebergementid.repertoireen|lower }) }}#{{ s.id }}" target="_blank" title="{{ "tarif.derniere.minute.promotion" | trans }} {{ s.hebergementid.nomen }}">
+                                                {% if s.imageprincipale != null %}
+                                                     <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ s.id }}/{{ s.imageprincipale }}"  width="187" height="136" alt="{{ s.hebergementid.nomen }}" />
+                                                {% elseif s.hebergementid.photocategoriepayante != null %}
+                                                     <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ s.hebergementid.id }}/{{ s.hebergementid.photocategoriepayante }}"  width="187" height="136" alt="{{ s.hebergementid.nomen }}" />
+                                                {% else %}
+                                                     <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}"  width="187" height="136" alt="{{ s.hebergementid.nomen }}" />
+                                                {% endif %}  
+                                            </a>
+                                            <h2 itemprop="name" class="correctionLargeurH2">
+                                                <a itemprop="url" href="{{ path('_hebergementforfaiten',{'name':s.hebergementid.repertoireen|lower }) }}#{{ s.id }}" title="{{ "tarif.derniere.minute.promotion" | trans }} {{ s.hebergementid.nomen }}" target="_blank">
+                                                    {% if s.titrederniereminuteen != null %}
+                                                        <strong>{{ s.titrederniereminuteen }}
+                                                    {% else %}
+                                                        <strong>{{ s.nomen }}
+                                                    {% endif %}
+                                                    <br />
+                                                    {{ s.hebergementid.nomen }}</strong>
+                                                </a>
+                                            </h2>
+			  		   {% if s.descriptifderniereminuteen != null %}
+                                           <p itemprop="description" class="ajusteLargeurText">{{ s.descriptifderniereminuteen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(200, '...') }}<br />
+                                           {% else %}>
+                                           <p itemprop="description" class="ajusteLargeurText">{{ s.texteen|convert_encoding('UTF-8', 'UTF-8')|striptags|truncate(200, '...') }}<br />
+                                           {% endif %}
+			  			<a href="{{ path('_hebergementforfaiten',{'name':s.hebergementid.repertoireen|lower }) }}#{{ s.id }}" target="_blank" title="Promotions {{ s.hebergementid.nomen }}">More information</a> 
+			  		   </p>
+                                           <p itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="tarifForfait">From <span itemprop="price" class="spanpricenostyle">{{ s.tarif }}</span></p>
+			  		</div>
+                                    {#{% endif %}#}
+			       	{% endfor %}	
+			</div>
+			<div class="pages" style="width:632px; float:left;" >
+			<ul>		      
+                            {% if displaypage == 1 %}
+                            Result of 1 to {{ total }}
+                            {% elseif page < displaypage %}		      	 		
+                                {% if page > 1 %}<li><a href="{{ path('_promotionen',{'page':page -1}) }}" class="pagescolor"> << {{ page - 1 }} </a></li>{% endif %}
+                                <li><a href="{{ path('_promotionen',{'page':page +1}) }}" class="pagescolor"> {{ page + 1 }} >> </a></li>			       		
+                            {% elseif page == displaypage and displaypage > 1 %}		      	 		
+                                <li><a href="{{ path('_promotionen',{'page':page -1}) }}" class="pagescolor"> << {{ page - 1 }} </a></li>			      	 			      	 		      	 	
+                            {% endif %}
+		       </ul>
+                       </div>
+		{% endblock %}
+		
+		{%block gauche%}
+		{# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %}
+		{# PUB GOOGLE #}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+		{%endblock%}
+		

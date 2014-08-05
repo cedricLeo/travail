@@ -1,0 +1,12 @@
+MyApp\GlobalBundle\Entity\Inscription_newletter:
+    properties:
+      courriel:
+         - Email:
+             message: L'adresse "{{ value }}" n'est pas un courriel valide.
+             checkMX: true
+     
+             
+             
+             
+             
+             

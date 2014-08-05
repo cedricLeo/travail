@@ -1,0 +1,52 @@
+{% extends '::base2.html.twig' %}
+{% block body %}
+	{% if app.request.locale == "fr" %}
+		<h1 class="contacteznous">Contactez-nous</h1>
+		<h2 class="contacteznous">Pour faire une réservation :</h2>		
+		<p>Pour rejoindre un agent : <a href="callTo:4182662165" class="link_contact">418-266-2165</a> / <a href="callTo:18777788977" class="link_contact">1-877-778-8977</a></p>
+		<p>Courriel : <a href="mailto:{{ emailReservation }}" class="link_contact">{{ emailReservation }}</a></p>		
+		<p>*** Ne pas oublier qu'il n'y a <span>AUCUN FRAIS SUPPLÉMENTAIRE</span> en passant par un agent de Global Réservation pour effectuer une réservation dans un établissement d'hébergement.  Nous travaillons pour vous !</p>	
+		<h2 class="contacteznous">Pour inscrire votre établissement d'hébergement à Global Réservation :</h2>	
+		<p>Administration</p>
+		<p>Téléphone : <a href="callTo:4182661532" class="link_contact">418-266-1532</a></p>
+		<p>Télécopieur : 418-266-1535</p>
+		<p>Courriel : <a href="mailto:{{ emailAdministration }}" class="link_contact">{{ emailAdministration }}</a></p>
+		<h2 class="contacteznous">Pour toute autre information :</h2>
+		<p>Courriel : <a href="mailto:{{ emailInfo }}" class="link_contact">{{ emailInfo }} </a></p>
+		<br />
+		{# PUB GOOGLE #}
+			<div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			</div>
+	{% else %}
+		<h1 class="contacteznous">Contact Us</h1>
+		<h2 class="contacteznous">To make a reservation:</h2>
+		<p>To talk to a tourism agent: <a href="callTo:4182662165" class="link_contact">418-266-2165</a> / <a href="callTo:18777788977" class="link_contact">1-877-778-8977</a></p>
+		<p>Email: <a href="mailto:{{ emailReservation }}" class="link_contact">{{ emailReservation }}</a> </p>
+		<p>*** Do not forget that there are NO ADDITIONAL FEES for using the service of one of Global Reservation’s agents for your accommodation reservation. We work for you!</p>
+		<h2 class="contacteznous">To subscribe your accommodation to Global Reservation:</h2>
+		<p>Administration<p>
+		<p>Telephone: <a href="callTo:4182661532" class="link_contact">418-266-1532</a></p>
+		<p>Fax: 418-266-1535</p>
+		<p>Email: <a href="mailto:{{ emailAdministration }}" class="link_contact">{{ emailAdministration }}</a></p>
+		<h2 class="contacteznous">For any other information:</h2>
+		<p>Email: <a href="mailto:{{ emailInfo }}" class="link_contact">{{ emailInfo }} </a></p>
+		<br />
+		{# PUB GOOGLE #}
+			<div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			</div>
+	{% endif %}
+	<script>
+	    $(function(){
+		    $('ul.ulAriane li').css('padding','0');
+		    $("#navhaut nav ul li").css("font-size","16px");
+	    	$("#gauche").remove();
+	    });
+    </script>
+{% endblock %}
+    

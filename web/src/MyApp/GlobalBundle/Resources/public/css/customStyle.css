@@ -1,0 +1,16 @@
+#droit{
+	float:left;
+	width:920px;
+	margin:12px 5ps;
+	padding:0 25px 50px 25px;
+}
+#droit p{font-size:14px; padding:5px 0;}
+p.faqquestion{font-weight:bold;}
+h1.titlePageStatic{font-size:23px; margin-bottom:30px;}
+.pub_bottom{margin:25px 0 0 0; width: 920px; height:90px;}
+ul li{list-style-type:none; padding:2px 0 2px 30px; font-size:14px; }
+ul.ulUnderline{text-decoration:underline; }
+p.pUnderline{text-decoration:underline; font-weight:600;}
+ul li a.linkParent{color: #0073ae;}
+ul li ul li a{color:gray !important;}
+ul li.sansUnderLine > a{text-decoration:none;}

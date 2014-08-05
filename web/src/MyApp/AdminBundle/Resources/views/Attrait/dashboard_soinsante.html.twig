@@ -1,0 +1,90 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">	
+	{# Moteur de recherche #}
+	<form action="" method="post" {{ form_enctype(form) }} class="engine_search">					
+	    {{ form_widget(form.nom_fr, {'attr':{'class':'moteur_recherche', 'list':'listregion'}}) }}
+	    <datalist id="listregion">
+	    	{% for v in autocompletion %}
+	    		 <option value="{{ v.nom_fr }}">
+	    	{% endfor %}
+	    </datalist>
+	    <input type="submit" value="" class="loupe_moteur btn_search"/>
+	</form>
+	
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="template_etroit">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addattraitsoins')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter un soin de santé</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0" class="menu_mobile">
+							<tbody>
+									<tr class="rowsubheader">
+										<td width="270" colspan=1>Nom FR</td>
+										<td width="270">Nom EN</td>
+									</tr>
+							</tbody>
+						</table>
+						
+						<table align="center" class="info_scroll" cellpadding="0" border="0">
+							<tbody>
+							{% if number == 1 %}{# Affiche par défaut la pagination #}
+								{% for p in soin %}
+									<tr>
+										<td colspan=1 width="270"><a href="{{path('_Dashboard_updateattraitsoins',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+										<td colspan=1 width="270"><a href="{{path('_Dashboard_updateattraitsoins',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+									</tr>
+								{% endfor %}
+								{% if soin is empty %}
+									<p class="searchnull">Pas de résultat trouvé</p>
+								{% endif %}		
+							{% elseif number == 2 %}{#  Affiche le résultat si on entre un nom dans le moteur de recherche #}
+								{% for p in result %}
+									<tr>
+										<td colspan=1 width="270"><a href="{{path('_Dashboard_updateattraitsoins',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+										<td colspan=1 width="270"><a href="{{path('_Dashboard_updateattraitsoins',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+									</tr>
+								{% endfor %}
+								{% if result is empty %}
+									<p class="searchnull">Pas de résultat trouvé</p>
+								{% endif %}	
+							{% elseif number == 3 %}
+								{% for p in lettre %}{# Affiche le résultat de tous les nom_fr qui commencent par cette première lettre #}
+									<tr>
+										<td colspan=1 width="270"><a href="{{path('_Dashboard_updateattraitsoins',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+										<td colspan=1 width="270"><a href="{{path('_Dashboard_updateattraitsoins',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+									</tr>
+								{% endfor %}
+								{% if lettre is empty %}
+									<p class="searchnull">Pas de résultat trouvé</p>
+								{% endif %}	
+							{% endif %}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				{% if nbsoin > 30 %}
+				{% if number == 2 %}
+				<tr>
+					<td>
+						<a class="pagination_customer" href=" {{ path('_Dashboard_attraitsoins',{'page':page - 1}) }}" >{% if firstpage < page %} << {% else %} {% endif %} </a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_attraitsoins',{'page':page }) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+					</td>
+				</tr>
+				{% else %}
+				<tr>
+					<td>
+						<a class="pagination_customer" href=" {{ path('_Dashboard_attraitsoins',{'page':page - 1}) }}" >{% if firstpage < page %} << {% else %} {% endif %} </a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_attraitsoins',{'page':page + 1}) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+					</td>
+				</tr>
+				{% endif %}
+				<tr>
+					<td class="letter_alpha petite_pagination">
+						{% for letter in 'a'|upper ..'z'|upper %}
+						<a href="{{ path('_Dashboard_attraitsoins',{'page':page, 'letter':letter}) }}">{{ letter }}</a>
+						{% endfor %}
+					<td>
+				</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

@@ -1,0 +1,251 @@
+{% extends '::base2.html.twig' %}
+
+{% block body %}
+	{% if app.request.locale == "fr" %}
+		<ul>
+			<li class="sansUnderLine"><a href="{{ path('_accueil') }}" class="linkParent sansUnderLine" title="{{ "accueil" | trans }}">{{ "accueil" | trans }}</a>		
+				<ul>
+					{% for p in accueilProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_accueil_province',{'name':p.coupure|lower}) }}" title="Accueil province {{ p.coupure }}">Accueil province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in accueilRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_accueil_region',{'name':w.coupure|lower}) }}" title="Accueil région {{ w.coupure }}">Accueil région {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+					
+				</ul>
+			</li>
+			<li class="sansUnderLine"><a href="{{ path('_hebergementfr') }}" class="linkParent" title="{{ "hebergement" | trans }}">{{ "hebergement" | trans }}</a>
+				<ul>
+					{% for p in hebergementProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_hebergementprovincefr',{'name':p.coupure|lower}) }}" title="Hébergements province {{ p.coupure }}">Hébergements province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in hebergementRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_hebergementregionsquebecfr',{'name':w.coupure|lower}) }}" title="Hébergements région {{ w.coupure }}">Hébergements région {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			<li class="sansUnderLine"><a href="{{ path('_forfaitsfr') }}" class="linkParent" title="{{ "forfait" | trans }}">{{ "forfait" | trans }}</a>
+				<ul>
+					{% for p in forfaitProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_forfaitsprovincefr',{'name':p.coupure|lower}) }}" title="Forfaits province {{ p.coupure }}">Forfaits province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in forfaitRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_forfaitsregionsfr',{'name':w.coupure|lower}) }}" title="Forfaits région {{ w.coupure }}">Forfaits région {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			<li class="sansUnderLine"><a href="{{ path('_corpoeventsfr') }}" class="linkParent" title="{{ "corporatif.evenement" | trans }}">{{ "corporatif.evenement" | trans }}</a>
+				<ul>
+					{% for p in corporatifProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_corpoeventsprovince',{'name':p.coupure|lower}) }}" title="Corporatifs et événements province {{ p.coupure }}">Corporatif et événements province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in corporatifRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_corpoeventsregions',{'name':w.coupure|lower}) }}" title="Corporatifs et événements région {{ w.coupure }}">Corporatif et événements région {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			{#<li class="sansUnderLine"><a href="{{ path('_centersante') }}" class="linkParent" title="{{ "centre.sante.spa" | trans }}">{{ "centre.sante.spa" | trans }}</a>
+				<ul>
+					{% for p in centreSanteProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_choisirprovincesoin',{'name':p.coupure|lower}) }}" title="Centres de santé et spas province {{ p.coupure }}">Centres de santé et spas province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in centreSanteRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_centersanteIndex',{'name':w.coupure|lower}) }}" title="Centres de santé et spas région {{ w.coupure }}">Centres de santé et spas région {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>#}
+			{#<li class="sansUnderLine"><a href="{{ path('_attraitsactivity') }}" class="linkParent" title="{{ "attrait.activite" | trans }}">{{ "attrait.activite" | trans }}</a>
+				<ul>
+					{% for p in attraitProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_attraitsprovince',{'name':p.coupure|lower}) }}" title="Attraits et activités province {{ p.coupure }}">Attraits et activités province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in attraitRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_attraitsIndex',{'name':w.coupure|lower}) }}" title="Attraits et activités région {{ w.coupure }}">Attraits et activités région {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>#}
+			<li class="sansUnderLine"><a href="{{ path('_promotion') }}" class="linkParent" title="{{ "promotion" | trans }}">{{ "promotion" | trans }}</a>
+				<ul>
+					{% for p in promotionProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_promotionstarifderniereminuteprovince',{'name':p.coupure|lower}) }}" title="{{ "tarif.derniere.minute.promotion" | trans }} province {{ p.coupure }}">{{ "tarif.derniere.minute.promotion" | trans }} province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in promotionRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_promotionstarifderniereminuteregion',{'name':w.coupure|lower}) }}" title="{{ "tarif.derniere.minute.promotion" | trans }} région {{ w.coupure }}">{{ "tarif.derniere.minute.promotion" | trans }} région {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			{#<li class="sansUnderLine"><a href="{{ path('_restaurant') }}" class="linkParent" title="{{ "restaurant" | trans }}">{{ "restaurant" | trans }}</a>
+				<ul>
+					{% for p in restaurantProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_restaurant_province_index',{'name':p.coupure|lower}) }}" title="Restaurants province {{ p.coupure }}">Restaurants province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in restaurantRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_restaurantregion',{'name':w.coupure|lower}) }}" title="Restaurants région {{ w.coupure }}">Restaurants région {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>#}
+			<li><a href="{{ path('_conditionUtilisation') }}" class="linkParent" title="{{ "condition.utilisation" | trans }}">{{ "condition.utilisation" | trans }}</a></li>
+			<li><a href="{{ path('_quisommesnous') }}" class="linkParent" title="{{ "qui.sommes.nous" | trans }}">{{ "qui.sommes.nous" | trans }}</a></li>
+			<li><a href="{{ path('_contact') }}" class="linkParent" title="{{ "contactez.nous" | trans }}">{{ "contactez.nous" | trans }}</a></li>
+			<li><a href="{{ path('_faq') }}" class="linkParent" title="{{ "FAQ" | trans }}">{{ "FAQ" | trans }}</a></li>
+			<li><a href="{{ path('_transaction_langue_global',{"langue":"en"}) }}" class="linkParent" title="{{ "langue" | trans }}">{{ "langue" | trans }}</a></li>
+		</ul>
+		<br />
+	{# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% else %}
+		<ul>
+			<li class="sansUnderLine"><a href="{{ path('_accueil') }}" class="linkParent sansUnderLine" title="{{ "accueil" | trans }}">{{ "accueil" | trans }}</a>		
+				<ul>
+					{% for p in accueilProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_accueil_province',{'name':p.coupure|lower}) }}" title="Home province {{ p.coupure }}">Home province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in accueilRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_accueil_region',{'name':w.coupure|lower}) }}" title="Home region {{ w.coupure }}">Home region {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>	
+				</ul>
+			</li>
+			<li class="sansUnderLine"><a href="{{ path('_hebergementen') }}" class="linkParent" title="{{ "hebergement" | trans }}">{{ "hebergement" | trans }}</a>
+				<ul>
+					{% for p in hebergementProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_hebergementprovincefr',{'name':p.coupure|lower}) }}" title="Host province {{ p.coupure }}">Accommodation province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in hebergementRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_hebergementregionsquebecfr',{'name':w.coupure|lower}) }}" title="Host region {{ w.coupure }}">Accommodation region {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			<li class="sansUnderLine"><a href="{{ path('_forfaitsen') }}" class="linkParent" title="{{ "forfait" | trans }}">{{ "forfait" | trans }}</a>
+				<ul>
+					{% for p in forfaitProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_forfaitsprovincefr',{'name':p.coupure|lower}) }}" title="Packages province {{ p.coupure }}">Packages province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in forfaitRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_forfaitsregionsfr',{'name':w.coupure|lower}) }}" title="Packages region {{ w.coupure }}">Packages region {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			<li class="sansUnderLine"><a href="{{ path('_corpoeventsen') }}" class="linkParent" title="{{ "corporatif.evenement" | trans }}">{{ "corporatif.evenement" | trans }}</a>
+				<ul>
+					{% for p in corporatifProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_corpoeventsprovince',{'name':p.coupure|lower}) }}" title="Corporate and events province {{ p.coupure }}">Corporate and events province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in corporatifRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_corpoeventsregions',{'name':w.coupure|lower}) }}" title="Corporate and events region {{ w.coupure }}">Corporate and events region {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			<li class="sansUnderLine"><a href="{{ path('_centersanteen') }}" class="linkParent" title="{{ "centre.sante.spa" | trans }}">{{ "centre.sante.spa" | trans }}</a>
+				<ul>
+					{% for p in centreSanteProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_choisirprovincesoin',{'name':p.coupure|lower}) }}" title="Health_centers_spas province {{ p.coupure }}">Health centers spas province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in centreSanteRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_centersanteIndex',{'name':w.coupure|lower}) }}" title="Health_centers_spas region {{ w.coupure }}">Health centers spas region {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			<li class="sansUnderLine"><a href="{{ path('_attraitsactivityen') }}" class="linkParent" title="{{ "attrait.activite" | trans }}">{{ "attrait.activite" | trans }}</a>
+				<ul>
+					{% for p in attraitProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_attraitsprovince',{'name':p.coupure|lower}) }}" title="Attraits and activites province {{ p.coupure }}">Attraits and activites province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in attraitRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_attraitsIndex',{'name':w.coupure|lower}) }}" title="Attraits and activites region {{ w.coupure }}">Attraits and activites region {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			<li class="sansUnderLine"><a href="{{ path('_promotionen') }}" class="linkParent" title="{{ "promotion" | trans }}">{{ "promotion" | trans }}</a>
+				<ul>
+					{% for p in promotionProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_promotionstarifderniereminuteprovinceen',{'name':p.coupure|lower}) }}" title="{{ "tarif.derniere.minute.promotion" | trans }} province {{ p.coupure }}">{{ "tarif.derniere.minute.promotion" | trans }} province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in promotionRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_promotionstarifderniereminuteregionen',{'name':w.coupure|lower}) }}" title="{{ "tarif.derniere.minute.promotion" | trans }} region {{ w.coupure }}">{{ "tarif.derniere.minute.promotion" | trans }} region {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			<li class="sansUnderLine"><a href="{{ path('_restaurant') }}" class="linkParent" title="{{ "restaurant" | trans }}">{{ "restaurant" | trans }}</a>
+				<ul>
+					{% for p in restaurantProvince %}
+						<li class="sansUnderLine"><a href="{{ path('_restaurant_province_index',{'name':p.coupure|lower}) }}" title="Restaurants province {{ p.coupure }}">Restaurants province {{ p.coupure|lower }}</a>
+					{% endfor %}
+							<ul>
+								{% for w in restaurantRegion %}
+									<li class="sansUnderLine"><a href="{{ path('_restaurantregion',{'name':w.coupure|lower}) }}" title="Restaurants region {{ w.coupure }}">Restaurants region {{ w.coupure|lower }}</a>
+								{% endfor %}
+							</ul>
+						</li>
+				</ul>
+			</li>
+			<li><a href="{{ path('_conditionUtilisation_en') }}" class="linkParent" title="{{ "condition.utilisation" | trans }}">{{ "condition.utilisation" | trans }}</a></li>
+			<li><a href="{{ path('_quisommesnous') }}" class="linkParent" title="{{ "qui.sommes.nous" | trans }}">{{ "qui.sommes.nous" | trans }}</a></li>
+			<li><a href="{{ path('_contact') }}" class="linkParent" title="{{ "contactez.nous" | trans }}">{{ "contactez.nous" | trans }}</a></li>
+			<li><a href="{{ path('_faq') }}" class="linkParent" title="{{ "FAQ" | trans }}">{{ "FAQ" | trans }}</a></li>
+			<li><a href="{{ path('_transaction_langue_global',{"langue":"fr"}) }}" class="linkParent" title="{{ "langue" | trans }}">{{ "langue" | trans }}</a></li>
+		</ul>
+		<br />
+	{# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+	{% endif %}
+	
+		<script>
+			$(function(){
+				$("ul.ulAriane li").css("padding","0");
+				$("#navhaut nav ul li").css("font-size","16px");
+			});
+		</script>
+{% endblock %}

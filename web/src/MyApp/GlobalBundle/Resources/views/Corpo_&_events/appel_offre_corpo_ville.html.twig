@@ -1,0 +1,384 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}	
+		<p class="legendeHome">{{ "appeloffre" | trans }} {% if app.request.locale == "fr" %} ville {{ clientAleatoire.sallecorporativehebergement.villeid.nomfr }} {% else %} city {{ clientAleatoire.sallecorporativehebergement.villeid.nomen }} {% endif %}</p>
+		{# div qui va contenir la photo principal du sujet de la section #}
+			<div id="photoprincipale">
+				<div class="nomSousCategorie">
+				<h1>{{ "appeloffre" | trans }}</h1>
+				{% if app.request.locale == "fr" %}
+				<h3><a href="{{ path('_hebergementcorporatif',{'name':clientAleatoire.sallecorporativehebergement.repertoirefr|lower}) }}" title="Corporatif et événements {{ clientAleatoire.sallecorporativehebergement.nomfr }}" target="_blank">{{ clientAleatoire.sallecorporativehebergement.nomfr }} - région {{ clientAleatoire.sallecorporativehebergement.regionid.nomfr }}</a></h3>
+				{% else %}
+				<h3><a href="{{ path('_hebergementcorporatif',{'name':clientAleatoire.sallecorporativehebergement.repertoireen|lower}) }}" title="Corporate and events {{ clientAleatoire.sallecorporativehebergement.nomen }}" target="_blank">{{ clientAleatoire.sallecorporativehebergement.nomen }} - region {{ clientAleatoire.sallecorporativehebergement.regionid.nomen }}</a></h3>
+				{% endif %}
+				</div>
+				{% if clientAleatoire.sallecorporativehebergement.photopayante is not empty %}
+			  		<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.sallecorporativehebergement.id }}/{{ clientAleatoire.sallecorporativehebergement.photopayante }}" class="big_picture" alt="{{ "corpo.event.speciaux" | trans }} {% if app.request.locale == "fr" %} {{ clientAleatoire.sallecorporativehebergement.nomfr }} {% else %} {{ clientAleatoire.sallecorporativehebergement.nomen }} {% endif %}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="{% if app.request.locale == "fr" %}Image de remplacement pour {{ clientAleatoire.nomfr }} {% else %} Replacement image for {{ clientAleatoire.nomen }} {% endif %}"></div>
+				{% endif %}
+			</div>
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+
+		{% block body %} 
+			<div class="appelOffresCorporatif">
+			<form action="" method="post" {{ form_enctype(formAppel) }}  id="appeloffrecorpo">	
+				<h2 class="retouche">{{ "appeloffre" | trans}}</h2>
+				<br />			
+				<table width="558" border="0" align="center" cellpadding="0" cellspacing="2">
+				  <tr>
+				    <td colspan="2" align="left"  class="titreTab" scope="col"><span>1</span> {{ "selectionner.destination" | trans }}</td>
+				    </tr>
+				  <tr>
+				    <td width="276" align="left" scope="col">{{ "pays" | trans }}</td>
+				    <td width="276" align="left" scope="col">{{ "liste.ebergement" | trans }}</td>
+				  </tr>
+				  <tr>
+				    <td align="left">
+				    	<select name="select" id="select">
+					      		<option>Canada</option>
+				    	</select>
+				    </td>
+				    <td rowspan="7" align="left" valign="top">
+						{% include 'MyAppGlobalBundle:Corpo_&_events:etablissement.xml.twig' with {'clientAjax' : clientAjax}  %}  
+				    </td>
+				  </tr>
+				  <tr>
+				    <td align="left">Province</td>
+				  </tr>
+				  <tr>
+				    <td align="left">
+						{% if app.request.locale == "fr" %}
+				    	<select id="add_appel_offre_province_id">
+					    	{% for x in listeProvince %}
+					    	{% if loop.index == 1 %}
+					    		<option>Choisissez une province </option>
+					    	{% endif %}
+					    		<option value="{{ x.sallecorporativehebergement.provinceid.id }}">{{ x.sallecorporativehebergement.provinceid.nomfr }}</option>
+					    	{% endfor %}
+				    	</select> <img src="{{ asset('bundles/myappglobal/images/loading.gif') }}" class="loading" />
+				    	{% else %}
+				    	<select id="add_appel_offre_province_id">
+					    	{% for x in listeProvince %}
+					    	{% if loop.index == 1 %}
+					    		<option>Choose a province </option>
+					    	{% endif %}
+					    		<option value="{{ x.sallecorporativehebergement.provinceid.id }}">{{ x.sallecorporativehebergement.provinceid.nomen }}</option>
+					    	{% endfor %}
+				    	</select> <img src="{{ asset('bundles/myappglobal/images/loading.gif') }}" class="loading" />
+				    	{% endif %}
+				    </td>
+				  </tr>
+				  <tr>
+				    <td align="left">{{ "region" | trans }}</td>
+				    </tr>
+				  <tr>
+				  	<td align="left">
+				    	{% include 'MyAppGlobalBundle:Corpo_&_events:province.xml.twig' with {'regionAjax' : regionAjax}  %}
+					</td>
+				  </tr>
+				  <tr>
+				    <td align="left">{{ "ville" | trans }}</td>
+				    </tr>
+				  <tr>
+				  	<td align="left">
+				    	{% include 'MyAppGlobalBundle:Corpo_&_events:region.xml.twig' with {'villeAjax' : villeAjax}  %}
+				    </td>
+				  </tr>
+				</table>
+				<br />
+			{#}
+				  <table width="558" align="center" border="0" cellpadding="0" cellspacing="2">
+					<tbody>
+				
+					<tr>
+						<td width="150" height="25"></td>
+						<td width="140">
+				    		{{ form_widget(formAppel.type_offre, {'attr':{'class':'input_appel_offre'}}) }}
+							{{ form_errors(formAppel.type_offre ) }}
+						</td>
+					</tr>
+					</tbody>
+				 </table>
+					<br>	#}			
+			{# RENSEIGNEMENTS PERSONNELS #}	
+					<table width="558" align="center" border="0" cellpadding="0" cellspacing="2">
+						<tbody>
+							<tr valign="middle">
+								<td class="titreTab" colspan="4"  height="23" ><span>2</span> {{ "renseignements.personnels" | trans }} </td>
+							</tr>
+						
+							<tr>
+								<td height="25">&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+							</tr>
+							
+							<tr>
+								<td width="130" height="25">{{ form_label(formAppel.prenom, "prenom" | trans, {'attr':{'class':'lblappeloffre'}}) }}<font color="#ff3300"> *</font></td>
+								<td width="210">
+									{{ form_widget(formAppel.prenom, {'attr':{'class':'input_appel_offre', 'maxlength' : "30"}}) }}
+									{{ form_errors(formAppel.prenom ) }}
+								</td>
+								<td width="130">{{ form_label(formAppel.nom, "nom" | trans, {'attr':{'class':'lblappeloffre'}}) }}<font color="#ff3300"> *</font></td>
+								<td width="210">
+									{{ form_widget(formAppel.nom, {'attr':{'class':'input_appel_offre', 'maxlength' : "30"}}) }}
+									{{ form_errors(formAppel.nom ) }}
+								</td>
+							</tr>
+							
+							<tr>
+								<td width="130" height="25">{{ form_label(formAppel.email, "email" | trans, {'attr':{'class':'lblappeloffre'}}) }}<font color="#ff3300"> *</font></td>
+								<td width="210">
+									{{ form_widget(formAppel.email, {'attr':{'class':'input_appel_offre', 'maxlength' : "50"}}) }}
+									{{ form_errors(formAppel.email ) }}
+								</td>
+								<td width="130">{{ form_label(formAppel.nom_entreprise, "nom.d.entreprise" | trans, {'attr':{'class':'lblappeloffre'}}) }}</td>
+								<td width="210">
+									{{ form_widget(formAppel.nom_entreprise, {'attr':{'class':'input_appel_offre', 'maxlength' : "30"}}) }}
+									{{ form_errors(formAppel.nom_entreprise ) }}
+								</td>
+							</tr>
+							
+							<tr>
+								<td width="130">{{ form_label(formAppel.adresse, "adresse" | trans, {'attr':{'class':'lblappeloffre'}}) }}<font color="#ff3300"> *</font></td>
+								<td width="210">
+									{{ form_widget(formAppel.adresse, {'attr':{'class':'input_appel_offre', 'maxlength' : "50"}}) }}
+									{{ form_errors(formAppel.adresse ) }}
+								</td>
+								<td width="130">{{ form_label(formAppel.ville, "ville" | trans, {'attr':{'class':'lblappeloffre'}}) }}<font color="#ff3300"> *</font></td>
+								<td width="210">
+									{{ form_widget(formAppel.ville, {'attr':{'class':'input_appel_offre', 'maxlength' : "30"}}) }}
+									{{ form_errors(formAppel.ville ) }}
+								</td>
+							</tr>
+							
+							<tr>
+								<td width="130" height="25">{{ form_label(formAppel.province_etat, "province.etats" | trans, {'attr':{'class':'lblappeloffre'}}) }}<font color="#ff3300"> *</font></td>
+								<td width="210">
+									{{ form_widget(formAppel.province_etat, {'attr':{'class':'input_appel_offre'}}) }}
+									{{ form_errors(formAppel.province_etat ) }}
+								</td>
+								<td width="130">{{ form_label(formAppel.code_postal, "code.postal" | trans, {'attr':{'class':'lblappeloffre'}}) }}<font color="#ff3300"> *</font></td>
+								<td width="210">
+									{{ form_widget(formAppel.code_postal, {'attr':{'class':'input_appel_offre code_postal_upper', 'maxlength' : "7"}}) }}
+									{{ form_errors(formAppel.code_postal ) }}
+								</td>
+							</tr>
+							
+							<tr>
+								<td width="130" height="25">{{ form_label(formAppel.pays_offre, "pays" | trans, {'attr':{'class':'lblappeloffre'}}) }}</td>
+								<td width="210">
+									{{ form_widget(formAppel.pays_offre, {'attr':{'class':'input_appel_offre'}}) }}
+									{{ form_errors(formAppel.pays_offre ) }}
+								</td>
+								<td width="130">{{ form_label(formAppel.telephone, "telephone" | trans, {'attr':{'class':'lblappeloffre'}}) }}<font color="#ff3300"> *</font></td>
+								<td width="210">
+									{{ form_widget(formAppel.telephone, {'attr':{'class':'input_appel_offre', 'maxlength' : "20"}}) }}
+									{{ form_errors(formAppel.telephone ) }}
+								</td>
+							</tr>
+						
+							<tr>
+								<td width="130" height="25">{{ form_label(formAppel.telecopieur, "telecopieur" | trans, {'attr':{'class':'lblappeloffre'}}) }}</td>
+								<td width="210">
+									{{ form_widget(formAppel.telecopieur, {'attr':{'class':'input_appel_offre', 'maxlength' : "20"}}) }}
+									{{ form_errors(formAppel.telecopieur ) }}
+								</td>
+								<td width="130">&nbsp;</td>
+								<td width="210">&nbsp;</td>
+							</tr>	
+						</tbody>
+					</table>
+					<br>
+					<table  align="center" border="0" cellpadding="0" cellspacing="2" style="width:558px !important; display:block;">
+					<tbody>
+			{# RENSEIGNEMENTS SUR L'HÉBERGEMENTS #}	
+					<tr valign="middle">
+					<td class="titreTab" colspan="6" height="23"><span>3</span> {{ "renseignements.hebergement" | trans }} </td>
+					</tr>
+					<tr>
+					<td height="25">&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					</tr>
+					<tr>
+					<td width="150" height="25">{{ form_label(formAppel.nb_chambre, "nombre.chambre" | trans, {'attr':{'class':'lblappeloffre'}}) }}</td>
+					<td width="90">
+						{{ form_widget(formAppel.nb_chambre, {'attr':{'class':'input_appel_offre'}}) }}
+						{{ form_errors(formAppel.nb_chambre ) }}
+					</td>					
+					<td width="150"></td>
+					<td width="90">
+						{{ form_widget(formAppel.type_chambre, {'attr':{'class':'input_appel_offre'}}) }}
+						{{ form_errors(formAppel.type_chambre ) }}
+					</td>
+					</tr>
+					<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					</tr>		
+					<tr>
+					<td colspan="6" class="textehotel">
+					<p>{{ form_label(formAppel.demande_specifique_hebergement, "demande.specifique" | trans, {'attr':{'class':'lblappeloffre'}}) }}<br>
+						{{ form_widget(formAppel.demande_specifique_hebergement, {'attr':{'class':'text_appel_offre'}}) }}
+						{{ form_errors(formAppel.demande_specifique_hebergement ) }}
+					</p>
+					</td>
+					</tr>
+					</tbody></table>
+			{# RENSEIGNEMENTS SUR LA SALLE #}	
+					<br>
+					<table width="558" align="center" border="0" cellpadding="0" cellspacing="0">
+					<tbody width="558">
+					  <tr>
+					    <td><table width="558" align="center" border="0" cellpadding="0" cellspacing="2">
+					      <tbody>
+					        <tr valign="middle">
+					          <td class="titreTab" colspan="4" height="23"><span>4</span> {{ "renseignements.sur.salle" | trans }} </td>
+					          </tr>
+					        <tr>
+					          <td height="25">&nbsp;</td>
+					          <td>&nbsp;</td>
+					          <td>&nbsp;</td>
+					          <td>&nbsp;</td>
+					          </tr>
+					        <tr>
+					          <td width="130" height="25">{{ form_label(formAppel.nom_reunion, "nom.reunion" | trans, {'attr':{'class':'lblappeloffre'}}) }} </td>
+					          <td width="210">
+					          	{{ form_widget(formAppel.nom_reunion, {'attr':{'class':'input_appel_offre', 'maxlength' : "30"}}) }}
+								{{ form_errors(formAppel.nom_reunion ) }}
+					          </td>
+					          <td width="130">{{ form_label(formAppel.nb_personne, "nombre.personne" | trans, {'attr':{'class':'lblappeloffre'}}) }}</td>
+					          <td width="210">
+					          	{{ form_widget(formAppel.nb_personne, {'attr':{'class':'input_appel_offre', 'maxlength' : "2"}}) }}
+								{{ form_errors(formAppel.nb_personne ) }}
+					          </td>
+					          </tr>
+					        <tr>
+					          <td width="210" height="25">{{ form_label(formAppel.type_event_id, "type.d.evenement" | trans, {'attr':{'class':'lblappeloffre'}}) }}</td>
+					          <td>
+					          	{{ form_widget(formAppel.type_event_id, {'attr':{'class':'input_appel_offre'}}) }}
+								{{ form_errors(formAppel.type_event_id ) }}
+					          </td>
+					          <td></td>
+					          </tr>
+					        <tr>
+					          <td>{{ form_label(formAppel.date_arrivee, "date.arrivee" | trans, {'attr':{'class':'lblappeloffre'}}) }}<font color="#ff3300">*</font></td>
+					          <td>
+					          	{{ form_widget(formAppel.date_arrivee, {'attr':{'class':'input_appel_offre'}}) }}
+								{{ form_errors(formAppel.date_arrivee ) }}
+					          </td>
+					          <td height="25">{{ form_label(formAppel.date_depart, "date.depart" | trans, {'attr':{'class':'lblappeloffre'}}) }}<font color="#ff3300">*</font></td>
+					          <td>
+								{{ form_widget(formAppel.date_depart, {'attr':{'class':'input_appel_offre'}}) }}
+								{{ form_errors(formAppel.date_depart ) }}
+					          </td>
+					          </tr>
+					        </tbody>
+					      </table></td>
+					    </tr>
+					</tbody></table>
+					<br>
+					<table width="558" align="center" border="0" cellpadding="0" cellspacing="2">
+					<tbody><tr>
+						<td colspan="4" height="25">{{ form_label(formAppel.date_flexible, "vos.dates.flexibles" | trans, {'attr':{'class':'lblappeloffre'}}) }} &nbsp;
+							{{ form_widget(formAppel.date_flexible, {'attr':{'class':'input_appel_offre'}}) }}
+							{{ form_errors(formAppel.date_flexible ) }}
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4" height="25">{{ "disposition.salle" | trans }} &nbsp;
+						<select name="m_RoomLayout" class="textehotel">
+							<option value="Banquet">{{ "banquet" | trans }}</option>
+							<option value="Carré ouvert">{{ "carre.ouvert" | trans }}</option>
+							<option value="Chevrons">{{ "chevron" | trans }}</option>
+							<option value="Conférence">{{ "conference" | trans }}</option>
+							<option value="Demi-lune">{{ "demi.lune" | trans }}</option>
+							<option value="École">{{ "ecole" | trans }}</option>
+							<option value="En T">{{ "en.t" | trans }}</option>
+							<option value="En U">{{ "en.u" | trans }}</option>		
+							<option value="Salon commercial">{{ "salon.commercial" | trans }}</option>
+							<option value="Théâtre ">{{ "theatre" | trans }} </option>
+						</select></td>
+					</tr>
+					<tr>
+						<td height="13">&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+						<tr>
+							<td colspan="4" height="25"><p>{{ form_label(formAppel.description_equipement, "decrire.equipement" | trans, {'attr':{'class':'lblappeloffre'}}) }}<br>
+								{{ form_widget(formAppel.description_equipement, {'attr':{'class':'text_appel_offre'}}) }}
+								{{ form_errors(formAppel.description_equipement ) }}
+								</p>
+							</td>
+						</tr>
+					</tr>
+					</tbody>
+					</table>
+					<br>
+					<div align="center">
+					{{ form_rest(formAppel) }}	
+				    <input value="{{ "envoyer.la.demande" | trans }}" type="submit">
+				    </div>
+				</form>
+			</div>
+			  <br class="clearfloat" />
+				 {# PUB GOOGLE #}
+				  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+				  	<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('zone_01'); });
+					</script>
+				  </div>
+				 <br class="clearfloat" />
+		 <script>
+			var cp = document.getElementById('add_appel_offre_code_postal');
+			cp.onkeyup = function(){
+					this.value = this.value.toUpperCase();
+					if(cp.value.length == 3){
+						this.value = this.value.toUpperCase()+"-";
+					}
+			}
+			$(function(){ 
+				$('#add_appel_offre_type_chambre_3').attr('checked','checked');
+				$jourDepart = $jourArrive = new Date();			
+				$("#add_appel_offre_date_arrivee_day option[value='"+ $jourArrive.getDate() +"']").attr('selected','selected');
+				$("#add_appel_offre_date_arrivee_month option[value='"+ ($jourArrive.getMonth()+1) +"']").attr('selected','selected');
+				$("#add_appel_offre_date_depart_day option[value='"+ ($jourDepart.getDate()+1) +"']").attr('selected','selected');
+				$("#add_appel_offre_date_depart_month option[value='"+ ($jourDepart.getMonth()+1) +"']").attr('selected','selected');
+			});
+		</script>
+		{% endblock %}
+		
+		{% block gauche %}
+			 {# Implémentation de la recherche par carte #}
+         	 {% block ouAller %} {% include '::searchCard.html.twig' %} {% endblock %}
+  			 {# PUB GOOGLE #}
+			 <div id="zone_02" class="bigBox">
+				 <script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				 </script>
+			 </div>
+		{% endblock%}
+		
+		

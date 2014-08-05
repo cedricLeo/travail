@@ -1,0 +1,111 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}	
+		<p class="legendeHome">{{ "centre.sante.spa" | trans }} {% if app.request.locale == "fr" %} province {{ clientAleatoire.provinceid.nomfr }} {% else %} province {{ clientAleatoire.provinceid.nomen }} {% endif %}</p>
+	<!-- div qui va contenir la photo principal du sujet de la section -->
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+			{% if app.request.locale == "fr" %}
+				<h1>{{ "centre.sante.spa" | trans }} province {{ clientAleatoire.provinceid.nomfr }}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlfr }}/{{ clientAleatoire.zoneid.repertoirefr }}/{{ clientAleatoire.repertoirefr|lower }}" target="_blank" title="{{ "centre.sante.spa" | trans }} province {{ clientAleatoire.provinceid.nomfr }}">{{ "centresante.clientaleatoire" | trans }} {{ clientAleatoire.nomfr }} - {{ clientAleatoire.regionid.nomfr }}</a></h3>
+			</div>
+				{% if clientAleatoire.photopayante is not empty %}
+		  			<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomfr }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+				{% endif %}
+			{% else %}
+				<h1>{{ "centre.sante.spa" | trans }} province {{ clientAleatoire.provinceid.nomen }}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlen }}/{{ clientAleatoire.zoneid.repertoireen }}/{{ clientAleatoire.repertoireen|lower }}" target="_blank" title="{{ "centre.sante.spa" | trans }} province {{ clientAleatoire.provinceid.nomen }}">{{ "centresante.clientaleatoire" | trans }} {{ clientAleatoire.nomen }} - {{ clientAleatoire.regionid.nomen }}</a></h3>
+			</div>
+				{% if clientAleatoire.photopayante is not empty %}
+		  			<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomen }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+				{% endif %}
+			{% endif %}
+		</div>
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		
+		{% block body %}
+			<div class="region">
+			      <h2>{{ "select.region.centre.sante" | trans }} {% include '::OrthographeProvince.html.twig' %}</h2>
+			      {% if app.request.locale == "fr" %}
+			      <ul>
+			        <li class="province"><a href="javascript:void(0);"> {{ clientAleatoire.provinceid.nomfr }}</a></li>
+				    {% for r in region%}
+				        <li><a href="{{ path('_centersanteIndex',{ 'name':r.regionid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} région {{ r.regionid.nomfr }}">{{r.regionid.nomfr }}</a></li>
+				    {% endfor %}
+			      </ul>
+			      {% else %}
+			       <ul>
+			        <li class="province"><a href="javascript:void(0);">{{ clientAleatoire.provinceid.nomen }} </a></li>
+				    {% for r in region%}
+				        <li><a href="{{ path('_centersanteIndexen',{ 'name':r.regionid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} region {{ r.regionid.nomen }}">{{r.regionid.nomen }}</a></li>
+				    {% endfor %}
+			      </ul>
+			      {% endif %}
+			      <br class="clearfloat" />
+			</div>
+		     {# PUB GOOGLE #}
+			<div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			</div>
+			<div class="categorie colonnes2 hackcss">
+			 <h2 class="childHackcss">{{ "les.categories.services" | trans }} {{ "centre.sante.spa" | trans }} province {% if app.request.locale == "fr" %} {{ clientAleatoire.provinceid.nomfr }} {% else %} {{ clientAleatoire.provinceid.nomen }} {% endif %}</h2>
+			     {% if app.request.locale == "fr" %}
+			     	{% for y in listeSoin %}
+						{% for typesoin in y.typesoinsid %}
+						<div> 
+							<a href="{{ path('_provincetypesoin',{'name':typesoin.repertoirefr|lower, 'province':y.provinceid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} {{ typesoin.nomfr }} région {{ y.regionid.nomfr }}">
+								<img src="{{ asset('uploads/type_soin') }}/{{ typesoin.id }}/{{ typesoin.image }}" class="img_categoie_portail" alt="{{ typesoin.nomfr }}" />
+							</a>
+						  <h2><a href="{{ path('_provincetypesoin',{'name':typesoin.repertoirefr|lower, 'province':y.provinceid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} {{ typesoin.nomfr }} région {{ y.regionid.nomfr }}"> {{ typesoin.nomfr }}</a></h2>
+						  <p>{{ typesoin.resumefr|striptags|truncate(150, true, ' [...]') }}</p>
+						  <h3><a href="{{ y.regionid.urlfr }}/{{ y.zoneid.repertoirefr }}/{{ y.repertoirefr }}" target="_blank" title="{{ typesoin.nomfr }} {{ y.nomfr }} ">{{y.nomfr }}</a></h3>
+						  <h4>[<a href="{{ path('_provincetypesoin',{'name':typesoin.repertoirefr|lower, 'province':y.provinceid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} {{ typesoin.nomfr }} région {{ y.regionid.nomfr }}">voir la suite</a>]</h4>
+						</div>
+						{% endfor %}
+					{% endfor %}
+				{% else %}
+					{% for y in listeSoin %}
+						{% for typesoin in y.typesoinsid %}
+						<div> 
+							<a href="{{ path('_provincetypesoinen',{'name':typesoin.repertoireen|lower, 'province':y.provinceid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} {{ typesoin.nomen }} region {{ y.regionid.nomen }}">
+								<img src="{{ asset('uploads/type_soin') }}/{{ typesoin.id }}/{{ typesoin.image }}" class="img_categoie_portail" alt="{{ typesoin.nomen }}" />
+							</a>
+						  <h2><a href="{{ path('_provincetypesoinen',{'name':typesoin.repertoireen|lower, 'province':y.provinceid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} {{ typesoin.nomen }} region {{ y.regionid.nomen }}"> {{ typesoin.nomen }} </a></h2>
+						  <p>{{ typesoin.resumeen|striptags|truncate(150, true, ' [...]') }}</p>
+						  <h3><a href="{{ y.regionid.urlen }}/{{ y.zoneid.repertoireen }}/{{ y.repertoireen }}" target="_blank" title="{{ typesoin.nomen }} {{ y.nomfr }}">{{ y.nomen }}</a></h3>
+						  <h4>[<a href="{{ path('_provincetypesoinen',{'name':typesoin.repertoireen|lower, 'province':y.provinceid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} {{ typesoin.nomen }} region {{ y.regionid.nomen }}">see more</a>]</h4>
+						</div>
+						{% endfor %}
+					{% endfor %}
+				{% endif %}
+	     	</div>
+	     	<br class="clearfloat" />
+		{% endblock %}
+		
+		{% block gauche %}
+		{# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %}
+ 		{# Implémentation des suggestions pour les centre de santé #}
+ 			{% include 'MyAppGlobalBundle:Centre_sante_&_spas:nosSuggestionCentreSante.html.twig' %}
+ 		{# PUB GOOGLE #}
+ 			 <div id="zone_02" class="bigBox">
+ 			 	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+ 			 </div>
+		{% endblock %}

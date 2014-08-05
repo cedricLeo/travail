@@ -1,0 +1,79 @@
+{% if zonerecorder is defined %}
+    <label class="lblnompays">Zone</label>
+	    <div class="zone_id">
+                    <select class="txt_add_state listezone" id="listezone" name="listezone" required="required">
+                    {% if zonerecorder is defined %}
+                            {% for pr in zonerecorder%}
+                                    <option value="{{ pr.id }}">{{ pr.nomfr }}</option>
+                            {% endfor %}
+                    {% endif %}
+                    </select>
+            </div>
+{% else %}
+	<img class="imgtrizone" src="{{ asset('bundles/myappglobal/images/loading.gif') }}" style="display:block; position:relative; top:50px; left:-50px;">
+	<label class="lblnompays">Zone</label>
+	    <div class="zone_id">
+                    <select class="txt_add_state listezone" id="listezone" name="listezone" required="required">
+                    {% if region is defined %} 
+                            {% for pr in region %}
+                                    <option value="{{ pr.id }}">{{ pr.nomfr }}</option>
+                            {% endfor %}
+                    {% endif %}
+                    </select>
+            </div>
+{% endif %} 
+        
+<script>
+	$(function(){
+		//Ajoute le selected dans la liste des zones
+		{% if zoneSelected is defined %}
+			$("#listezone option[value={{ zoneSelected }}]").attr("selected", "selected");
+		{% endif %}
+                    
+		//Traitement pour les villes en ajax
+		$(".imgtriville").hide();
+		$("select#listezone").change(function(){ 
+			var zone = $("#listezone").val();
+			if(zone != 0){
+			    $(".imgtriville").show();
+			    var DATA = "zone=" + zone;
+			    $.ajax({
+			        type: "post",
+			    	url: "{{ path('_trivilleajax') }}",
+			        data: DATA,
+			        cache: false,
+			        success: function(data){
+			           $('.ville_id').html(data);
+                                 
+			           $(".imgtriville").hide();
+			           $(".ville_id").first().prev("label").remove();
+			        }
+			    });  
+			    return false;
+			}
+		}); 
+                 {% if comptZone is defined and comptZone == 1 %}
+                    $("select#listezone").live("click", function(){
+			var zone = $("#listezone").val();
+			if(zone != 0){
+			    $(".imgtriville").show();
+			    var DATA = "zone=" + zone;
+			    $.ajax({
+			        type: "post",
+			    	url: "{{ path('_trivilleajax') }}",
+			        data: DATA,
+			        cache: false,
+			        success: function(data){
+			           $('.ville_id').html(data);
+                                 
+			           $(".imgtriville").hide();
+			           $(".ville_id").first().prev("label").remove();
+			        }
+			    });  
+			    return false;
+			}
+		});
+                {% endif %}     
+	});
+</script>
+

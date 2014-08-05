@@ -1,0 +1,77 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}
+		<p class="legendeHome">{{ "attrait.activite" | trans }} {% if app.request.locale == "fr" %} ville {{ clientAleatoire.villeid.nomfr }} {% else %} {{ clientAleatoire.villeid.nomen }} city {% endif %}</p>
+	{# div qui va contenir la photo principal du sujet de la section #}
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+			{% if app.request.locale == "fr" %}
+				<h1>{{ "attrait.activite" | trans }} ville {{ clientAleatoire.villeid.nomfr }}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlfr }}/{{ clientAleatoire.zoneid.repertoirefr }}/{{ clientAleatoire.repertoirefr }}" target="_blank" title="{{ "attrait.activite" | trans }} {{ clientAleatoire.nomfr }} ville {{ clientAleatoire.villeid.nomfr }}">{{ clientAleatoire.nomfr }} - {{ clientAleatoire.villeid.nomfr }}</a></h3>
+			</div>
+				{% if clientAleatoire.image is not empty %}
+		    		<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.image }}" class="big_picture" alt="{{ clientAleatoire.nomfr }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+				{% endif %}
+			{% else %}
+				<h1>{{ "attrait.activite" | trans }} {{ clientAleatoire.villeid.nomen }} city</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlen }}/{{ clientAleatoire.zoneid.repertoireen }}/{{ clientAleatoire.repertoireen }}" target="_blank" title="{{ "attrait.activite" | trans }} {{ clientAleatoire.nomen }} {{ clientAleatoire.villeid.nomen }} city">{{ clientAleatoire.nomen }} - {{ clientAleatoire.villeid.nomen }}</a></h3>
+			</div>
+				{% if clientAleatoire.image is not empty %}
+		    		<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.image }}" class="big_picture" alt="{{ clientAleatoire.nomen }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+				{% endif %}
+			{% endif %}
+		</div>
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		
+		{% block body %}
+			{# Liste des attraits #}
+			   <div class="colonnes4photo doubletitre">
+				  <h2 class="retouche">{{ "attrait.activite" | trans }} {% if app.request.locale == "fr" %} ville {{ clientAleatoire.villeid.nomfr }} {% else %} {{ clientAleatoire.villeid.nomen }} city {% endif %}</h2>
+				  {% for list in listattrait %}
+					<div>
+						{% if app.request.locale == "fr" %}
+							  <h2><a href="{{ path('_attraitslistactivityville',{'ville':list.villeid.repertoirefr|lower, 'name':list.categorieattrait.repertoirefr|lower} ) }}" title="{{list.categorieattrait.nomfr}}">{{list.categorieattrait.nomfr}}</a></h2>
+							  <a href="{{ path('_attraitslistactivityville',{'ville':list.villeid.repertoirefr|lower, 'name':list.categorieattrait.repertoirefr|lower} ) }}" title="{{list.categorieattrait.nomfr}}"><img src="{{ asset('uploads/attrait_categorie') }}/{{ list.categorieattrait.id }}/{{list.categorieattrait.image}}" width="154" height="112" alt="{{list.categorieattrait.nomfr}}" /></a>
+							  <h3><a href="{{ list.regionid.urlfr }}/{{ list.zoneid.repertoirefr }}/{{ list.repertoirefr }}" target="_blank" title="">{{ list.nomfr }}</a></h3>
+						{% else %}
+							  <h2><a href="{{ path('_attraitslistactivityvilleen',{'ville':list.villeid.repertoireen|lower, 'name':list.categorieattrait.repertoireen|lower} ) }}" title="{{list.categorieattrait.nomen}}">{{list.categorieattrait.nomen}}</a></h2>
+							  <a href="{{ path('_attraitslistactivityvilleen',{'ville':list.villeid.repertoireen|lower, 'name':list.categorieattrait.repertoireen|lower} ) }}" title="{{list.categorieattrait.nomen}}"><img src="{{ asset('uploads/attrait_categorie') }}/{{ list.categorieattrait.id }}/{{list.categorieattrait.image}}" width="154" height="112" alt="{{list.categorieattrait.nomen}}" /></a>
+							  <h3><a href="{{ list.regionid.urlen }}/{{ list.zoneid.repertoireen }}/{{ list.repertoireen }}" target="_blank" title="">{{ list.nomen }}</a></h3>
+						{% endif %}
+					</div>
+				 {% endfor %}
+				<br class="clearfloat" />
+			  </div>
+			  {# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+		{% endblock %}
+		
+		{% block gauche %}
+		  {# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %} 
+         	{# {% include 'MyAppGlobalBundle:Attraits_&_activites:nosSuggestionsAttraitRegion.html.twig' %}#}
+         	{# PUB GOOGLE #}
+			<div id="zone_02" class="styleBigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+		{% endblock %}
+		

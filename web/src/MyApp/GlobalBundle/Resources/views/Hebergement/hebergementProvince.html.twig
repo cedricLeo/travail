@@ -1,0 +1,432 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}
+			<p class="legendeHome">{{ "hebergement" | trans }} {% if app.request.locale == "fr" %} province {{ clientAleatoire.provinceid.nomfr }} {% else %} province {{ clientAleatoire.provinceid.nomen }} {% endif %} </p>
+			{# div qui va contenir la photo principal du sujet de la section #}
+			<div id="photoprincipale">
+				<div class="nomSousCategorie">
+	            	{% if app.request.locale == "fr" %}
+	            	<h1>{{ "hebergement" | trans }} province {{ clientAleatoire.provinceid.nomfr }}</h1>
+					<h3><a href="{{ path('_hebergementinfoclient',{'name':clientAleatoire.repertoirefr|lower}) }}" target="_blank" title="{{ "hebergement" | trans }} {{ clientAleatoire.nomfr }} ">{{ clientAleatoire.nomfr }} - région {{ clientAleatoire.regionid.nomfr }}</a></h3>
+				</div>
+						{% if clientAleatoire.photopayante != "" %}
+					  	<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="Hébergement - {{ clientAleatoire.nomfr }}" />
+						{% else %}
+						<img src="{{ asset('bundles/myappglobal/images/PhotoHebNouveauSite.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} ">
+						{% endif %}
+					{% else %}
+					<h1>{{ "hebergement" | trans }} province {{ clientAleatoire.provinceid.nomen }}</h1>
+					<h3><a href="{{ path('_hebergementinfoclient',{'name':clientAleatoire.repertoireen|lower}) }}" target="_blank" title="{{ "hebergement" | trans }} {{ clientAleatoire.nomen }}">{{ clientAleatoire.nomen }} - {{ clientAleatoire.regionid.nomen }} region</a></h3>
+				</div>
+						{% if clientAleatoire.photopayante != "" %}
+			  			<img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ clientAleatoire.id }}/{{ clientAleatoire.photopayante }}" class="big_picture" alt="{{ clientAleatoire.nomen }} - accommodation " />
+						{% else %}
+						<img src="{{ asset('bundles/myappglobal/images/PhotoHebNouveauSite.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} ">
+						{% endif %}
+					{% endif %}
+			</div>
+		{% endblock %}	
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+                                        <p>{{ texteintrofr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texteintroen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		
+		{% block body %}
+		<div class="region">
+                    {% if app.request.locale == "fr" %}
+                    <h2>{{ "choisir.endroit.profiter.hebergement" | trans }} province {{ clientAleatoire.provinceid.nomfr }}</h2>
+                      <ul>		
+                                {% for r in region %}
+                                    {% if loop.index == 1 %}
+                                    <li class="province"><a href="javascript:void(0)" title="{{ r.provinceid.nomfr }}">{{ r.provinceid.nomfr }}</a></li>
+                                    {% endif %}
+			        <li><a href="{{ path('_hebergementregionsquebecfr',{ 'name': r.regionid.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} region {{ r.regionid.nomfr }}">{{ r.regionid.nomfr }}</a></li>
+			        {% endfor %}
+		      </ul>
+		      <br class="clearfloat" />
+			   {# PUB GOOGLE #}
+				  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+				  	<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('zone_01'); });
+					</script>
+				  </div>
+		    {% else %}
+		    <h2>{{ "choisir.endroit.profiter.hebergement" | trans }} province {{ clientAleatoire.provinceid.nomen }}</h2>
+		      <ul>		
+                                {% for r in region %}
+                                    {% if loop.index == 1 %}
+                                    <li class="province"><a href="javascript:void(0)" title="{{ r.provinceid.nomen }}">{{ r.provinceid.nomen }}</a></li>
+                                    {% endif %}
+			        <li><a href="{{ path('_hebergementregionsquebecen',{ 'name': r.regionid.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} region {{ r.regionid.nomen }}">{{ r.regionid.nomen }}</a></li>
+			        {% endfor %}
+		      </ul>
+		      <br class="clearfloat" />
+			   {# PUB GOOGLE #}
+				  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+				  	<script type='text/javascript'>
+						googletag.cmd.push(function() { googletag.display('zone_01'); });
+					</script>
+				  </div>
+		    {% endif %}
+		</div>
+		   
+		  {# LISTE DES CATÉGORIES DES HÉBERGEMENTS #}
+		   <div class="categorie colonnes2 hackcss">
+		 	 <h2 class="childHackcss">{{ "category.hebergement" | trans }} {% include '::OrthographeProvince.html.twig' %}</h2>  	
+                            {% if app.request.locale == "fr" %}
+                                {# HÔTELS, MOTELS ET AUBERGES #}
+				    {% if hotel is not empty %}
+				        {% for w in numbCat %}
+		            		{% if w.id == 7 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':hotel.repertoirefr|lower}) }}" target="_blank" title=" {{ w.nomfr }}- {{ hotel.nomfr }}">
+		            	 		 {% if hotel.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ hotel.id }}/{{ hotel.photocategoriepayante }}" class="img_categoie_portail" alt="{{ hotel.nomfr }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image de remplacement pour {{ hotel.nomfr }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':hotel.provinceid.repertoirefr|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomfr|lower }} province {{ hotel.provinceid.nomfr }}"> {{ w.nomfr }}</a></h2>
+					            <p> {{ w.resumefr|convert_encoding('UTF-8', 'UTF-8')|striptags }} </p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':hotel.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} {{ hotel.nomfr }}">{{ hotel.nomfr|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':hotel.provinceid.repertoirefr|lower}) }}" title="{{ w.nomfr }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				    {% endif %}
+                                {# GITES #}
+				    {% if gite is not empty %}
+				        {% for w in numbCat %}
+		            		{% if w.id == 3 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':gite.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }}- {{ gite.nomfr }} ">
+		            	 		 {% if gite.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ gite.id }}/{{ gite.photocategoriepayante }}" class="img_categoie_portail" alt="{{ gite.nomfr }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image de remplacement pour {{ gite.nomfr }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':gite.provinceid.repertoirefr|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomfr|lower }} province {{ gite.provinceid.nomfr }}">{{ w.nomfr }}</a></h2>
+					            <p> {{ w.resumefr|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':gite.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} {{ gite.nomfr }}">{{ gite.nomfr|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':gite.provinceid.repertoirefr|lower}) }}" title="{{ w.nomfr }}"> {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					       {% endif %}
+				        {% endfor %}
+				    {% endif %}
+                                {# RÉSIDENCES DE TOURISME #}
+				    {% if residence is not empty %}
+				        {% for w in numbCat %}
+		            		{% if w.id == 5 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':residence.repertoirefr|lower}) }}" target="_blank" title=" {{ w.nomfr }}- {{ residence.nomfr }} ">
+                                            {% if residence.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ residence.id }}/{{ residence.photocategoriepayante }}" class="img_categoie_portail" alt="{{ residence.nomfr }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image de remplacement pour {{ residence.nomfr }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':residence.provinceid.repertoirefr|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomfr|lower }} province {{ residence.provinceid.nomfr }}">{{ w.nomfr }} </a></h2>
+					            <p>{{ w.resumefr|convert_encoding('UTF-8', 'UTF-8')|striptags }} </p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':residence.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} {{ residence.nomfr }}">{{ residence.nomfr|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':residence.provinceid.repertoirefr|lower}) }}" title="{{ w.nomfr }}" > {{ "see.more" | trans }} </a>]</h4>
+                                         </div>
+					     {% endif %}
+				        {% endfor %}
+				     {% endif %}
+				{# CENTRES DE VACANCES #}
+				    {% if centreVacance is not empty %}
+				        {% for w in numbCat %}
+		            		{% if w.id == 4 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':centreVacance.repertoirefr|lower}) }}" title="{{ w.nomfr }}- {{ centreVacance.nomfr }}" target="_blank">
+		            	 		 {% if centreVacance.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ centreVacance.id }}/{{ centreVacance.photocategoriepayante }}" class="img_categoie_portail" alt="{{ centreVacance.nomfr }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image de remplacement pour {{ centreVacance.nomfr }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':centreVacance.provinceid.repertoirefr|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomfr|lower }} province {{ centreVacance.provinceid.nomfr }}">{{ w.nomfr }}</a></h2>
+					            <p>{{ w.resumefr|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':centreVacance.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} {{ centreVacance.nomfr }}">{{ centreVacance.nomfr|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':centreVacance.provinceid.repertoirefr|lower}) }}"  title="{{ w.nomfr }}"> {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					    	{% endif %}
+				        {% endfor %}
+				    {% endif %}
+                                {# AUBERGES DE JEUNESSES #}
+                                     {% if auberge is not empty %}
+                                        {% for w in numbCat %}
+                                                {% if w.id == 2 %}
+                                                <div><a href="{{ path('_hebergementinfoclient',{'name':auberge.repertoirefr|lower}) }}" title="{{ w.nomfr }}- {{ auberge.nomfr }}" target="_blank">
+		            	 		 {% if auberge.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ auberge.id }}/{{ auberge.photocategoriepayante }}" class="img_categoie_portail" alt="{{ auberge.nomfr }}" />
+		            			 {% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image de remplacement pour {{ auberge.nomfr }}" />
+		            			 {% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':auberge.provinceid.repertoirefr|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomfr|lower }} province {{ auberge.provinceid.nomfr }}"> {{ w.nomfr }} </a> </h2>
+					            <p> {{ w.resumefr|convert_encoding('UTF-8', 'UTF-8')|striptags }} </p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':auberge.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} {{ auberge.nomfr }}">{{ auberge.nomfr|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':auberge.provinceid.repertoirefr|lower}) }}"  title="{{ w.nomfr }}"> {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				     {% endif %}
+                                {# ÉTABLISSEMENT INSOLITE #}
+                                {% for w in numbCat %}
+                                    {% if w.id == 10 and insolite.repertoirefr is defined %}
+                                    <div><a href="{{ path('_hebergementinfoclient',{'name':insolite.repertoirefr|lower}) }}" title="{{ w.nomfr }}- {{ insolite.nomfr }}" target="_blank">
+	            	 		 {% if insolite.photocategoriepayante != "" %}
+	            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ insolite.id }}/{{ insolite.photocategoriepayante }}" class="img_categoie_portail" alt="{{ insolite.nomfr }}" />
+	            				{% else %}
+	            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image de remplacement pour {{ insolite.nomfr }}" />
+	            				{% endif %}
+	            			 </a> 
+				               <h2><a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':insolite.provinceid.repertoirefr|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomfr|lower }} province {{ insolite.provinceid.nomfr }}">{{ w.nomfr }} </a></h2>
+					            <p>{{ w.resumefr|convert_encoding('UTF-8', 'UTF-8')|striptags }} </p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':insolite.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} {{ insolite.nomfr }}">{{ insolite.nomfr|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':insolite.provinceid.repertoirefr|lower}) }}" title="{{ w.nomfr }}" > {{ "see.more" | trans }} </a>]</h4>
+				        </div>
+				      {% endif %}
+			        {% endfor %}
+                                {# ÉTABLISSEMENTS D'ENSEIGNEMENT #}
+				     {% if etablissement is not empty %}
+				        {% for w in numbCat %}
+                                            {% if w.id == 6 %}
+                                                <div><a href="{{ path('_hebergementinfoclient',{'name':etablissement.repertoirefr|lower}) }}"  title=" {{ w.nomfr }}- {{ etablissement.nomfr }}" target="_blank">
+		            	 		 {% if etablissement.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ etablissement.id }}/{{ etablissement.photocategoriepayante }}" class="img_categoie_portail" alt="{{ etablissement.nomfr }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image de remplacement pour {{ etablissement.nomfr }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':etablissement.provinceid.repertoirefr|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomfr|lower }} province {{ etablissement.provinceid.nomfr }}">{{ w.nomfr }} </a></h2>
+					            <p>{{ w.resumefr|convert_encoding('UTF-8', 'UTF-8')|striptags }} </p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':etablissement.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} {{ etablissement.nomfr }}">{{ etablissement.nomfr|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':etablissement.provinceid.repertoirefr|lower}) }}" title="{{ w.nomfr }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					    	{% endif %}
+				        {% endfor %}
+				     {% endif %}
+				{# TERRAINS DE CAMPING #}
+				     {% if camping is not empty %}
+				         {% for w in numbCat %}
+		            		{% if w.id == 8 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':camping.repertoirefr|lower}) }}" target="_blank" title=" {{ w.nomfr }}- {{ camping.nomfr }} ">
+		            	 		 {% if camping.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ camping.id }}/{{ camping.photocategoriepayante }}" class="img_categoie_portail" alt="{{ camping.nomfr }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image de remplacement pour {{ camping.nomfr }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':camping.provinceid.repertoirefr|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomfr|lower }} province {{ camping.provinceid.nomfr }}"> {{ w.nomfr}} </a></h2>
+					            <p>{{ w.resumefr|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':camping.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} {{ camping.nomfr }}">{{ camping.nomfr|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':camping.provinceid.repertoirefr|lower}) }}" title="{{ w.nomfr }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				     {% endif %}
+				 {# VILLAGES D'ACCUEIL #}
+				     {% if village is not empty %}
+				         {% for w in numbCat %}
+		            		{% if w.id == 9 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':village.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }}- {{ village.nomfr }}">
+		            	 		 {% if village.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ village.id }}/{{ village.photocategoriepayante }}" class="img_categoie_portail" alt="{{ village.nomfr }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image de remplacement pour {{ village.nomfr }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':village.provinceid.repertoirefr|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomfr|lower }} province {{ village.provinceid.nomfr }}">{{ w.nomfr }} </a></h2>
+					            <p>{{ w.resumefr|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':village.repertoirefr|lower}) }}" target="_blank" title="{{ w.nomfr }} {{ village.nomfr }}">{{ village.nomfr|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovincefr',{'name':w.repertoirefr|lower, 'province':village.provinceid.repertoirefr|lower}) }}" title="{{ w.nomfr }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				    {% endif %}
+				{% else %} {# VERSION ANGLAISE #}
+                                    {# HÔTELS, MOTELS ET AUBERGES #}
+				    {% if hotel is not empty %}
+				        {% for w in numbCat %}
+		            		{% if w.id == 7 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':hotel.repertoireen|lower}) }}" title=" {{ w.nomen }}- {{ hotel.nomen }}" target="_blank">
+		            	 		 {% if hotel.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ hotel.id }}/{{ hotel.photocategoriepayante }}" class="img_categoie_portail" alt="{{ hotel.nomen }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image replacement {{ hotel.nomen }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':hotel.provinceid.repertoireen|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomen|lower }} province {{ hotel.provinceid.nomen }}">{{ w.nomen }}</a></h2>
+					            <p>{{ w.resumeen|convert_encoding('UTF-8', 'UTF-8')|striptags }} </p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':hotel.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} {{ hotel.nomen }}">{{ hotel.nomen|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':hotel.provinceid.repertoireen|lower}) }}" title="{{ w.nomen }}"> {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				    {% endif %}
+                                    {# GITES #}
+				    {% if gite is not empty %}
+				        {% for w in numbCat %}
+		            		{% if w.id == 3 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':gite.repertoireen|lower}) }}"  title=" {{ w.nomen }}- {{ gite.nomen }}" target="_blank">
+		            	 		 {% if gite.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ gite.id }}/{{ gite.photocategoriepayante }}" class="img_categoie_portail" alt="{{ gite.nomen }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image replacement {{ gite.nomen }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':gite.provinceid.repertoireen|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomen|lower }} province {{ gite.provinceid.nomen }}">{{ w.nomen }}</a></h2>
+					            <p>{{ w.resumeen|convert_encoding('UTF-8', 'UTF-8')|striptags }} </p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':gite.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} {{ gite.nomen }}">{{ gite.nomen|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':gite.provinceid.repertoireen|lower}) }}" title="{{ w.nomen }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				    {% endif %}
+                                    {# RÉSIDENCES DE TOURISME #}
+				    {% if residence is not empty %}
+				        {% for w in numbCat %}
+		            		{% if w.id == 5 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':residence.repertoireen|lower}) }}" title="{{ w.nomen }}- {{ residence.nomen }}" target="_blank">
+		            	 		 {% if residence.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ residence.id }}/{{ residence.photocategoriepayante }}" class="img_categoie_portail" alt="{{ residence.nomen }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image replacement {{ residence.nomen }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':residence.provinceid.repertoireen|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomen|lower }} province {{ residence.provinceid.nomen }}">{{ w.nomen }} </a></h2>
+					            <p>{{ w.resumeen|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':residence.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} {{ residence.nomen }}">{{ residence.nomen|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':residence.provinceid.repertoireen|lower}) }}" title="{{ w.nomen }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				     {% endif %}
+				    {# CENTRES DE VACANCES #}
+				    {% if centreVacance is not empty %}
+				        {% for w in numbCat %}
+		            		{% if w.id == 4 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':centreVacance.repertoireen|lower}) }}" title=" {{ w.nomen }}- {{ centreVacance.nomen }}" target="_blank">
+		            	 		 {% if centreVacance.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ centreVacance.id }}/{{ centreVacance.photocategoriepayante }}" class="img_categoie_portail" alt="{{ centreVacance.nomen }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image replacement {{ centreVacance.nomen }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':centreVacance.provinceid.repertoireen|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomen|lower }} province {{ centreVacance.provinceid.nomen }}">{{ w.nomen }}</a></h2>
+					            <p> {{ w.resumeen|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':centreVacance.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} {{ centreVacance.nomen }}">{{ centreVacance.nomen|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':centreVacance.provinceid.repertoireen|lower}) }}" title="{{ w.nomen }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				    {% endif %}
+                                    {% if auberge is not empty %}
+                                    {# AUBERGES DE JEUNESSES #}
+					{% for w in numbCat %}
+                                            {% if w.id == 2 %}
+                                                <div><a href="{{ path('_hebergementinfoclient',{'name':auberge.repertoireen|lower}) }}" title="{{ w.nomen }}- {{ auberge.nomen }}" target="_blank">
+		            	 		 {% if auberge.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ auberge.id }}/{{ auberge.photocategoriepayante }}" class="img_categoie_portail" alt="{{ auberge.nomen }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image replacement {{ auberge.nomen }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':auberge.provinceid.repertoireen|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomen|lower }} province {{ auberge.provinceid.nomen }}"> {{ w.nomen }} </a></h2>
+					            <p> {{ w.resumeen|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':auberge.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} {{ auberge.nomen }}">{{ auberge.nomen|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':auberge.provinceid.repertoireen|lower}) }}" title="{{ w.nomen }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					       {% endif %}
+				        {% endfor %}
+				    {% endif %}
+                                {# ÉTABLISSEMENTS INSOLITE #}
+                                    {% for w in numbCat %}
+                                        {% if w.id == 10 and insolite.repertoireen is defined%}
+                                        <div><a href="{{ path('_hebergementinfoclient',{'name':insolite.repertoireen|lower}) }}" title=" {{ w.nomen }}- {{ insolite.nomen }}" target="_blank">
+                                             {% if insolite.photocategoriepayante != "" %}
+                                                    <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ insolite.id }}/{{ insolite.photocategoriepayante }}" class="img_categoie_portail" alt="{{ insolite.nomen }}" />
+                                                    {% else %}
+                                                    <img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image de remplacement pour {{ insolite.nomen }}" />
+                                                    {% endif %}
+                                             </a> 
+                                                <h2><a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':insolite.provinceid.repertoireen|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomen|lower }} province {{ insolite.provinceid.nomen }}"> {{ w.nomen }} </a></h2>
+                                                <p> {{ w.resumeen|convert_encoding('UTF-8', 'UTF-8')|striptags }} </p>
+                                                <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':insolite.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} {{ insolite.nomen }}">{{ insolite.nomen|truncate(30, '...') }}</a></h3>   
+                                                <h4>[<a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':insolite.provinceid.repertoireen|lower}) }}" title="{{ w.nomen }}" > {{ "see.more" | trans }} </a>]</h4>
+                                            </div>
+                                            {% endif %}
+                                    {% endfor %}
+                                 {# ÉTABLISSEMENTS D'ENSEIGNEMENT #}
+				    {% if etablissement is not empty %}
+				        {% for w in numbCat %}
+		            		{% if w.id == 6 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':etablissement.repertoireen|lower}) }}" title=" {{ w.nomen }}- {{ etablissement.nomen }}" target="_blank">
+		            	 		 {% if etablissement.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ etablissement.id }}/{{ etablissement.photocategoriepayante }}" class="img_categoie_portail" alt="{{ etablissement.nomen }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image replacement {{ etablissement.nomen }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':etablissement.provinceid.repertoireen|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomen|lower }} province {{ etablissement.provinceid.nomen }}"> {{ w.nomen }} </a></h2>
+					            <p> {{ w.resumeen|convert_encoding('UTF-8', 'UTF-8')|striptags }} </p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':etablissement.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} {{ etablissement.nomen }}">{{ etablissement.nomen|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':etablissement.provinceid.repertoireen|lower}) }}" title="{{ w.nomen }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				     {% endif %}
+				     {# TERRAINS DE CAMPING #}
+				     {% if camping is not empty %}
+				         {% for w in numbCat %}
+		            		{% if w.id == 8 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':camping.repertoireen|lower}) }}" title=" {{ w.nomen }}- {{ camping.nomen }}" target="_blank">
+		            	 		 {% if camping.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ camping.id }}/{{ camping.photocategoriepayante }}" class="img_categoie_portail" alt="{{ camping.nomen }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image replacement {{ camping.nomen }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':camping.provinceid.repertoireen|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomen|lower }} province {{ camping.provinceid.nomen }}">{{ w.nomen }} </a></h2>
+					            <p> {{ w.resumeen|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':camping.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} {{ camping.nomen }}">{{ camping.nomen|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':camping.provinceid.repertoireen|lower}) }}" title="{{ w.nomen }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				     {% endif %}
+				     {# VILLAGES D'ACCUEIL #}
+				     {% if village is not empty %}
+				         {% for w in numbCat %}
+		            		{% if w.id == 9 %}
+		            		<div><a href="{{ path('_hebergementinfoclient',{'name':village.repertoireen|lower}) }}" title=" {{ w.nomen }}- {{ village.nomen }}" target="_blank">
+		            	 		 {% if village.photocategoriepayante != "" %}
+		            				<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ village.id }}/{{ village.photocategoriepayante }}" class="img_categoie_portail" alt="{{ village.nomen }}" />
+		            				{% else %}
+		            				<img src="{{ asset('uploads/categorie_hebergement') }}/{{ w.id }}/{{ w.image }}" class="img_categoie_portail" alt="Image replacement {{ village.nomen }}" />
+		            				{% endif %}
+		            			 </a> 
+					            <h2><a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':village.provinceid.repertoireen|lower}) }}" title="{{ "category.hebergement" | trans }} {{ w.nomen|lower }} province {{ village.provinceid.nomfr }}">{{ w.nomen }} </a></h2>
+					            <p> {{ w.resumeen|striptags }} </p>
+					            <h3 class="under_picture"><a href="{{ path('_hebergementinfoclient',{'name':village.repertoireen|lower}) }}" target="_blank" title="{{ w.nomen }} {{ village.nomen }}">{{ village.nomen|truncate(30, '...') }}</a></h3>   
+					            <h4>[<a href="{{ path('_hebergementtypeprovinceen',{'name':w.repertoireen|lower, 'province':village.provinceid.repertoireen|lower}) }}" title="{{ w.nomen }}" > {{ "see.more" | trans }} </a>]</h4>
+					        </div>
+					        {% endif %}
+				        {% endfor %}
+				    {% endif %}
+				{% endif %}
+		      <br class="clearfloat" />
+		   </div>
+		{% endblock %}
+		
+		{% block gauche %}
+			{# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %}
+			{# NOS SUGGESTIONS SOUS LA RECHERCHE AVEC LA CARTE #}
+			{% include 'MyAppGlobalBundle:Hebergement:suggestionColonneGauche.html.twig' %}
+		{%endblock%}
+		

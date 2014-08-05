@@ -1,0 +1,63 @@
+<script>
+	//Get the div that holds the collection of tags
+	var collectionHolder2 = $('ul.tags2');
+	
+	// setup an "add a tag" link
+	var $addTagLink2 = $('<a href="#" class="add_tag_link compteurperiode">{{ "ajouter.une.periode" | trans }}</a>');
+	var $newLinkLi2 = $('<li></li>').append($addTagLink2);
+
+	
+	jQuery(document).ready(function() {
+	    // add the "add a tag" anchor and li to the tags ul
+	    collectionHolder2.append($newLinkLi2);
+	
+	    $addTagLink2.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+	
+	        // add a new tag form (see next code block)
+	        addTagForm2(collectionHolder2, $newLinkLi2);
+	    });
+	});
+	function addTagForm2(collectionHolder2, $newLinkLi2) {
+	    // Get the data-prototype explained earlier
+	    var prototype2 = collectionHolder2.attr('data-prototype');
+	
+	    // count the current form inputs we have (e.g. 2), use that as the new index (e.g. 2)
+	    var newIndex2 = collectionHolder2.find(':input').length;
+	
+	    // Replace '$$name$$' in the prototype's HTML to
+	    // instead be a number based on how many items we have
+	    var newForm2 = prototype2.replace(/\$\$name\$\$/g, newIndex2);
+	
+	    // Display the form in the page in an li, before the "Add a tag" link li
+	    var $newFormLi2 = $('<li></li>').append(newForm2);
+	    $newLinkLi2.before($newFormLi2);
+
+	    addClassDatepickerInput();
+		
+	    // add a delete link to the new form
+	    addTagFormDeleteLink2($newFormLi2);
+	}
+	function addTagFormDeleteLink2($tagFormLi2) {
+	    var $removeFormA2 = $('<a href="#">{{ "supprimer.une.periode" | trans }}</a>');
+	    $tagFormLi2.append($removeFormA2);
+	
+	    $removeFormA2.on('click', function(e) {
+	        // prevent the link from creating a "#" on the URL
+	        e.preventDefault();
+	
+	        // remove the li for the tag form
+	        $tagFormLi2.remove();
+	    });
+	}
+	function addClassDatepickerInput(){
+		$("#Open_calendrier_haute_saison li div div input").eq(2).addClass("datepicker");
+		$("#Open_calendrier_haute_saison li div div input").eq(3).addClass("datepicker");
+
+		$("input.datepicker").click(function(){
+			$(this).datepicker();
+		});
+	}
+
+</script>

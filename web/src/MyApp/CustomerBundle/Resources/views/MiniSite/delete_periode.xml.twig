@@ -1,0 +1,39 @@
+<div id="dialog-confirm_del" title="{{ 'supprimer' | trans }}"></div>
+<script>
+$(function(){
+	//gestion de la suppréssion des périodes de haute saison par ajax
+	$("#add_hebergement_calendrier > div input.checkboxdeleteperiode").click(function(event){ 
+		$(".ui-dialog-buttons").last().remove();
+		var periodedel = $(this).prev().children().last().val()
+		var divparent = $(this).prev().attr("id");
+		$("#dialog-confirm_del" ).dialog({
+			 resizable: false,
+			 height:140,
+			 modal: true,
+			 buttons: {
+				 "{{ 'supprimer' | trans }}": function() {
+				 	$( this ).dialog( "close" );
+					if(periodedel != 0){
+					    var DATA = "periode=" + periodedel;
+					    $.ajax({
+					        type: "post",
+					    	url: "{{ path('_periodedelete') }}",
+					        data: DATA,
+					        cache: false,
+					        success: function(data){
+					        	 $("#"+divparent).parent().remove();
+						    }
+					    });  
+					    return false;
+					}
+				 },
+			 Cancel: function() {
+				 	$( this ).dialog( "close" );
+				 	$(".checkboxdeleteperiode").removeAttr("checked");
+				 }
+			 }
+		 });	
+	});
+});
+</script>
+			

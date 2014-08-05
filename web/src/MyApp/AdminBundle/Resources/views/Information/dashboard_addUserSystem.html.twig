@@ -1,0 +1,74 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist != 1 %}
+	<h1>Ajouter un administrateur</h1>
+{% else %}
+	<h1>Modifier l'administrateur « {{ infonom }} » <a href="javascript:void(;" id="log">liste des logs</a></h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_customer" id="client_paiement">	
+					 {% if exist == 1 %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer un administrateur du système" {{ infonom }}>Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer un client"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimez cet administrateur:  {{ infonom }} ? </p>
+						<a href="{{ path('_Dashboard_deleteutilisateurssysteme', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler"></a>
+				    </div>
+				    {% endif %}	
+					 <p class="resize_p_form">&nbsp;</p>
+					 <br />
+					{{ form_label(form.username, "Login", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.username, {'attr':{'class':'txt_add_state'}}) }}	
+				    {{ form_label(form.password, "Mot de passe", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.password, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.reset_password, "Changer le mot de passe", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.reset_password, {'attr':{'class':'checkbox'}}) }}
+				    {% if exist == 1 %}	
+				    <script>
+						document.getElementById('add_user_reset_password').removeAttribute('checked');
+				    </script>
+				    {% else %}
+				    <script>
+						document.getElementById('add_user_reset_password').setAttribute('checked','checked');
+				    </script>
+				    {% endif %} 				    				    
+				    {{ form_label(form.email, "Courriel", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.email, {'attr':{'class':'txt_add_state'}}) }}				    			    
+				    {{ form_label(form.isActive, "Actif", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.isActive, {'attr':{'class':'txt_add_state'}}) }}
+				   {{ form_rest(form) }}
+					<script>
+						$("#add_customer_client").parent('div').remove();
+                                                $("#add_user_password").val("{{ displayPw }}");
+					</script>
+				    <input type="submit" value="" class="boutonvalidenregistrer"/>
+				    <a href="{{ path('_Dashboard_utilisateursSysteme') }}" class="boutonannuler"></a>
+				</form>
+			   <br class="clearfloat">
+			</div>
+		</div>
+		
+		<div id="listelogs" class="listelog">
+			<table>
+				{% for w in log %}
+				<tr>
+					<td>{{ w.date_connexion }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		
+		<script>
+			$("#log").click(function(){
+				if($("#listelogs").hasClass("listelog"))
+					$("#listelogs").removeClass("listelog").addClass("visiblelog");
+				else
+					$("#listelogs").removeClass("visiblelog").addClass("listelog");
+			});
+		</script>
+	
+</div>
+
+{% endblock %}

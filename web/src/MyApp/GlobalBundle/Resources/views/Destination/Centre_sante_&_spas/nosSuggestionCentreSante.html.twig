@@ -1,0 +1,171 @@
+{% block nossuggestioncentresante %}
+<div class="suggestion ">
+   <h5>{{ "suggestion.centre.sante" | trans }}</h5>
+	{% if app.request.locale == "fr" %}{# VERSION FRANÇAISE #}
+		{% if suggestion1 is not empty %}
+		    <div>
+		    {% for p in suggestion1 %}
+		      	 {% if loop.index == 1 %}
+			      <h2>     
+			      	<a href="{{ path('_centersanteIndex',{'name':p.regionid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} région {{ p.regionid.nomfr }}">{{ p.regionid.nomfr }}</a>   
+			      </h2>
+			     {% endif %}
+			      <ul>
+			        <li><a href="{{ p.regionid.urlfr }}/{{ p.zoneid.repertoirefr }}/{{ p.repertoirefr }}" target="_blank" title="{{ "centre.sante.spa" | trans }} {{ p.nomfr }}">{{ p.nomfr }}</a></li>
+			      </ul>
+			{% endfor %}
+			{% for p in suggestion1 %}
+			     {% if loop.index == 1 %}
+			      <br class="clearfloat" />
+			      <h4>[<a href="{{ path('_centersanteIndex',{'name':p.regionid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} région {{ p.regionid.nomfr }}">Région {{ p.regionid.nomfr }} </a>]</h4> 
+		    	 {% endif %}
+			{% endfor %}
+		    </div>
+		{% endif %}
+		{% if suggestion2 is not empty %}
+		   <div>
+		    {% for p in suggestion2 %}
+		      	 {% if loop.index == 1 %}
+			      <h2>     
+			      	<a href="{{ path('_centersanteIndex',{'name':p.regionid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} région {{ p.regionid.nomfr }}">{{ p.regionid.nomfr }}</a>   
+			      </h2>
+			     {% endif %}
+			      <ul>
+			        <li><a href="{{ p.regionid.urlfr }}/{{ p.zoneid.repertoirefr }}/{{ p.repertoirefr }}" target="_blank" title="{{ "centre.sante.spa" | trans }} {{ p.nomfr }}">{{ p.nomfr }}</a></li>
+			      </ul>
+			{% endfor %}
+			{% for p in suggestion2 %}
+			     {% if loop.index == 1 %}
+			      <br class="clearfloat" />
+			      <h4>[<a href="{{ path('_centersanteIndex',{'name':p.regionid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} région {{ p.regionid.nomfr }}">Région {{ p.regionid.nomfr }} </a>]</h4> 
+		    	 {% endif %}
+			{% endfor %}
+		    </div>
+		{% endif %}
+		{% if suggestion3 is not empty %}
+		    <div>
+		    {% for p in suggestion3 %}
+		      	 {% if loop.index == 1 %}
+			      <h2>     
+			      	<a href="{{ path('_centersanteIndex',{'name':p.regionid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} région {{ p.regionid.nomfr }}">{{ p.regionid.nomfr }}</a>   
+			      </h2>
+			     {% endif %}
+			      <ul>
+			        <li><a href="{{ p.regionid.urlfr }}/{{ p.zoneid.repertoirefr }}/{{ p.repertoirefr }}" target="_blank" title="{{ "centre.sante.spa" | trans }} {{ p.nomfr }}">{{ p.nomfr }}</a></li>
+			      </ul>
+			{% endfor %}
+			{% for p in suggestion3 %}
+			     {% if loop.index == 1 %}
+			      <br class="clearfloat" />
+			      <h4>[<a href="{{ path('_centersanteIndex',{'name':p.regionid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} région {{ p.regionid.nomfr }}">Région {{ p.regionid.nomfr }} </a>]</h4> 
+		    	 {% endif %}
+			{% endfor %}
+		    </div>
+		{% endif %}
+		{% if suggestion4 is not empty %}
+		    <div>
+		    {% for p in suggestion4 %}
+		      	 {% if loop.index == 1 %}
+			      <h2>     
+			      	<a href="{{ path('_centersanteIndex',{'name':p.regionid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} région {{ p.regionid.nomfr }}">{{ p.regionid.nomfr }}</a>   
+			      </h2>
+			     {% endif %}
+			      <ul>
+			        <li><a href="{{ p.regionid.urlfr }}/{{ p.zoneid.repertoirefr }}/{{ p.repertoirefr }}" target="_blank" title="{{ "centre.sante.spa" | trans }} {{ p.nomfr }}">{{ p.nomfr }}</a></li>
+			      </ul>
+			{% endfor %}
+			{% for p in suggestion4 %}
+			     {% if loop.index == 1 %}
+			      <br class="clearfloat" />
+			      <h4>[<a href="{{ path('_centersanteIndex',{'name':p.regionid.repertoirefr|lower}) }}" title="{{ "centre.sante.spa" | trans }} région {{ p.regionid.nomfr }}">Région {{ p.regionid.nomfr }} </a>]</h4> 
+		    	 {% endif %}
+			{% endfor %}
+		    </div>
+		{% endif %}
+	{% else %}{# VERSION ANGLAISE #}
+	   {% if suggestion1 is not empty %}
+		    <div>
+		    {% for p in suggestion1 %}
+		      	 {% if loop.index == 1 %}
+			      <h2>     
+			      	<a href="{{ path('_centersanteIndexen',{'name':p.regionid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} region {{ p.regionid.nomen }}">{{ p.regionid.nomen }}</a>   
+			      </h2>
+			     {% endif %}
+			      <ul>
+			        <li><a href="{{ p.regionid.urlen }}/{{ p.zoneid.repertoireen }}/{{ p.repertoireen }}" target="_blank" title="{{ "centre.sante.spa" | trans }} {{ p.nomen }}">{{ p.nomen }}</a></li>
+			      </ul>
+			{% endfor %}
+			{% for p in suggestion1 %}
+			     {% if loop.index == 1 %}
+			      <br class="clearfloat" />
+			      <h4>[<a href="{{ path('_centersanteIndexen',{'name':p.regionid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} region {{ p.regionid.nomen }}">Region {{ p.regionid.nomen }} </a>]</h4> 
+		    	 {% endif %}
+			{% endfor %}
+		    </div>
+	   {% endif %}
+	   {% if suggestion2 is not empty %}
+		    <div>
+		    {% for p in suggestion2 %}
+		      	 {% if loop.index == 1 %}
+			      <h2>     
+			      	<a href="{{ path('_centersanteIndexen',{'name':p.regionid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} region {{ p.regionid.nomen }}">{{ p.regionid.nomen }}</a>   
+			      </h2>
+			     {% endif %}
+			      <ul>
+			        <li><a href="{{ p.regionid.urlen }}/{{ p.zoneid.repertoireen }}/{{ p.repertoireen }}" target="_blank" title="{{ "centre.sante.spa" | trans }} {{ p.nomen }}">{{ p.nomen }}</a></li>
+			      </ul>
+			{% endfor %}
+			{% for p in suggestion2 %}
+			     {% if loop.index == 1 %}
+			      <br class="clearfloat" />
+			      <h4>[<a href="{{ path('_centersanteIndexen',{'name':p.regionid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} region {{ p.regionid.nomen }}">Region {{ p.regionid.nomen }} </a>]</h4> 
+		    	 {% endif %}
+			{% endfor %}
+		    </div>
+	   {% endif %}
+	   {% if suggestion3 is not empty %}
+		    <div>
+		    {% for p in suggestion3 %}
+		      	 {% if loop.index == 1 %}
+			      <h2>     
+			      	<a href="{{ path('_centersanteIndexen',{'name':p.regionid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} region {{ p.regionid.nomen }}">{{ p.regionid.nomen }}</a>   
+			      </h2>
+			     {% endif %}
+			      <ul>
+			        <li><a href="{{ p.regionid.urlen }}/{{ p.zoneid.repertoireen }}/{{ p.repertoireen }}" target="_blank" title="{{ "centre.sante.spa" | trans }} {{ p.nomen }}">{{ p.nomen }}</a></li>
+			      </ul>
+			{% endfor %}
+			{% for p in suggestion3 %}
+			     {% if loop.index == 1 %}
+			      <br class="clearfloat" />
+			      <h4>[<a href="{{ path('_centersanteIndexen',{'name':p.regionid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} region {{ p.regionid.nomen }}">Region {{ p.regionid.nomen }} </a>]</h4> 
+		    	 {% endif %}
+			{% endfor %}
+		    </div>
+	  {% endif %}
+	  {% if suggestion4 is not empty %}
+		   <div>
+		    {% for p in suggestion4 %}
+		      	 {% if loop.index == 1 %}
+			      <h2>     
+			      	<a href="{{ path('_centersanteIndexen',{'name':p.regionid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} region {{ p.regionid.nomen }}">{{ p.regionid.nomen }}</a>   
+			      </h2>
+			     {% endif %}
+			      <ul>
+			        <li><a href="{{ p.regionid.urlen }}/{{ p.zoneid.repertoireen }}/{{ p.repertoireen }}" target="_blank" title="{{ "centre.sante.spa" | trans }} {{ p.nomen }}">{{ p.nomen }}</a></li>
+			      </ul>
+			{% endfor %}
+			{% for p in suggestion4 %}
+			     {% if loop.index == 1 %}
+			      <br class="clearfloat" />
+			      <h4>[<a href="{{ path('_centersanteIndexen',{'name':p.regionid.repertoireen|lower}) }}" title="{{ "centre.sante.spa" | trans }} region {{ p.regionid.nomen }}">Region {{ p.regionid.nomen }} </a>]</h4> 
+		    	 {% endif %}
+			{% endfor %}
+		    </div>
+	  {% endif %}
+   {% endif %}
+</div>
+<br class="clearfloat" />
+{% endblock %}
+
+

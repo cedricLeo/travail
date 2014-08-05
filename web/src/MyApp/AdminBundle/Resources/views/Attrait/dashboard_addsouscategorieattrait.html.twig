@@ -1,0 +1,88 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist is defined %}
+	<h1>Ajouter une sous catégorie</h1>
+{% else %}
+	<h1>Modifier une sous catégorie</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist is not defined %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une sous catégorie">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une province"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimez la sous catégorie {{ infonom }} ?</p>
+						<a href="{{ path('_Dashboard_deleteattraitsouscategorie', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler retouchBtnCancel"></a>
+				    </div>	
+				    {% endif %}	
+				    {{ form_label(form.categorie_id, "Categorie", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.categorie_id, {'attr':{'class':'txt_add_state'}}) }}				
+				    {{ form_label(form.nom_fr, "Nom fr", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom en", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+                                    {{ form_label(form.page_titre_fr, "Titre fr", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_titre_en, "Titre en", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_titre_en, {'attr':{'class':'txt_add_state'}}) }}
+                                    {{ form_label(form.page_metadescription_fr, "Metadescription fr", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metadescription_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.page_metadescription_en, "Metadescriptiuon en", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metadescription_en, {'attr':{'class':'txt_add_state'}}) }}
+                                    {{ form_label(form.texte_fr, "Texte fr", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_fr, {'attr':{'class':'txt_add_state'}}) }}
+					<script type="text/javascript">
+						CKEDITOR.replace( 'add_sous_categorie_texte_fr' );
+					</script>
+					{% if txtFr is defined %}
+						<script type="text/javascript">
+							document.getElementById('add_sous_categorie_texte_fr').innerHTML = "{{ txtFr }}";
+						</script>
+					{% endif %}
+                                    {{ form_label(form.texte_en, "Texte en", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_en, {'attr':{'class':'txt_add_state'}}) }}
+					<script type="text/javascript">
+						CKEDITOR.replace( 'add_sous_categorie_texte_en' );
+					</script>
+					{% if txtEn is defined %}
+						<script type="text/javascript">
+							document.getElementById('add_sous_categorie_texte_en').innerHTML = "{{ txtEn }}";
+						</script>
+					{% endif %}
+                                    {{ form_label(form.image_doctrine, "Image", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.image_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+				    {% if infoimg is defined %}
+				   	 	<img src="{{ asset('uploads/attrait_sous_categorie')}}/{{infoid}}/{{ infoimg }}" style="position:relative; width:240px; height:160px; top:-40px; left:680px;"/>
+				    {% endif %}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_attraitsouscategorie') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% if listprovince is defined %}
+<div class="boiteinfo">
+	<h1>
+	<a id="lnkdivprovincesetats" href="#divprovincesetats">Sous cat�gories</a>
+	</h1>
+	<div class="soussectionderoulante" style="margin: 0px; position: static; overflow: hidden; height: 0px;"></div>
+		<div id="divprovincesetats">
+			{% for p in listprovince %}
+			<div class="gris">
+				<h2>
+					<a href="{{ path('_Dashboard_updateprovinces',{'id':p.id}) }}">
+						<img width="25px" border="0" height="16px" src="{{ asset('bundles/myappadmin/images/Provinces/')}}{{ p.image}}">
+						{{ p.nomfr }} 
+					</a>
+				</h2>
+			</div>
+			{% endfor %}
+		</div>
+	<br class="clearfloat">
+</div>
+{% endif %}
+{% endblock %}

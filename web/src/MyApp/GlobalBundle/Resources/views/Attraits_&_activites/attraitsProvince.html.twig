@@ -1,0 +1,119 @@
+{% extends '::base2.html.twig' %}
+
+	{% block picture %}
+		<p class="legendeHome">{{ "attrait.activite" | trans }} {% if app.request.locale == "fr" %} province {{ clientAleatoire.provinceid.nomfr }} {% else %} province {{ clientAleatoire.provinceid.nomen }} {% endif %}</p>
+	{# div qui va contenir la photo principal du sujet de la section #}
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+			{% if app.request.locale == "fr" %}
+				<h1>{{ "attrait.activite" | trans }} province {{ clientAleatoire.provinceid.nomfr }}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlfr }}/{{ clientAleatoire.zoneid.repertoirefr }}/{{ clientAleatoire.repertoirefr }}" title="{{ "attrait.activite" | trans }} {{ clientAleatoire.nomfr }}" target="_blank">{{ clientAleatoire.nomfr }} - {{ clientAleatoire.regionid.nomfr }}</a></h3>
+			</div>
+				{% if clientAleatoire.image is not empty %}
+			  		<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.image }}" class="big_picture" alt="{{ clientAleatoire.nomfr }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+				{% endif %}
+			{% else %}
+				<h1>{{ "attrait.activite" | trans }} province {{ clientAleatoire.provinceid.nomen }}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlen }}/{{ clientAleatoire.zoneid.repertoireen }}/{{ clientAleatoire.repertoireen }}" title="{{ "attrait.activite" | trans }} {{ clientAleatoire.nomen }}" target="_blank">{{ clientAleatoire.nomen }} - {{ clientAleatoire.regionid.nomen }}</a></h3>
+			</div>
+				{% if clientAleatoire.image is not empty %}
+			  		<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.image }}" class="big_picture" alt="{{ clientAleatoire.nomen }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+				{% endif %}
+			{% endif %}
+		</div>
+	{% endblock %}
+	
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		
+		{% block body %} 
+				<div class="region">
+					{% if app.request.locale == "fr" %}
+					  	<h2>{{ "choisir.endroit.profiter.attrait" | trans }} province {{ clientAleatoire.provinceid.nomfr }}</h2>
+					{% else %}
+						<h2>{{ "choisir.endroit.profiter.attrait" | trans }} province {{ clientAleatoire.provinceid.nomen }}</h2>
+					{% endif %}
+						 <ul>	
+						 {# VERSION FRANÇAISE DE LA LISTE PROVINCE ET RÉGION #}
+						 {% if app.request.locale == "fr" %}	
+				  			{% for province in nomprovince %}
+				        	<li class="province"><a href="javascript:void(0)" title="{{ province.provinceid.nomfr }}">{{ province.provinceid.nomfr }}</a></li>
+				        	{% endfor %}
+					        {% for listeregion in region%}
+					        <li><a href="{{ path('_attraitsIndex',{'name':listeregion.regionid.repertoirefr|lower}) }}" title="{{ "attrait.activite" | trans }} région {{listeregion.regionid.nomfr }}">{{listeregion.regionid.nomfr }}</a></li>
+					        {% endfor %}
+					     {# VERSION ANGLAISE #}
+					     {% else %}
+					     	{% for province in nomprovince %}
+				        	<li class="province"><a href="javascript:void(0)" title="{{ province.provinceid.nomen }}">{{ province.provinceid.nomen }}</a></li>
+				        	{% endfor %}
+					        {% for listeregion in region%}
+					        <li><a href="{{ path('_attraitsIndexen',{'name':listeregion.regionid.repertoireen|lower}) }}" title="{{ "attrait.activite" | trans }} region {{listeregion.regionid.nomen }}">{{listeregion.regionid.nomen }}</a></li>
+					        {% endfor %}
+					     {% endif %}
+				        </ul>
+					  <br class="clearfloat" />
+				</div>
+					<div id="zone_01" class="pubGoogleBottom pubGoogleAttrait">
+						<script type='text/javascript'>
+							googletag.cmd.push(function() { googletag.display('zone_01'); });
+						</script>
+					</div>
+					<div class="colonnes4photo doubletitre">
+				  		 <h2 class="retouche">{{ "attrait.activite" | trans }} province {{ clientAleatoire.provinceid.nomfr }}</h2>
+							{% if tabAleatoire is not empty  %}
+							  	  {% for z in tabAleatoire %}
+									<div>
+										{% if app.request.locale == "fr" %}
+											  <h2><a href="{{ path('_attraitsprovinceactivite',{'province':z.regionid.repertoirefr|lower, 'name':z.categorieattrait.repertoirefr|lower} ) }}" title="{{z.categorieattrait.nomfr}}">{{z.categorieattrait.nomfr}}</a></h2>
+											  <a href="{{ path('_attraitsprovinceactivite',{'province':z.regionid.repertoirefr|lower, 'name':z.categorieattrait.repertoirefr|lower} ) }}" title="{{z.categorieattrait.nomfr}}"><img src="{{ asset('uploads/attrait_categorie') }}/{{ z.categorieattrait.id }}/{{z.categorieattrait.image}}" width="154" height="112" alt="{{z.categorieattrait.nomfr}}" /></a>
+											  <h3><a href="{{ z.regionid.urlfr }}/{{ z.zoneid.repertoirefr }}/{{ z.repertoirefr }}" target="_blank" title="{{ "attrait.activite" | trans }} {{ z.nomfr }} province {{ z.provinceid.nomfr }}">{{ z.nomfr }}</a></h3>
+										{% else %}
+											  <h2><a href="{{ path('_attraitsprovinceactiviteen',{'province':z.regionid.repertoireen|lower, 'name':z.categorieattrait.repertoireen|lower} ) }}" title="{{z.categorieattrait.nomen}}">{{z.categorieattrait.nomen}}</a></h2>
+											  <a href="{{ path('_attraitsprovinceactiviteen',{'province':z.regionid.repertoireen|lower, 'name':z.categorieattrait.repertoireen|lower} ) }}" title="{{z.categorieattrait.nomen}}"><img src="{{ asset('uploads/attrait_categorie') }}/{{ z.categorieattrait.id }}/{{z.categorieattrait.image}}" width="154" height="112" alt="{{z.categorieattrait.nomen}}" /></a>
+											  <h3><a href="{{ z.regionid.urlen }}/{{ z.zoneid.repertoireen }}/{{ z.repertoireen }}" target="_blank" title="{{ "attrait.activite" | trans }} {{ z.nomen }} province {{ z.provinceid.nomen }}">{{ z.nomen }}</a></h3>
+										{% endif %}
+									</div>
+								  {% endfor %}
+							  {% else %}
+								  	  {% for z in listeClientAttrait %}
+										<div>
+											{% if app.request.locale == "fr" %}
+												  <h2><a href="{{ path('_attraitsprovinceactivite',{'province':z.regionid.repertoirefr|lower, 'name':z.categorieattrait.repertoirefr|lower} ) }}" title="{{z.categorieattrait.nomfr}}">{{z.categorieattrait.nomfr}}</a></h2>
+												  <a href="{{ path('_attraitsprovinceactivite',{'province':z.regionid.repertoirefr|lower, 'name':z.categorieattrait.repertoirefr|lower} ) }}" title="{{z.categorieattrait.nomfr}}"><img src="{{ asset('uploads/attrait_categorie') }}/{{ z.categorieattrait.id }}/{{ z.categorieattrait.image}}" width="154" height="112" alt="{{z.categorieattrait.nomfr}}" /></a>
+												  <h3><a href="{{ z.regionid.urlfr }}/{{ z.zoneid.repertoirefr }}/{{ z.repertoirefr }} " target="_blank" title="{{ "attrait.activite" | trans }} {{ z.nomfr }} province {{ z.provinceid.nomfr }}">{{ z.nomfr }}</a></h3>
+											{% else %}
+												  <h2><a href="{{ path('_attraitsprovinceactiviteen',{'province':z.regionid.repertoireen|lower, 'name':z.categorieattrait.repertoireen|lower} ) }}" title="{{z.categorieattrait.nomen}}">{{z.categorieattrait.nomen}}</a></h2>
+												  <a href="{{ path('_attraitsprovinceactiviteen',{'province':z.regionid.repertoireen|lower, 'name':z.categorieattrait.repertoireen|lower} ) }}" title="{{z.categorieattrait.nomen}}"><img src="{{ asset('uploads/attrait_categorie') }}/{{ z.categorieattrait.id }}/{{ z.categorieattrait.image}}" width="154" height="112" alt="{{z.categorieattrait.nomen}}" /></a>
+												  <h3><a href="{{ z.regionid.urlen }}/{{ z.zoneid.repertoireen }}/{{ z.repertoireen }}" target="_blank" title="{{ "attrait.activite" | trans }} {{ z.nomen }} province {{ z.provinceid.nomen }}">{{ z.nomen }}</a></h3>
+											{% endif %}
+										</div>
+									  {% endfor %}
+							  {% endif %}
+						<br class="clearfloat" />
+					</div>
+		{% endblock %}
+		
+			{% block gauche %}
+			{# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %} 
+			{# Implémentation du bloc suggestion d'attrait et activité #}
+			{% include 'MyAppGlobalBundle:Attraits_&_activites:nosSuggestionsAttrait.html.twig' %}
+			{# PUB GOOGLE #}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>			      
+		{% endblock %}
+		

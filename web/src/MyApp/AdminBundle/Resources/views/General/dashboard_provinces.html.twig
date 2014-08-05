@@ -1,0 +1,74 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addprovinces')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter une province ou un état</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0" class="recentre">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="270" colspan=1>Nom fr</td>
+								<td width="270">Nom en</td>
+							</tr>	
+							{% for p in listProvince %}
+							<tr>
+								<td colspan=1 align="left"><a href="{{path('_Dashboard_updateprovinces',{'id':p.id})}}">{{ p.nom_fr }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updateprovinces',{'id':p.id})}}">{{ p.nom_en }}</a></td>
+							</tr>
+							{% endfor %}	
+							{% if listProvince is empty %}
+								<p class="searchnull">Pas de résultat trouvé</p>
+							{% endif %}	
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						{# Création du TreeView pour provinces > régions > zones > villes #}
+						 <ul class="country_mexique">
+						{% if listProvince is defined %}{# liste les provinces #}
+							{% for p in listProvince %}
+								<li >
+									<a class="link_treeView" href="{{ path("_Dashboard_provinces",{"province":p.id}) }}#regionBis">{{ p.nom_fr }}</a>
+									<ul class="province_canada">
+									 {% if p.id == motcleprovince %}{# liste les régions #}
+								 		{% for region in listRegion %}
+										<a name="regionBis" ></a>
+											<li>
+												<a class="link_treeView" href="{{ path("_Dashboard_provinces",{"province":p.id, "region":region.id}) }}#zoneBis">{{ region.nomfr }}</a>
+												<ul class="region_canada">
+												{% if region.id == motcleregion %}{# liste les zones #}
+													{% for zone in listZone %}
+													<a name="zoneBis"></a>
+													<li>
+														<a class="link_treeView" href="{{ path("_Dashboard_provinces",{"province":p.id, "region":region.id, "zone":zone.id}) }}#villeBis">{{ zone.nomfr }}</a>
+														<ul>
+														<a name="villeBis"></a>
+														{% if zone.id == motclezone %}{# liste les villes #}
+															{% for ville in listVille %}
+																<li class="submit_province_treeview">{{ ville.nomfr }}</li>
+															{% endfor %}
+														{% endif %}
+														</ul>
+													</li>
+													{% endfor %}
+												{% endif %}
+												</ul>
+											</li>
+										{% endfor %}
+									{% endif %}
+									</ul>
+								</li>
+							{% endfor %}
+						{% else %}
+							<li >Aucun résultat trouvé</li>
+						{% endif %}
+						 </ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

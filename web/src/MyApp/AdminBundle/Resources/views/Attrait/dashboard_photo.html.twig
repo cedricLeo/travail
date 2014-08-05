@@ -1,0 +1,103 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">	
+	{# Moteur de recherche #}
+	<form action="" method="post" {{ form_enctype(form) }} class="engine_search">					
+	    {{ form_widget(form.nom_fr, {'attr':{'class':'moteur_recherche', 'list':'listregion'}}) }}
+	    <datalist id="listregion">
+	    	{% for v in autocompletion %}
+	    		 <option value="{{ v.nom_fr }}">
+	    	{% endfor %}
+	    </datalist>
+	    <input type="submit" value="" class="loupe_moteur btn_search"/>
+	</form>
+	
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="template_etroit" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_addattraitphotos')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter une photo</a>
+						
+						<table cellspacing="4" cellpadding="0" border="0" style="width:960px;" class="menu_mobile">
+							<tbody>
+									<tr class="rowsubheader">
+										<td width="240"">Attraits</td>
+										<td width="240">Image</td>
+										<td width="240">Légende FR</td>
+										<td width="240">Légende EN</td>
+									</tr>
+							</tbody>
+						</table>
+						
+						<table align="center" class="info_scroll" cellpadding="0" border="0">
+							<tbody>
+							{% if number == 1 %}{# Affiche par défaut la pagination #}
+								{% for p in photo %}
+									<tr>	
+									{% if p.attraitsid is empty %}
+										<td colspan=1 style="width:240px">Aucun attrait associé</td>
+									{% else %}
+										<td colspan=1 style="width:240px"><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}">{{ p.attraitsid.nomfr }}</a></td>								
+									{% endif %}
+										<td colspan=1 style="width:240px"><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}">{% if p.image1 is defined %}<img src="{{ asset('uploads/attrait_photo') }}/{{ p.id }}/{{ p.image1 }}" style="width:275px; height:183px;"/>{% endif %}</a></td>
+										<td colspan=1 style="width:240px"><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}">{{ p.legende1fr }}</a></td>
+										<td colspan=1 style="width:240px"><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}">{{ p.legende1en }}</a></td>	
+									</tr>
+								{% endfor %}
+								{% if photo is empty %}
+									<p class="searchnull">Pas de résultat trouvé</p>
+								{% endif %}		
+							{% elseif number == 2 %}{#  Affiche le résultat si on entre un nom dans le moteur de recherche #}
+								{% for p in result %}
+									<tr>
+										<td colspan=1><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}"> {{ p.nomfr }}</a></td>
+										<td colspan=1><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}">{% if p.image_1 is defined %}<img src="{{ asset('uploads/attrait_photo') }}/{{ p.id }}/{{ p.image_1 }}"" />{% endif %}</a></td>
+										<td colspan=1><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}"></a></td>
+										<td colspan=1><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}"></a></td>
+									</tr>
+								{% endfor %}
+								{% if result is empty %}
+									<p class="searchnull">Pas de résultat trouvé</p>
+								{% endif %}	
+							{% elseif number == 3 %}
+								{% for p in lettre %}{# Affiche le résultat de tous les legende1_fr qui commencent par cette première lettre #}
+									<tr>
+										<td colspan=1><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}">{% for attrait in p.attraitsId %}{{ attrait.nomFr }}{% endfor %} </a></td>
+										<td colspan=1><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}">{% if p.image_1 is defined %}<img src="{{ asset('uploads/attrait_photo') }}/{{ p.id }}/{{ p.image_1 }}"" />{% endif %}</a></td>
+										<td colspan=1><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}">{{ p.legende1_fr }}</a></td>
+										<td colspan=1><a href="{{path('_Dashboard_updateattraitphotos',{'id':p.id})}}">{{ p.legende1_en }}</a></td>
+									</tr>
+								{% endfor %}
+								{% if lettre is empty %}
+									<p class="searchnull">Pas de résultat trouvé</p>
+								{% endif %}	
+							{% endif %}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				{% if total > 30 %}
+				{% if number == 2 %}
+				<tr>
+					<td>
+						<a class="pagination_customer" href=" {{ path('_Dashboard_attraitphotos',{'page':page - 1}) }}" >{% if firstpage < page %} << {% else %} {% endif %} </a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_attraitphotos',{'page':page }) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+					</td>
+				</tr>
+				{% else %}
+				<tr>
+					<td>
+						<a class="pagination_customer" href=" {{ path('_Dashboard_attraitphotos',{'page':page - 1}) }}" >{% if firstpage < page %} << {% else %} {% endif %} </a> page {{ page }} / {{ displaypage }} <a href="{{ path('_Dashboard_attraitphotos',{'page':page + 1}) }}">{% if page == displaypage %}{% else %} >>{% endif %}</a></span>
+					</td>
+				</tr>
+				{% endif %}
+				<tr>
+					<td class="letter_alpha petite_pagination">
+						{% for letter in 'a'|upper ..'z'|upper %}
+						<a href="{{ path('_Dashboard_attraitphotos',{'page':page, 'letter':letter}) }}">{{ letter }}</a>
+						{% endfor %}
+					<td>
+				</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

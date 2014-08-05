@@ -1,0 +1,35 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+					<td><a href="{{path('_Dashboard_adddevises')}}" class="addpays"><img src="{{ asset('bundles/myappadmin/images/Button Add.png') }}" class="add_ville" />Ajouter une devise monétaire</a>
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="270" colspan=1>Abréviation</td>
+								<td width="270">Symbole</td>
+								<td width="270">taux de change</td>
+								<td width="270">mise à jour</td>
+							</tr>	
+							{% for p in devise %}
+							<tr>
+								<td colspan=1><a href="{{path('_Dashboard_updatedevises',{'id':p.id})}}">{{ p.abreviation }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatedevises',{'id':p.id})}}">{{ p.symbole }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatedevises',{'id':p.id})}}" id="{{ p.id }}">{{ p.tauxchange }}</a></td>
+								<td colspan=1><a href="{{path('_Dashboard_updatedevises',{'id':p.id})}}">{{ p.dateupdate|date("d/m/Y") }}</a></td>
+							</tr>
+							{% endfor %}
+							{% if devise is empty %}
+								<p class="searchnull">Pas de résultat trouvé</p>
+							{% endif %}	
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<p><b>Banque canada met à jour les taux de change à midi</b></p>
+{% endblock %}

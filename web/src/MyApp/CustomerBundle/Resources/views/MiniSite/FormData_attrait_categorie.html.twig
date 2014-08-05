@@ -1,0 +1,112 @@
+ <progress id="avancementcategorie" min="0" max="100" aria-valuemin="0" aria-value="100" class="hideprogression" style="margin-left:25px;"></progress>
+ <output id="infoscategorie" class="hideprogression" style="margin-left:25px;"></output>
+  {% if photoCategorie != "" %}
+     <div id="retourajaxcategorie">
+       {% if msgerrorcategorie is defined and msgerrorcategorie is not empty %}<span class="errorDimension">{{ msgerrorcategorie }}</span>{% endif %}
+       <img src="{{ asset('uploads/attrait/') }}{{ id }}/{{ photoCategorie }}" class="imageCompteClientCategorie imageCompteClient" id="imgcategorieformdata"/> 
+     </div>   
+  {% endif %}
+
+<script>
+    
+      /* $(function(){      
+           
+           $(".jcrop-tracker img#imgcategorieformdata").attr("onclick", "addPopupCrop()");
+                     
+           $("#retourajaxcategorie ").click(function(){
+                $("#dialog_crop_img_categorie").css({"display":"block"});
+                $( "#dialog_crop_img_categorie" ).dialog({
+                    modal: true,
+                    buttons: {
+                      Crop: function() {
+                        $( this ).dialog( "close" );
+                      }
+                    }
+                });
+                $('#dialog_crop_img_categorie img#imgcategorieformdata').Jcrop({
+                        aspectRatio: 16/9,
+                        maxSize: [154,154,105,105],
+                       // onSelect: updateCoords  
+                        onSelect: showCoords,
+                        onChange: showCoords
+                });
+                function showCoords(c)
+                {
+                    // variables can be accessed here as
+                     c.w, c.h, c.x, c.y, c.copyw, c.copyh;
+                };
+      
+                $(".ui-dialog").css({"width":"660px", "height":"600px"});
+              //  $('.ui-dialog #dialog_crop_img_principale img#imgprincipaleformdata').css({"margin":"0px"});
+           });
+           
+        });*/
+                            
+        document.getElementById("add_texte_activite_photo_payante").setAttribute("onchange", "loadFileCategorie()");
+       // document.getElementById("add_hebergement_logo_doctrine").setAttribute("onchange", "loadFile()");
+        var progressioncategorie = document.getElementById("avancementcategorie");
+        var infoscategorie = document.getElementById("infoscategorie");
+        var responsecategorie = document.getElementById("retourajaxcategorie");
+        
+        loadFileCategorie = function(){
+            if(window.FormData){
+                var fdcategorie = new FormData();                                                                                    
+            }else{
+                alert("Ce navigateur n'est pas compatible.");
+                return;
+            }
+            //affiche la barre de progression
+            progressioncategorie.className = "showprogression";
+            infoscategorie.className = "showprogression";
+            //ignitialisation d'ajax
+            var xhrcategorie = new XMLHttpRequest();
+            xhrcategorie.open("POST", "{{ path('_uploadimgcategorieattrait') }}", true);
+            xhrcategorie.onreadystatechange = function(event){
+                if(this.readyState === 4){
+                    progressioncategorie.className = "hideprogression";
+                    infoscategorie.className = "hideprogression";
+                    responsecategorie.innerHTML = event.target.responseText; 
+                    infoscategorie.innerHTML = "";
+                }
+            };
+            //pendant la progression
+            xhrcategorie.onprogress = function(event){
+                if(event.lengthComputable){
+                    var pourcentage = Math.round(event.loaded*100/event.total);
+                    infoscategorie.innerHTML += pourcentage.toString()+" % <br />";
+                    progressioncategorie.setAttribute("aria-valuenow",pourcentage);
+                    progressioncategorie.value = pourcentage;
+                }
+            }
+            //terminé avec succès
+            xhrcategorie.onload = function(event){
+              infoscategorie.innerHTML += '<p style="color:green"> Chargement en cours </p>' ; 
+            };
+            //erreur pendant le chargement
+            xhrcategorie.onerror = function(event){
+              infoscategorie.innerHTML += '<p style="color:red"> Erreur de chargement </p>' ; 
+            };
+            //chargemnrt interrompu
+            xhrcategorie.onabort = function(event){
+              infoscategorie.innerHTML += '<p style="color:orange"> Annulation du chargement </p>' ; 
+            };
+            var imgcategorie = document.getElementById("add_texte_activite_photo_payante").files[0];
+            fdcategorie.append("id", "{{ id }}");
+            fdcategorie.append("photoCategorie", imgcategorie);
+            xhrcategorie.send(fdcategorie);
+        }    
+
+</script>
+
+{#<div id="dialog_crop_img_categorie" title="{{ 'outil.crop' | trans }}" style="display:none;">
+ <img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ id }}/{{ photoCategorie }}" style="max-width:640px; max-height:480px;" id="imgcategorieformdata"/>
+ <form action="" method="post" enctype="multipart/form-data" style='width:594px; height:35px;' > 
+    <input type='hidden' id='w' />
+    <input type='hidden' id='h' />
+    <input type='hidden' id='x' />
+    <input type='hidden' id='y' />
+    <input type='text' id='copyw' value='594 px'/>
+    <input type='text' id='copyh' value='328 px'/>
+    <input type='submit' id='submitcropimgcategorie' />
+ </form>
+</div>#}

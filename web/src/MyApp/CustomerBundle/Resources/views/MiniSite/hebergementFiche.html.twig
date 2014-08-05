@@ -1,0 +1,381 @@
+{% extends '::base1.html.twig' %}
+
+{% block content %}
+<div class="gris">
+	<h2 style="margin-left:0;">
+		<a id="texte_activite"> 
+			{{ "text.hebergement" | trans }} 
+                            {% for w in hebergementExiste %} 
+                                {% if w.id == id and app.request.locale == "fr" %} 
+                                    {{ w.nomfr }} 
+                                {% elseif w.id == id and app.request.locale == "en" %}
+                                    {{ w.nomen }}
+                                {% endif %} 
+                            {% endfor %}
+		</a>
+	</h2>		
+	<form id="form_txt_attrait" action="" method="post" {{ form_enctype(formTexteHebergement) }} class="update_state_form form_option_customer">	
+            {#{{ form_errors(formTexteHebergement) }}#}
+	     <p class="resize_p_form">&nbsp;</p>
+            {{ form_label(formTexteHebergement.style_hebergement_id, "style.hebergement" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formTexteHebergement.style_hebergement_id, {'attr':{'class':'txt_add_state2'}}) }}
+	    {{ form_errors(formTexteHebergement.style_hebergement_id) }}  
+            <p class="resize_p_form">&nbsp;</p>
+	    {{ form_label(formTexteHebergement.nombre_etages, "nombre.etage" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formTexteHebergement.nombre_etages, {'attr':{'class':'txt_add_state2', "maxlength":"2"}}) }}
+	    {{ form_errors(formTexteHebergement.nombre_etages) }}
+	    {{ form_label(formTexteHebergement.nombre_chambre, "nombre.chambre" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formTexteHebergement.nombre_chambre, {'attr':{'class':'txt_add_state2', "maxlength":"4"}}) }}
+	    {{ form_errors(formTexteHebergement.nombre_chambre) }}    
+            <span {% if acompte == 4 %} style="display:block;" {% else %} style="display:none;"{% endif %}>
+            {{ form_label(formTexteHebergement.prix_a_partir, "tarif.a.partir" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formTexteHebergement.prix_a_partir, {'attr':{'class':'txt_add_state2', "maxlength":"6"}}) }}
+	    {{ form_errors(formTexteHebergement.prix_a_partir) }}
+            </span>
+	    {{ form_label(formTexteHebergement.affiliation_id, "Affiliation.hebergement" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formTexteHebergement.affiliation_id, {'attr':{'class':'txt_add_state2'}}) }}
+	    {{ form_errors(formTexteHebergement.affiliation_id) }}
+             <p class="resize_p_form">&nbsp;</p>
+            {{ form_label(formTexteHebergement.checkin, "heure.arrive" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formTexteHebergement.checkin, {'attr':{'class':'txt_add_state2', 'maxlength':8}}) }}
+	    {{ form_errors(formTexteHebergement.checkin) }}
+            {{ form_label(formTexteHebergement.checkout, "heure.depart" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formTexteHebergement.checkout, {'attr':{'class':'txt_add_state2', 'maxlength':8}}) }}
+	    {{ form_errors(formTexteHebergement.checkout) }}
+            {{ form_label(formTexteHebergement.hebergement_paiements_id, "modes.de.paiements" | trans, {'attr':{'class':'lblnompays'}}) }}
+	    {{ form_widget(formTexteHebergement.hebergement_paiements_id, {'attr':{'class':'txt_add_state2'}}) }}
+	    {{ form_errors(formTexteHebergement.hebergement_paiements_id) }}
+	    <p class="resize_p_form">&nbsp;</p>
+            <p class="resize_p_form">&nbsp;</p>
+	    {% for p in hebergementExiste %}    
+	    	{% if p.id == id and p.latitude != 0 and p.longitude != 0 %}
+	    	 <p class="resize_p_form">&nbsp;</p> 
+				<div id="mappopuplocation" title="{% if app.request.locale == "fr" %} Localisation {{ p.nomfr }}  {% else %} Location {{ p.nomen }} {% endif %}">
+					<script>
+						function initCarte(){
+						//Création de la carte
+                                                     var latLng = new google.maps.LatLng({{ p.latitude }}, {{ p.longitude }}); 
+                                                     var myOptions = {
+				  	    	        zoom      : 14, // Zoom par défaut
+				  	    	        center    : latLng, // Coordonnées de départ de la carte de type latLng 
+				  	    	        mapTypeId : google.maps.MapTypeId.ROADMAP, // Type de carte, différentes valeurs possible HYBRID, ROADMAP, SATELLITE, TERRAIN
+				  	    	       // maxZoom   : 20
+				  	    	      };				  	    	      
+				  	    	      map      = new google.maps.Map(document.getElementById('map'), myOptions);
+				  	    	      panel    = document.getElementById('panel');				  	    	      
+				  	    	      var marker = new google.maps.Marker({
+				  	    	        position : latLng,
+				  	    	        map      : map,
+				  	    	      });		
+				  	    	     {% if app.request.locale == "fr" %}	  	    	      
+					  	    	      var contentMarker = [
+					  	    	          '<div id="containerTabs">',
+					  	    	          '<p style="font-weight:bold;">{{ p.nomfr }}</p>',
+					  	    	          {% if p.logo is not empty %}
+					  	    	          '<img src="{{ asset('uploads/hebergement/logos/logo') }}{{ p.id }}/{{ p.logo }}" alt="{{ p.nomfr }}" style="width:150px; height:100px;"/>',
+					  	    	          {% endif %}
+						  	    	      '</div>'
+					  	    	      ].join('');
+					  	    	  {% else %}
+					  	    		   var contentMarker = [
+					  	    	          '<div id="containerTabs">',
+					  	    	          '<p style="font-weight:bold;">{{ p.nomen }}</p>',
+					  	    	          {% if p.logo is not empty %}
+					  	    	          '<img src="{{ asset('uploads/hebergement/logos/logo') }}{{ p.id }}/{{ p.logo }}" alt="{{ p.nomen }}" style="width:150px; height:100px;"/>',
+					  	    	          {% endif %}
+						  	    	      '</div>'
+					  	    	      ].join('');
+					  	    	  {% endif %}		
+				  	    	      var infoWindow = new google.maps.InfoWindow({
+				  	    	        content  : contentMarker,
+				  	    	        position : latLng
+				  	    	      });				  	    	      
+				  	    	      google.maps.event.addListener(marker, 'mouseover', function() {
+				  	    	        infoWindow.open(map,marker);
+				  	    	      });			  	    	      
+				  	    	      google.maps.event.addListener(infoWindow, 'domready', function(){ // infoWindow est biensûr notre info-bulle
+				  	    	        jQuery("#tabs").tabs();
+				  	    	      });
+				  	    	      direction = new google.maps.DirectionsRenderer({
+				  	    	        map   : map,
+				  	    	        panel : panel // Dom element pour afficher les instructions d'itinéraire
+				  	    	      });
+				  	    	    };  
+							google.maps.event.addDomListener(window, 'load', initCarte);
+					</script>
+					{# Carte Google Map #}
+					{% if p.latitude != 0 and p.longitude != 0 %}
+					<div id="map" >
+						<p class="load"> 
+							{{ "chargement" | trans }}
+						</p>
+					</div>	
+					{% endif %}
+				</div>
+			{% endif %}	
+		{% endfor %}
+	    {{ form_label(formTexteHebergement.texte_resume_fr, "texte.resume.fr" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+	    {{ form_widget(formTexteHebergement.texte_resume_fr, {'attr':{'class':'txt_add_state2'}}) }}
+	    {{ form_errors(formTexteHebergement.texte_resume_fr) }}
+	    <p class="resize_p_form">&nbsp;</p>
+	    {{ form_label(formTexteHebergement.texte_resume_en, "texte.resume.en" | trans, {'attr':{'class':'lblnompays flag_en'}}) }}
+	    {{ form_widget(formTexteHebergement.texte_resume_en, {'attr':{'class':'txt_add_state2'}}) }}
+	    {{ form_errors(formTexteHebergement.texte_resume_en) }}
+	    <p class="resize_p_form">&nbsp;</p>
+                <div class="saisonattrait">	
+                    {{ form_label(formTexteHebergement.date_debut_saisonnier, "Date.debut.saisonnier" | trans , {'attr':{'class':'lblnompays'}}) }}
+                    {{ form_widget(formTexteHebergement.date_debut_saisonnier, {'attr':{'class':'txt_add_state2'}}) }}
+                    {{ form_errors(formTexteHebergement.date_debut_saisonnier) }}
+                    {{ form_label(formTexteHebergement.date_fin_saisonnier, "Date.fin.saisonnier" | trans , {'attr':{'class':'lblnompays'}}) }}
+                    {{ form_widget(formTexteHebergement.date_fin_saisonnier, {'attr':{'class':'txt_add_state2'}}) }}		
+                    {{ form_errors(formTexteHebergement.date_fin_saisonnier) }}
+                </div>
+ 		{% for p in hebergementExiste %}
+ 			{% if p.saisonnier == 1 %}
+ 				<script> $(".saisonattrait").removeClass("saisonattrait") </script>
+ 			{% endif %}
+ 		{% endfor %}
+            <p class="resize_p_form">&nbsp;</p> 
+	    {{ form_label(formTexteHebergement.texte_description_fr, "texte.description.fr" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+	    {{ form_widget(formTexteHebergement.texte_description_fr, {'attr':{'class':'txt_add_state2 '}}) }}   
+	    {{ form_errors(formTexteHebergement.texte_description_fr) }} 
+		<script type="text/javascript">
+			CKEDITOR.replace( 'add_hebergement_texte_description_fr' );
+		</script>
+		{% if txtAttFr is defined %}
+			<script type="text/javascript">
+				document.getElementById('add_hebergement_texte_description_fr').innerHTML = "{{ txtAttFr }}";
+			</script>
+		{% endif %}
+	    {{ form_label(formTexteHebergement.texte_description_en, "texte.description.en" | trans, {'attr':{'class':'lblnompays flag_en'}}) }}
+	    {{ form_widget(formTexteHebergement.texte_description_en, {'attr':{'class':'txt_add_state2 '}}) }}
+	    {{ form_errors(formTexteHebergement.texte_description_en) }}	
+		<script type="text/javascript">
+			CKEDITOR.replace( 'add_hebergement_texte_description_en' );
+		</script>
+		{% if txtAttEn is defined %}
+			<script type="text/javascript">
+				document.getElementById('add_hebergement_texte_description_en').innerHTML = "{{ txtAttEn }}";
+			</script>
+		{% endif %} 
+	    <p class="resize_p_form">&nbsp;</p> 
+	    {{ form_label(formTexteHebergement.photo_payante, "photo.principale" | trans, {'attr':{'class':'lblnompays imageprincipaleadminclient'}}) }} <span class="aidehover imgprincipale">[?]</span>
+	    {{ form_widget(formTexteHebergement.photo_payante, {'attr':{'class':'txt_add_state2'}}) }}
+	    {{ form_errors(formTexteHebergement.photo_payante) }} 
+            {% include 'MyAppCustomerBundle:MiniSite:FormData.html.twig' %}	
+	    {{ form_label(formTexteHebergement.photo_categorie_payante, "photo.categorie" | trans, {'attr':{'class':'lblnompays imagecategorieadminclient'}}) }} <span class="aidehover imgcategorie" style="left:200px;">[?]</span>
+	    {{ form_widget(formTexteHebergement.photo_categorie_payante, {'attr':{'class':'txt_add_state2'}}) }}
+	    {{ form_errors(formTexteHebergement.photo_categorie_payante) }}
+	    {% include 'MyAppCustomerBundle:MiniSite:FormData_hebergement_img_categorie.html.twig' %} 
+	    {{ form_label(formTexteHebergement.logo, "photo.logo" | trans, {'attr':{'class':'lblnompays imagelogoclient'}}) }} <span class="aidehover imglogo" >[?]</span>
+	    {{ form_widget(formTexteHebergement.logo, {'attr':{'class':'txt_add_state2'}}) }}
+	    {{ form_errors(formTexteHebergement.logo) }}
+	    {% include 'MyAppCustomerBundle:MiniSite:FormData_hebergement_logo.html.twig' %} 
+	    <p class="resize_p_form">&nbsp;</p>
+	    <h3 id="voir_plus">{{ "texte.description.complementaires" | trans }} </h3>
+		<div id="see_more">
+		    <div class="politique-hebergement-fr">
+		    	{{ form_row(formTexteHebergement.politique_hebergement_fr, {'attr':{'class':'txt_add_state2'}} ) }}
+		    	{{ form_errors(formTexteHebergement.politique_hebergement_fr) }}
+		    </div> 
+		    <div class="politique-hebergement-fr label-bisfr">
+		    	{{ form_row(formTexteHebergement.description_hebergement_fr, {'attr':{'class':'txt_add_state2'}} ) }}
+		    	{{ form_errors(formTexteHebergement.description_hebergement_fr ) }}
+		    </div>
+		    {{ "version.anglaise" | trans }}
+		    <div class="politique-hebergement-en">
+		    	{{ form_row(formTexteHebergement.politique_hebergement_en, {'attr':{'class':'txt_add_state2'}} ) }}
+		    	{{ form_errors(formTexteHebergement.politique_hebergement_en) }}
+		    </div> 
+		    <div class="politique-hebergement-en label-bisen">
+		    	{{ form_row(formTexteHebergement.description_hebergement_en, {'attr':{'class':'txt_add_state2'}} ) }}
+		    	{{ form_errors(formTexteHebergement.description_hebergement_en) }}
+		    </div>  
+	    </div>
+	    <p class="resize_p_form">&nbsp;</p>
+	    <h3 id="Hour_summer">{{ "galerie.photo" | trans }}</h3>
+		<div id="Open_summer">
+			<ul class="tags" data-prototype="{{ form_widget(formTexteHebergement.galerie_hebergement.vars.prototype)|e }}">
+				{{ form_errors(formTexteHebergement.galerie_hebergement.vars.prototype)|e }}
+			</ul>
+			{% include '::galerie_photo.html.twig' %}
+			{# AFFICHAGE ET SUPPRÉSSION DES THUMBNAILS #}
+			{% include 'MyAppCustomerBundle:MiniSite:display_gallery_hebergement.xml.twig' %}
+	    </div>
+	    <p class="resize_p_form">&nbsp;</p>	
+	    <h3 id="haute_saison">{{ "periode.haute.saison" | trans }}</h3>
+		<div id="Open_calendrier_haute_saison">
+			<ul class="tags2" data-prototype="{{ form_widget(formTexteHebergement.calendrier.vars.prototype)|e }}">
+				{{ form_errors(formTexteHebergement.calendrier.vars.prototype)|e }}
+			</ul>
+			{% include '::calendrier_haute_saison.html.twig' %}
+	    </div>
+            <p class="resize_p_form">&nbsp;</p>	
+            <h3 id="service_hebergement">{{ "Services" | trans }}</h3>
+		<div id="Open_service_hebergement" style="display:none;">
+                {{ form_widget(formTexteHebergement.hebergement_service_id, {'attr':{'class':'txt_add_state2 hackActiviteService'}}) }}
+                {{ form_errors(formTexteHebergement.hebergement_service_id) }}               
+                </div>
+             <p class="resize_p_form">&nbsp;</p>
+            <h3 id="activite_hebergement">{{ "actitivites" | trans }}</h3>
+		<div id="Open_activite_hebergement" >
+                    {{ form_label(formTexteHebergement.hebergement_activite_id, "activite.hebergement" | trans , {'attr':{'class':'lblnompays labelFicheClient'}}) }} 
+                    {{ form_widget(formTexteHebergement.hebergement_activite_id) }}
+                    {{ form_errors(formTexteHebergement.hebergement_activite_id) }}  
+                </div>            
+             <p class="resize_p_form">&nbsp;</p>
+	    {{ form_rest(formTexteHebergement) }}
+	    <input class="Btn_form_submit_fixed" type="submit" value="{{"submit.texte.attrait" |trans}}" name="submit"/>
+	</form>	
+    	
+	<script>
+		$(function(){         
+                    {% for q in tabId %}
+                        {% if distanceExiste == 0 %}
+                            $("#add_hebergement_hebergement_activite_id input#add_hebergement_hebergement_activite_id_{{ q.id }}").after('<input type="text" value="" id="hebergement_distance_activite_id_{{ q.id }}" name="hebergement_distance_activite_{{ q.id }}" maxlength="10"/>');
+                            $("#hebergement_distance_activite_id_{{ q.id }}").focusout(function(){
+                                valuedistance = $(this).val();
+                                if(valuedistance != ""){
+                                    $("#add_hebergement_hebergement_activite_id_{{ q.id }}").attr("checked", "checked");
+                                }else if(valuedistance == ""){
+                                    $("#add_hebergement_hebergement_activite_id_{{ q.id }}").removeAttr("checked", "checked");
+                                }
+                            });
+                        {% else %} 
+                            $("#add_hebergement_hebergement_activite_id input#add_hebergement_hebergement_activite_id_{{ q.activiteid }}").after('<input type="text" value="{{ q.distance }}" id="hebergement_distance_activite_id_{{ q.activiteid }}" name="hebergement_distance_activite_{{ q.activiteid }}" maxlength="20"/>');
+                            $("#hebergement_distance_activite_id_{{ q.activiteid }}").focusout(function(){
+                                valuedistance = $(this).val();
+                                if(valuedistance != ""){
+                                    $("#add_hebergement_hebergement_activite_id_{{ q.activiteid }}").attr("checked", "checked");
+                                }else if(valuedistance == ""){
+                                    $("#add_hebergement_hebergement_activite_id_{{ q.activiteid }}").removeAttr("checked", "checked");
+                                }
+                            });
+                        {% endif %}
+                    {% endfor %} 
+               
+                        
+                        $(".labelFicheClient").remove();
+                        $("#add_hebergement_hebergement_activite_id").prev().remove();
+                        $("#Open_activite_hebergement").append( $("#add_hebergement_hebergement_activite_id") );
+                                         
+			$("#add_hebergement_galerie_hebergement > div > label").remove();
+			$("#add_hebergement_calendrier > div > label").remove();
+			//Ajoute l'action de déroulement pour la galerie
+			$("#Open_summer").hide();
+			$("#Hour_summer").click(function(){
+				$("#Open_summer").slideToggle();
+			});
+			//place la galerie photo dans le div accordéon galerie photo
+			var $gallery = $("#add_hebergement_galerie_hebergement");
+			$("#Open_summer").append($gallery);
+			$("form#form_txt_attrait div").last().remove();
+			var $titleperiodedel = $(".Btn_form_submit_fixed").prev();
+			var $titlegaleriedel = $titleperiodedel.prev();
+			$titlegaleriedel.css({"display":"none"});
+			$titleperiodedel.css({"display":"none"});
+			//Ajoute les dimensions aux labels des images
+			$("label.imageprincipaleadminclient").append("<br /><span> 594 x 328 pixels</span>");
+			$("label.imagecategorieadminclient").append("<br /><span> 154 x 105 pixels</span>");
+                        $("label.imagelogoclient").append("<br /><span> 200 x 280 pixels <br /> maximum</span>");
+			//Ajoute une checkbox pour la suppréssion des images de la galerie photo
+			$("#add_hebergement_galerie_hebergement > div").append("<input type='checkbox' class='checkboxdeletegalerie'></input> <label class='labeldynamique'> {{ 'supprimer' | trans }}</label>");	
+			//Ajoute le calendrier pour la création des périodes saisonnières
+			$("a.compteurperiode").click(function(event){
+				var numberperiode = $("ul.tags2 > li").length - 2;
+				$("ul.tags2 > li > div#add_hebergement_calendrier_"+numberperiode*5+ " > div > input#add_hebergement_calendrier_"+numberperiode*5+"_date_debut_saison").addClass("datepicker").datepicker();
+				$("ul.tags2 > li > div#add_hebergement_calendrier_"+numberperiode*5+ "> div > input#add_hebergement_calendrier_"+numberperiode*5+"_date_fin_saison").addClass("datepicker").datepicker();
+			});
+			//Ajoute la class << datepicker >> pour les périodes saisonnnières déjà crées
+			var periodeexiste = $("#add_hebergement_calendrier > div > div").length;
+			var index = periodeexiste - 1;
+			for(i = 0; i < periodeexiste; i++){
+				$("#add_hebergement_calendrier > div div#add_hebergement_calendrier_"+i+" div > input#add_hebergement_calendrier_"+i+"_date_debut_saison").addClass("datepicker").datepicker();
+				$("#add_hebergement_calendrier > div div#add_hebergement_calendrier_"+i+" div > input#add_hebergement_calendrier_"+i+"_date_fin_saison").addClass("datepicker").datepicker();
+			}
+			//.text("<div><label class='lblnompays'>Date de fin</label><input type='text' class='txt_add_state2' id='+add_hebergement_calendrier_"+periodeexiste-1+"_date_fin_saison' </div>");
+			$field = $('<div> '+
+					'<label class="lblnompays" >Date fin saison</label>'+
+					'<input class="datepicker hasDatepicker txt_add_state2" type="text" value="{{ lastdatefin }}" >'+
+					'</div>');
+			$("#add_hebergement_calendrier > div > div > div:last").after($field);
+			//Ajoute les attributs aux enfants du div injecté
+			//label
+			$("#add_hebergement_calendrier > div > div > div:last label").attr('for', 'add_hebergement_calendrier_'+index+'_date_fin_saison');
+			//input
+			$("#add_hebergement_calendrier > div > div > div:last input").attr({id: 'add_hebergement_calendrier_'+index+'_date_fin_saison', name: 'add_hebergement[calendrier]['+index+'][date_fin_saison]'}).addClass("datepicker");
+			$("#add_hebergement_calendrier > div > div > div input#add_hebergement_calendrier_"+index+"_date_fin_saison").click(function(){
+				$(this).datepicker();
+			});
+
+			//Ajoute une checkbox pour la suppression des périodes de haute saison 
+			$("#add_hebergement_calendrier > div").append("<input type='checkbox' class='checkboxdeleteperiode'></input> <label class='labeldeletedynamique'> {{ 'supprimer' | trans }}</label>");			
+			//place les périodes dans le div accordéon des périodes
+			var $blockperiode = $("#add_hebergement_calendrier");
+			$("#Open_calendrier_haute_saison").append($blockperiode);
+			//Ajoute css dynamiquement pour les periodes de hautes saisons
+			$("#add_hebergement_calendrier div div div label").addClass("lblnompays");
+			$("#add_hebergement_calendrier div div div > input").addClass("txt_add_state2");		
+			//Gestion des bulles d'aide pour les [?] 
+			//image principale
+			$("span.imgprincipale").click(function(){
+				$(".dialogueprincipale").css({"display":"block"}).dialog();
+				$(".ui-dialog").css({"width":"700px"});
+			});
+			//image catégorie
+			$("span.imgcategorie").click(function(){
+				$(".dialoguecategorie").css({"display":"block"}).dialog();
+				$(".ui-dialog").css({"width":"700px"});
+			});
+			//image logo
+			$("span.imglogo").click(function(){
+				$(".dialoguelogo").css({"display":"block"}).dialog();
+				$(".ui-dialog").css({"width":"400px"});
+			});
+			//Supprime le la premier label des textes politiques 
+			$(".politique-hebergement-en > div > label:first-child, .politique-hebergement-fr > div > label:first-child").remove();
+			//Ajoute les drapeaux aux labels des textes
+			$(".politique-hebergement-en > div > div > div > label").addClass("flag_en");
+			$(".politique-hebergement-fr > div > div > div > label").addClass("flag_fr");
+                        
+                        $("#add_hebergement_photo_payante_doctrine").change(function(){
+                                 $("#imgprincipaleformdata").last().remove();
+                        });     
+                        
+                        $("#add_hebergement_hebergement_activite_id > input").attr("placeholder","ex: 7.5 km");
+                        
+                        //alert($("#add_hebergement_galerie_hebergement > div").length);
+                        
+                        var tab = new Array();
+                        var compteur = 1;
+                        $(".add_tag_link").live("click", function(){
+                            
+                            //alert(compteur++);
+                        });
+                        {% if acompte == 2 %}
+                            $("#add_hebergement_prix_a_partir").removeAttr("required");
+                        {% endif %}
+		});
+	</script>	
+	
+	{# CHARGE LA TRADUCTION DU PLUGINS DATEPICKER SI BESOIN #}
+	{% if app.request.locale == "fr" %}
+		{% include '::datepicker_fr.html.twig' %}
+	{% endif %}
+	
+	{% include 'MyAppCustomerBundle:MiniSite:delete_periode.xml.twig' %}
+        
+	<div class="dialogueprincipale" title="{{ "photo.principale" | trans }}" style="display:none;">
+		<img  src='{{ asset("bundles/myappglobal/images/image_principale.jpg") }}' />
+	</div>	
+	
+	<div class="dialoguecategorie" title="{{ "photo.categorie" | trans }}" style="display:none;">
+		<img  src='{{ asset("bundles/myappglobal/images/image_categorie.jpg") }}' />
+	</div>	
+	
+	<div class="dialoguelogo" title="{{ "photo.logo" | trans }}" style="display:none;">
+		<img  src='{{ asset("bundles/myappglobal/images/image_logo.jpg") }}' />
+	</div>	
+					
+</div>
+{% endblock %}

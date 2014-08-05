@@ -1,0 +1,77 @@
+<div class="info"> 
+        <img src="{{ asset('uploads/hebergement/photo_payante/photo_payante') }}{{ p.id }}/{{ p.photopayante }}" class="imgMainMobile"/>
+        <h2>{{ "information.concernant.etablissement" | trans }}</h2>
+        <ul>
+               {# AFFICHE LE NOMBRE DE CHAMBRE #}
+               {% if p.nombrechambre is not empty %}
+               <li><strong>{{ "nombre.chambre" | trans }} : </strong>{{ p.nombrechambre }}</li>                           
+               {% endif %}
+               {# AFFICHE LE NOMBRE D'Ã‰TAGE #} 
+               {% if p.nombreetages > 0 %}
+               <li><strong>{{ "nombre.etage" | trans }} :</strong> {{ p.nombreetages }}</li>
+               {% endif %}
+               {# AFFICHE LES TYPES DE SALLES #}
+               {% if p.corporatif == 1 %}
+               <li><strong>{{ "salle.etablissement" | trans }} :</strong></li>
+               {% endif %}
+               {# AFFICHE L'HEURE D'ARRIVÃ‰ POUR LA POSSESSION ET L'HEURE DE DÃ‰PART #}
+               <li><strong>{{ "heure.arriver.etablissement" | trans }} :</strong>  {{ p.checkin }} </li>
+               <li><strong>{{ "heure.depart.etablissement"  | trans }} :</strong>  {{ p.checkout }} </li>
+               {# AFFICHE LES MODES DE PAIEMENTS #}
+               <li><strong>{{ "modalite.paiement" | trans }} :</strong><br />
+               {% for h in p.hebergementpaiementsid %} <img src="{{ asset('uploads/modes_paiements') }}/{{ h.id }}/{{ h.image }}" alt="{{ h.nomfr }}" class="thumbnailmodepaiement"/>  - {{ h.nomfr }}  <br />{% endfor %}                                        
+               </li>                           
+        </ul>
+        <ul>
+           {# AFFICHE LA CLASSIFICATION #}
+           <li><strong>Classification :</strong><img src="{{ asset('uploads/classifications/') }}{{ p.classificationid.id }}/{{ p.classificationid.image }}" class="classification2" alt="{{ p.classificationid.valeur }}" /></li> 
+           {# AFFICHE LA CATÃ‰GORIE DE L'Ã‰TABLISSEMENT #}
+           {% if p.stylehebergementid is not empty %}
+           <li><strong>{{ "style.hebergement" | trans }} :</strong> {% for h in p.stylehebergementid %} {{ h.nomfr }}, {% endfor %} </li>
+           {% endif %}
+           {# AFFICHE LA POLITIQUE POUR LES ANIMAUX #}
+           {% if p.politiquehebergementfr.politiqueanimauxfr is not empty or p.politiquehebergementen.politiqueanimauxen is not empty %}
+              <li><strong>{{ "politique.animaux" | trans}} :</strong> {{ p.politiquehebergementfr.politiqueanimauxfr }} </li>
+           {% endif %}
+           {% if p.prixapartir is not empty %}
+              <strong>{{ "tarif.a.partir" | trans }}</strong> {{ p.prixapartir|replace("%$%", "") }} $
+           {% endif %}
+        </ul>
+</div>
+    <br class="clearfloat" />
+    {% if p.politiquehebergementfr.politiquegeneralefr is not empty %}
+         {% if app.request.locale == "fr" %}
+         <div class="condition">           
+               <p><span>{{ "politique.generale" | trans }}</span> : {{ p.politiquehebergementfr.politiquegeneralefr|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>                
+         </div>
+         {% endif %}                       
+    {% endif %}
+    {% if critere|length > 0 %}  
+        <div class="critere">
+             <h2>{{ "critere.semblable" | trans }} <br /> {{ p.nomfr }}  </h2>
+                <ul>
+                  <li><a href="javascript:void(0)" rel="nofollow">{% for g in p.stylehebergementid %} {{ g.nomfr }} + {% endfor %}</a> </li> 
+                  <li><a href="javascript:void(0)" rel="nofollow">{{ p.villeid.nomfr }}</a> </li>
+                </ul>
+            {# LISTE DES ÉTABLISSEMENTS QUI ONT LES MÊMES CRITÈRES #}
+            {% for y in critere %}
+                   <div> 
+                        <a href="{{ path('MyAppMobileBundle_detail_hebergement',{'id':y.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} {{ y.nomfr }}">
+                                {% if y.photocategoriepayante is not empty %}
+                                        <img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ y.id }}/{{ y.photocategoriepayante }}" class="img_categoie_portail" alt="{{ y.nomfr }}" />
+                                {% else %}
+                                        <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="Image de remplacement " />
+                                {% endif %}
+                        </a>
+                        <h3><a href="{{ path('MyAppMobileBundle_detail_hebergement',{'id':y.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} {{ y.nomfr }}">{{ y.nomfr }}</a></h3>
+                   </div>
+            {% endfor %} 
+        </div>
+    {% endif %}
+
+    
+    
+    
+    
+    
+    

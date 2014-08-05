@@ -1,0 +1,303 @@
+{% block suggestionsHotel %}
+<div class="suggestion ">
+{% for x in clientAleatoire.categoriehebergementid %}
+	{% if valideSuggLeft1 is defined or valideSuggLeft2 is defined or valideSuggLeft3 is defined  %}
+		{% if valideSuggLeft1 is not empty or valideSuggLeft2 is not empty or valideSuggLeft3 is not empty %}
+		<h5>{{ "suggestion.hebergement" | trans }}</h5>
+		{% endif %}
+			{# VERSION AVEC LE CHOIX D'UNE CATÉGORIE POUR LES SUGGESTIONS #}
+			{% if valideSuggLeft1 is not empty %}
+			    {# Région 1 #}               
+				<div>
+				    <h2>
+				    {% if app.request.locale == "fr" %} 
+				    	{% if loop.index == 1 %}
+                                            <a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':displayregion1.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ displayregion1.regionid.nomfr }}" >Hôtels {{ displayregion1.regionid.nomfr }}</a>
+                                        {% endif %}
+				    </h2>
+				         <ul>
+				         {% for qc in qcleft1 %}                                           
+                                              <li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomfr }} région {{ qc.hebergement.regionid.nomfr }}" target="_blank">{{ qc.hebergement.nomfr }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} À partir de {{ qc.tarifminbassesaison|replace({"$":""}) }}$ {% endif %}</span></li>                                            
+				         {% endfor %}
+				         </ul>
+				         {% if loop.index == 1 %}
+				  	     <h4>[<a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':displayregion1.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ displayregion1.regionid.nomfr }}">Voir les hôtels de {{ displayregion1.regionid.nomfr }}</a>]</h4>
+                                         {% endif %}
+			  	    {% else %}
+			  	    	{% if loop.index == 1 %}
+                                        <a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':displayregion1.regionid.repertoireen|lower}) }}" title="Region {{ displayregion1.regionid.nomen }} hotels " >Hotels {{ displayregion1.regionid.nomen }}</a>
+                                        {% endif %}
+				    </h2>
+				         <ul>
+				         {% for qc in qcleft1 %}                                            
+                                              <li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomen }} region {{ qc.hebergement.regionid.nomen}}" target="_blank">{{ qc.hebergement.nomen }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} From {{ qc.tarifminbassesaison|replace({"$":""}) }}$ {% endif %}</span></li>                                            
+				         {% endfor %}
+				         </ul>
+				        {% if loop.index == 1 %}
+				  		<h4>[<a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':displayregion1.regionid.repertoireen|lower}) }}" title="Hotels region {{ displayregion1.regionid.nomen}} ">See hotels {{ displayregion1.regionid.nomen }}</a>]</h4>
+			       		{% endif %}
+                                   {% endif %}
+				</div>
+                        {% endif %}
+			{# Région 2 #}
+			{% if valideSuggLeft2 is not empty %}
+                               <div>
+                                   <h2>
+                                    {% if app.request.locale == "fr" %}
+			       		{% if loop.index == 1 %}
+				     	 <a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':displayregion2.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ displayregion2.regionid.nomfr }}" >Hôtels  {{ displayregion2.regionid.nomfr }}</a>
+				   		{% endif %}
+				   </h2>        
+				         <ul>
+				         {% for qc in qcleft2 %}                                           
+                                              <li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomfr }} région {{ qc.hebergement.regionid.nomfr }}" target="_blank">{{ qc.hebergement.nomfr }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} À partir de {{ qc.tarifminbassesaison|replace({"$":""}) }}$ {% endif %}</span></li>                                            
+				         {% endfor %}
+				         </ul>
+				         {% if loop.index == 1 %}
+				 		 <h4>[<a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoireen|lower, 'region':displayregion2.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ displayregion2.regionid.nomfr }}">Voir les hôtels de {{ displayregion2.regionid.nomfr }}</a>]</h4>
+			  			 {% endif %}
+				    {% else %}
+				    	{% if loop.index == 1 %}
+			      		<a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':displayregion2.regionid.repertoireen|lower}) }}" title="Region {{ displayregion2.regionid.nomen }} hotels" >Hotels  {{ displayregion2.regionid.nomen }}</a>
+				  		{% endif %}
+				   </h2>        
+				         <ul>
+				         {% for qc in qcleft2 %}                                            
+                                              <li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomen }} region {{ qc.hebergement.regionid.nomen }}" target="_blank">{{ qc.hebergement.nomen }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} From {{ qc.tarifminbassesaison|replace({"$":""}) }}$ {% endif %}</span></li>                                            
+				         {% endfor %}
+				         </ul>
+				         {% if loop.index == 1 %}
+				   		 <h4>[<a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':displayregion2.regionid.repertoireen|lower}) }}" title="Hotels region {{ displayregion2.regionid.nomen }}">See hotels {{ displayregion2.regionid.nomen }}</a>]</h4>
+				   		 {% endif %}
+				   {% endif %}
+				 </div>
+			{% endif %}  
+			{# Région 3 #} 
+			{% if valideSuggLeft3 is not empty %}
+				 <div>
+                                    <h2>  
+			         	{% if app.request.locale == "fr" %}
+			         		{% if loop.index == 1 %}
+				       		<a href="{{ path('_hebergementtyperegionfr',{'name':x.repertoirefr|lower, 'region':displayregion3.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ displayregion3.regionid.nomfr }}" >Hôtels {{ displayregion3.regionid.nomfr }}</a>
+			        		{% endif %}
+                                     </h2>
+                                            <ul>
+                                            {% for qc in qcleft3 %}                                                  
+                                                 <li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomfr }} Région {{ qc.hebergement.regionid.nomfr }}" target="_blank">{{ qc.hebergement.nomfr }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} À partir de {{ qc.tarifminbassesaison|replace({"$":""}) }}$ {% endif %}</span></li>                                                   
+                                            {% endfor %}
+                                            </ul>
+					  	<h4>[<a href="{{ path('_hebergementtyperegionfr',{'name':x.nomfr|lower, 'region':displayregion3.regionid.nomfr|lower}) }}" title="Hôtels région {{ displayregion3.regionid.nomfr }}">Voir les hôtels de {{ displayregion3.regionid.nomfr }}</a>]</h4>
+					   {% else %}
+					   		{% if loop.index == 1 %}
+					       	<a href="{{ path('_hebergementtyperegionen',{'name':x.repertoireen|lower, 'region':displayregion3.regionid.repertoireen|lower}) }}" title="Region {{ displayregion3.regionid.nomen }} hotels" >Hotels {{ displayregion3.regionid.nomen }}</a>
+					 		{% endif %}
+					 </h2>
+                                            <ul>
+                                            {% for qc in qcleft3 %}                                               
+                                                 <li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomen }} region {{ qc.hebergement.regionid.nomen }}" target="_blank">{{ qc.hebergement.nomen }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} From {{ qc.tarifminbassessaison|replace({"$":""}) }}$ {% endif %} </span></li>                                         
+                                            {% endfor %}
+                                            </ul>
+					         {% if loop.index == 1 %}
+					   	     <h4>[<a href="{{ path('_hebergementtyperegionen',{'name':x.nomen|lower, 'region':displayregion3.regionid.repertoireen|lower}) }}" title="Hotels region {{ displayregion3.regionid.nomen }}">See hotels {{ displayregion3.regionid.nomen }}</a>]</h4>
+					   		 {% endif %}
+					  {% endif %}
+				 </div>
+		    {% endif %}
+	{% endif %}
+{% endfor %}
+		{# VERSION SANS CATÉGORIE POUR LES LISTES DE SUGGESTIONS #}
+		{% if valideSuggLeft1H is defined and valideSuggLeft1H is not empty or valideSuggLeft2H is defined and valideSuggLeft2H is not empty or valideSuggLeft3H is defined and valideSuggLeft3H is not empty %}
+		<h5>{{ "suggestion.hebergement" | trans }}</h5>
+			{% if valideSuggLeft1H is not empty  %}
+			    {# Région 1 #}	    
+				<div>
+				    <h2>
+				    {% if app.request.locale == "fr" %} 
+	 						{% for q in qcleft1 %}
+		 						{% if loop.index == 1 %}
+						         	{% for qc in q %}
+							    		{% if loop.index == 1 %}
+							 				<a href="{{ path('_hebergementregionsquebecfr',{'name':qc.hebergement.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ qc.hebergement.regionid.nomfr }}" >Hôtels {{ qc.hebergement.regionid.nomfr }}</a>
+							    		{% endif %}
+							    	{% endfor %}
+							    {% endif %}
+					    	{% endfor %}
+				    </h2>
+				         <ul>
+				         {% for q in qcleft1 %}
+				         	{% for qc in q %}
+				           		<li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomfr }} région {{ qc.hebergement.regionid.nomfr }}" target="_blank">{{ qc.hebergement.nomfr }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} À partir de {{ qc.tarifminbassesaison|replace({"$":""}) }}$ {% endif %} </span></li>
+				         	{% endfor %}
+				         {% endfor %}
+				         </ul>
+						{% for q in qcleft1 %}
+							{% if loop.index == 1 %}
+					         	{% for qc in q %}
+						         	{% if loop.index == 1 %}
+						  	    		<h4>[<a href="{{ path('_hebergementregionsquebecfr',{'name':qc.hebergement.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ qc.hebergement.regionid.nomfr }}">Voir les hôtels de {{ qc.hebergement.regionid.nomfr }}</a>]</h4>
+					  	    		{% endif %}
+					  	    	{% endfor %}
+					  	    {% endif %}
+				         {% endfor %}
+				    {% else %}
+						{% for q in qcleft1 %}
+							{% if loop.index == 1 %}
+					         	{% for qc in q %}
+						    		{% if loop.index == 1 %}
+					 					<a href="{{ path('_hebergementregionsquebecen',{'name':qc.hebergement.regionid.repertoireen|lower}) }}" title="Region {{ qc.hebergement.regionid.nomen }} hotels " >Hotels {{ qc.hebergement.regionid.nomen }}</a>
+						   			{% endif %}
+						   		{% endfor %}
+						   	{% endif %}
+				    	{% endfor %}
+				    </h2>
+				         <ul>
+				         {% for q in qcleft1 %}
+				         	{% for qc in q %}
+				           		<li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomen }} region {{ qc.hebergement.regionid.nomen}}" target="_blank">{{ qc.hebergement.nomen }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} From {{ qc.tarifminbassesaison|replace({"$":""}) }}$ {% endif %} </span></li>
+				         	{% endfor %}
+				         {% endfor %}
+				         </ul>
+						{% for q in qcleft1 %}
+							{% if loop.index == 1 %}
+					         	{% for qc in q %}
+						         	{% if loop.index == 1 %}
+						  				<h4>[<a href="{{ path('_hebergementregionsquebecen',{ 'name':qc.hebergement.regionid.repertoireen|lower}) }}" title="Hotels region {{ qc.hebergement.regionid.nomen}} ">See hotels {{ qc.hebergement.regionid.nomen }}</a>]</h4>
+					       			{% endif %}
+					       		{% endfor %}
+					       	{% endif %}
+				         {% endfor %} 
+				   {% endif %}
+				</div>
+		    {% endif %}
+			{# Région 2 #}
+			{% if valideSuggLeft2H is not empty  %}
+				<div>
+			       <h2>
+			       	{% if app.request.locale == "fr" %}
+						{% for q in qcleft2 %}
+							{% if loop.index == 1 %}
+					         	{% for qc in q %}
+					       			{% if loop.index == 1 %}
+						     	 		<a href="{{ path('_hebergementregionsquebecfr',{ 'name':qc.hebergement.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ qc.hebergement.regionid.nomfr }}" >Hôtels  {{ qc.hebergement.regionid.nomfr }}</a>
+						  			{% endif %}
+						  		{% endfor %}
+						  	{% endif %}
+			       		{% endfor %}
+				   </h2>        
+				         <ul>
+				         {% for q in qcleft2 %}
+				         	{% for qc in q %}
+				           		<li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomfr }} région {{ qc.hebergement.regionid.nomfr }}" target="_blank">{{ qc.hebergement.nomfr }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} À partir de {{ qc.tarifminbassesaison|replace({"$":""}) }}$ {% endif %}</span></li>
+				         	{% endfor %}
+				         {% endfor %}
+				         </ul>
+				         {% for q in qcleft2 %}
+				         	{% if loop.index == 1 %}
+					         	{% for qc in q %}
+						         	{% if loop.index == 1 %}
+						 		 		<h4>[<a href="{{ path('_hebergementregionsquebecfr',{ 'name':qc.hebergement.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ qc.hebergement.regionid.nomfr }}">Voir les hôtels de {{ qc.hebergement.regionid.nomfr }}</a>]</h4>
+					  				{% endif %}
+					  			{% endfor %}
+					  		{% endif %}
+				         {% endfor %}
+				   {% else %}
+						{% for q in qcleft2 %}
+							{% if loop.index == 1 %}
+					         	{% for qc in q %}
+						   			{% if loop.index == 1 %}
+					      				<a href="{{ path('_hebergementregionsquebecen',{'name':qc.hebergement.regionid.repertoireen|lower}) }}" title="Region {{ qc.hebergement.regionid.nomen }} hotels" >Hotels  {{ qc.hebergement.regionid.nomen }}</a>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+				   		{% endfor %}
+			      	</h2>        
+				         <ul>
+				         {% for q in qcleft2 %}
+				         	{% for qc in q %}
+				           		<li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomen }} region {{ qc.hebergement.regionid.nomen }}" target="_blank">{{ qc.hebergement.nomen }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} From {{ qc.tarifminbassesaison|replace({"$":""}) }}$ {% endif %} </span></li>
+				         	{% endfor %}
+				         {% endfor %}
+				         </ul>
+						{% for q in qcleft2 %}
+							{% if loop.index == 1 %}
+					         	{% for qc in q %}
+						     		{% if loop.index == 1 %}
+						   		 		<h4>[<a href="{{ path('_hebergementregionsquebecen',{'name':qc.hebergement.regionid.repertoireen|lower}) }}" title="Hotels region {{ qc.hebergement.regionid.nomen }}">See hotels {{ qc.hebergement.regionid.nomen }}</a>]</h4>
+						   			{% endif %}
+						   		{% endfor %}
+						   	{% endif %}
+				     	{% endfor %}
+				   {% endif %}
+				 </div>
+			{% endif %}  
+			{# Région 3 #} 
+			{% if valideSuggLeft3H is not empty  %}
+				  <div>
+			         <h2>  
+			         	{% if app.request.locale == "fr" %}
+							{% for q in qcleft3 %}
+								{% if loop.index == 1 %}
+						         	{% for qc in q %}
+					         			{% if loop.index == 1 %}
+						       				<a href="{{ path('_hebergementregionsquebecfr',{ 'name':qc.hebergement.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ qc.hebergement.regionid.nomfr }}" >Hôtels {{ qc.hebergement.regionid.nomfr }}</a>
+					         			{% endif %}
+					         		{% endfor %}
+					         	{% endif %}
+			         		{% endfor %}
+			         </h2>
+					         <ul>
+					         {% for q in qcleft3 %}
+					         	{% for qc in q %}
+					           		<li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomfr }} Région {{ qc.hebergement.regionid.nomfr }}" target="_blank">{{ qc.hebergement.nomfr }}</a><span>{% if qc.tarifminbassessaison is defined and qc.tarifminbassesaison is not empty %} À partir de {{ qc.tarifminbassesaison|replace({"$":""}) }}$ {% endif %}</span></li>
+					         	{% endfor %}
+					         {% endfor %}
+					         </ul>
+								{% for q in qcleft3 %}
+									{% if loop.index == 1 %}
+						         		{% for qc in q %}
+								         	{% if loop.index == 1 %}
+								  		 		<h4>[<a href="{{ path('_hebergementregionsquebecfr',{'name':qc.hebergement.regionid.repertoirefr|lower}) }}" title="Hôtels région {{ qc.hebergement.regionid.nomfr }}">Voir les hôtels de {{ qc.hebergement.regionid.nomfr }}</a>]</h4>
+								   			{% endif %}
+								   		{% endfor %}
+								   	{% endif %}
+					         {% endfor %}
+					    {% else %}
+							{% for q in qcleft3 %}
+								{% if loop.index == 1 %}
+						         	{% for qc in q %}
+							    		{% if loop.index == 1 %}
+							       			<a href="{{ path('_hebergementregionsquebecen',{'name':qc.hebergement.regionid.repertoireen|lower}) }}" title="Region {{ qc.hebergement.regionid.nomen }} hotels" >Hotels {{ qc.hebergement.regionid.nomen }}</a>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+					    	{% endfor %}
+					 </h2>
+					         <ul>
+					         {% for q in qcleft3 %}
+					         	{% for qc in q %}
+					           		<li><a href="{{ path('_hebergementinfoclient',{'name':qc.hebergement.repertoireen|lower}) }}" title="{{ "hebergement" | trans }} {{ qc.hebergement.nomen }} region {{ qc.hebergement.regionid.nomen }}" target="_blank">{{ qc.hebergement.nomen }}</a><span> {% if qc.tarifminbassessaison is defined and qc.tarifminbassessaison is not empty %} From {{ qc.tarifminbassessaison|replace({"$":""}) }}$ {% endif %}</span></li>
+					         	{% endfor %}
+					         {% endfor %}
+					         </ul>
+					        {% for q in qcleft3 %}
+					        	{% if loop.index == 1 %}
+						         	{% for qc in q %}
+							         	{% if loop.index == 1 %}
+							   	     		<h4>[<a href="{{ path('_hebergementregionsquebecen',{'name':qc.hebergement.regionid.repertoireen|lower}) }}" title="Hotels region {{ qc.hebergement.regionid.nomen }}">See hotels {{ qc.hebergement.regionid.nomen }}</a>]</h4>
+							  			{% endif %}
+							  		{% endfor %}
+							  	{% endif %}
+					        {% endfor %} 
+					  {% endif %}
+				  </div>
+		    {% endif %}
+		{% endif %}
+	    {# PUB GOOGLE #}
+		<div id="zone_02" class="bigBox">
+			<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_02'); });
+			</script>
+		</div>
+</div>
+{% endblock %}
+

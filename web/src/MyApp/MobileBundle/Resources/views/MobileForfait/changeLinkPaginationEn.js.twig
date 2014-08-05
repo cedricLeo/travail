@@ -1,0 +1,38 @@
+{# Génération des liens version anglaise #}
+
+{#change les liens dynamiquement pour la pagination région sans catégorie#}
+{% if linkRegionSansCat is defined %}                
+     $("a.prev").replaceWith("<a href='{{ path('MyAppMobileBundle_forfait_region_en',{'region':region , 'page':page-1 }) }}' class='prev'><img src='{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}' alt='{{ 'page.precedente' | trans }}' /></a>");
+     $("a.next").replaceWith("<a href='{{ path('MyAppMobileBundle_forfait_region_en',{'region':region , 'page':page+1 }) }}' class='next'><img src='{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}' alt='{{ 'page.suivante' | trans }}' /></a>");           
+{% endif %}
+    
+{#change les liens dynamiquement pour la pagination province sans catégorie#}
+{% if linkProvinceSansCat is defined %}                
+     $("a.prev").replaceWith("<a href='{{ path('MyAppMobileBundle_forfait_province_en',{'province':province , 'page':page-1 }) }}' class='prev'><img src='{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}' alt='{{ 'page.precedente' | trans }}' /></a>");
+     $("a.next").replaceWith("<a href='{{ path('MyAppMobileBundle_forfait_province_en',{'province':province , 'page':page+1 }) }}' class='next'><img src='{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}' alt='{{ 'page.suivante' | trans }}' /></a>");           
+{% endif %}   
+
+{#change les liens dynamiquement pour la pagination ville sans catégorie#}
+{% if linkVilleSansCat is defined %}                
+     $("a.prev").replaceWith("<a href='{{ path('MyAppMobileBundle_forfait_ville_en',{'ville':ville , 'page':page-1 }) }}' class='prev'><img src='{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}' alt='{{ 'page.precedente' | trans }}' /></a>");
+     $("a.next").replaceWith("<a href='{{ path('MyAppMobileBundle_forfait_ville_en',{'ville':ville , 'page':page+1 }) }}' class='next'><img src='{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}' alt='{{ 'page.suivante' | trans }}' /></a>");           
+{% endif %}
+
+{#change les liens dynamiquement pour la pagination ville avec catégorie#}
+{% if linkVilleCat is defined %}                
+     $("a.prev").replaceWith("<a href='{{ path('MyAppMobileBundle_forfait_ville_en',{'ville':ville , 'page':page-1 }) }}' class='prev'><img src='{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}' alt='{{ 'page.precedente' | trans }}' /></a>");
+     $("a.next").replaceWith("<a href='{{ path('MyAppMobileBundle_forfait_ville_en',{'ville':ville , 'page':page+1 }) }}' class='next'><img src='{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}' alt='{{ 'page.suivante' | trans }}' /></a>");           
+{% endif %}
+
+{#change les liens dynamiquement pour la pagination région avec catégorie#}
+{% if linkRegionCat is defined %}                
+     $("a.prev").replaceWith("<a href='{{ path('MyAppMobileBundle_forfait_region_en',{'region':region , 'page':page-1 }) }}' class='prev'><img src='{{ asset('bundles/myappmobile/images/fleche_gauche.PNG') }}' alt='{{ 'page.precedente' | trans }}' /></a>");
+     $("a.next").replaceWith("<a href='{{ path('MyAppMobileBundle_forfait_region_en',{'region':region , 'page':page+1 }) }}' class='next'><img src='{{ asset('bundles/myappmobile/images/fleche_droite.PNG') }}' alt='{{ 'page.suivante' | trans }}' /></a>");           
+{% endif %}
+
+
+
+
+
+
+

@@ -1,0 +1,403 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist is defined %}
+	<h1>Ajouter un hébergement</h1>
+{% else %}
+	<h1>Modifier l'hébergement « {{ infonom }} » </h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form" id="signupForm">	
+					{% if exist is not defined and infonom != "0" %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer l'hébergement "{{ infonom }}>Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer un hébergement"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>Voulez vous supprimez l'hébergement {{ infonom }} ?</p>
+						<a href="{{ path('_Dashboard_deletehebergement', {'id':id}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler ajuste_btn_cancel"></a>
+				    </div>	
+				    {% endif %}	
+				    {% if exist is not defined and infonom != "0" %}
+				    	<a href="{{ path('_Dashboard_compteCustomer',{'id':utilisateur ,'name':repertoirefr, 'redirect':heb}) }}" class="accesministe linkminisitenonvide">Accéder au mini site de ce client</a>
+				    {% endif %}
+				     <p class="resize_p_form">&nbsp;</p>
+				     <br />	
+				     <p>Tous les champs en rouge sont obligatoires</p>
+				    {{ form_label(form.actif, "Actif", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.actif, {'attr':{'class':'txt_add_state'}}) }}
+					 <p class="resize_p_form">&nbsp;</p>
+					{{ form_label(form.aprouver, "Approuver ce client pour publier sa fiche", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.aprouver, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.utilisateur, "Client", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.utilisateur, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.categorie_hebergement_id, "Catégorie d'hébergement", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.categorie_hebergement_id, {'attr':{'class':'txt_add_state'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.province_id, "Province / état", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.province_id, {'attr':{'class':'txt_add_state'}}) }}	
+				    	{% include 'MyAppAdminBundle:Hebergement:sortRegionAdmin.xml.twig' %}
+				    	{% include 'MyAppAdminBundle:Hebergement:sortZoneAdmin.xml.twig' %}
+				    {{ form_label(form.acompte_id, "Type acompte", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.acompte_id, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.affiliation_id, "Affiliation", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.affiliation_id, {'attr':{'class':'txt_add_state'}}) }} 
+				    <p class="resize_p_form">&nbsp;</p>				    
+				    {{ form_label(form.nom_fr, "Nom FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.adresse, "Adresse", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.adresse, {'attr':{'class':'txt_add_state'}}) }}
+                                    {% include 'MyAppAdminBundle:Hebergement:sortVilleAdmin.xml.twig' %}	
+				    {{ form_label(form.code_postal, "Code postal", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.code_postal, {'attr':{'class':'txt_add_state code_postal_upper', 'maxlength' : "7"}}) }}
+				    {{ form_label(form.telephone, "Téléphone", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.telephone, {'attr':{'class':'txt_add_state', 'maxlength' : "20"}}) }}
+					    {% if lat is not defined and long is not defined %}
+						    <p>Si la latitude et la longitude ne sont pas renseignées inscrire un <span class="valeurZero" >0</span> dans le champ latitude et longitude</p>
+						{% endif %}
+				    <a href="{{ path('_google_maps') }}" target="_blank"><img src="{{ asset("bundles/myappadmin/images/googlemaps.gif") }}" class="icongooglemap" title="Recherche les coordonnées latitude et longitude pour cet hébergement" alt="Google maps" /></a>
+				    {{ form_label(form.latitude, "Latitude", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.latitude, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.longitude, "Longitude", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.longitude, {'attr':{'class':'txt_add_state'}}) }}
+				    {% if exist is not defined %}
+						<script>
+							function initCarte(){
+							//Création de la carte
+								  var latLng = new google.maps.LatLng({{ lat }}, {{ long }}); 
+					    	      var myOptions = {
+					  	    	        zoom      : 14, // Zoom par défaut
+					  	    	        center    : latLng, // Coordonnées de départ de la carte de type latLng 
+					  	    	        mapTypeId : google.maps.MapTypeId.ROADMAP, // Type de carte, différentes valeurs possible HYBRID, ROADMAP, SATELLITE, TERRAIN
+					  	    	       // maxZoom   : 20
+					  	    	      };				  	    	      
+					  	    	      map      = new google.maps.Map(document.getElementById('map'), myOptions);
+					  	    	      panel    = document.getElementById('panel');				  	    	      
+					  	    	      var marker = new google.maps.Marker({
+					  	    	        position : latLng,
+					  	    	        map      : map,
+					  	    	      });						  	 
+					  	    	      var contentMarker = [
+					  	    	          '<div id="containerTabs">',
+					  	    	          '<p style="font-weight:bold;">{{ infonom }}</p>',
+					  	    	          {% if infoLogo is not empty %}
+					  	    	          '<img src="{{ asset('uploads/hebergement/logos/logo') }}{{ id }}/{{ infoLogo }}" alt="{{ infonom }}" style="width:150px; height:100px;"/>',
+					  	    	          {% endif %}
+						  	    	      '</div>'
+					  	    	      ].join('');	
+					  	    	      var infoWindow = new google.maps.InfoWindow({
+					  	    	        content  : contentMarker,
+					  	    	        position : latLng
+					  	    	      });				  	    	      
+					  	    	      google.maps.event.addListener(marker, 'mouseover', function() {
+					  	    	        infoWindow.open(map,marker);
+					  	    	      });			  	    	      
+					  	    	      google.maps.event.addListener(infoWindow, 'domready', function(){ // infoWindow est biensûr notre info-bulle
+					  	    	        jQuery("#tabs").tabs();
+					  	    	      });
+					  	    	      direction = new google.maps.DirectionsRenderer({
+					  	    	        map   : map,
+					  	    	        panel : panel // Dom element pour afficher les instructions d'itinéraire
+					  	    	      });
+					  	    	    };  
+								google.maps.event.addDomListener(window, 'load', initCarte);
+						</script>
+						{# Carte Google Map #}
+						{% if lat != 0 and long != 0 %}
+						<div id="map" class="centremapgoogle">
+							<p class="load"> 
+								{{ "chargement" | trans }}
+							</p>
+						</div>	
+						{% endif %}
+				    {% endif %}	
+				    {{ form_label(form.meta_description_fr, "Meta description FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.meta_description_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.meta_description_en, "Meta description EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.meta_description_en, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>	
+				    {{ form_label(form.meta_titre_fr, "Meta titre FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.meta_titre_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.meta_titre_en, "Meta titre EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.meta_titre_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.meta_keywords_fr, "Mots clés FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.meta_keywords_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.meta_keywords_en, "Mots clés EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.meta_keywords_en, {'attr':{'class':'txt_add_state'}}) }}				   
+				    <br />
+				    {# formulaire pour les autres informations du client #}
+				    {% if infonom is defined %}
+				    <h3 id="voir_plus">Informations complémentaires sur l'hébergement « {{ infonom }} »</h3>
+				    {% else %}
+				    <h3 id="voir_plus">Informations complémentaires pour l'hébergement </h3>
+				    {% endif %}
+				    <div id="see_more">
+				    {{ form_label(form.repertoire_fr, "Répertoire FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.repertoire_en, "Répertoire EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.repertoire_en, {'attr':{'class':'txt_add_state'}}) }}
+				  {#   <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.hebergement_activite_id, "Activités de l'hébergement", {'attr':{'class':'lblnompays'}}) }}
+					{{ form_widget(form.hebergement_activite_id, {'attr':{'class':'txt_add_state'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.style_hebergement_id, "Styles d'hébergements", {'attr':{'class':'lblnompays'}}) }}
+					{{ form_widget(form.style_hebergement_id, {'attr':{'class':'txt_add_state'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.hebergement_service_id, "Services de l'hébergement", {'attr':{'class':'lblnompays'}}) }}
+					{{ form_widget(form.hebergement_service_id, {'attr':{'class':'txt_add_state'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>#}
+				    {{ form_label(form.devise_id, "Devises", {'attr':{'class':'lblnompays'}}) }}
+					{{ form_widget(form.devise_id, {'attr':{'class':'txt_add_state'}}) }}
+				     <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.cotation_id, "Cotation", {'attr':{'class':'lblnompays'}}) }}
+					{{ form_widget(form.cotation_id, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.classification_id, "Classification", {'attr':{'class':'lblnompays'}}) }}
+					{{ form_widget(form.classification_id, {'attr':{'class':'txt_add_state'}}) }}
+				  {#  {{ form_label(form.hebergement_paiements_id, "Modes de paiements", {'attr':{'class':'lblnompays'}}) }}
+					{{ form_widget(form.hebergement_paiements_id, {'attr':{'class':'txt_add_state'}}) }}#}
+                                     <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.nom_abrege_fr, "Nom abregé FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_abrege_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_abrege_en, "Nom abregé EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_abrege_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.telephone2, "Téléphone 2", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.telephone2, {'attr':{'class':'txt_add_state', 'maxlength' : "20"}}) }}
+				    {{ form_label(form.telephone_poste, "Poste téléphonique", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.telephone_poste, {'attr':{'class':'txt_add_state', 'maxlength' : "20"}}) }}				    
+				    {{ form_label(form.telecopieur, "Télécopieur", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.telecopieur, {'attr':{'class':'txt_add_state', 'maxlength' : "20"}}) }}
+				    {{ form_label(form.sans_frais, "Numéro sans frais", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.sans_frais, {'attr':{'class':'txt_add_state', 'maxlength' : "20"}}) }}
+				    {{ form_label(form.courriel, "Courriel", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.courriel, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.siteweb, "Site web", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.siteweb, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.reservit_id, "N° Reservit", {'attr':{'class':'lblnompays checkreservit'}}) }}
+				    {{ form_widget(form.reservit_id, {'attr':{'class':'txt_add_state'}}) }}
+				    {# Réseaux sociaux #}
+				    {{ form_label(form.facebook_fr, "Page Facebook FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.facebook_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.facebook_en, "Page Facebook EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.facebook_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.twitter_fr, "Page Twitter FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.twitter_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.twitter_en, "Page Twitter EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.twitter_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.google_plus_fr, "Page Google+ FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.google_plus_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.google_plus_en, "Page Google+ EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.google_plus_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.texte_resume_fr, "Texte résumé FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_resume_fr, {'attr':{'class':'txt_add_state'}}) }}	
+				     <p class="resize_p_form">&nbsp;</p>	
+				    {{ form_label(form.texte_resume_en, "Texte résumé EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_resume_en, {'attr':{'class':'txt_add_state'}}) }}	
+				   {#  <p class="resize_p_form">&nbsp;</p>	 
+				    {{ form_label(form.texte_description_fr, "Texte descriptif FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_description_fr, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+					<script type="text/javascript">
+						CKEDITOR.replace( 'add_hebergement_texte_description_fr' );
+					</script>
+					{% if txtFr is defined %}
+						<script type="text/javascript">
+							document.getElementById('add_hebergement_texte_description_fr').innerHTML = "{{ txtFr }}";
+						</script>
+					{% endif %}
+				    {{ form_label(form.texte_description_en, "Texte descriptif EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_description_en, {'attr':{'class':'txt_add_state txt_hidden'}}) }}
+					<script type="text/javascript">
+						CKEDITOR.replace( 'add_hebergement_texte_description_en' );
+					</script>
+					{% if txtEn is defined %}
+						<script type="text/javascript">
+							document.getElementById('add_hebergement_texte_description_en').innerHTML = "{{ txtEn }}";
+						</script>
+					{% endif %}	#}
+				    {{ form_label(form.nombre_etages, "Nombre d'étage", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.nombre_etages, {'attr':{'class':'txt_add_state', "maxlength": 2}}) }}
+				    {{ form_label(form.checkin, "Heure d'arrivée", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.checkin, {'attr':{'class':'txt_add_state', "maxlength":8}}) }}
+				    {{ form_label(form.checkout, "Heure de départ", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.checkout, {'attr':{'class':'txt_add_state', "maxlength":8}}) }}
+				    {{ form_label(form.etablissement_saisonnier, "Etablissement saisonnier", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.etablissement_saisonnier, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.adsense, "Adsense", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.adsense, {'attr':{'class':'checkbox', 'checked':'checked'}}) }}
+				    {{ form_label(form.corporatif, "Corporatif", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.corporatif, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.email_corporatif, "Courriel corporatif", {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.email_corporatif, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.tarif_preferentiel, "Tarif préférentiel", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.tarif_preferentiel, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.optvisibilite_grande_photo, "Option visibilité grande photo", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_grande_photo, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.optvisibilite_photo_categorie, "Option visibilité photo catégorie", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_photo_categorie, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.optvisibilite_nos_suggestions, "Option visibilité nos suggestions", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_nos_suggestions, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.optvisibilite_criteres_semblables, "Option visibilité critère semblable", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_criteres_semblables, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.optvisibilite_nouveautes, "Option nouveauté", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_nouveautes, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.optvisibilite_incontournables, "Option incontournable", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.optvisibilite_incontournables, {'attr':{'class':'checkbox'}}) }}		    
+				  {#  {{ form_label(form.referencement_payant, "Référencement payant", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.referencement_payant, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.referencement_mini_site_update_souvent, "Référencement pour la mise à jour régulière du mini site", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.referencement_mini_site_update_souvent, {'attr':{'class':'checkbox'}}) }}#}
+				    </div>
+				    <p class="resize_p_form">&nbsp;</p>
+				    {# photo principale et de catégorie avec le logo #}
+				   {# <h3 id="photoetlogohebergement">Photos et logo </h3>
+				    <div id="photologohebergement">
+                                            {{ form_label(form.logo_doctrine, "Logo de l'établissement", {'attr':{'class':'lblnompays'}}) }}
+					    {{ form_widget(form.logo_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+					    {% if infoLogo is defined and infoLogo != "" %}
+					    	<img src="{{ asset('uploads/hebergement/logos/logo') }}{{ id }}/{{ infoLogo }}" style="max-width:200px; max-height:300px; position:relative; left:250px; border:1px solid grey;" />
+					    {% endif %}
+					    {{ form_label(form.photo_payante_doctrine, "Photo principale 594 px x 328 px", {'attr':{'class':'lblnompays'}}) }}
+					    {{ form_widget(form.photo_payante_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+					    {% if photoPrincipale is defined and photoPrincipale != "" %}
+                                                {% include 'MyAppCustomerBundle:MiniSite:formData.html.twig' %}
+                                            {% endif %}
+					    {{ form_label(form.photo_categorie_payante_doctrine, "Photo catégorie 154 px x 113 px", {'attr':{'class':'lblnompays'}}) }}
+					    {{ form_widget(form.photo_categorie_payante_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+					    {% if infoimg is defined and infoimg != "" %}
+					    	<img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ id }}/{{ infoimg }}" style="width:151px; height:109px; position:relative; left:250px; border:1px solid grey; " />
+					    {% endif %}
+				    </div>
+				    <p class="resize_p_form">&nbsp;</p>
+				    {# Formulaire galerie photo #}
+				   {# <h3 id="galleriePhotoAttr">Galerie photo </h3>
+				    <div id="galeriePhotoPreview">
+				    	<ul class="tags" data-prototype="{{ form_widget(form.galerie_hebergement.vars.prototype)|e }}"> </ul>
+				    	{% include '::galerie_photo.html.twig' %}
+						{# AFFICHAGE ET SUPPRÉSSION DES THUMBNAILS #}
+					{#	{% include 'MyAppAdminBundle:Hebergement:display_gallery_hebergement_admin.xml.twig' %}
+				    </div>
+				    <p class="resize_p_form">&nbsp;</p>	#}
+				    {# formulaire pour les politiques de l'établissement #}
+				    <h3 class="formu_politique">Politiques de l'établissement</h3>
+				    <div id="politique">
+					    <div class="politique-hebergement-fr">
+					    	{{ form_row(form.politique_hebergement_fr, {'attr':{'class':'txt_add_state'}} ) }}
+					    </div>
+					    <div class="politique-hebergement-en">
+					    	{{ form_row(form.politique_hebergement_en, {'attr':{'class':'txt_add_state'}} ) }}
+					    </div>
+				    </div>
+				     <p class="resize_p_form">&nbsp;</p>
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="Enregistrer" class=" Btn_form_submit_fixed"/>
+				    <a href="{{ path('_Dashboard_hebergement') }}" class="boutonannuler"></a>
+				</form>
+				
+				<script>
+					var cp = document.getElementById('add_hebergement_code_postal');
+					cp.onkeyup = function(){
+							this.value = this.value.toUpperCase();
+							if(cp.value.length == 3){
+								this.value = this.value.toUpperCase()+" ";
+							}
+					}
+					//Ajoute les selected sur la devise CAN
+					$("#add_hebergement_devise_id option[value='1']").attr("selected","selected");
+					
+					//Galerie
+					/*$(function(){
+						var $gallery = $("#add_hebergement_galerie_hebergement");
+						$("#galeriePhotoPreview").append($gallery);
+						$("form.update_state_form div").last().remove();
+					
+					});*/
+					//Dépile les menu accordéons si un champ obligatoire est pas remplie
+					$(".boutonvalidenregistrer").click(function()
+					{
+						if($("#add_hebergement_repertoire_fr").val() == null || $("#add_hebergement_repertoire_en").val() == null || $("#add_hebergement_style_hebergement_id").val() == null || $("#add_hebergement_hebergement_service_id").val() == null || $("#add_hebergement_devise_id").val() == null || $("#add_hebergement_classification_id").val() == null || $("#add_hebergement_hebergement_paiements_id").val() == null || $("#add_hebergement_texte_resume_fr").val() == null || $("#add_hebergement_texte_resume_en").val() == null || $("#add_hebergement_nombre_etages").val() == null)
+						{
+							$("#see_more").css({"display":"block"});
+						}
+						if($("#add_hebergement_checkin_hour").val() == null || $("#add_hebergement_checkout_hour"))
+						{
+							$("#see_more").css({"display":"block"});
+						}	
+					});
+					//Affiche la popup si les champs repertoire fr et repertoire en ne sont pas complétés
+					$("a.accesministe").click(function(){
+						if($("#add_hebergement_repertoire_fr").val() == "" || $("#add_hebergement_repertoire_en").val() == "")
+						{
+							$("#dialog-message").css({"display":"block"});
+							$( "#dialog-message" ).dialog({
+								 modal: true,
+								 buttons: {
+								 Ok: function() {
+								 $( this ).dialog( "close" );
+								 }
+								}
+							});
+							$("#see_more").css({"display":"block"});
+						}
+					});
+					if($("#add_hebergement_repertoire_fr").val() == "" || $("#add_hebergement_repertoire_en").val() == "")
+					{
+						$(".linkminisitenonvide").css({"display":"none"});
+						$(".linkminisitevide").css({"display":"block"});
+					}else{
+						$(".linkminisitevide").css({"display":"none"});
+						$(".linkminisitenonvide").css({"display":"block"});
+					}
+					$("#politique div.politique-hebergement-fr label:first, " +
+					  "#politique div.politique-hebergement-en label:first, " +
+					  "#politique-hebergement-fr div label:first, " +
+					  "#politique-hebergement-en div label:first, ").css({"display":"none"});
+					$("#add_hebergement_description_hebergement_fr_texte_generale_chambre_fr, #add_hebergement_description_hebergement_en_texte_generale_chambre_en").attr("required", "required");
+					//Ajoute une checkbox pour la suppréssion des périodes de haute saison 
+					$("#add_hebergement_galerie_hebergement > div").append("<input type='checkbox' class='checkboxdeletegalerie'></input> <label class='labeldynamique'> {{ 'supprimer' | trans }}</label>");			
+					//supprime les labels des div  dans la galerie photo
+					$("#add_hebergement_galerie_hebergement > div > label.required ").remove();
+
+					/*$("#photologohebergement").hide();
+					$("#photoetlogohebergement").live("click", function(){
+						$("#photologohebergement").slideToggle();
+					});*/
+					//
+					$(".Btn_form_submit").click(function(){
+						$("#see_more").show();
+					});
+					//Selectionne par défaut la valeur "Aucune cotation"
+					$("#add_hebergement_cotation_id option:first").remove();
+					if($("#add_hebergement_cotation_id").val() == null){
+						$("#add_hebergement_cotation_id option[value=28]").attr("selected", "selected");
+					}
+					//Validation du formulaire
+						$.validator.addClassRules({
+							checkinput:{
+						        required: true,
+						        digits: true,
+						        minlength: 1
+						    },
+						    checkemail:{
+						        required: true,
+						        email: true
+						    },
+						});
+						
+						$("#signupForm").validate();
+					
+					
+				</script>	
+					<div id="dialog-message" title="Avertissement" style="display:none;">
+						<p>
+							<span class="ui-icon ui-icon-circle-check" style="float: left; margin: 0 7px 50px 0;"></span>
+							Les champs répertoire FR et répertoire EN doivent être renseignés pour avoir accés au mini site du client.
+						</p>
+					</div>
+			 <br class="clearfloat">
+			 {# persistance des champs en local #}
+			 {% include 'MyAppAdminBundle:Hebergement:persistance_localstorage.html.twig' %}
+			</div>
+		</div>
+</div>
+{% endblock %}

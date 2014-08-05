@@ -1,0 +1,27 @@
+{% if app.request.locale == "fr" %}
+	<div id="retour3" >
+   		<select id="selectClient" class="listeEtablissement" >
+    		{% for w in clientAjax %}
+			<option value="{{ w.sallecorporativehebergement.id }}">{{ w.sallecorporativehebergement.nomfr }}</option>
+			{% endfor %}
+		</select> 
+		{% for s in clientAjax %}
+			{% if loop.index == 1 %}
+			<input type="hidden" value="{{ s.sallecorporativehebergement.villeid.id }}" name="idville"/>
+			{% endif %}
+		{% endfor %}
+   </div>
+{% else %}
+	<div id="retour3" >
+   		<select id="selectClient" class="listeEtablissement" >
+    		{% for w in clientAjax %}
+			<option value="{{ w.sallecorporativehebergement.id }}">{{ w.sallecorporativehebergement.nomen }}</option>
+			{% endfor %}
+		</select> 
+		{% for s in clientAjax %}
+			{% if loop.index == 1 %}
+			<input type="hidden" value="{{ s.sallecorporativehebergement.villeid.id }}" name="idville"/>
+			{% endif %}
+		{% endfor %}
+   </div>
+{% endif %}

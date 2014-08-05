@@ -1,0 +1,95 @@
+{# Implémentation de la recherche par carte #}
+{% if home is not defined %} {% block ouAller %} {% include '::searchCard.html.twig' %} {% endblock %} {% endif %}
+	<br />
+	  <div class="suggestion ">     
+		{# FORFAIT 1 #}
+		{% if regionSuggestion1 is not empty %}
+		 <h5>{{ "suggestion.forfait" | trans }}</h5>
+		<div>                     
+                        <h2><a href="{{ path('_forfaitsregionsfr',{'name':regionSuggestion1.repertoirefr|lower}) }}" title="Voir les forfaits région {{  regionSuggestion1.nomfr }}" >{{  regionSuggestion1.nomfr }}</a></h2>
+                                <ul>
+                                    {% for w in listeClient1 %}
+                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name':w.hebergementid.regionid.repertoirefr|lower}) }}"  title="Forfaits {{ w.forfaitclientid.nomfr|lower }} région {{ w.hebergementid.regionid.nomfr }}">{{ w.forfaitclientid.nomfr }}</a><span>
+                                            <a  href="{{ path('_hebergementforfait',{'name': w.hebergementid.repertoirefr}) }}" target="_blank" title="Forfaits {{ w.forfaitclientid.nomfr }} {{ w.hebergementid.nomfr }}">{{ w.hebergementid.nomfr }}</a></span></li>
+                                    {% endfor %}
+                                </ul>    
+                        <br class="clearfloat" />
+                        <h4>[<a href="{{ path('_forfaitsregionsfr',{'name':regionSuggestion1.repertoirefr|lower}) }}" title="Voir les forfaits région {{  regionSuggestion1.nomfr }}">Forfaits région {{  regionSuggestion1.nomfr }}</a>]</h4>                    
+		</div>
+		{% endif %}
+		{# FORFAIT 2 #}
+		{% if regionSuggestion2 is not empty %}
+		<div>                     
+                        <h2><a href="{{ path('_forfaitsregionsfr',{'name':regionSuggestion2.repertoirefr|lower}) }}" title="Voir les forfaits région {{ regionSuggestion2.nomfr }}">{{ regionSuggestion2.nomfr }}</a></h2>
+                                <ul>
+                                    {% for w in listeClient2 %}
+                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name':w.hebergementid.regionid.repertoirefr|lower}) }}"  title="Forfaits {{ w.forfaitclientid.nomfr|lower }} région {{ w.hebergementid.regionid.nomfr }}">{{ w.forfaitclientid.nomfr }}</a>
+                                        <span><a  href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr}) }}" target="_blank" title="Forfaits {{ w.forfaitclientid.nomfr }} {{ w.hebergementid.nomfr }}">{{ w.hebergementid.nomfr }}</a></span></li>
+                                    {% endfor %}
+                                </ul>    
+                        <br class="clearfloat" />
+                        <h4>[<a href="{{ path('_forfaitsregionsfr',{'name':regionSuggestion2.repertoirefr|lower}) }}" title="Voir les forfaits région {{ regionSuggestion2.nomfr }}">Forfaits région {{ regionSuggestion2.nomfr }}</a>]</h4>                   
+		</div>
+		{% endif %}
+		{% if regionSuggestion3 is not defined %}
+		{# FORFAIT 3 #}
+		<div>                     
+                        <h2><a href="{{ path('_forfaitsregionsfr',{'name':regionSuggestion3.repertoirefr|lower}) }}" title="Voir les forfaits région {{ regionSuggestion3.nomfr }}">{{ regionSuggestion3.nomfr }}</a></h2>
+                                <ul>
+                                    {% for w in listeClient3 %}
+                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':w.forfaitclientid.repertoirefr|lower, 'name':w.hebergementid.regionid.repertoirefr|lower}) }}"  title="Forfaits {{ w.forfaitclientid.nomfr|lower }} région {{ w.hebergementid.regionid.nomfr }}">{{ w.forfaitclientid.nomfr }}</a><span>
+                                            <a  href="{{ path('_hebergementforfait',{'name':w.hebergementid.repertoirefr}) }}" target="_blank" title="Forfaits {{ w.forfaitclientid.nomfr }} {{ w.hebergementid.nomfr }}">{{ w.hebergementid.nomfr }}</a></span></li>
+                                    {% endfor %}
+                                </ul>    
+                        <br class="clearfloat" />
+                        <h4>[<a href="{{ path('_forfaitsregionsfr',{'name':regionSuggestion3.repertoirefr|lower}) }}" title="Voir les forfaits région {{ regionSuggestion3.nomfr }}">Forfaits région {{ regionSuggestion3.nomfr }}</a>]</h4>                    
+		</div>
+		{% endif %}
+		{# SI ON A MOINS DE 4 RÉGIONS #}
+		{% if listeSuggestion is defined and listeSuggestion is not empty %}
+			{% if home is defined %}<h5>{{ "suggestion.forfait" | trans }}</h5>{% endif %}
+			{% for x in listeSuggestion %}
+				{% if loop.index == 1 %}
+                                <div>                                
+                                    <h2><a href="{{ path('_forfaitsregionsfr',{'name':x.hebergementid.regionid.repertoirefr|lower}) }}" title="Voir les forfaits région {{ x.hebergementid.regionid.nomfr }}">{{ x.hebergementid.regionid.nomfr }}</a></h2>
+                                            <ul>
+                                                <li><a href="{{ path('_forfaitsactiviteregion',{'activite':x.forfaitclientid.repertoirefr|lower, 'name':x.hebergementid.regionid.repertoirefr|lower}) }}"  title="Forfaits {{ x.forfaitclientid.nomfr|lower }} région {{ x.hebergementid.regionid.nomfr }}">{{ x.forfaitclientid.nomfr }}</a><span>
+                                                        <a  href="{{ path('_hebergementforfait',{'name':x.hebergementid.repertoirefr}) }}" target="_blank" title="Forfaits {{ x.forfaitclientid.nomfr }} {{ x.hebergementid.nomfr }}">{{ x.hebergementid.nomfr }}</a></span></li>
+                                            </ul>    
+                                    <br class="clearfloat" />
+                                    <h4>[<a href="{{ path('_forfaitsregionsfr',{'name':x.hebergementid.regionid.repertoirefr|lower}) }}" title="Voir les forfaits région {{ x.hebergementid.regionid.nomfr }}">Forfaits région {{ x.hebergementid.regionid.nomfr }}</a>]</h4>                               
+                                </div>
+				{% endif %}
+				{% if loop.index == 2 %}
+                                    <div>                                    
+                                        <h2><a href="{{ path('_forfaitsregionsfr',{'name':x.hebergementid.regionid.repertoirefr|lower}) }}" title="Voir les forfaits région {{ x.hebergementid.regionid.nomfr }}">{{ x.hebergementid.regionid.nomfr }}</a></h2>
+                                                <ul>
+                                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':x.forfaitclientid.repertoirefr|lower, 'name':x.hebergementid.regionid.repertoirefr|lower}) }}"  title="Forfaits {{ x.forfaitclientid.nomfr|lower }} région {{ x.hebergementid.regionid.nomfr }}">{{ x.forfaitclientid.nomfr }}</a><span>
+                                                            <a  href="{{ path('_hebergementforfait',{'name':x.hebergementid.repertoirefr}) }}" target="_blank" title="Forfaits {{ x.forfaitclientid.nomfr }} {{ x.hebergementid.nomfr }}">{{ x.hebergementid.nomfr }}</a></span></li>
+                                                </ul>    
+                                        <br class="clearfloat" />
+                                        <h4>[<a href="{{ path('_forfaitsregionsfr',{'name':x.hebergementid.regionid.repertoirefr|lower}) }}" title="Voir les forfaits région {{ x.hebergementid.regionid.nomfr }}">Forfaits région {{ x.hebergementid.regionid.nomfr }}</a>]</h4>                                   
+                                    </div>
+				{% endif %}
+				{% if loop.index == 3 %}
+                                    <div>                                    
+                                        <h2><a href="{{ path('_forfaitsregionsfr',{'name':x.hebergementid.regionid.repertoirefr|lower}) }}" title="Voir les forfaits région {{ x.hebergementid.regionid.nomfr }}">{{ x.hebergementid.regionid.nomfr }}</a></h2>
+                                                <ul>
+                                                    <li><a href="{{ path('_forfaitsactiviteregion',{'activite':x.forfaitclientid.repertoirefr|lower, 'name':x.hebergementid.regionid.repertoirefr|lower}) }}"  title="Forfaits {{ x.forfaitclientid.nomfr|lower }} région {{ x.hebergementid.regionid.nomfr }}">{{ x.forfaitclientid.nomfr }}</a><span>
+                                                            <a  href="{{ path('_hebergementforfait',{'name':x.hebergementid.repertoirefr}) }}" target="_blank" title="Forfaits {{ x.forfaitclientid.nomfr }} {{ x.hebergementid.nomfr }}">{{ x.hebergementid.nomfr }}</a></span></li>
+                                                </ul>    
+                                        <br class="clearfloat" />
+                                        <h4>[<a href="{{ path('_forfaitsregionsfr',{'name':x.hebergementid.regionid.repertoirefr|lower}) }}" title="Voir les forfaits région {{ x.hebergementid.regionid.nomfr }}">Forfaits région {{ x.hebergementid.regionid.nomfr }}</a>]</h4>                                   
+                                    </div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+		{# PUB GOOGLE #}
+		{% if courrielExiste is not defined %}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+		{% endif %}
+	 </div>

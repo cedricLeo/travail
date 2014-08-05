@@ -1,0 +1,65 @@
+<script>
+    if(!window.indexedDB){
+        alert("impossible de restituer les informations en cas de perte de connection");
+    }
+    var stockage = {};
+    stockage.indexedDB = {};
+    stockage.indexedDB.db = null;
+    
+    stockage.indexedDB.open = function(){
+        var version = 1;
+        var request = indexedDB.open("info_reservation", version);
+        
+        request.onsuccess = function(e)
+        {
+          stockage.indexedDB.db = e.target.result;  
+        };
+        request.onerror = stockage.indexedDB.onerror;
+        
+        
+        request.onupgradeneeded = function(e){
+            var db = e.target.result;
+             
+            e.target.trasaction.onerror = stockage.indexedDB.onerror;
+            
+            if(db.objectStoreNames.contains("info_reservation")){
+                db.deleteObjectStore("info_reservation");
+            }
+            
+            var store = db.createObjectStore("info_reservation", {keyPath: "timeStamp"});
+        };
+        
+        request.onsuccess = function(e){
+            stockage.indexedDB.db = e.target.result;
+            stockage.indexedDB.getAllTodoItems();
+        };
+        
+        stockage.indexedDB.addTodo = function(todoText){
+            var db = stockage.indexedDB.db;
+            var trans = db.transaction(["info_reservation"], "readwrite");
+            var store = trans.objectStore("info_reservation");
+            var request = store.put({ 
+                "text": todoText,
+                "timestamp": new Date().getTime()
+            });
+            
+            request.onsuccess = function(e)
+            {
+                stockage.indexedDB.getAllTodoItems();
+            };
+            
+            request.onerror = function(e)
+            {
+                console.log(e.value);
+            };
+                                    
+            
+        };
+        
+    };
+    
+    
+    
+    
+    
+</script>

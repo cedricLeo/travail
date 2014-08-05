@@ -1,0 +1,197 @@
+{% extends '::base2.html.twig' %}
+		
+		{% block picture %}	
+		<p class="legendeHome">{{ "attrait.activite" | trans }} {% if app.request.locale == "fr" %} {{ clientAleatoire.categorieattrait.nomfr|lower }} ville {{ clientAleatoire.villeid.nomfr}} {% else %} {{ clientAleatoire.categorieattrait.nomen|lower }} city {{ clientAleatoire.villeid.nomen }} {% endif %}</p>	
+		{# photo principale qui va afficher le sujet de la section #}
+		<div id="photoprincipale">
+			<div class="nomSousCategorie">
+			{% if app.request.locale == "fr" %}
+				<h1> {{ clientAleatoire.categorieattrait.nomfr }} ville {{ clientAleatoire.villeid.nomfr }}</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlfr }}/{{ clientAleatoire.zoneid.repertoirefr }}/{{ clientAleatoire.repertoirefr }}" target="_blank" title="{{ "attrait.activite" | trans }} {{ clientAleatoire.nomfr }}">{{ clientAleatoire.nomfr }} - {{ clientAleatoire.villeid.nomfr }}</a></h3>
+			</div>
+				{% if clientAleatoire.image is not empty %}
+		  			<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.image }}" class="big_picture" alt="{{ clientAleatoire.nomfr }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Image de remplacement pour {{ clientAleatoire.nomfr }} "></div>
+				{% endif %}
+			{% else %}
+				<h1>{{ clientAleatoire.categorieattrait.nomen }} {{ clientAleatoire.villeid.nomen }} city</h1>
+				<h3><a href="{{ clientAleatoire.regionid.urlen }}/{{ clientAleatoire.zoneid.repertoireen }}/{{ clientAleatoire.repertoireen }}" target="_blank" title="{{ "attrait.activite" | trans }} {{ clientAleatoire.nomen }}">{{ clientAleatoire.nomen }} - {{ clientAleatoire.villeid.nomen }}</a></h3>
+			</div>
+				{% if clientAleatoire.image is not empty %}
+		  			<img src="{{ asset('uploads/attrait') }}/{{ clientAleatoire.id }}/{{ clientAleatoire.image }}" class="big_picture" alt="{{ clientAleatoire.nomen }}" />
+				{% else %}
+					<div class="imgRemplacementGlobal"><img src="{{ asset('bundles/myappglobal/images/logoglobal.jpg') }}" alt="Replacement image for {{ clientAleatoire.nomen }} "></div>
+				{% endif %}
+			{% endif %}
+		</div>	
+		{% endblock %}
+		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}
+		
+		{% block body %}
+                    <h6>
+                         {% for nomCat in category %} 
+                            {% if app.request.locale == "fr" %}
+                                    {{ nomCat.nomfr }} ville {{ clientAleatoire.villeid.nomfr }}
+                            {% else %}
+                                    {{ nomCat.nomen }} {{ clientAleatoire.villeid.nomen }} city
+                            {% endif %}
+                         {% endfor %}
+		    </h6>
+		   <div class="pages ">
+		     {#} <div style="float:left" > Classés par :
+		        <select name="select">
+		          <option>Popularité </option>
+		          <option>Nom d’établissement</option>
+		          <option>Aléatoire </option>
+		          <option>Villes </option>
+		          <option>Étoiles </option>
+		          <option>Tarif </option>
+		          <option>Réservation en ligne</option>
+		        </select>
+		      </div>#}
+		       {% if app.request.locale == "fr" %}
+			      <ul>
+			       	{% if nbClient < 10 %} {{ "resultat.liste" | trans }} 1 à {{ nbClient }} {% endif %} 
+			       		{% if nbClient > 10 %} 
+					       	<li><a href="{{ path('_attraitslistactivityville',{'ville':clientAleatoire.villeid.repertoirefr|lower, 'name':clientAleatoire.categorieattrait.repertoirefr|lower, 'page':page-1}) }}" class="pagescolor"> {% if page < 1 %} << {% endif %} page {{ page }}</a></li>
+					      	<li><a href="{{ path('_attraitslistactivityville',{'ville':clientAleatoire.villeid.repertoirefr|lower, 'name':clientAleatoire.categorieattrait.repertoirefr|lower, 'page':page+1}) }}">à {{ page+1 }} {% if page < displaypage %} >> {% endif %} </a></li>
+					    {% endif %}
+			      </ul>
+			  {% else %}
+			  	  <ul>
+					{% if nbClient < 10 %} {{ "resultat.liste" | trans }} 1 to {{ nbClient }} {% endif %} 
+			       		{% if nbClient > 10 %} 
+					       	<li><a href="{{ path('_attraitslistactivityvilleen',{'ville':clientAleatoire.villeid.repertoireen|lower, 'name':clientAleatoire.categorieattrait.repertoireen|lower, 'page':page-1}) }}" class="pagescolor"> {% if page < 1 %} << {% endif %} page {{ page }}</a></li>
+					      	<li><a href="{{ path('_attraitslistactivityvilleen',{'ville':clientAleatoire.villeid.repertoireen|lower, 'name':clientAleatoire.categorieattrait.repertoireen|lower, 'page':page+1}) }}">to {{ page+1 }} {% if page < displaypage %} >> {% endif %} </a></li>
+					    {% endif %}
+		          </ul>
+			  {% endif %}
+		  </div>
+		  <div class="liste attrait">
+		  {# Liste des activités #}
+		  {% for list in listActivite %}
+		  	 {% if app.request.locale == "fr" %}
+			    <div>
+			       <a href="{{ list.regionid.urlfr }}/{{ list.zoneid.repertoirefr }}/{{ list.repertoirefr }}" target="_blank" title="">
+			       	{% if list.image != "" %}
+			       		<img class="ph" src="{{ asset('uploads/attrait') }}/{{ list.id }}/{{ list.image }}" class="promotion" alt="{{ list.nomfr }}" />
+			       	{% else %}
+			       		<img class="ph" src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="promotion" alt="Pas d'image pour {{ list.nomfr }}" />
+			        {% endif %}
+			       </a> 
+			       <div class="listetexte">
+			        <h2><a href="{{ list.regionid.urlfr }}/{{ list.zoneid.repertoirefr }}/{{ list.repertoirefr }}" title="{{ list.nomfr }}">{{ list.nomfr }}</a></h2>
+			        <p> {{ list.descriptionattraitfr.texteresumefr|striptags | truncate(200, true, ' ... ' )  }} <a href="{{ list.regionid.urlfr }}/{{ list.zoneid.repertoirefr }}/{{ list.repertoirefr }}" target="_blank"> Plus d'info sur {{ list.nomfr }}</a></p>
+			      </div> 
+			    </div> 
+		     {% else %} 
+		    	 <div>
+			       <a href="{{ list.regionid.urlen }}/{{ list.zoneid.repertoireen }}/{{ list.repertoireen }}" target="_blank" title="">
+			       	{% if list.image != "" %}
+			       		<img class="ph" src="{{ asset('uploads/attrait') }}/{{ list.id }}/{{ list.image }}" class="promotion" alt="{{ list.nomen }}" />
+			       	{% else %}
+			       		<img class="ph" src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="promotion" alt="Pas d'image pour {{ list.nomen }}" />
+			        {% endif %}
+			       </a> 
+			       <div class="listetexte">
+			        <h2><a href="{{ list.regionid.urlen }}/{{ list.zoneid.repertoireen }}/{{ list.repertoireen }}" title="{{ list.nomen }}">{{ list.nomen }}</a></h2>
+			        <p> {{ list.descriptionattraiten.texteresumeen|striptags | truncate(200, true, ' ... ' )  }} <a href="{{ list.regionid.urlen }}/{{ list.zoneid.repertoireen }}/{{ list.repertoireen }}" target="_blank"> More info on {{ list.nomen }}</a></p>
+			      </div> 
+			    </div> 
+		     {% endif %}
+		  {% endfor %} 
+		  </div>
+		  <div class="pages">
+		     {# <div style="float:left" > Classés par :
+		        <select name="select">
+		          <option>Popularité </option>
+		          <option>Nom d’établissement</option>
+		          <option>Aléatoire </option>
+		          <option>Villes </option>
+		          <option>Étoiles </option>
+		          <option>Tarif </option>
+		          <option>Réservation en ligne</option>
+		        </select>
+		      </div> #}
+		     {% if app.request.locale == "fr" %}
+			      <ul>
+			       	{% if nbClient < 10 %} {{ "resultat.liste" | trans }} 1 à {{ nbClient }} {% endif %} 
+			       		{% if nbClient > 10 %} 
+					       	<li><a href="{{ path('_attraitslistactivityville',{'ville':clientAleatoire.villeid.repertoirefr|lower, 'name':clientAleatoire.categorieattrait.repertoirefr|lower, 'page':page-1}) }}" class="pagescolor"> {% if page < 1 %} << {% endif %} page {{ page }}</a></li>
+					      	<li><a href="{{ path('_attraitslistactivityville',{'ville':clientAleatoire.villeid.repertoirefr|lower, 'name':clientAleatoire.categorieattrait.repertoirefr|lower, 'page':page+1}) }}">à {{ page+1 }} {% if page < displaypage %} >> {% endif %} </a></li>
+					    {% endif %}
+			      </ul>
+			  {% else %}
+			  	  <ul>
+					{% if nbClient < 10 %} {{ "resultat.liste" | trans }} 1 to {{ nbClient }} {% endif %} 
+			       		{% if nbClient > 10 %} 
+					       	<li><a href="{{ path('_attraitslistactivityvilleen',{'ville':clientAleatoire.villeid.repertoireen|lower, 'name':clientAleatoire.categorieattrait.repertoireen|lower, 'page':page-1}) }}" class="pagescolor"> {% if page < 1 %} << {% endif %} page {{ page }}</a></li>
+					      	<li><a href="{{ path('_attraitslistactivityvilleen',{'ville':clientAleatoire.villeid.repertoireen|lower, 'name':clientAleatoire.categorieattrait.repertoireen|lower, 'page':page+1}) }}">to {{ page+1 }} {% if page < displaypage %} >> {% endif %} </a></li>
+					    {% endif %}
+		          </ul>
+			  {% endif %}
+		    </div>
+		  <p>&nbsp;</p>
+		  {# PUB GOOGLE #}
+		  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+		    <script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_01'); });
+			</script>
+		  </div>
+		  	{% if suggestions is not empty %}
+				  <div class="colonnes4">
+				    <h4>{{ "nos.suggestions.hotels.proximite" | trans }} {% if app.request.locale =="fr" %} ville {{ clientAleatoire.villeid.nomfr }} {% else %} {{ clientAleatoire.villeid.nomen }} city {% endif %} {{ "a.proximiter" | trans }}
+				    	 {% for nomCat in category %} 
+							{% if app.request.locale == "fr" %}
+								{{ nomCat.nomfr|lower }}
+							{% else %}
+								{{ nomCat.nomen|lower }}
+							{% endif %}
+						 {% endfor %}
+					</h4>
+					{% if app.request.locale == "fr" %}
+						{% for w in suggestions %}
+						    <div> <a href="{{ path('_hebergementinfoclient',{'name':w.hebergementid.repertoirefr|lower}) }}"><img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergementid.id }}/{{ w.hebergementid.photocategoriepayante }}" alt="{{ w.hebergementid.nomfr }}" class="img_categoie_portail" /></a>
+						      <div>
+						        <h3><a href="{{ path('_hebergementinfoclient',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ w.hebergementid.nomfr }}</a></h3>
+						        <p>{{ w.hebergementid.texteresumefr | truncate(250, true, ' [...]') }}</p>
+						      </div>
+						      <h2><a href="{{ path('_hebergementinfoclient',{'name':w.hebergementid.repertoirefr|lower}) }}">{{ w.hebergementid.nomfr }}</a></h2>
+						    </div>
+						 {% endfor %}
+					{% else %}
+						 {% for w in suggestions %}
+						    <div> <a href="{{ path('_hebergementinfoclient',{'name':w.hebergementid.repertoireen|lower}) }}"><img src="{{ asset('uploads/hebergement/photo_categorie_payante/photo_categorie_payante') }}{{ w.hebergementid.id }}/{{ w.hebergementid.photocategoriepayante }}" alt="{{ w.hebergementid.nomen }}" class="img_categoie_portail" /></a>
+						      <div>
+						        <h3><a href="{{ path('_hebergementinfoclient',{'name':w.hebergementid.repertoireen|lower}) }}">{{ w.hebergementid.nomen }}</a></h3>
+						        <p>{{ w.hebergementid.texteresumeen | truncate(250, true, ' [...]') }}</p>
+						      </div>
+						      <h2><a href="{{ path('_hebergementinfoclient',{'name':w.hebergementid.repertoireen|lower}) }}">{{ w.hebergementid.nomen }}</a></h2>
+						    </div>
+						 {% endfor %}
+					{% endif %}
+				    <br class="clearfloat" />
+				</div>
+			{% endif %}
+		{% endblock %}
+		
+		{% block gauche %}	
+		{# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %} 
+			  <img src="{{ asset('bundles/myappglobal/images/telephoneGauche.jpg') }}" width="304" height="65" />
+			  {# PUB GOOGLE #}
+			<div id="zone_02" class="styleBigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+		{% endblock %}

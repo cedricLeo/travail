@@ -1,0 +1,64 @@
+<h2>{{ "forfait" | trans }} - {{ p.nomfr }}</h2> 
+<div class="fiche">
+  {% for w in forfait %}
+    <div itemscope itemtype="http://schema.org/Event">       
+       {% if w.imageprincipale != null %}
+             <img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{ w.id }}/{{ w.imageprincipale }}" class="img_liste_forfait" alt="{{ w.hebergementid.nomfr }}" />
+       {% else %}
+             <img src="{{ asset('bundles/myappglobal/images/manicouagan2.jpg') }}" class="img_liste_forfait" alt="{{ w.hebergementid.nomfr }}" />
+       {% endif %}
+             <h3 id="{{ w.id }}" itemprop="name"><strong>{{ w.forfaitclientid.nomfr }}</strong></h3>
+              <h4 class="titreForfaitMiniSite">{{ w.nomfr }}</h4>
+        <div>
+        <h4>Ce forfait comprend:</h4>
+        <p itemprop="description">{{ w.textefr|raw }}</p>
+                <div>
+                        <p>Tarif à partir de <strong>{{ w.tarif }}</strong></p>
+                        <p>
+                            <meta itemprop="startDate" content="{{ w.datedebut|date("Y-m-d") }}T8H00">
+                            <meta itemprop="endDate" content="{{ w.datedefin|date("Y-m-d") }}">
+                              {{ w.datedebut|date("d") }}  
+                              {# On convertie les mois en fançais #}
+                              {% if w.datedebut|date('m') == '01' %} jan
+                              {% elseif w.datedebut|date('m') == '02' %} fév
+                              {% elseif w.datedebut|date('m') == '03' %} mars
+                              {% elseif w.datedebut|date('m') == '04' %} avr
+                              {% elseif w.datedebut|date('m') == '05' %} mai
+                              {% elseif w.datedebut|date('m') == '06' %} juin
+                              {% elseif w.datedebut|date('m') == '07' %} juil
+                              {% elseif w.datedebut|date('m') == '08' %} août
+                              {% elseif w.datedebut|date('m') == '09' %} sep
+                              {% elseif w.datedebut|date('m') == '10' %} oct
+                              {% elseif w.datedebut|date('m') == '11' %} nov
+                              {% else %}déc
+                              {% endif %} 
+                              {{ w.datedebut|date('Y') }} au  {{ w.datedefin|date("d") }}  
+                              {% if w.datedefin|date('m') == '01' %} jan 
+                              {% elseif w.datedefin|date('m') == '02' %} fév
+                              {% elseif w.datedefin|date('m') == '03' %} mars
+                              {% elseif w.datedefin|date('m') == '04' %} avr
+                              {% elseif w.datedefin|date('m') == '05' %} mai
+                              {% elseif w.datedefin|date('m') == '06' %} juin
+                              {% elseif w.datedefin|date('m') == '07' %} juil
+                              {% elseif w.datedefin|date('m') == '08' %} août
+                              {% elseif w.datedefin|date('m') == '09' %} sep
+                              {% elseif w.datedefin|date('m') == '10' %} oct
+                              {% elseif w.datedefin|date('m') == '11' %} nov
+                              {% else %}déc
+                              {% endif %}
+                              {{ w.datedefin|date('Y') }}
+                       </p>
+                </div>
+        </div>
+        <span>{% if p.reservitid is not empty and w.reserverforfaitenligne is not empty %}<a href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ p.reservitid }}&lang=fr" target="_blank" title="réserver ce forfait en ligne">Réserver ce forfait en ligne</a> {% endif %} {{ "prix.sujet.changement.sans.preavis" | trans }}</span> 
+        <br class="clearfloat" />
+    </div>
+  {% endfor %}  
+ </div>
+    {% if p.politiquehebergementfr.politiqueannulationfr is not empty or p.politiquehebergementfr.politiquetariffr is not empty %}
+        <div class="condition">
+            {% if p.politiquehebergementfr.politiqueannulationfr is not empty %}<p><span>Politique d’annulation</span> : {{ p.politiquehebergementfr.politiqueannulationfr }}</p>{% endif %}
+            {% if p.politiquehebergementfr.politiquetariffr is not empty %}<p><span>Politique sur les prix</span> : {{ p.politiquehebergementfr.politiquetariffr }}</p>{% endif %}
+        </div>
+    {% endif %}
+		

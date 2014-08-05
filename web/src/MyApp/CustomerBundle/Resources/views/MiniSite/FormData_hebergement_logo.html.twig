@@ -1,0 +1,73 @@
+ <progress id="avancementlogo" min="0" max="100" aria-valuemin="0" aria-value="100" class="hideprogression" style="margin-left:25px;"></progress>
+ <output id="infoslogo" class="hideprogression" style="margin-left:25px;"></output>
+  {% if photoLogo != "" %}
+     <div class="retourlogoajax">
+        {% if msgerrorlogo is defined and msgerrorlogo is not empty %}<span class="errorDimension">{{ msgerrorlogo }}</span>{% endif %}
+        <img src="{{ asset('uploads/hebergement/logos/logo') }}{{ id }}/{{ photoLogo }}" {% if widthlogo is defined and widthlogo != "" %} style="width:{{ widthlogo }}; height:{{ heightlogo }}" {% endif %} class=" imageCompteClient" id="imglogoformdata"/>
+     </div>   
+  {% endif %}
+
+<script>
+    
+    
+	document.getElementById("add_hebergement_logo").setAttribute("onchange", "loadFileLogo()");
+        var progressionlogo = document.getElementById("avancementlogo");
+        var infoslogo = document.getElementById("infoslogo");
+        
+        loadFileLogo = function(){
+            if(window.FormData){
+                var fdlogo = new FormData();                                                                                    
+            }else{
+                alert("Ce navigateur n'est pas compatible.");
+                return;
+            }
+            //affiche la barre de progression
+            progressionlogo.className = "showprogressionlogo";
+            infoslogo.className = "showprogressionlogo";
+            //ignitialisation d'ajax
+            var xhrlogo = new XMLHttpRequest();
+            xhrlogo.open("POST", "{{ path('_uploadlogohebergement') }}", true);
+            xhrlogo.onreadystatechange = function(event){
+                
+                //alert(this.readyState);
+                
+                if(this.readyState === 4){
+                    //imgprincipale.innerHTML = event.target.responseText;
+                    progressionlogo.className = "hideprogression";
+                    infoslogo.className = "hideprogression";                 
+                    $(".retourlogoajax img").remove();
+                    $(".retourlogoajax").append(event.target.responseText);
+                    infoslogo.innerHTML = "";
+                   
+                    //cropimg();
+                }
+            };
+            //pendant la progression
+            xhrlogo.onprogress = function(event){
+                if(event.lengthComputable){
+                    var pourcentage = Math.round(event.loaded*100/event.total);
+                    infoslogo.innerHTML += pourcentage.toString()+" % <br />";
+                    progressionlogo.setAttribute("aria-valuenow",pourcentage);
+                    progressionlogo.value = pourcentage;
+                }
+            }
+            //terminé avec succès
+            xhrlogo.onload = function(event){
+              infoslogo.innerHTML += '<p style="color:green"> Chargement en cours </p>' ; 
+            };
+            //erreur pendant le chargement
+            xhrlogo.onerror = function(event){
+              infoslogo.innerHTML += '<p style="color:red"> Erreur de chargement </p>' ; 
+            };
+            //chargemnrt interrompu
+            xhrlogo.onabort = function(event){
+              infoslogo.innerHTML += '<p style="color:orange"> Annulation du chargement </p>' ; 
+            };
+            var imglogo = document.getElementById("add_hebergement_logo").files[0];
+            fdlogo.append("id", "{{ id }}");
+            fdlogo.append("photoLogo", imglogo);
+            xhrlogo.send(fdlogo);
+
+        }      
+
+</script>

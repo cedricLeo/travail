@@ -1,0 +1,355 @@
+{% block descriptifRestaurant %}	
+	{% for w in client %}
+	{#   {% if z.hebergementid is not empty and z.hebergementid.reservitid is not empty %}
+			{# Formulaire de reservation en ligne #}
+		{#	{% include 'MyAppGlobalBundle:Hebergement:Formulaire_reservation_en_ligne.html.twig' %}	  
+		{% endif %}#}
+		{% if w.periodepourattrait == 1 %}
+			{{ "date.ouverture.et.fermeture" | trans }}
+			{% if app.request.locale == "fr" %}
+				 {{ w.datedebut|date("d") }}
+				 {% if w.datedebut|date('m') == '01' %} janvier
+				 {% elseif w.datedebut|date('m') == '02' %} février
+				 {% elseif w.datedebut|date('m') == '03' %} mars
+				 {% elseif w.datedebut|date('m') == '04' %} avril
+				 {% elseif w.datedebut|date('m') == '05' %} mai
+				 {% elseif w.datedebut|date('m') == '06' %} juin
+				 {% elseif w.datedebut|date('m') == '07' %} juillet
+				 {% elseif w.datedebut|date('m') == '08' %} août
+				 {% elseif w.datedebut|date('m') == '01' %} septembre
+				 {% elseif w.datedebut|date('m') == '01' %} octobre
+				 {% elseif w.datedebut|date('m') == '01' %} novembre
+				 {% else %}décembre
+				 {% endif %} 
+		 		{{ w.datedebut|date('Y') }} au  {{ w.datefin|date("d") }}
+				{% if w.datefin|date('m') == '01' %} janvier
+				 {% elseif w.datefin|date('m') == '02' %} février
+				 {% elseif w.datefin|date('m') == '03' %} mars
+				 {% elseif w.datefin|date('m') == '04' %} avril
+				 {% elseif w.datefin|date('m') == '05' %} mai
+				 {% elseif w.datefin|date('m') == '06' %} juin
+				 {% elseif w.datefin|date('m') == '07' %} juillet
+				 {% elseif w.datefin|date('m') == '08' %} août
+				 {% elseif w.datefin|date('m') == '01' %} septembre
+				 {% elseif w.datefin|date('m') == '01' %} octobre
+				 {% elseif w.datefin|date('m') == '01' %} novembre
+				 {% else %}décembre
+				 {% endif %} 
+				 {{ w.datefin|date('Y') }}
+			{% else %}
+				 {% if w.datedebut|date('m') == '01' %} january
+				 {% elseif w.datedebut|date('m') == '02' %} february
+				 {% elseif w.datedebut|date('m') == '03' %} march
+				 {% elseif w.datedebut|date('m') == '04' %} april
+				 {% elseif w.datedebut|date('m') == '05' %} may
+				 {% elseif w.datedebut|date('m') == '06' %} june
+				 {% elseif w.datedebut|date('m') == '07' %} jully
+				 {% elseif w.datedebut|date('m') == '08' %} august
+				 {% elseif w.datedebut|date('m') == '01' %} september
+				 {% elseif w.datedebut|date('m') == '01' %} october
+				 {% elseif w.datedebut|date('m') == '01' %} november
+				 {% else %}december
+				 {% endif %} 
+				 {{ w.datedebut|date("d") }}
+		 		 {{ w.datedebut|date('Y') }} in  
+				 {% if w.datefin|date('m') == '01' %} january
+				 {% elseif w.datefin|date('m') == '02' %} february
+				 {% elseif w.datefin|date('m') == '03' %} march
+				 {% elseif w.datefin|date('m') == '04' %} april
+				 {% elseif w.datefin|date('m') == '05' %} may
+				 {% elseif w.datefin|date('m') == '06' %} june
+				 {% elseif w.datefin|date('m') == '07' %} jully
+				 {% elseif w.datefin|date('m') == '08' %} august
+				 {% elseif w.datefin|date('m') == '01' %} septempber
+				 {% elseif w.datefin|date('m') == '01' %} october
+				 {% elseif w.datefin|date('m') == '01' %} november
+				 {% else %}december
+				 {% endif %} 
+				 {{ w.datefin|date("d") }}
+				 {{ w.datefin|date('Y') }}
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+{# DESCRIPTIF DU RESTAURANT FRANÇAIS #}
+{% if app.request.locale == "fr" %}
+<div class="fiche">
+	{% for w in client %}
+		<h2>{{ "caracteristique.resto" | trans }}   <img src="{{ asset('uploads/classifications') }}/{{ w.classificationid.id }}/{{ w.classificationid.image }}" alt="{{ w.classificationid.valeur }}"/></h2>  
+		<div class="resto">
+			  {# HORAIRES #}
+			  <div>
+			 	 <h3>{{ "heure.ouverture" | trans }}</h3>
+			  		{% include 'MyAppGlobalBundle:Hebergement:horaire.html.twig' %}
+			 	{#  <p>Tous les jours de 11h00 à 23h00</p>	#}
+			  </div>
+			  
+			  {# CAPACITÉ #}
+			  <div>
+			     <h3>{{ "capacite" | trans }}</h3>
+                     {% if w.hebergementid is defined %}
+                         <p>{{ w.capacite }} personnes</p>
+                     {% else %}
+			  	{# <p>{{ w.capacite }} personnes</p> #}
+                     {% endif %}
+			  </div>
+			  
+			  {# SPÉCIALITÉS #}
+			  <div>
+			  	{% if nbCuisine > 1 %}
+			 		 <h3>{{ "specialite" | trans}}</h3>
+			    {% else %}
+			  		<h3>{{ "specialites" | trans}}</h3>
+			    {% endif %}
+			    {% for s in infoComplementaire %}
+			  		{% for h in s.cuisineid %}
+			  			<p class="specialite_culinaire">{{ h.nomfr|lower }}, </p>
+			  		{% endfor %}
+			   {% endfor %}
+			  </div>
+		 
+			  {# PRIX #}
+			  <div>
+			  		<h3>{{ "prix" | trans }}</h3>
+			  	  {% for r in infoComplementaire %}
+			  			<select>
+			  				{% for a in r.deviseid %}
+			  				<option> {{ w.tarifattrait|replace({"$":""})* a.tauxchange }} {{ a.symbole }} {{ a.abreviation }}</option>
+			  				{% endfor %}
+			  			</select>
+			      {% endfor %}
+			  </div>
+			  
+			  {# SERVICES #}
+			  <div>
+			 		 <h3>Services</h3>
+			 		 <ul>
+					 {% if infoComplementaire is empty %}
+					 	{% for c in client %}
+					 		{% for h in c.attraitserviceid %}
+					 			 <li><img src="{{ asset('uploads/attrait_service') }}/{{ h.id }}/{{ h.image }}" width="20" height="20" alt="" />{{ h.nomfr }}</li>
+					 		{% endfor %}
+					 	{% endfor %}
+					 {% else %}
+					    {% for g in infoComplementaire %}
+					  		{% for h in g.attraitserviceid %}
+					  		 	<li><img src="{{ asset('uploads/attrait_service') }}/{{ h.id }}/{{ h.image }}" width="20" height="20" alt="" />{{ h.nomfr }}</li>
+					  		{% endfor %}
+					    {% endfor %}
+					{% endif %}
+			  		</ul>
+			  </div>
+			  
+			  {# MODE DE PAIEMENT #}
+			  <div>
+				  {% if nbMP > 1 %}
+				  <h3>{{ "modes.paiements" | trans }}</h3>
+				  {% else %}
+				  <h3>{{ "mode.paiement" | trans }}</h3>
+				  {% endif %}
+					  <ul>
+					  	{% for s in infoComplementaire %}
+					  		{% for h in s.paiementid %}
+					  			<li><img src="{{ asset('uploads/modes_paiements') }}/{{ h.id }}/{{ h.image }}" width="20" height="20" alt="Mode de paiement {{ h.nomfr|lower }}" />{{ h.nomfr }}</li>
+					  		{% endfor %}
+					  	{% endfor %}
+					  </ul>
+			  </div>
+			<br class="clearfloat" />
+		</div>
+	{% endfor %}		      
+</div> 
+{# DESCRIPTIF DU RESTAURANT ANGLAIS #}
+{% else %}
+<div class="fiche">
+	{% for w in client %}
+		<h2>{{ "caracteristique.resto" | trans }}   <img src="{{ asset('uploads/cotations') }}/{{ w.cotationid.id }}/{{ w.cotationid.image }}" alt="{{ w.cotationid.valeur }}"/></h2>
+		<div class="resto">
+			  {# HORAIRES #}
+			  <div>
+			 	 <h3>{{ "heure.ouverture" | trans }}</h3>
+			  		{% include 'MyAppGlobalBundle:Hebergement:horaire.html.twig' %}
+			 	{#  <p>Tous les jours de 11h00 à 23h00</p>	#}
+			  </div>
+			  
+			  {# CAPACITÉ #}
+			  <div>
+			     <h3>{{ "capacite" | trans }}</h3>
+			  	 <p>{{ w.capacite }} people</p>
+			  </div>
+			  
+			  {# SPÉCIALITÉS #}
+			  <div>
+			  	{% if nbCuisine > 1 %}
+			 		 <h3>{{ "specialite" | trans}}</h3>
+			    {% else %}
+			  		<h3>{{ "specialites" | trans}}</h3>
+			    {% endif %}
+			    {% for s in infoComplementaire %}
+			  		{% for h in s.cuisineid %}
+			  			<p class="specialite_culinaire">{{ h.nomen|lower }}</p>
+			  		{% endfor %}
+			   {% endfor %}
+			  </div>
+			  
+			  {# PRIX #}
+			  <div>
+			  		<h3>{{ "prix" | trans }}</h3>
+			  	  {% for r in infoComplementaire %}
+			  			<select>
+			  				{% for a in r.deviseid %}
+			  				<option> {{ w.tarifattrait|replace({"$":""})* a.tauxchange }} {{ a.symbole }} {{ a.abreviation }}</option>
+			  				{% endfor %}
+			  			</select>
+			      {% endfor %}
+			  </div>
+			  
+			  {# SERVICES #}
+			  <div>
+			 		 <h3>Services</h3>
+			 		 <ul>
+					 {% if infoComplementaire is empty %}
+					 	{% for c in client %}
+					 		{% for h in c.attraitserviceid %}
+					 			 <li><img src="{{ asset('uploads/attrait_service') }}/{{ h.id }}/{{ h.image }}" width="20" height="20" alt="" />{{ h.nomen }}</li>
+					 		{% endfor %}
+					 	{% endfor %}
+					 {% else %}
+					    {% for g in infoComplementaire %}
+					  		{% for h in g.attraitserviceid %}
+					  		 <li><img src="{{ asset('uploads/attrait_service') }}/{{ h.id }}/{{ h.image }}" width="20" height="20" alt="" />{{ h.nomen }}</li>
+					  		{% endfor %}
+					    {% endfor %}
+					{% endif %}
+			  		</ul>
+			  </div>
+			  
+			  {# MODE DE PAIEMENT #}
+			  <div>
+				  {% if nbMP > 1 %}
+				  <h3>{{ "modes.paiements" | trans }}</h3>
+				  {% else %}
+				  <h3>{{ "mode.paiement" | trans }}</h3>
+				  {% endif %}
+					  <ul>
+					  	{% for s in infoComplementaire %}
+					  		{% for h in s.paiementid %}
+					  			<li><img src="{{ asset('uploads/modes_paiements') }}/{{ h.id }}/{{ h.image }}" width="20" height="20" alt="Method of payment {{ h.nomen|lower }}" />{{ h.nomen }}</li>
+					  		{% endfor %}
+					  	{% endfor %}
+					  </ul>
+			  </div>
+			<br class="clearfloat" />
+		</div>
+	{% endfor %}		      
+</div> 
+{% endif %}
+	<br class="clearfloat" />
+	  <div class="condition taxeQc">
+	  {% if app.request.locale == "fr" %}
+	    <p>Au Québec, le service n'est pas compris dans le prix total du repas.</p>
+	    <p>L'usage veut qu'on laisse un pourboire représentant 15% de la facture totale.</p>
+	  {% else %}
+	    <p>In Quebec, the service is not included in the total price of the meal.</p>
+	    <p>The customary to leave a tip of 15% of the total bill.</p>
+	  {% endif %}
+	  </div>
+	 {# FORFAITS GASTRONOMIQUES #}
+	  {% if app.request.locale == "fr" %}
+		  {% for f in forfaitGastronomique %}
+		  	{% if loop.index == 1 %}
+		  	   <h2>Forfaits gastronomie<a href="#">{{ "haut" | trans }}</a></h2>
+		  	{% endif %}
+			  <div class="fiche">
+			  	<div><img src="{{ asset('uploads/forfaits-client/image_categorie') }}/{{ f.id }}/{{ f.imagecategorie }}" class="img_liste_forfait" alt="{{ f.nomfr }}" />
+			          <h3><a name="forfait1" id="forfait1"></a>{{ f.nomfr }}</h3>
+			          <div>
+			          <h4>Ce forfait comprend:</h4>
+			          <p>{{ f.textefr }}</p>
+			          <div>
+			          <p>Tarif à partir de <strong>{{ f.tarif|replace({"%$%": ""}) }} $</strong></p>
+			          <p>{{ f.datedebut|date("d M ") }}  au  {{ f.datedefin|date("d M Y") }} </p>
+			          </div>
+			          </div>
+			          <span><a href="#structureformonline">Réserver ce forfait en ligne</a> {{ "prix.sujet.changement.sans.preavis" | trans }}</span> 
+			      	  <br class="clearfloat" />
+			      </div>
+			  </div>
+		  {% endfor %}
+ 			{% for p in client %} 
+			 	{% if p.politiqueattraitfr is not empty  %}
+			 		{% if p.politiqueattraitfr.politiqueannulationfr is not null or p.politiqueattraitfr.politiquetariffr %}
+						<div class="condition">
+							{% if p.politiqueattraitfr.politiqueannulationfr is not empty %}<p><span>Politique d’annulation</span> : {{ p.politiqueattraitfr.politiqueannulationfr }}</p>{% endif %}
+							{% if p.politiqueattraitfr.politiquetariffr is not empty %}<p><span>Politique sur les prix</span> : {{ p.politiqueattraitfr.politiquetariffr }}</p>{% endif %}
+					    </div>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+			 <br class="clearfloat" />
+			 {# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+	  {% else %}
+	   	  {% for f in forfaitGastronomique %}
+	   	  	{% if loop.index == 1 %}
+	   	  		<h2>Food packages<a href="#">{{ "haut" | trans }}</a></h2>
+	   	  	{% endif %}
+			  <div class="fiche">
+			  	<div><a href="images/restaurant1G.jpg" title="Restaurant" rel="group" class="fancybox" title=""><img src="{{ asset('uploads/forfaits-client/image_categorie') }}/{{ f.id }}/{{ f.imagecategorie }}" class="img_liste_forfait" alt="{{ f.nomen }}" /></a>
+			          <h3><a name="forfait1" id="forfait1"></a>{{ f.nomen }}</h3>
+			          <div>
+			          <h4>This package includes:</h4>
+			          <p>{{ f.texteen }}</p>
+			          <div>
+			          <p>Price from <strong>{{ f.tarif|replace({"%$%": ""}) }} $</strong></p>
+			          <p>{{ f.datedebut|date("M d ") }}  to  {{ f.datedefin|date("M d Y") }}  </p>
+			          </div>
+			          </div>
+			          <span><a href="#structureformonline">Reserve online package</a> {{ "prix.sujet.changement.sans.preavis" | trans }}</span> 
+			      	  <br class="clearfloat" />
+			      </div>
+			  </div>
+		   {% endfor %}
+		    {% for p in client %}
+			 	{% if p.politiqueattraiten is not empty or p.politiqueattraiten is not empty %}
+				 	<div class="condition">
+						{% if p.politiqueattraiten.politiqueannulationen is not empty %}<p><span>Cancellation policy</span> : {{ p.politiqueattraiten.politiqueannulationen }}</p>{% endif %}
+						{% if p.politiqueattraiten.politiquetarifen is not empty %}<p><span>Pricing policy</span> : {{ p.politiqueattraiten.politiquetarifen }}</p>{% endif %}
+				    </div>
+				{% endif %}
+			{% endfor %}
+			 <br class="clearfloat" />
+			 {# PUB GOOGLE #}
+			  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" >
+			  	<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_01'); });
+				</script>
+			  </div>
+	  {% endif %}
+	  
+	  <br class="clearfloat" />
+	  {% for w in client %}
+		  {% if app.request.locale == "fr" %}
+		  	{% for f in forfaitGastronomique %}
+		  	 <h2>{{ "galerie.photo" | trans }} {{ w.nomfr }} <a href="#">{{ "haut" | trans }}</a></h2>
+		 	  <div class="photo">	 	 	  
+		  		{% for g in f.galerieforfaits %}
+		  			<a href="{{ asset('uploads/galerie_forfaits') }}/{{ g.id }}/{{ g.image }}" title="{{ g.legendefr }}" rel="group" class="fancybox" title=""><img src="{{ asset('uploads/galerie_forfaits') }}/{{ g.id }}/{{ g.image }}" class="img_categoie_portail" alt="{{ g.legendefr }}" /></a>
+		  		{% endfor %}
+		  	  </div>
+		  	{% endfor %}
+		  {% else %}
+		  	{% for f in forfaitGastronomique %}
+		  	<h2>{{ "galerie.photo" | trans }} {{ w.nomen }} <a href="#">{{ "haut" | trans }}</a></h2>
+		  	 <div class="photo">
+		  		{% for g in f.galerieforfaits %}
+		  			<a href="{{ asset('uploads/galerie_forfaits') }}/{{ g.id }}/{{ g.image }}" title="{{ g.legendeen }}" rel="group" class="fancybox" title=""><img src="{{ asset('uploads/galerie_forfaits') }}/{{ g.id }}/{{ g.image }}" class="img_categoie_portail" alt="{{ g.legendefr }}" /></a>
+		  		{% endfor %}
+		  	 </div>
+		  	{% endfor %}
+		  {% endif %}
+	  {% endfor %}
+{% endblock %}

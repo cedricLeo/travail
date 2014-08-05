@@ -1,0 +1,137 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+	<h1>{{ "ajout.forfait" | trans }}</h1> 
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form" id="form_txt_attrait">	
+				    {% if exist == 1 %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer le forfait ">{{ "supprimer" | trans }}</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer le forfait "><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p>{{ "supprimer.le.forfait" | trans }}:  {{ name }} ?</p>
+                                        <a href="{{ path('MyAppForfaitDelete', {'idclient':idclient, 'name':repertoire, 'idforfait':idforfait, 'redirect':redirect}) }}" class="detroye_state2" >{{ "supprimer" | trans }}</a>
+                                        <a href="#reset" class="boutonannuler2 ajuste_btn_cancel2">{{ "annuler" | trans }}</a>
+				    </div>
+				    {% endif %}	
+				    {{ form_label(form.forfait_client_id, "categorie.forfait" | trans, {'attr':{'class':'lblnompays'}}) }}	   
+				    {{ form_widget(form.forfait_client_id, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.forfait_client_id ) }}		
+				    {{ form_label(form.nom_fr, "nom.fr" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.nom_fr ) }}
+				    {{ form_label(form.nom_en, "nom.en" | trans, {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.nom_en ) }}
+				    {{ form_label(form.texte_fr, "texte.fr" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_fr, {'attr':{'class':'txt_add_state '}}) }} 
+				    {{ form_errors(form.texte_fr ) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_en, "texte.en" | trans, {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_en, {'attr':{'class':'txt_add_state '}}) }}
+				    {{ form_errors(form.texte_en ) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    <p>{{ "tarif.derniere.minute" | trans }}</p>
+				    <p style="color:red;">{{ "global.valide.derniere.minute" | trans }}</p>                                 
+				    {{ form_label(form.titre_derniere_minute_fr, "titre.derniere.minute.fr" | trans, {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.titre_derniere_minute_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.titre_derniere_minute_fr ) }}
+				    {{ form_label(form.titre_derniere_minute_en, "titre.derniere.minute.en" | trans, {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.titre_derniere_minute_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.titre_derniere_minute_en ) }}
+				    {{ form_label(form.descriptif_derniere_minute_fr, "descriptif.derniere.minute.fr" | trans, {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.descriptif_derniere_minute_fr, {'attr':{'class':'txt_add_state '}}) }} 
+				    {{ form_errors(form.descriptif_derniere_minute_fr ) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.descriptif_derniere_minute_en, "descriptif.derniere.minute.en" | trans, {'attr':{'class':'lblnompays '}}) }}
+				    {{ form_widget(form.descriptif_derniere_minute_en, {'attr':{'class':'txt_add_state '}}) }}
+				    {{ form_errors(form.descriptif_derniere_minute_en ) }}
+                                    <script type="text/javascript">
+                                            CKEDITOR.replace('add_forfait_client_texte_fr');
+                                            CKEDITOR.replace('add_forfait_client_texte_en');
+                                    </script>                                    
+                                    <p class="bold">{{ "publication.tarif.derniere.minute" | trans }} </p>                                  
+				    {{ form_label(form.date_debut, "date.debut" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.date_debut, {'attr':{'class':'txt_add_state select_horaire'}}) }}
+				    {{ form_errors(form.date_debut ) }}
+				    {{ form_label(form.date_de_fin, "date.fin" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.date_de_fin, {'attr':{'class':'txt_add_state select_horaire'}}) }}
+				    {{ form_errors(form.date_de_fin ) }}
+				    {% if exist == 1 and dateFin|date("Y-m-d") < today|date("Y-m-d") %} <span id="perimeForfait">{{ "perime" | trans }}</span> {% endif %}
+				    {% if exist == 0 %}
+					    <script> 
+					    	today = new Date();
+					    	//Date début du forfait
+					    	document.getElementById("add_forfait_client_date_debut_day").selectedIndex = today.getDate();
+                                                document.getElementById("add_forfait_client_date_debut_month").selectedIndex = today.getMonth();
+                                                document.getElementById("add_forfait_client_date_debut_year").value = today.getFullYear();
+                                                //Date de fin du forfait
+                                                document.getElementById("add_forfait_client_date_de_fin_day").selectedIndex = today.getDate();
+                                                document.getElementById("add_forfait_client_date_de_fin_month").selectedIndex = today.getMonth();
+                                                document.getElementById("add_forfait_client_date_de_fin_year").value = today.getFullYear();
+					    </script>				    
+				    {% endif %}
+				  	{{ form_label(form.image_principale_doctrine, "image.principale.forfait.client" | trans, {'attr':{'class':'lblnompays'}}) }}	   
+                                        {{ form_widget(form.image_principale_doctrine, {'attr':{'class':'txt_add_state'}}) }}
+                                        {{ form_errors(form.image_principale_doctrine ) }}
+				    {% if infoimgprincipale != "" %}
+				  		<img src="{{ asset('uploads/forfaits-client/image_principale') }}/{{idforfait}}/{{ infoimgprincipale }}" class="img_forfait" alt="{{ name }}" title="{{ name }}"/>
+				  		{# ON SUPPRIME L'ATTRIBUT REQUIRED SI UNE IMAGE PRINCIPALE EXISTE DANS LA BD #}
+				  		<script>
+						$("#add_forfait_client_image_principale_doctrine").removeAttr("required");
+				  		</script>
+				    {% endif %}
+                                        {{ form_label(form.tarif, "Tarif *" | trans, {'attr':{'class':'lblnompays'}}) }}	   
+                                        {{ form_widget(form.tarif, {'attr':{'class':'txt_add_state', 'maxlength':"10"}}) }}
+                                        {{ form_errors(form.tarif ) }}
+                                        {{ form_label(form.reserver_forfait_en_ligne, "reserver.forfait.en.ligne" | trans, {'attr':{'class':'lblnompays'}}) }}	   
+                                        {{ form_widget(form.reserver_forfait_en_ligne, {'attr':{'class':' longlabelcheckbox'}}) }}
+                                        {{ form_errors(form.reserver_forfait_en_ligne ) }}
+                                        {{ form_label(form.actif, "actif.forfait"  | trans, {'attr':{'class':'lblnompays longlabel checkboxImportant'}}) }}
+                                        {{ form_widget(form.actif, {'attr':{'class':'longlabelcheckbox'}}) }}
+                                        {{ form_errors(form.actif ) }}
+				    {# Condition avec droit SUPER ADMIN pour déclarer le forfait en tarif dernière minute #}
+				    <div id="valideTarifDerniereMinute">
+                                            {{ form_label(form.derniere_minute, "Tarif de dernière minute ", {'attr':{'class':'lblnompays longlabel checkboxImportant'}}) }}
+					    {{ form_widget(form.derniere_minute, {'attr':{'class':'longlabelcheckbox'}}) }}
+					    {{ form_errors(form.derniere_minute ) }}
+				    </div>
+				   {# SECTION GALERIE PHOTO #}
+				    <h3 id="galleriePhotoAttr">{{ "galerie.photo" | trans }}</h3>
+				  	<div id="galeriePhotoPreview" >
+				    	<ul class="tags" data-prototype="{{ form_widget(form.galerie_forfaits.vars.prototype)|e }}"> </ul>
+				    	{{ form_errors(form.galerie_forfaits ) }}
+				    	{% include '::galerie_photo.html.twig' %}
+						{# AFFICHAGE ET SUPPRÉSSION DES THUMBNAILS #}
+						{% include 'MyAppCustomerBundle:MiniSite:display_gallery_forfait.xml.twig' %}
+				    </div>
+			     	<p class="resize_p_form">&nbsp;</p>	
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="{{ "submit.texte.attrait" | trans }}" class="boutonvalidenregistrer2 boutonvalideenregistrerform2"/>
+				    <a href="{{ path('_Dashboard_compteCustomer') }}" class="boutonannuler2 boutonannulerform2">{{ "annuler" | trans }}</a>
+				</form>
+			   <br class="clearfloat">
+			</div>
+		</div>
+</div>
+<script>
+	$(function(){
+		if( "{{ role }}" != "ROLE_SUPER_ADMIN" )
+		{
+		    $('#valideTarifDerniereMinute').remove();
+		}
+		var $gallery = $("#add_forfait_client_galerie_forfaits");
+		$("#galeriePhotoPreview").append($gallery);
+		$("form#form_txt_attrait div").last().remove();
+		//Cache les premières label des div de la galerie photo
+		$("#add_forfait_client_galerie_forfaits > div > label:first-child").remove();
+		//Ajoute une checkbox pour la suppression des images de la galerie photo
+		$("#add_forfait_client_galerie_forfaits > div").append("<input type='checkbox' class='checkboxdeletegalerie'></input> <label class='labeldynamique'> {{ 'supprimer' | trans }}</label>");		
+		//
+		$(".longlabelcheckbox").css({"margin-left":"390px"});
+                //		
+                $("p.bold").after("<input type='checkbox' class='publicationtarif' name='publicationtarif'>");
+                //
+                $("#add_forfait_client_tarif").attr("placeholder", '{{ "exemple.prix.pourcent"|trans }}');
+	});
+</script>
+{% endblock %}

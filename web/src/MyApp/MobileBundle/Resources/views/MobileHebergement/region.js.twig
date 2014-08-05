@@ -1,0 +1,96 @@
+{% if app.request.locale == "fr" %}
+    <div class="returnregion">
+        <select id="idregion" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+            <option value="0">{{ choixregion }}</option>
+            {% for p in listeRegion %}
+                <option id="{{ p.repertoire_fr|lower }}" value="{{ p.id }}">{{ p.nom_fr }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% else %}
+    <div class="returnregion">
+        <select id="idregion" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+            <option value="0">{{ choixregion }}</option>
+            {% for p in listeRegion %}
+                <option id="{{ p.repertoire_en|lower }}" value="{{ p.id }}">{{ p.nom_en }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% endif %}
+<script>
+    $(function(){ 
+  
+        //On force à prendre les listes déroulantes les valeurs choisissez ...
+        if(provinceExiste === "" ){
+            $("#idprovince-button span").text("{{ choixprovince }}");
+        }
+        if(regionExiste === "" ){
+            $("#idregion-button span").text("{{ choixregion }}");
+        }
+        if(villeExiste === "" ){
+            $("#idville-button span").text("{{ choixville }}");
+        }
+               
+        $("#idprovince").on("change", function(){ 
+            $(this).off("change");
+            var paramprovince = $("#idprovince").val();   
+            var provinceargu = $("#idprovince option:selected").attr("id");  
+            
+            $("#idprovince").on("click", function(){
+                if( typeof parseInt(paramprovince) === 'number'){  
+                    var DATA = "paramprovince=" + paramprovince;   
+                    //Stocke dans le navigateur le choix de la province
+                    localStorage.setItem("idProvince", paramprovince);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ path('MyAppMobileBundle_hebergement_region_ajax') }}",
+                        data: DATA,
+                        success: function(data){                                                                               
+                            $(".returnregion").html(data);                           
+                            //change le lien
+                            if(typeof(provinceargu) === "string"){                        
+                                   $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_hebergement_resultat_province_ajax',{'id':"provinceargu" })|replace({'provinceargu':'"+provinceargu+"'})|raw }}' >Rechercher</a>");
+                            }
+                            if($("#idprovince option").attr("id") == provinceargu)
+                            {
+                                $("#idprovince option:selected").attr("selected");
+                            }                            
+                        }
+                    });
+                    return false;
+                 } 
+            });                       
+         });                  
+         
+         $("#idregion").on("change", function(){ 
+               $("span.titleregion").text($("#idregion option:selected").text());
+               var paramregion = $("#idregion").val(); 
+               var regionargu = $("#idregion option:selected").attr("id");                  
+               if( typeof parseInt(paramregion) === 'number'){                 
+                   var DATA = "paramregion=" + paramregion;
+                   //Stocke dans le navigateur la région
+                   localStorage.setItem("idRegion", paramregion);                 
+                   $.ajax({
+                       type: "POST",
+                       url: "{{ path('MyAppMobileBundle_hebergement_ville_ajax') }}",
+                       data: DATA,
+                       cache:false,
+                       success: function(data){                                                  
+                           $(".returnville").html(data);      
+                           //change le lien
+                            if(typeof(regionargu) === "string"){                        
+                                   $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_hebergement_resultat_region_ajax',{'id':"regionargu" })|replace({'regionargu':'"+regionargu+"'})|raw }}' >Rechercher</a>");
+                            }
+                            if($("#idregion option").attr("id") == regionargu)
+                            {
+                                $("#idregion option:selected").attr("selected");
+                            }
+                       }
+                   });
+                   return false;
+               }              
+         }); 
+         
+          
+    });
+</script>    

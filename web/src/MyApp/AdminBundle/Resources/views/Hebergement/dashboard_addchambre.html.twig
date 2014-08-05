@@ -1,0 +1,144 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">			    
+{% if exist is defined %}
+	<h1>Ajouter une chambre</h1>
+{% else %}
+	<h1>Modifier la chambre « {{ infonom }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist is not defined %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une chambre">Supprimer</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une chambre"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p >Voulez vous supprimez la chambre: {{ infonom }} ?</p>
+						<a href="{{ path('_Dashboard_deletechambre', {'id':infoid}) }}" class="detroye_state" >Supprimer</a>
+						<a href="#reset" class="boutonannuler retouchBtnCancel"></a>
+				    </div>	
+				    {% endif %}   
+				    <p class="obligatoire">Tous les champs qui ont un * sont obligatoires</p>	
+				    {{ form_label(form.actif, "Activé la chambre", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.actif, {'attr':{'class':'checkbox'}}) }}	
+				    {{ form_label(form.hebergement, "Établissement *", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.hebergement, {'attr':{'class':'txt_add_state'}}) }}	
+				    {% if listeTypeChambre is not defined %}	
+				    {{ form_label(form.type_chambre_id, "Type de chambre *", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.type_chambre_id, {'attr':{'class':'txt_add_state'}}) }}	
+				    {% else %}
+				    {{ form_label(form.type_chambre_id, "Type de chambre *", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.type_chambre_id, {'attr':{'class':'txt_add_state selectAdmin'}}) }}	
+				    <div class="optionClient">
+				    	{% for w in listeTypeChambre %}
+				    		<p>{{ w.nomfr }}</p>
+				    	{% endfor %}
+				    </div>	
+				    {% endif %}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {% if listeLit is not defined %}
+				    {{ form_label(form.lit_id, "Liste des lits *", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.lit_id, {'attr':{'class':'txt_add_state'}}) }}	
+				    {% else %}
+				    {{ form_label(form.lit_id, "Liste des lits *", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.lit_id, {'attr':{'class':'txt_add_state selectAdmin'}}) }}	
+				    <div class="optionClient">
+				    	{% for w in listeLit %}
+				    		<p>{{ w.nomfr }}</p>
+				    	{% endfor %}
+				    </div>		
+				    {% endif %}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {% if listeEquipement is not defined %}
+				    {{ form_label(form.equipement_id, "Liste des equipements *", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.equipement_id, {'attr':{'class':'txt_add_state'}}) }}
+				    {% else %}
+				    {{ form_label(form.equipement_id, "Liste des equipements *", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.equipement_id, {'attr':{'class':'txt_add_state selectAdmin'}}) }}
+				    <div class="optionClient">
+				    	{% for w in listeEquipement %}
+				    		<p>{{ w.nomfr }}</p>
+				    	{% endfor %}
+				    </div>			
+				    {% endif %}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.nom_fr, "Nom FR *", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.nom_en, "Nom EN *", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.quantite, "Quantité *", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.quantite, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.texte_presentation_fr, "Texte de présentation FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_presentation_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_presentation_en, "Texte de présentation EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_presentation_en, {'attr':{'class':'txt_add_state'}}) }}	
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.description_fr, "Description FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.description_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.description_en, "Description EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.description_en, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.max_personne, "Nombre d'occupants *", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.max_personne, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.tarif_preferentiel, "Tarif préférentiel", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.tarif_preferentiel, {'attr':{'class':'checkbox'}}) }}	   
+				    {{ form_label(form.tarif_min_basse_saison, "Tarif minimum basse saison", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_min_basse_saison, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.tarif_max_basse_saison, "Tarif maximum basse saison", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_max_basse_saison, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.tarif_min_haute_saison, "Tarif minimum haute saison", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_min_haute_saison, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.tarif_max_haute_saison, "Tarif maximum haute saison", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_max_haute_saison, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.tarif_min_relache, "Tarif minimum pour la relache", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_min_relache, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.tarif_max_relache, "Tarif maximum pour la relache", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_max_relache, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_label(form.description_tarif_basse_saison_fr, "Description basse saison FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.description_tarif_basse_saison_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.description_tarif_basse_saison_en, "Description basse saison EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.description_tarif_basse_saison_en, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				     {{ form_label(form.description_tarif_haute_saison_fr, "Description haute saison FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.description_tarif_haute_saison_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.description_tarif_haute_saison_en, "Description haute saison EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.description_tarif_haute_saison_en, {'attr':{'class':'txt_add_state'}}) }}	
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.dejeuner_continental, "Déjeuner continental", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.dejeuner_continental, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.dejeuner_americain, "Déjeuner américain", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.dejeuner_americain, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.dejeuner_buffet, "Déjeuner buffet", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.dejeuner_buffet, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.dejeuner_non_compris, "Déjeuner non compris", {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.dejeuner_non_compris, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_label(form.photo1_doctrine, "Image pour la présentation", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.photo1_doctrine, {'attr':{'class':'txt_add_state'}}) }}	
+				    {% if imgPresentation is defined and imgPresentation != "" %}
+				    	<img src="{{ asset('uploads/chambres') }}/{{ infoid }}/{{ imgPresentation }}" style="width:157px; height:101px; position:relative; top:-40px; left:540px;" />
+				    {% endif %}
+				    {{ form_label(form.ordre_affichage, "Ordre d'affichage", {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.ordre_affichage, {'attr':{'class':'txt_add_state'}}) }}
+				    {# GALERIE PHOTO #}	
+				    <h3 id="galleriePhotoAttr" title="Ajouter, modifier ou supprimer une photo de la galerie">Galerie photo </h3>
+				    <div id="galeriePhotoPreview">
+				    	<ul class="tags" data-prototype="{{ form_widget(form.galery_id.vars.prototype)|e }}"> </ul>
+				    	
+				    {#{{ form_label(form.galery_id, "Photo(s) de la galerie", {'attr':{'class':'lblnompays '}}) }}
+				    	{{ form_row(form.galery_id, {'attr':{'class':'txt_add_state'}}) }}#}
+				    	
+				    <p class="resize_p_form">&nbsp;</p>
+				    </div>
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit"/>
+				    <a href="{{ path('_Dashboard_chambreshebergement') }}" class="boutonannuler"></a>
+				</form>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+
+{% endblock %}

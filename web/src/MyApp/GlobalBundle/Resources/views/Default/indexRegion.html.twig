@@ -1,0 +1,309 @@
+{% extends '::base2.html.twig' %}
+
+		{% block picture %}	
+		<p class="legendeHome">{{ "legende.home" | trans }}</p>
+		{% include 'MyAppGlobalBundle:Default:animation.html.twig' %}
+		{% endblock %}		
+		{# TEXTE DE D'ACCUEIL #}
+		{% block texte_accueil %}
+				{% if app.request.locale == "fr" %}
+					<p>{{ texte_accueilfr|striptags|nl2br }}</p>
+				{% else %}	
+					<p>{{ texte_accueilen|striptags|nl2br }}</p>
+				{% endif %}
+		{% endblock %}	
+		{% block body %}
+		<div class="colonnes2">
+			<h1>{{"quoi.faire" | trans}}</h1>
+			<br class="clearfloat"/>	
+				{#<div class="ajuste_div_home" itemscope itemtype="http://data-vocabulary.org/Organization"> 
+					{% if app.request.locale == "fr" %}
+					<a href="{{ path('_hebergementregionsquebecfr',{'name':region.nomfr}) }}" itemprop="url" title="{{ "hebergement" | trans }} région {{ region.nomfr }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/hebergement.jpg') }}" class="thumbnailCorpo" alt="{{ "hebergement" | trans }} {{ region.nomfr }}" /></span>
+					</a>
+				  	<h2><a href="{{ path('_hebergementregionsquebecfr',{'name':region.nomfr}) }}" title="{{ "hebergement" | trans }} région {{ region.nomfr }}" itemprop="url"><span itemprop="name">{{ "hebergement" | trans }}</span></a></h2>
+				  		<span itemprop="description"><p>{{ "home.hebergement.text" | trans }}</p></span>
+				  	{% else %}
+				  	<a href="{{ path('_hebergementregionsquebecen',{'name':region.nomen}) }}" itemprop="url" title="{{ "hebergement" | trans }} region {{ region.nomen }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/hebergement.jpg') }}" class="thumbnailCorpo" alt="{{ "hebergement" | trans }} {{ region.nomen }}" /></span>
+					</a>
+				  	<h2><a href="{{ path('_hebergementregionsquebecen',{'name':region.nomen}) }}" title="{{ "hebergement" | trans }} region {{ region.nomen }}" itemprop="url"><span itemprop="name">{{ "hebergement" | trans }}</span></a></h2>
+				  		<span itemprop="description"><p>{{ "home.hebergement.text" | trans }}</p></span>
+				  	{% endif %}
+				</div>
+				<div class="ajuste_div_home" itemscope itemtype="http://data-vocabulary.org/Organization"> 
+					{% if app.request.locale == "fr" %}
+					<a href="{{ path('_attraitsactivity',{'name':region.nomfr}) }}" itemprop="url" title="{{ "attrait.activite" | trans }} région {{ region.nomfr }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/attraitsActivites.jpg') }}" class="thumbnailCorpo" alt="{{ "attrait.activite" | trans }} {{ region.nomfr }}" /></span>
+					</a>
+				   	<h2><a href="{{ path('_attraitsactivity',{'name':region.nomfr}) }}" title="{{ "attrait.activite" | trans }} région {{ region.nomfr }}" itemprop="url"><span itemprop="name">{{ "attrait.activite" | trans }}</span></a></h2>
+				   		<span itemprop="description"><p>{{ "home.attrait.text" | trans }}</p></span>
+				   	{% else %}
+				   	<a href="{{ path('_attraitsactivityen',{'name':region.nomen}) }}" itemprop="url" title="{{ "attrait.activite" | trans }} region {{ region.nomen }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/attraitsActivites.jpg') }}" class="thumbnailCorpo" alt="{{ "attrait.activite" | trans }} {{ region.nomen }}" /></span>
+					</a>
+				   	<h2><a href="{{ path('_attraitsactivityen',{'name':region.nomen}) }}" title="{{ "attrait.activite" | trans }} region {{ region.nomen }}" itemprop="url"><span itemprop="name">{{ "attrait.activite" | trans }}</span></a></h2>
+				   		<span itemprop="description"><p>{{ "home.attrait.text" | trans }}</p></span>
+				   	{% endif %}
+				</div>
+				<div class="ajuste_div_home" itemscope itemtype="http://data-vocabulary.org/Organization"> 
+					{% if app.request.locale == "fr" %}
+					 <a href="{{ path('_centersanteIndex',{'name':region.nomfr}) }}" itemprop="url" title="{{ "centre.sante.spa" | trans }} région {{ region.nomfr }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/centreDeSante.jpg') }}" class="thumbnailCorpo" alt="{{ "centre.sante.spa" | trans }} {{ region.nomfr }}" /></span>
+					 </a>
+				     <h2><a href="{{ path('_centersanteIndex',{'name':region.nomfr}) }}" title="{{ "centre.sante.spa" | trans }} région {{ region.nomfr }}" itemprop="url"><span itemprop="name">{{ "centre.sante.spa" | trans }}</span></a></h2>
+				     	<span itemprop="description"><p>{{ "home.centresante.text" | trans }}</p></span>
+				    {% else %}
+				      <a href="{{ path('_centersanteIndexen',{'name':region.nomen}) }}" itemprop="url" title="{{ "centre.sante.spa" | trans }} region {{ region.nomen }}">
+					 	<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/centreDeSante.jpg') }}" class="thumbnailCorpo" alt="{{ "centre.sante.spa" | trans }} {{ region.nomen }}" /></span>
+					  </a>
+				      <h2><a href="{{ path('_centersanteIndexen',{'name':region.nomen}) }}" title="{{ "centre.sante.spa" | trans }} region {{ region.nomen }}" itemprop="url"><span itemprop="name">{{ "centre.sante.spa" | trans }}</span></a></h2>
+				     	<span itemprop="description"><p>{{ "home.centresante.text" | trans }}</p></span>
+				    {% endif %}
+				</div>
+			    <div class="ajuste_div_home" itemscope itemtype="http://data-vocabulary.org/Organization"> 
+			    	{% if app.request.locale == "fr" %}
+			    	 <a href="{{ path('_forfaitsregionsfr',{'name':region.nomfr}) }}" itemprop="url" title="{{ "forfait" | trans }} région {{ region.nomfr }}">
+			    		<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/forfaits.jpg') }}" class="thumbnailCorpo" alt="{{ "forfait" | trans }} {{ region.nomfr }}" /></span>
+			    	 </a>
+				     <h2><a href="{{ path('_forfaitsregionsfr',{'name':region.nomfr}) }}" title="{{ "forfait" | trans }} région {{ region.nomfr }}" itemprop="url"><span itemprop="name">{{ "forfait" | trans }}</span></a></h2>
+				     	<span itemprop="description"><p>{{ "home.forfait.text" | trans }}</p></span>
+				     {% else %}
+				     <a href="{{ path('_forfaitsregionsen',{'name':region.nomen}) }}" itemprop="url" title="{{ "forfait" | trans }} region {{ region.nomen }}">
+			    		<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/forfaits.jpg') }}" class="thumbnailCorpo" alt="{{ "forfait" | trans }} {{ region.nomen }}" /></span>
+			    	 </a>
+				     <h2><a href="{{ path('_forfaitsregionsen',{'name':region.nomen}) }}" title="{{ "forfait" | trans }} region {{ region.nomen }}" itemprop="url"><span itemprop="name">{{ "forfait" | trans }}</span></a></h2>
+				     	<span itemprop="description"><p>{{ "home.forfait.text" | trans }}</p></span>
+				     {% endif %}
+				</div>
+				<div class="ajuste_div_home" itemscope itemtype="http://data-vocabulary.org/Organization">
+					{% if app.request.locale == "fr" %}
+					 <a href="{{ path('_corpoeventsregions',{'name':region.nomfr}) }}" itemprop="url" title="{{ "corporatif.evenement" | trans }} région {{ region.nomfr }}" >
+					 	<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/corporatif.jpg') }}" class="thumbnailCorpo" alt="{{ "corporatif.evenement" | trans }} {{ region.nomfr }}" /></span>
+					 </a>
+				      <h2><a href="{{ path('_corpoeventsregions',{'name':region.nomfr}) }}" title="{{ "corporatif.evenement" | trans }} région {{ region.nomfr }}" itemprop="url"><span itemprop="name">{{ "corporatif.evenement" | trans }}</span></a></h2>
+				    	<span itemprop="description"><p>{{ "home.corpo.text" | trans }}</p></span> 
+					{% else %}
+					  <a href="{{ path('_corpoeventsregionsen',{'name':region.nomen}) }}" itemprop="url" title="{{ "corporatif.evenement" | trans }} region {{ region.nomen }}" >
+					  	 <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/corporatif.jpg') }}" class="thumbnailCorpo" alt="{{ "corporatif.evenement" | trans }} {{ region.nomen }}" /></span>
+					  </a>
+				      <h2><a href="{{ path('_corpoeventsregionsen',{'name':region.nomen}) }}" title="{{ "corporatif.evenement" | trans }} region {{ region.nomen }}" itemprop="url"><span itemprop="name">{{ "corporatif.evenement" | trans }}</span></a></h2>
+				        <span itemprop="description"><p>{{ "home.corpo.text" | trans }}</p></span>
+				    {% endif %}
+			    </div> 
+				<div class="ajuste_div_home" itemscope itemtype="http://data-vocabulary.org/Organization"> 
+					{% if app.request.locale == "fr" %}
+					 <a href="{{ path('_promotionregion',{'name':region.nomfr}) }}" itemprop="url" title="{{ "promotion" | trans }} région {{ region.nomfr }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/destination.jpg') }}" class="thumbnailCorpo" alt="{{ "promotion" | trans }} {{ region.nomfr }}" /></span>
+					 </a>
+				      <h2><a href="{{ path('_promotionregion',{'name':region.nomfr}) }}" title="{{ "promotion" | trans }} région {{ region.nomfr }}" itemprop="url"><span itemprop="name">{{ "promotion" | trans }}</span></a></h2>
+				       <span itemprop="description"><p>{{ "home.destination.text" | trans }}</p></span>
+				     {% else %}
+				     <a href="{{ path('_promotionregion',{'name':region.nomen}) }}" itemprop="url" title="{{ "promotion" | trans }} region {{ region.nomen }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/destination.jpg') }}" class="thumbnailCorpo" alt="{{ "promotion" | trans }} {{ region.nomen }}" /></span>
+					 </a>
+				      <h2><a href="{{ path('_promotionregion',{'name':region.nomen}) }}" title="{{ "promotion" | trans }} region {{ region.nomen }}" itemprop="url"><span itemprop="name">{{ "promotion" | trans }}</span></a></h2>
+				       <span itemprop="description"><p>{{ "home.destination.text" | trans }}</p></span>
+				     {% endif %}
+			    </div>
+				<div itemscope itemtype="http://data-vocabulary.org/Organization"> 
+					{% if app.request.locale == "fr" %}
+					<a href="{{ path('_restaurantregion',{'name':region.nomfr}) }}" itemprop="url" title="{{ "restaurant" | trans }} région {{ region.nomfr }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/restaurant.jpg') }}" class="thumbnailCorpo" alt="{{ "restaurant" | trans }} {{ region.nomfr }}" /></span>
+					</a>
+				     <h2><a href="{{ path('_restaurantregion',{'name':region.nomfr}) }}" title="{{ "restaurant" | trans }} région {{ region.nomfr }}" itemprop="url"><span itemprop="name">{{ "restaurant" | trans }}</span></a></h2>
+				       <span itemprop="description"><p>{{ "home.restaurant.text" | trans }}</p></span>
+				    {% else %}
+				    <a href="{{ path('_restaurantregion',{'name':region.nomen}) }}" itemprop="url" title="{{ "restaurant" | trans }} region {{ region.nomen }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/restaurant.jpg') }}" class="thumbnailCorpo" alt="{{ "restaurant" | trans }} {{ region.nomen }}" /></span>
+					</a>
+				     <h2><a href="{{ path('_restaurantregion',{'name':region.nomen}) }}" title="{{ "restaurant" | trans }} region {{ region.nomen }}" itemprop="url"><span itemprop="name">{{ "restaurant" | trans }}</span></a></h2>
+				       <span itemprop="description"><p>{{ "home.restaurant.text" | trans }}</p></span>
+				   {% endif %}
+				</div>#}
+					<div class="ajuste_div_home aughauteur" itemscope itemtype="http://data-vocabulary.org/Organization"> 
+					{% if app.request.locale == "fr" %}
+					<a href="{{ path('_hebergementregionsquebecfr',{'name':region.repertoirefr|lower}) }}" itemprop="url" title="{{ "hebergement" | trans }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/hebergement.jpg') }}" width="80" height="80" alt="{{ "hebergement" | trans }}" /></span>
+					</a>
+				  	<h2><a href="{{ path('_hebergementregionsquebecfr',{'name':region.repertoirefr|lower}) }}" title="{{ "hebergement" | trans }}" itemprop="url"><span itemprop="name">{{ "hebergement" | trans }}</span></a></h2>
+				  		<span itemprop="description"><p>{{ "home.hebergement.text" | trans }}</p></span>
+				  	{% else %}
+				  	<a href="{{ path('_hebergementregionsquebecen',{'name':region.repertoireen|lower}) }}" itemprop="url" title="{{ "hebergement" | trans }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/hebergement.jpg') }}" width="80" height="80" alt="{{ "hebergement" | trans }}" /></span>
+					</a>
+				  	<h2><a href="{{ path('_hebergementregionsquebecen',{'name':region.repertoireen|lower}) }}" title="{{ "hebergement" | trans }}" itemprop="url"><span itemprop="name">{{ "hebergement" | trans }}</span></a></h2>
+				  		<span itemprop="description"><p>{{ "home.hebergement.text" | trans }}</p></span>
+				  	{% endif %}
+				</div>
+				<div class="ajuste_div_home aughauteur" itemscope itemtype="http://data-vocabulary.org/Organization"> 
+				{#	{% if app.request.locale == "fr" %}
+					<a href="{{ path('_attraitsactivity') }}" itemprop="url" title="{{ "attrait.activite" | trans }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/attraitsActivites.jpg') }}" width="80" height="80" alt="{{ "attrait.activite" | trans }}" /></span>
+					</a>
+				   	<h2><a href="{{ path('_attraitsactivity') }}" title="{{ "attrait.activite" | trans }}" itemprop="url"><span itemprop="name">{{ "attrait.activite" | trans }}</span></a></h2>
+				   		<span itemprop="description"><p>{{ "home.attrait.text" | trans }}</p></span>
+				   	{% else %}
+				   	<a href="{{ path('_attraitsactivityen') }}" itemprop="url" title="{{ "attrait.activite" | trans }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/attraitsActivites.jpg') }}" width="80" height="80" alt="{{ "attrait.activite" | trans }}" /></span>
+					</a>
+				   	<h2><a href="{{ path('_attraitsactivityen') }}" title="{{ "attrait.activite" | trans }}" itemprop="url"><span itemprop="name">{{ "attrait.activite" | trans }}</span></a></h2>
+				   		<span itemprop="description"><p>{{ "home.attrait.text" | trans }}</p></span>
+				   	{% endif %}#}
+                                        {% if app.request.locale == "fr" %}
+                                        {#<a href="{{ path('_attraitsactivity') }}" itemprop="url" title="{{ "attrait.activite" | trans }}">
+                                                <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/attraitsActivites.jpg') }}" width="80" height="80" alt="{{ "attrait.activite" | trans }}" /></span>
+                                        </a>
+                                        <h2><a href="{{ path('_attraitsactivity') }}" title="{{ "attrait.activite" | trans }}" itemprop="url"><span itemprop="name">{{ "attrait.activite" | trans }}</span></a></h2>
+                                                <span itemprop="description"><p>{{ "home.attrait.text" | trans }}</p></span>
+                                        #}
+                                        <a href="http://www.quebec-guidetouristique.travel/activites-quebec/" itemprop="url" target="_blank" title="{{ "attrait.activite" | trans }}">
+                                                <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/attraitsActivites.jpg') }}" width="80" height="80" alt="{{ "attrait.activite" | trans }}" /></span>
+                                        </a>
+                                        <h2><a href="http://www.quebec-guidetouristique.travel/activites-quebec/" target="_blank" title="{{ "attrait.activite" | trans }}" itemprop="url"><span itemprop="name">{{ "attrait.activite" | trans }}</span></a></h2>
+                                                <span itemprop="description"><p>{{ "home.attrait.text" | trans }}</p></span>
+                                        {% else %}
+                                        {#<a href="{{ path('_attraitsactivityen') }}" itemprop="url" title="{{ "attrait.activite" | trans }}">
+                                                <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/attraitsActivites.jpg') }}" width="80" height="80" alt="{{ "attrait.activite" | trans }}" /></span>
+                                        </a>
+                                        <h2><a href="{{ path('_attraitsactivityen') }}" title="{{ "attrait.activite" | trans }}" itemprop="url"><span itemprop="name">{{ "attrait.activite" | trans }}</span></a></h2>
+                                                <span itemprop="description"><p>{{ "home.attrait.text" | trans }}</p></span>#}
+                                        <a href="http://www.quebec-guidetouristique.travel/activities.aspx" target="_blank" itemprop="url" title="{{ "attrait.activite" | trans }}">
+                                                <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/attraitsActivites.jpg') }}" width="80" height="80" alt="{{ "attrait.activite" | trans }}" /></span>
+                                        </a>
+                                        <h2><a href="http://www.quebec-guidetouristique.travel/activities.aspx" target="_blank" title="{{ "attrait.activite" | trans }}" itemprop="url"><span itemprop="name">{{ "attrait.activite" | trans }}</span></a></h2>
+                                                <span itemprop="description"><p>{{ "home.attrait.text" | trans }}</p></span>
+                                        {% endif %}
+				</div>
+				<div class="ajuste_div_home aughauteur" itemscope itemtype="http://data-vocabulary.org/Organization"> 
+                                    {#{% if app.request.locale == "fr" %}
+					 <a href="{{ path('_centersante') }}" itemprop="url" title="{{ "centre.sante.spa" | trans }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/centreDeSante.jpg') }}" width="80" height="80" alt="{{ "centre.sante.spa" | trans }}" /></span>
+					 </a>
+				     <h2><a href="{{ path('_centersante') }}" title="{{ "centre.sante.spa" | trans }}" itemprop="url"><span itemprop="name">{{ "centre.sante.spa" | trans }}</span></a></h2>
+				     	<span itemprop="description"><p>{{ "home.centresante.text" | trans }}</p></span>
+				    {% else %}
+				      <a href="{{ path('_centersanteen') }}" itemprop="url" title="{{ "centre.sante.spa" | trans }}">
+					 	<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/centreDeSante.jpg') }}" width="80" height="80" alt="{{ "centre.sante.spa" | trans }}" /></span>
+					  </a>
+				      <h2><a href="{{ path('_centersanteen') }}" title="{{ "centre.sante.spa" | trans }}" itemprop="url"><span itemprop="name">{{ "centre.sante.spa" | trans }}</span></a></h2>
+				     	<span itemprop="description"><p>{{ "home.centresante.text" | trans }}</p></span>
+				    {% endif %}#}
+                                    {% if app.request.locale == "fr" %}
+                                        {# <a href="{{ path('_centersante') }}" itemprop="url" title="{{ "centre.sante.spa" | trans }}">
+                                                <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/centreDeSante.jpg') }}" width="80" height="80" alt="{{ "centre.sante.spa" | trans }}" /></span>
+                                         </a>
+                                     <h2><a href="{{ path('_centersante') }}" title="{{ "centre.sante.spa" | trans }}" itemprop="url"><span itemprop="name">{{ "centre.sante.spa" | trans }}</span></a></h2>
+                                        <span itemprop="description"><p>{{ "home.centresante.text" | trans }}</p></span>#}
+                                         <a href="http://www.quebec-guidetouristique.travel/activites-quebec/centres-sante-spas/centres-sante-spas.php" target="_blank" itemprop="url" title="{{ "centre.sante.spa" | trans }}">
+                                                <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/centreDeSante.jpg') }}" width="80" height="80" alt="{{ "centre.sante.spa" | trans }}" /></span>
+                                         </a>
+                                        <h2><a href="http://www.quebec-guidetouristique.travel/activites-quebec/centres-sante-spas/centres-sante-spas.php" target="_blank" title="{{ "centre.sante.spa" | trans }}" itemprop="url"><span itemprop="name">{{ "centre.sante.spa" | trans }}</span></a></h2>
+                                        <span itemprop="description"><p>{{ "home.centresante.text" | trans }}</p></span>
+                                    {% else %}
+                                      {#<a href="{{ path('_centersanteen') }}" itemprop="url" title="{{ "centre.sante.spa" | trans }}">
+                                                <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/centreDeSante.jpg') }}" width="80" height="80" alt="{{ "centre.sante.spa" | trans }}" /></span>
+                                          </a>
+                                      <h2><a href="{{ path('_centersanteen') }}" title="{{ "centre.sante.spa" | trans }}" itemprop="url"><span itemprop="name">{{ "centre.sante.spa" | trans }}</span></a></h2>
+                                        <span itemprop="description"><p>{{ "home.centresante.text" | trans }}</p></span>#}
+                                        <a href="http://www.quebec-guidetouristique.travel/quebec-activities/health-centres-spas/health-centres-spas.php" target="_blank" itemprop="url" title="{{ "centre.sante.spa" | trans }}">
+                                                <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/centreDeSante.jpg') }}" width="80" height="80" alt="{{ "centre.sante.spa" | trans }}" /></span>
+                                          </a>
+                                      <h2><a href="http://www.quebec-guidetouristique.travel/quebec-activities/health-centres-spas/health-centres-spas.php" target="_blank" title="{{ "centre.sante.spa" | trans }}" itemprop="url"><span itemprop="name">{{ "centre.sante.spa" | trans }}</span></a></h2>
+                                        <span itemprop="description"><p>{{ "home.centresante.text" | trans }}</p></span>
+                                    {% endif %}
+				</div>
+			    <div class="ajuste_div_home aughauteur" itemscope itemtype="http://data-vocabulary.org/Organization"> 
+			    	{% if app.request.locale == "fr" %}
+			    	 <a href="{{ path('_forfaitsregionsfr',{'name':region.repertoirefr|lower}) }}" itemprop="url" title="{{ "forfait" | trans }}">
+			    		<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/forfaits.jpg') }}" width="80" height="80" alt="{{ "forfait" | trans }}" /></span>
+			    	 </a>
+				     <h2><a href="{{ path('_forfaitsregionsfr',{'name':region.repertoirefr|lower}) }}" title="{{ "forfait" | trans }}" itemprop="url"><span itemprop="name">{{ "forfait" | trans }}</span></a></h2>
+				     	<span itemprop="description"><p>{{ "home.forfait.text" | trans }}</p></span>
+				     {% else %}
+				     <a href="{{ path('_forfaitsregionsen',{'name':region.repertoireen|lower}) }}" itemprop="url" title="{{ "forfait" | trans }}">
+			    		<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/forfaits.jpg') }}" width="80" height="80" alt="{{ "forfait" | trans }}" /></span>
+			    	 </a>
+				     <h2><a href="{{ path('_forfaitsregionsen',{'name':region.repertoireen|lower}) }}" title="{{ "forfait" | trans }}" itemprop="url"><span itemprop="name">{{ "forfait" | trans }}</span></a></h2>
+				     	<span itemprop="description"><p>{{ "home.forfait.text" | trans }}</p></span>
+				     {% endif %}
+				</div>
+				<div class="ajuste_div_home aughauteur" itemscope itemtype="http://data-vocabulary.org/Organization">
+					{% if app.request.locale == "fr" %}
+					 <a href="{{ path('_activitecorporegionfr',{'name':region.repertoirefr|lower}) }}" itemprop="url" title="{{ "corporatif.evenement" | trans }}" >
+					 	<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/corporatif.jpg') }}" width="80" height="80" alt="{{ "corporatif.evenement" | trans }}" /></span>
+					 </a>
+				      <h2><a href="{{ path('_activitecorporegionfr',{'name':region.repertoirefr|lower}) }}" title="{{ "corporatif.evenement" | trans }}" itemprop="url"><span itemprop="name">{{ "corporatif.evenement" | trans }}</span></a></h2>
+				    	<span itemprop="description"><p>{{ "home.corpo.text" | trans }}</p></span> 
+					{% else %}
+					  <a href="{{ path('_activitecorporegionen',{'name':region.repertoireen|lower}) }}" itemprop="url" title="{{ "corporatif.evenement" | trans }}" >
+					  	 <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/corporatif.jpg') }}" width="80" height="80" alt="{{ "corporatif.evenement" | trans }}" /></span>
+					  </a>
+				      <h2><a href="{{ path('_activitecorporegionen',{'name':region.repertoireen|lower}) }}" title="{{ "corporatif.evenement" | trans }}" itemprop="url"><span itemprop="name">{{ "corporatif.evenement" | trans }}</span></a></h2>
+				        <span itemprop="description"><p>{{ "home.corpo.text" | trans }}</p></span>
+				    {% endif %}
+			    </div> 
+				<div class="ajuste_div_home aughauteur" itemscope itemtype="http://data-vocabulary.org/Organization"> 
+                                    {% if app.request.locale == "fr" %}
+                                        <a href="{{ path('_promotionstarifderniereminuteregion',{'name':region.repertoirefr|lower}) }}" itemprop="url" title="{{ "promotion" | trans }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/destination.jpg') }}" width="80" height="80" alt="{{ "promotion" | trans }}" /></span>
+					 </a>
+				      <h2><a href="{{ path('_promotionstarifderniereminuteregion',{'name':region.repertoirefr|lower}) }}" title="{{ "promotion" | trans }}" itemprop="url"><span itemprop="name">{{ "promotion" | trans }}</span></a></h2>
+				       <span itemprop="description"><p>{{ "home.destination.text" | trans }}</p></span>
+                                    {% else %}
+                                         <a href="{{ path('_promotionstarifderniereminuteregionen',{'name':region.repertoireen|lower}) }}" itemprop="url" title="{{ "promotion" | trans }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/destination.jpg') }}" width="80" height="80" alt="{{ "promotion" | trans }}" /></span>
+					 </a>
+				      <h2><a href="{{ path('_promotionstarifderniereminuteregionen',{'name':region.repertoireen|lower}) }}" title="{{ "promotion" | trans }}" itemprop="url"><span itemprop="name">{{ "promotion" | trans }}</span></a></h2>
+				       <span itemprop="description"><p>{{ "home.destination.text" | trans }}</p></span>
+                                    {% endif %}
+			    </div>
+				<div itemscope itemtype="http://data-vocabulary.org/Organization"> 
+				{#	<a href="{{ path('_restaurant') }}" itemprop="url" title="{{ "restaurant" | trans }}">
+						<span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/restaurant.jpg') }}" width="80" height="80" alt="{{ "restaurant" | trans }}" /></span>
+					</a>
+				     <h2><a href="{{ path('_restaurant') }}" title="{{ "restaurant" | trans }}" itemprop="url"><span itemprop="name">{{ "restaurant" | trans }}</span></a></h2>
+				       <span itemprop="description"><p>{{ "home.restaurant.text" | trans }}</p></span>#}
+                                    {% if app.request.locale == "fr" %}
+                                        <a href="http://www.quebec-guidetouristique.travel/activites-quebec/restaurants/restaurants.php" target="_blank" itemprop="url" title="{{ "restaurant" | trans }}">
+                                                <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/restaurant.jpg') }}" width="80" height="80" alt="{{ "restaurant" | trans }}" /></span>
+                                        </a>
+                                        <h2><a href="http://www.quebec-guidetouristique.travel/activites-quebec/restaurants/restaurants.php" target="_blank" title="{{ "restaurant" | trans }}" itemprop="url"><span itemprop="name">{{ "restaurant" | trans }}</span></a></h2>
+                                       <span itemprop="description"><p>{{ "home.restaurant.text" | trans }}</p></span>
+                                    {% else %}
+                                        <a href="http://www.quebec-guidetouristique.travel/quebec-activities/restaurants-en/restaurants.php" target="_blank" itemprop="url" title="{{ "restaurant" | trans }}">
+                                                <span itemprop="image"><img src="{{ asset('bundles/myappglobal/images/restaurant.jpg') }}" width="80" height="80" alt="{{ "restaurant" | trans }}" /></span>
+                                        </a>
+                                        <h2><a href="http://www.quebec-guidetouristique.travel/quebec-activities/restaurants-en/restaurants.php" target="_blank" title="{{ "restaurant" | trans }}" itemprop="url"><span itemprop="name">{{ "restaurant" | trans }}</span></a></h2>
+                                       <span itemprop="description"><p>{{ "home.restaurant.text" | trans }}</p></span>
+                                    {% endif %}
+				</div>
+         </div>
+        {# PUB GOOGLE #}
+                <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait hackPub" >
+                      <script type='text/javascript'>
+                              googletag.cmd.push(function() { googletag.display('zone_01'); });
+                      </script>
+                </div>
+		<br class="clearfloat" />
+		<div class="colonnes4" id="paginator">
+			<h4>{{ "nos.suggestions.hotel.motel.auberge" | trans }} {{ region.provinceetatid.nomfr }}</h4>	
+			{# Implémentation du block pour les suggestions du bas de page #}
+			{% include 'MyAppGlobalBundle:Default:suggestionBasDePage.html.twig' %} 
+			<br class="clearfloat" /> 
+		</div> 
+		{% endblock %}
+		{% block gauche %}
+			{# Implémentation de la recherche par carte #}
+         	{% include '::searchCard.html.twig' %}
+         	{# Implémentation des suggestions d'hébergements #}
+			{% include 'MyAppGlobalBundle:Default:suggestionHotel.html.twig' %} 
+			{# PUB GOOGLE #}
+			<div id="zone_02" class="bigBox">
+				<script type='text/javascript'>
+					googletag.cmd.push(function() { googletag.display('zone_02'); });
+				</script>
+			</div>
+			{# Implémentation des suggestions de forfaits #}
+			{% include 'MyAppGlobalBundle:Default:suggestionForfait.html.twig' %}
+		{% endblock %}

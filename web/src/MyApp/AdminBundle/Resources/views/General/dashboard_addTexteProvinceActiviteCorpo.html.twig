@@ -1,0 +1,43 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+
+<div class="boiteinfo">
+	<h1>Textes corporatifs des activités pour la province « {{ infonom|upper }} »</h1>                
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	                                   
+				    {{ form_label(form.page_titre_fr, "Titre FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_titre_fr, {'attr':{'class':'txt_add_state '}}) }}  
+                                    {{ form_label(form.repertoire_fr, "Répertoire FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_fr, {'attr':{'class':'txt_add_state '}}) }}      
+                                    {{ form_label(form.page_metadescription_fr, "Meta description FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.page_metadescription_fr, {'attr':{'class':'txt_add_state '}}) }}
+                                    {{ form_label(form.texte_fr, "Texte d'accueil FR", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_fr, {'attr':{'class':'txt_add_state '}}) }}
+                                    <p class="resize_p_form">&nbsp;</p>
+                                    {{ form_label(form.page_titre_en, "Titre EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_titre_en, {'attr':{'class':'txt_add_state '}}) }}   
+                                    {{ form_label(form.repertoire_en, "Répertoire EN", {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.repertoire_en, {'attr':{'class':'txt_add_state '}}) }}     
+                                    {{ form_label(form.page_metadescription_en, "Meta description EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.page_metadescription_en, {'attr':{'class':'txt_add_state '}}) }}
+                                    {{ form_label(form.texte_en, "Texte d'accueil EN", {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_en, {'attr':{'class':'txt_add_state '}}) }}
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="" class="boutonvalidenregistrer Btn_form_submit" />
+				    <a href="{{ path('_Dashboard_provinces') }}" class="boutonannuler"></a>
+				</form>
+                                 <script>
+                                            //Texte accueil fr 
+                                            CKEDITOR.replace( 'add_texte_province_corporatif_texte_fr' );
+                                            document.getElementById("add_texte_province_corporatif_texte_fr").innerHTML = "{{ txtaccueilfr }}";
+                                            //Texte accueil en 
+                                            CKEDITOR.replace( 'add_texte_province_corporatif_texte_en' );
+                                            document.getElementById("add_texte_province_corporatif_texte_en").innerHTML = "{{ txtaccueilen }}";
+                                 </script>
+                                 
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

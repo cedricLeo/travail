@@ -1,0 +1,255 @@
+{% block chambre %}
+{# AFFICHE DESCRIPTIF DES CHAMBRES #}
+	{% for p in client %}
+	{# {% if p.reservitid is not empty %}
+			{# FORMULAIRE DE RÉSERVATION EN LIGNE #}
+		{#	{% include 'MyAppGlobalBundle:Hebergement:Formulaire_reservation_en_ligne.html.twig' %} 
+		{% endif %}#}
+	{#	{% if p.acompteid.id != 1 %}  #}
+		{% if app.request.locale == "fr" %}
+	    		<h2>{{ "type.de.chambre.pour" | trans }} - {{ p.nomfr }} </h2>
+	    	{% else %}
+	    		<h2>{{ "type.de.chambre.pour" | trans }} - {{ p.nomen }} </h2>
+	    	{% endif %}
+			 {% for p in chambre %} 
+				  <div class="fiche">
+				  	{% if p.typechambreid is not empty %}					  	
+					  	<div>
+                                                    {% if app.request.locale == "fr" %} {# VERSION FR #}
+					      		{% for q in p.galeriechambre %} 
+                                                            {% if q.image is not empty %}
+                                                                <a class="fancybox " href="{{ asset('uploads/galerie_chambres') }}/{{ q.id }}/{{ q.image }}"  title="{{ q.legendefr }}" rel="group">                                                            
+                                                                     <img src="{{ asset('uploads/galerie_chambres') }}/{{ q.id }}/{{ q.image }}" class="imgPresentationChambre " alt="{{ p.nomfr }}" />                                                        
+                                                                </a>
+                                                            {% endif %}
+					     	 	{% endfor %}                                                        
+                                                        {% if p.galeriechambre is empty and p.photo1 is not empty %}
+                                                            <img src="{{ asset('uploads/chambres') }}/{{ p.id }}/{{ p.photo1 }}" class="imgPresentationChambre photoChambre" alt="{{ p.nomfr }}" />					     	 	
+                                                        {% elseif p.galeriechambre is empty and p.photo1 is empty %}
+                                                            <img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image de remplacement pour {{ p.nomfr }}" /> 
+						     	{% endif %}
+						        {# DESCRIPTIF DE LA CHAMBRE FR #}	
+						          <div>
+                                                              {% for e in p.typechambreid %}                                                                  
+                                                                  {% if loop.index == 1 %}
+                                                                  <h3><a id="{{ p.id }}" class="repere"></a>{{ e.nomfr }}</h3> 
+						          	  {% if p.nomfr is not empty %}<p>{{ p.nomfr }}</p>{% endif %}
+							          <p>{% if p.descriptionfr is not empty %} {{ p.descriptionfr|convert_encoding('UTF-8', 'UTF-8')|striptags }} {% else %} {{ p.textepresentationfr|convert_encoding('UTF-8', 'UTF-8')|striptags }} {% endif %}</p>
+							          <ul>
+                                                                      {% for e in p.litid %}<li>{{ e.nomfr }}</li>{% endfor %}
+								      {% for w in p.equipementid %}<li>{{ w.nomfr }}</li>{% endfor %}
+							          </ul>
+                                                                  {% endif %}
+                                                              {% endfor %}
+						          </div>
+                                                    {% else %} {# VERSION EN #}
+						     	{% for q in p.galeriechambre %}						     	
+                                                            {% if q.image is not empty %}
+                                                                 <a class="fancybox " href="{{ asset('uploads/galerie_chambres') }}/{{ q.id }}/{{ q.image }}"  title="{{ q.legendeen }}" rel="group">
+                                                                    <img src="{{ asset('uploads/galerie_chambres') }}/{{ q.id }}/{{ q.image }}" class="imgPresentationChambre " alt="{{ p.nomen }}" />
+                                                                 </a>
+                                                            {% endif %}
+					     	 	{% endfor %}
+                                                        {% if p.galeriechambre is empty and p.photo1 is not empty %}
+                                                            <img src="{{ asset('uploads/chambres') }}/{{ p.id }}/{{ p.photo1 }}" class="imgPresentationChambre photoChambre" alt="{{ p.nomen }}" />
+					     	 	{% elseif p.galeriechambre is empty and p.photo1 is empty %}
+                                                            <img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="{{ p.nomen }}" /> 
+						     	{% endif %}
+						        {# DESCRIPTIF DE LA CHAMBRE EN #}	
+						          <div>
+                                                              {% for e in p.typechambreid %}
+                                                                  {% if loop.index == 1 %}
+                                                                  <h3><a id="{{ p.id }}" class="repere">{{ e.nomen }}</a></h3>  
+						          	  {% if p.nomen is not empty %}<p>{{ p.nomen }}</p>{% endif %}  
+							          <p>{% if p.descriptionen is not empty %} {{ p.descriptionen|convert_encoding('UTF-8', 'UTF-8')|striptags }}  {% else %} {{ p.textepresentationen|convert_encoding('UTF-8', 'UTF-8')|striptags }} {% endif %} </p>
+							          <ul>
+                                                                      {% for e in p.litid %}<li>{{ e.nomfr }}</li>{% endfor %}
+								      {% for w in p.equipementid %}<li>{{ w.nomen }}</li>{% endfor %}
+							          </ul>
+                                                                  {% endif %}
+                                                              {% endfor %}
+						          </div>
+						    {% endif %}
+					     	<div>					  	 
+					 {% else %}
+					  	 <div>
+					      	{% if app.request.locale == "fr" %} {# VERSION FR #}
+					      		{% for q in p.galeriechambre %}
+						     	 <a class="fancybox " href="{{ asset('uploads/galerie_chambres') }}/{{ q.id }}/{{ q.image }}"  title="{{ q.legendefr }}" rel="group">
+						      		{% if q.image is defined and q.image != "" %}
+						     	 		<img src="{{ asset('uploads/galerie_chambres') }}/{{ q.id }}/{{ q.image }}" class="imgPresentationChambre " alt="{{ p.nomfr }}" />
+						     	 	{% else %}
+						     			<img src="{{ asset('uploads/chambres') }}/{{ p.id }}/{{ p.photo1 }}" class="imgPresentationChambre photoChambre" alt="{{ p.nomfr }}" />
+						     	 	{% endif %}
+						     	 </a>
+					     	 	{% endfor %}
+					     	 	{% if p.galeriechambre is empty %}
+						     	 	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image de remplacement pour {{ p.nomfr }}" /> 
+						     	{% endif %}
+						        {# DESCRIPTIF DE LA CHAMBRE FR #}	
+						          <div>
+                                                                 <h3><a id="{{ p.id }}" class="repere"></a></h3>
+						          	  {% if p.nomfr is not empty %}<p>{{ p.nomfr }}</p>{% endif %}
+							          <p>{% if p.descriptionfr is not empty %} {{ p.descriptionfr|convert_encoding('UTF-8', 'UTF-8')|striptags }} {% else %} {{ p.textepresentationfr|convert_encoding('UTF-8', 'UTF-8')|striptags }} {% endif %}</p>
+							          <ul>
+								          {% for w in p.equipementid %}<li>{{ w.nomfr }}</li>{% endfor %}
+							          </ul>
+						          </div>
+					        {% else %} {# VERSION EN #}
+						     	 {% for q in p.galerychambre %}
+						     	 <a class="fancybox " href="{{ asset('uploads/galerie_chambres') }}/{{ q.id }}/{{ q.image }}"  title="{{ q.legendeen }}" rel="group">
+						      		{% if q.image is defined and q.image != "" %}
+						     	 		<img src="{{ asset('uploads/galerie_chambres') }}/{{ q.id }}/{{ q.image }}" class="imgPresentationChambre " alt="{{ p.nomen }}" />
+						     	 	{% else %}
+						     			<img src="{{ asset('uploads/chambres') }}/{{ p.id }}/{{ p.photo1 }}" class="imgPresentationChambre photoChambre" alt="{{ p.nomen }}" />
+						     	 	{% endif %}
+						     	 </a>
+					     	 	{% endfor %}
+					     	 	{% if p.galeriechambre is empty %}
+						     	 	<img src="{{ asset("bundles/myappglobal/images/LogoGlobalReservation.jpg") }}" class="imgPresentationChambre" alt="Image replacement for {{ p.nomen }} " /> 
+						     	{% endif %}
+						        {# DESCRIPTIF DE LA CHAMBRE EN #}	
+						          <div><h3><a id="{{ p.id }}" class="repere"></a></h3>  
+						          	  {% if p.nomen is not empty %}<p>{{ p.nomen }}</p>{% endif %}  
+							          <p>{% if p.descriptionen is not empty %} {{ p.descriptionen|convert_encoding('UTF-8', 'UTF-8')|striptags }}  {% else %} {{ p.textepresentationen|convert_encoding('UTF-8', 'UTF-8')|striptags }} {% endif %} </p>
+							          <ul>
+								          {% for w in p.equipementid %}<li>{{ w.nomen }}</li>{% endfor %}
+							          </ul>
+						          </div>
+						    {% endif %}
+					     <div>
+				   {% endif %}
+				  
+			          {% if p.dejeunercontinental != "" %}
+			           <p class="dejeunerType">*** {{ "dejeuner.continental" | trans }} ***</p>
+			          {% elseif p.dejeuneramericain != "" %}
+			           <p class="dejeunerType">*** {{ "dejeuner.americain" | trans }} ***</p>
+			          {% elseif p.dejeunerbuffet != "" %}
+			           <p class="dejeunerType">*** {{ "dejeuner.buffet" | trans }} ***</p>
+			          {% elseif p.dejeunernoncompris != "" %}
+			           <p class="dejeunerType">*** {{ "dejeuner.non.compris" | trans }} ***</p>
+			          {% endif %}
+			          </div>
+			          {# TABLEAU POUR LES INFORMATIONS DE LA CHAMBRE EX (lits, unité(s), saisons, etc) #}
+			          <table width="444" border="0" cellspacing="0" cellpadding="0">
+						  <tr>
+						    <td width="148" class="tabgris">{{ "lit" | trans }}</td>
+						    <td width="50" align="center" class="tabgris2">{{ p.nombrelit }}</td>
+						    <td width="104" class="tabgris3">{{ "saison" | trans }}</td>
+						    <td width="79" align="center" class="tabgris">{{ "a.partir" | trans }} </td>
+						    <td width="63" align="center" class="tabgris">{{ "jusqua" | trans }}</td>
+						  </tr>
+						  <tr>
+						    <td class="tabgris">{{ "unite" | trans }}</td>
+						    <td align="center" class="tabgris2">{{ p.quantite }}</td>
+						    {% if p.tarifminhautesaison != "" and p.tarifmaxhautesaison != "" %}
+						    <td  class="tabgris">{{ "haute.saison" | trans }}</td>
+						    <td align="center">{{ p.tarifminhautesaison|replace({"%$%": " "})|number_format(2, '.', ',') }} $</td>
+						    <td align="center">{{ p.tarifmaxhautesaison|replace({"%$%": " "})|number_format(2, '.', ',') }} $</td>
+						    {% endif %}
+						  </tr>
+						  <tr>
+						    <td class="tabgris">{{ "max.personne" | trans }}</td>
+						    <td align="center" class="tabgris2">{{ p.maxpersonne }}</td>
+						    {% if p.tarifminbassesaison != "" and p.tarifmaxbassesaison != "" %}
+						    <td  class="tabgris">{{ "basse.saison" | trans }}</td>
+						    <td align="center">{{ p.tarifminbassesaison|replace({"%$%": " "})|number_format(2, '.', ',') }} $</td>
+						    <td align="center">{{ p.tarifmaxbassesaison|replace({"%$%": " "})|number_format(2, '.', ',') }} $</td>
+						    {% endif %}
+						  </tr>							 
+						    {% if p.hebergement.calendrier is not empty %}
+						    	{% for x in p.typeprix %}
+						    		<tr > 
+                                                                    <td>&nbsp;</td>
+                                                                    <td>&nbsp;</td>						  	    										    	
+                                                                    <td  class="tabgris">{{ "autre" | trans }}<sup>{{ x.calendrierid }}</sup></td>
+                                                                    <td align="center">{{ x.prixmin }} $</td>
+                                                                    <td align="center">{{ x.prixmax }} $</td>			    		
+						    		</tr>							    	
+							    {% endfor %}
+						    {% endif %}
+					  </table>
+					<span> 
+                                            {% if app.request.locale == "fr" %}
+						{% for z in client %}
+							{% if z.reservitid is not empty and p.reserverchambreenligne is not empty  %}
+								<a href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.reservitid }}&lang=fr" target="_blank" rel="nofollow" title="réserver cette chambre en ligne">{{ "reserver.cette.chambre" | trans}}</a>
+							{% endif %}
+						{% endfor %}
+                                            {% else %}
+                                                 {% for z in client %}
+							{% if z.reservitid is not empty and p.reserverchambreenligne is not empty %}
+								<a href="http://reservation.global-reservation.com/reservit/reserhotel.php?action=resa&hotelid={{ z.reservitid }}&lang=en" target="_blank" rel="nofollow" title="book this room online">{{ "reserver.cette.chambre" | trans}}</a>
+							{% endif %}
+						{% endfor %}               
+                                            {% endif %}
+						{% if p.tarifpreferentiel != "" %} {{ "tarif.preferentiel" | trans }} {% endif %} 
+					</span> 
+			     	<br class="clearfloat" />
+			     </div>   
+		  	  </div> 
+	  	  {% endfor %}
+	  	  <br class="clearfloat"/>
+	  	  {# CADRE DES POLITIQUES DE L'ÉTABLISSEMENT #}
+	  	  {% if app.request.locale == "fr" %}
+			  	{% for w in client %} 
+			  		{% if w.politiquehebergementfr.politiqueannulationfr is not empty or w.politiquehebergementfr.politiquetariffr is not empty %}
+				  		<div class="condition">
+						 {% if w.politiquehebergementfr.politiqueannulationfr is not empty %} 
+						 	<p><span>{{ "politique.annulation" | trans }}</span> : {{ w.politiquehebergementfr.politiqueannulationfr|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+						 {% endif %}
+						 {% if w.politiquehebergementfr.politiquetariffr is not empty %}
+						    <p><span>{{ w.politiquehebergementfr.politiquetariffr|convert_encoding('UTF-8', 'UTF-8')|striptags }}</span></p>  
+						 {% endif %}
+						</div>
+					{% endif %}
+					{% if w.calendrier is not empty %}
+                                            {% for q in w.calendrier %}
+                                                {% if q.datefinsaison >= datetoday and loop.index == 1 %}
+                                                    <div class="condition"> 
+                                                {% endif %}
+                                                    {% if q.datefinsaison >= datetoday %}<p ><span>{{ q.id }}</span> : {{ q.titrehautesaisonfr }} {{ q.datedebutsaison }} - {{ q.datefinsaison }}</p>	{% endif %}
+						{% if q.datefinsaison >= datetoday and loop.index == 1 %}
+                                                    </div>
+                                                {% endif %}
+                                             {% endfor %}
+					{% endif %}
+				{% endfor %}
+		  {% else %}
+			  	{% for w in client %}
+			  		{% if  w.politiquehebergementen.politiqueannulationen is not empty or w.politiquehebergementen.politiquetarifen is not empty %}
+			  			<div class="condition"> 
+						{% if w.politiquehebergementen.politiqueannulationen is not empty %}
+							<p><span>{{ "politique.annulation" | trans }}</span> : {{ w.politiquehebergementen.politiqueannulationen|convert_encoding('UTF-8', 'UTF-8')|striptags }}</p>
+						{% endif %}
+						{% if w.politiquehebergementen.politiquetarifen is not empty %}
+							<p><span>{{ w.politiquehebergementen.politiquetarifen|convert_encoding('UTF-8', 'UTF-8')|striptags }}</span></p>  
+						{% endif %}
+						 </div>
+					{% endif %}	
+					{% if w.calendrier is not empty %}
+                                            {% for q in w.calendrier %}
+                                                {% if q.datefinsaison >= datetoday and loop.index == 1 %}
+                                                    <div class="condition">
+						{%endif %}	
+                                                    {% if q.datefinsaison >= datetoday %}<p ><span>{{ q.id }}</span> : {{ q.titrehautesaisonen }} {{ q.datedebutsaison }} - {{ q.datefinsaison }}</p> {% endif %}
+						{% if q.datefinsaison >= datetoday and loop.index == 1 %}	
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+					{% endif %}
+				{% endfor %}
+		  {% endif %}
+		  
+		  <br class="clearfloat" />
+		  {# {% endif %} #}
+	{% endfor %}
+		  		
+		  <br class="clearfloat" />
+		  {# PUB GOOGLE #}
+		  <div id="zone_01" class="pubGoogleBottom pubGoogleAttrait" style="margin-top:25px;">
+		  	<script type='text/javascript'>
+				googletag.cmd.push(function() { googletag.display('zone_01'); });				                              
+			</script>
+		  </div>
+{% endblock %}

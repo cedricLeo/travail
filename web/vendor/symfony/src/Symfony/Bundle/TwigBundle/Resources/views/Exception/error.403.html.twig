@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	 <head>
+	 	 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+         {% include'::metas.html.twig' %}
+    	 <link rel="shortcut icon" href="{{ asset('bundles/myappglobal/images/favicon.ico') }}" />
+    	 {% block stylesheets %} 
+    	 	{% include'::files_style.html.twig' %} 
+    	 	<link rel="stylesheet" href="{{ asset('bundles/myappglobal/css/error.css') }}" type="text/css" media="all" />
+    	 {% endblock %}
+    	 {# {% block javascripts %} {% include'::files_js.html.twig' %} {% endblock %}#}
+		 <title>Page 403</title>
+    </head>
+    {% if menuDirectionRoutiere is defined %}
+    <body class="yui-skin-sam" onload="initialize()">
+    {% else %}
+    <body class="yui-skin-sam">
+    {% endif %}
+	<div id="global">
+		<div id="container">
+			<div id="entete">
+				<div>
+				<a {% if app.request.locale == "fr" %} href="http://reservation.global-reservation.com/jreservit/welcomeXml.do?langcode=FR" {% else %} href="http://reservation.global-reservation.com/jreservit/welcomeXml.do?langcode=EN" {% endif %} title="{{ "version.mobile" | trans }}" >{{ "version.mobile" | trans }}</a> |
+				{# }<a href="#">{{ "mon.itineraire" | trans }}</a> |#} <a href="{{ path('login') }}">{{ "connexion" | trans }}</a> | <a href="{{ path('_contact') }}">{{ "contactez.nous" | trans }}</a> | <a href="{{ path('_faq') }}">FAQ</a> | <a href="{{ path('_quisommesnous') }}" title="{{ "qui.sommes.nous" | trans }}">{{ "qui.sommes.nous" | trans }}</a> | 
+				{% if app.request.locale == "fr"  %}
+										<a href="{{ path('_transaction_langue_global',{'langue':'en'}) }}"> <img class="drapeau_traduction" src="{{ asset('bundles/myappglobal/images/flag_en.png') }}" title="English version" alt="version anglaise" /></a> 
+				{% else %}
+										<a href="{{ path('_transaction_langue_global',{'langue':'fr'}) }}"> <img class="drapeau_traduction" src="{{ asset('bundles/myappglobal/images/flag_fr.png') }}" title="Version française" alt="version française" /></a>
+				{% endif %}
+				</div>
+		   </div>
+		   {# MENU HAUT DE LA PAGE (HORIZONTALE) #}	
+			{% include'::menu.html.twig' %}
+		   {# FIL D'ARIANE #}
+		   <div id="logogr"> 
+				<a href="{{ path('_accueil') }}"><img src="{{ asset('bundles/myappglobal/images/LogoGlobalReservation.jpg') }}" alt="Réservation hébergement au Canada" width="181" height="81" border="0" /></a>
+			</div>
+    	{% block picture %} {% endblock %}
+		  <br class="clearfloat"/>
+			<div id="droit" style="margin-bottom:100px; line-height:30px;">
+				{% block body %} 
+			        <h1>Oops! une erreur est survenue</h1>
+			        	{% if app.request.locale == "fr" %}
+						<p>Désolé, la page demandée est introuvable sur notre site. </p>
+					 
+						<p>Essayez l’une des options suivantes : </p>
+						 
+						<p>Vérifier que l’adresse Internet que vous avez entrée est correcte. </p>
+						<p>Essayer d’accéder à la page désirée par la <a href="{{ path('_accueil') }}" title="Retour à l'accueil">page d'accueil</a>. </p> 
+						 
+						{% else %}
+						<h1>Oops! An error occurred</h1>
+						<p>Sorry, the page you requested was not found on our site.</p>
+					 
+						<p>Try one of the following options : </p>
+						 
+						<p>Check the Internet address you entered is correct.</p>
+						<p>Try to access the desired page from the <a href="{{ path('_accueilen') }}" title="Back to home">home page</a>. </p>
+						 
+						{% endif %}
+				{% endblock %}     
+			</div>		
+			<div id="gauche">
+				{% block gauche %}{% endblock %}
+			</div>
+		</div><!-- fermeture du div container -->
+		
+	  </div><!-- fermeture du div global -->
+		<div id="pieddepage">    
+			{# FOOTER #}
+			<div id="footer">
+				<div>
+					{#}<img src="{{ asset('bundles/myappglobal/images/logoGRfooter.png') }}" width="182" height="81" alt="Logo de Global Réservation" align="right"/>#}
+					<br class="clearfloat" />			
+					<p>{{ "descriptif.global" | trans }}</p> 
+					<p><a href="{{ path('_conditionUtilisation') }}">{{ "condition.utilisation" | trans }}</a></p>
+					<p><a href="{{ path('_contact') }}">{{ "contactez.nous" | trans }}</a></p>
+					<p><a href="{{ path('_sitemap') }}">{{ "plan.site" | trans }}</a></p>
+					<p><a href="{{ path('_faq') }}">FAQ</a></p>
+					<br class="clearfloat" />				
+					{#}<img src="{{ asset('bundles/myappglobal/images/logoFooter.gif') }}" width="274" height="49" alt="logo footer"  style="margin-top:18px" />#}
+					<br class="clearfloat" />
+					<p>&copy; Copyright {{ "now"|date('Y') }} Global Réservation inc.</p>
+					</div>
+					<div style="padding-left:8px; width:320px"><img src="{{ asset('bundles/myappglobal/images/telfooter.gif') }}" alt="Réservez un hôtel au 1 877 778-8977" width="286" height="32" style="margin:54px 0 12px 0;" />
+					<a class="btfacebook" href="http://www.facebook.com/pages/Global-Reservation/215568708901" title="Facebook de Global Réservation"><img border="0" src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="38" height="37" alt="Facebook de Global Réservation" /></a>
+					<h3 style="padding:8px 0 0 0;">
+					<a href="http://www.facebook.com/pages/Global-Reservation/215568708901" target="_blank" title="{{ 'suivez.facebook' | trans }}" style="text-decoration:none;">{{ 'suivez.facebook' | trans }}</a>
+					</h3>
+					<br class="clearfloat" />
+					<a class="btrss" href="#" title="Suivez nous sur votre lecteur RSS"><img border="0" src="{{ asset('bundles/myappglobal/images/vide.gif') }}" width="38" height="37" alt="RSS de Québec en saisons" /></a>
+					<h3 style="padding:21px 0 0 0;">{{ "rss" | trans }}</h3>
+					<br class="clearfloat" />
+					<p style="margin-left:52px"><a href="http://www.quebecensaisons.com/tourisme/index.php/feed/" title="{{ "info.blog" | trans }}">{{ "blog.quebec.saison" | trans }}</a><br />
+					<a href="http://www.quebecensaisons.com/include/rss-festivals.php" title="{{ "les.festivaux" | trans }}">{{ "festival.evenement.rss" | trans }}</a><br />
+					<a href="http://www.global-reservation.com/rss/rss-derniere-minute.xml" title="{{ "tarif.minutes" | trans }}">{{ "tarif.derniere.minute" | trans }}</a><br />
+					<a href="http://www.quebecensaisons.com/include/rss-nouveaumembre-activites.php" title="{{ "news.activitees" | trans }}">{{ "nouvelles.activites" | trans }}</a><br />
+					<a href="http://www.quebecensaisons.com/include/rss-nouveaumembre-hebergements.php" title="{{ "news.hebergements" |trans }}">{{ "nouveaux.hebergements" | trans }}</a></p>			
+				</div>
+					<div style="width:289px; margin-left:24px;"><img src="{{ asset('bundles/myappglobal/images/quebecensaisons.png') }}" width="289" height="113" alt="Inscrivez-vous à Québec en Saisons" />
+					<br class="clearfloat" />	
+					{% if app.request.locale == "fr" %}			
+					<p>Consultez régulièrement le bulletin d'information touristique Web Québec en Saisons pour vous donner des idées d'activités à faire, de festivals et événements en vigueur à visiter, de forfaits en vigueur au Québec, de tarifs de dernière minute en vigueur dans différents établissements d'hébergement au Québec et encore plus !!!  Il y a TOUJOURS un CONCOURS en vigueur pour vous inscrire, un magnifique forfait à gagner.  Ne rien manquer sur le tourisme au Québec!</p>
+					{% else %}
+					<p>Visit Quebec’s Seasons tourism newsletter regularly in order to get ideas of activities to do, current festivals and events, packages available in Quebec, last minute deals in different accommodations throughout Quebec and much more!!! There is ALWAYS a CONTEST offered with a very exciting prize. The perfect source in order to get all the information on Quebec tourism.</p>
+					{% endif %}
+					<br class="clearfloat" />
+					<p>{{ "adresse.courriel" | trans }}</p><br />
+					<br />		
+					</div>
+				</div>
+				
+				{% if courrielExiste is not empty and form_errors(formNewLetter.courriel) is empty %}
+					<script>
+						//Efface le champ pour l'adresse courriel
+						 $(function(){
+							 $("#newletter_courriel").val("");
+							 $( "#dialog-message" ).dialog({
+							      modal: true,
+							      buttons: {
+							        Ok: function() {
+							          $( this ).dialog( "close" );
+							        }
+							      }
+							    });
+						 });
+					</script>
+					<div id="dialog-message" title="Confirmation">{% if app.request.locale == "fr" %} Enregistrement confirmé pour la lettre d'information  {% else %} Registration confirmed for the newsletter {% endif %}</div>
+				{% endif %}
+		</div>
+    </body>
+</html>

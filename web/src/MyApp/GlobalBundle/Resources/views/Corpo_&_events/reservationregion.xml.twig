@@ -1,0 +1,102 @@
+{% if app.request.locale == "fr" %}
+<div class="retourregion">
+	<select id="formtopregion" name="formtopregion">
+		{% if reservationRegionAjax is empty %}
+			<option >Choisissez une région </option>
+		{% else %}
+			{% for w in reservationRegionAjax %}
+                        
+                            {% if loop.index == 1 %}
+				<option >Choisissez une région </option>
+                            {% endif %}                                
+                                <option value="{{ w.reservit_id }}" >{{ w.nom_fr }}</option>
+			{% endfor %}
+		{% endif %}
+	</select> <img src="{{ asset('bundles/myappglobal/images/loading.gif') }}" class="formtopregion" />
+</div>
+{% else %}
+<div class="retourregion">
+	<select id="formtopregion" name="formtopregion">
+		{% if reservationRegionAjax is empty %}
+			<option >Choose a region </option>
+		{% else %}
+			{% for w in reservationRegionAjax %}
+                            {% if loop.index == 1 %}
+				<option >Choose a region </option>
+                            {% endif %}
+				<option value="{{ w.reservit_id }}" >{{ w.nom_en }}</option>
+			{% endfor %}
+		{% endif %}
+	</select> <img src="{{ asset('bundles/myappglobal/images/loading.gif') }}" class="formtopregion" />
+</div>
+{% endif %}
+
+<div class="temp">
+<label class="displayReponseListeVille">{{ "ville" | trans }}</label>
+{% if app.request.locale == "fr" %}
+<div class="retourville displayReponseListeVille">
+	<select id="formtopville" name="formtopville">
+		{% if reservationVilleAjax is empty %}
+			<option >Choisissez une ville</option>
+		{% else %}
+			{% for w in reservationVilleAjax %}
+                            {% if loop.index == 1 %}
+				<option >Choisissez une ville</option>
+                            {% endif %}
+				<option value="{{ w.reservit_id }}" >{{ w.nom_fr }}</option>
+			{% endfor %}
+		{% endif %}
+	</select> 
+</div>
+{% else %}
+<div class="retourville displayReponseListeVille">
+	<select id="formtopville" name="formtopville">
+		{% if reservationVilleAjax is empty %}
+			<option >Choose a city</option>
+		{% else %}
+			{% for w in reservationVilleAjax %}
+                            {% if loop.index == 1 %}
+				<option >Choose a city</option>
+                            {% endif %}
+				<option value="{{ w.reservit_id }}" >{{ w.nom_en }}</option>
+			{% endfor %}
+		{% endif %}
+	</select> 
+</div>
+{% endif %}
+</div>
+
+<script>
+	$(function(){
+		$(".formtopregion").hide();
+		$("select#formtopregion ").change(function(){ 
+		    $(".formtopregion").show();
+		    var reservationville = $("#formtopregion").val();
+		    $("#zoneid").attr('value', $("#formtopregion option:selected").val());
+		    var DATA = 'reservationville=' + reservationville  ;
+		    $.ajax({
+		        type: "post",
+		        url: "{{ path('_corpoeventsprovincefrajax')}}",
+		        data: DATA, 
+		        cache: false,
+		        success: function(data){
+		           $('.retourville').html(data);
+		           $(".formtopregion").hide();                                             
+                           updatelink(ajusteDate(reservationville)); 
+                           zoneIdMain = reservationville;      
+		        }
+		    });  
+		    return false;
+		});
+	});
+        
+        //click du bouton
+        $(function(){
+            $("select#formtopville ").change(function(){ 
+               $("#namecity").attr('value', $("#formtopville option:selected").text().toUpperCase());                  
+               updatelink(ajusteDate($("#formtopville").val()));  
+               zoneIdMain = $("#formtopville").val();
+            });
+	});
+		
+</script>

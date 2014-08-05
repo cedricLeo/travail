@@ -1,0 +1,47 @@
+
+<div id="navhaut">
+   	<nav>
+		<ul>
+                {#
+		{% if app.request.locale == "fr" %}
+			<li {%if accueil is defined%} id="{{insection}}" {%endif%} ><a href="{{ path('_accueil') }}" > {{ "accueil" | trans }} </a></li> 
+			<li {%if hebergement is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_hebergementfr') }}"> {{ "hebergement" | trans }} </a></li>
+			<li {%if forfaits is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_forfaitsfr') }}" > {{ "forfait" | trans }} </a></li> 
+			<li {%if corporatif is defined%} id="{{insection}}" {%endif%}><a  href="{{ path('_corpoeventsfr') }}" > {{ "corporatif.evenement" | trans }} </a></li> 
+			<li {%if centre is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_centersante') }}" > {{ "centre.sante.spa" | trans }} </a></li> 
+			<li {%if attraits is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_attraitsactivity') }}" > {{ "attrait.activite" | trans }} </a></li> 	
+			<li {%if destination is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_promotion') }}" class="promotionVisible" > {{ "promotion" | trans }} </a></li>
+		{% else %}
+			<li class="menulinkenglishcss" {%if accueil is defined%} id="{{insection}}" {%endif%} ><a href="{{ path('_accueil') }}" class="typoMenuEnglish" > {{ "accueil" | trans }} </a></li> 
+			<li class="menulinkenglishcss" {%if hebergement is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_hebergementen') }}" class="typoMenuEnglish" > {{ "hebergement" | trans }} </a></li>
+			<li class="menulinkenglishcss" {%if forfaits is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_forfaitsen') }}" class="typoMenuEnglish" > {{ "forfait" | trans }} </a></li> 
+			<li class="menulinkenglishcss" {%if corporatif is defined%} id="{{insection}}" {%endif%}><a  href="{{ path('_corpoeventsen') }}" class="typoMenuEnglish" > {{ "corporatif.evenement" | trans }} </a></li> 
+			<li class="menulinkenglishcss" {%if centre is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_centersante') }}" class="typoMenuEnglish" > {{ "centre.sante.spa" | trans }} </a></li> 
+			<li class="menulinkenglishcss" {%if attraits is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_attraitsactivity') }}" class="typoMenuEnglish" > {{ "attrait.activite" | trans }} </a></li> 
+			<li class="menulinkenglishcss" {%if destination is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_promotionen') }}"  class="typoMenuEnglish" > {{ "promotion" | trans }} </a></li>
+		{% endif %} 
+			<li {% if app.request.locale == "en" %} class="menulinkenglishcss" {% endif %} {%if restaurant is defined%} id="{{insection}}" {%endif%}><a href="{{ path('_restaurant') }}"  {% if app.request.locale == "en" %} class="typoMenuEnglish" {% endif %}> {{ "restaurant" | trans }} </a></li>
+		#}
+                {% if app.request.locale == "fr" %}
+			<li {% if accueil is defined%} id="{{insection}}" {% endif %} ><a href="{{ path('_accueil') }}" > {{ "accueil" | trans }} </a></li> 
+			<li {% if hebergement is defined%} id="{{insection}}" {% endif %}><a href="{{ path('_hebergementfr') }}"> {{ "hebergements" | trans }} </a></li>
+			<li {% if forfaits is defined and forfaits is not empty %} id="{{insection}}" {% endif %}><a href="{{ path('_forfaitsfr') }}" > {{ "forfait" | trans }} </a></li> 
+			<li {% if corporatif is defined and corporatif is not empty %} id="{{insection}}" {% endif %}><a  href="{{ path('_corpoeventsfr') }}"> {{ "corporatif.evenement" | trans }} </a></li> 
+                        <li {% if destination is defined and destination is not empty %} id="{{insection}}" {% endif %}><a href="{{ path('_promotion') }}" class="promotionVisible" > {{ "promotion" | trans }} </a></li>
+			<li {% if centre is defined and centre is not empty %} id="{{insection}}" {% endif %}><a href="http://www.quebec-guidetouristique.travel/activites-quebec/centres-sante-spas/centres-sante-spas.php" target="_blank" rel="nofollow"> {{ "centre.sante.spa" | trans }} </a></li> 
+			<li {% if attraits is defined and attraits is not empty %} id="{{insection}}" {% endif %}><a href="http://www.quebec-guidetouristique.travel/activites-quebec/" target="_blank" rel="nofollow"> {{ "attrait.activite" | trans }} </a></li> 	
+                        <li {% if restaurant is defined and restaurant is not empty %} id="{{insection}}" {% endif %}><a href="http://www.quebec-guidetouristique.travel/activites-quebec/restaurants/restaurants.php" target="_blank" rel="nofollow"> {{ "restaurant" | trans }} </a></li>
+		{% else %}
+			<li class="menulinkenglishcss" {% if accueil is defined %} id="{{insection}}" {% endif %} ><a href="{{ path('_accueil') }}" class="typoMenuEnglish" > {{ "accueil" | trans }} </a></li> 
+			<li class="menulinkenglishcss" {% if hebergement is defined %} id="{{insection}}" {% endif %}><a href="{{ path('_hebergementen') }}" class="typoMenuEnglish" > {{ "hebergements" | trans }} </a></li>
+			<li class="menulinkenglishcss" {% if forfaits is defined and forfaits is not empty %} id="{{insection}}" {% endif %}><a href="{{ path('_forfaitsen') }}" class="typoMenuEnglish" > {{ "forfait" | trans }} </a></li> 
+			<li class="menulinkenglishcss" {% if corporatif is defined and corporatif is not empty %} id="{{insection}}" {% endif %}><a  href="{{ path('_corpoeventsen') }}" class="typoMenuEnglish" > {{ "corporatif.evenement" | trans }} </a></li> 
+			<li class="menulinkenglishcss" {% if destination is defined and destination is not empty %} id="{{insection}}" {% endif %}><a href="{{ path('_promotionen') }}"  class="typoMenuEnglish promotionVisible" > {{ "promotion" | trans }} </a></li>
+                        <li class="menulinkenglishcss" {% if centre is defined and centre is not empty %} id="{{insection}}" {% endif %}><a href="http://www.quebec-guidetouristique.travel/quebec-activities/health-centres-spas/health-centres-spas.php" class="typoMenuEnglish" target="_blank" rel="nofollow"> {{ "centre.sante.spa" | trans }} </a></li> 
+			<li class="menulinkenglishcss" {% if attraits is defined and attraits is not empty %} id="{{insection}}" {% endif %}><a href="http://www.quebec-guidetouristique.travel/activities.aspx" class="typoMenuEnglish" target="_blank" rel="nofollow"> {{ "attrait.activite" | trans }} </a></li> 
+                        <li class="menulinkenglishcss" {% if restaurant is defined and restaurant is not empty %} id="{{insection}}" {% endif %}><a href="http://www.quebec-guidetouristique.travel/quebec-activities/restaurants-en/restaurants.php" target="_blank" class="typoMenuEnglish" rel="nofollow"> {{ "restaurant" | trans }} </a></li>
+                {% endif %} 
+			{# <li {% if app.request.locale == "en" %} class="menulinkenglishcss" {% endif %} {% if restaurant is defined %} id="{{insection}}" {% endif %}><a href="{{ path('_restaurant') }}" target="_blank" {% if app.request.locale == "en" %} class="typoMenuEnglish" {% endif %}> {{ "restaurant" | trans }} </a></li>#}
+                </ul>
+	</nav>
+</div>	

@@ -1,0 +1,11 @@
+{% if provinceOrthographe is defined %}
+	{% if app.request.locale =="fr" %}
+		{% if views == "Québec" or views == "québec" or views == "Nouveau-Brunswick" or views == "nouveau-brunswick" %}
+			au {{ views }}
+		{% elseif views == "Ontario" or views == "ontario" %}
+			en {{ views }}
+		{% endif %}
+	{% else %}
+		in {{ views }}
+	{% endif %}
+{% endif %}

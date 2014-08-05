@@ -1,0 +1,39 @@
+{% extends "::base_mobile.html.twig" %}
+
+{% block body %}
+        {% include '::navigation_fiche_client_mobile.html.twig' %}
+
+        <div id="container"> 
+        {% for p in retourDetail %}
+            <h1>{{ p.nomfr }}</h1>
+                {# VÉRIFICATION SI ON A DES ACTIVITÉS #}
+                {% if distance is not empty %}
+                        <h2 class="title_attrait">{{ "activite.place.proximite" | trans }}</h2>
+                    <table width="340" border="0" cellspacing="1" cellpadding="2" style="font-size:12px; margin-top:12px;">
+                          <tr>
+                            <td width="136">&nbsp;</td>
+                            <td width="34" align="center" bgcolor="#999999" style="color:#FFF" ><strong>Km</strong></td>
+                          </tr>                   
+                            {% for w in distance %}                                    
+                                  <tr>
+                                    <td>{{ w.nomfr }}</td>
+                                    <td align="center" bgcolor="#e5e5e5">{% if w.distance == "0km" or w.distance == "0 km" or w.distance == "0 KM" or w.distance == "0KM" or w.distance == "0 Km" or w.distance == "0 K m" or w.distance == "0 k m" or w.distance == "0 K M" or w.distance == "0" %} {{ "sur.place" | trans }}  {% else %} {{ w.distance }} {% endif %}</td>
+                                  </tr>                                     
+                            {% endfor %}                    
+                    </table>
+                {% endif %}
+                {% if services is not empty %}
+                <h2 class="title_attrait">{{ "services.offerts" | trans }}</h2>
+                <ol>
+                    {% for w in services %}
+                        {% for q in w.hebergementserviceid %}
+                            <li>{{ q.nomfr }}</li>
+                        {% endfor %}
+                    {% endfor %}        
+                </ol>
+                {% endif %}
+        {% endfor %}    
+        </div>
+
+{% endblock %}
+

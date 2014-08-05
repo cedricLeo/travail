@@ -1,0 +1,99 @@
+{# directionss routières #}
+{% if p.descriptionhebergementen.textedirectionroutierepersoen is not empty %}
+    <div class="textedirectionperso">{{ p.descriptionhebergementen.textedirectionroutierepersoen|raw }}</div>
+{% endif %}
+<div id="map" style="border:1px solid greenyellow; width:100%; height:500px;">
+    <p class="load"> 
+        {{ "chargement" | trans }}
+    </p>
+</div>
+<div id="panel"></div>
+{# FORMULAIRE DE SAISIE POINT DE DÉPART ET D'ARRIVÉE #}
+     <form action="" method="get" name="direction" id="direction">
+     	 <br />
+         <label>{{ "depart" | trans }} :</label>
+         <input type="text" name="origin" id="origin">
+         <br />
+         <label>Destination :</label>
+         <input type="text" name="destination" id="destination" value="{{ p.adresse }}, {{ p.villeid.nomen }}">
+         <br />
+         <input type="button" value="{{ "calcul.initeraire" | trans }}" onclick="javascript:calculate()" class="calculItineraire"/>
+         <input type="button" value="{{ "imprimer" | trans }}" onclick="if (window.print) window.print();return false" class="imprimerItineraire" />
+     </form>
+<script type="text/javascript">
+    var map;
+    var panel;
+    var initialize;
+    var calculate;
+    var direction;
+    var gmap_init = 0;
+
+    initialize = function(){
+    {% if p.latitude != 0 and p.longitude != 0 %}	
+       var latLng = new google.maps.LatLng({{ p.latitude }}, {{ p.longitude }});     
+    {% endif %}
+      var myOptions = {
+        zoom      : 14, // Zoom par défaut
+        center    : latLng, // Coordonnées de départ de la carte de type latLng 
+        mapTypeId : google.maps.MapTypeId.ROADMAP, // Type de carte, différentes valeurs possible HYBRID, ROADMAP, SATELLITE, TERRAIN
+        maxZoom   : 20
+      };
+
+      map      = new google.maps.Map(document.getElementById('map'), myOptions);                 
+      panel    = document.getElementById('panel');
+
+      var marker = new google.maps.Marker({
+        position : latLng,
+        map      : map,
+      });
+
+    var contentMarker = [
+          '<div id="containerTabs">',
+          '<p style="font-weight:bold;">{{ p.nomfr }}</p>',
+          {% if p.logo is not empty %}
+                '<img src="{{ asset('uploads/hebergement/logo/logo') }}{{ p.id }}/{{ p.logo }}" alt="{{ p.nomfr }}/>',
+          {% endif %}
+          '</div>'
+      ].join('');
+
+      var infoWindow = new google.maps.InfoWindow({
+        content  : contentMarker,
+        position : latLng
+      });
+
+      google.maps.event.addListener(marker, 'mouseover', function() {
+        infoWindow.open(map,marker);
+      });
+
+      google.maps.event.addListener(infoWindow, 'domready', function(){ // infoWindow est biensûr notre info-bulle
+        jQuery("#tabs").tabs();
+      });
+
+
+      direction = new google.maps.DirectionsRenderer({
+        map   : map,
+        panel : panel // Dom element pour afficher les instructions d'itinéraire
+      });
+    };         
+
+    calculate = function(){
+        origin      = document.getElementById('origin').value; // Le point départ
+        destination = document.getElementById('destination').value; // Le point d'arrivé
+        if(origin && destination){
+            var request = {
+                origin      : origin,
+                destination : destination,
+                travelMode  : google.maps.DirectionsTravelMode.DRIVING // Mode de conduite
+            }
+            var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
+            directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
+                if(status == google.maps.DirectionsStatus.OK){
+                    direction.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
+                }
+            });
+        }
+    };
+    initialize();        
+    
+   
+</script>

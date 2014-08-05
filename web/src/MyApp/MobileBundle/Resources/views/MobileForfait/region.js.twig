@@ -1,0 +1,238 @@
+{% if app.request.locale == "fr" %}
+    <div class="returnregion">
+        <select id="idregion" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+            <option value="0">{{ choixregion }}</option>
+            {% for p in listeRegion %}
+                <option id="{{ p.hebergementid.regionid.repertoirefr|lower }}" value="{{ p.hebergementid.regionid.id }}">{{ p.hebergementid.regionid.nomfr }}</option>
+            {% endfor %}
+        </select>
+        <select id="idville" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+            <option value="0">{{ choixville }}</option>
+            {% for p in listeVille %}
+            <option id="{{ p.hebergementid.villeid.repertoirefr|lower }}" value="{{ p.hebergementid.villeid.id }}">{{ p.hebergementid.villeid.nomfr }}</option>
+            {% endfor %}
+        </select>
+    </div>     
+{% else %}
+    <div class="returnregion">
+        <select id="idregion" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+            <option value="0">{{ choixregion }}</option>
+            {% for p in listeRegion %}
+                <option id="{{ p.hebergementid.regionid.repertoireen|lower }}" value="{{ p.hebergementid.regionid.id }}">{{ p.hebergementid.regionid.nomen }}</option>
+            {% endfor %}
+        </select>
+        <select id="idville" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+            <option value="0">{{ choixville }}</option>
+            {% for p in listeVille %}
+            <option id="{{ p.hebergementid.villeid.repertoireen|lower }}" value="{{ p.hebergementid.villeid.id }}">{{ p.hebergementid.villeid.nomen }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% endif %}
+<script>
+    $(function(){ 
+        
+        function desactiveBtnRecherche(){
+            $("#recherche").on("click", function(event){                    
+                event.preventDefault();                  
+                $(".alert").show().fadeIn( 1000, function(){
+                    $(this).fadeOut(1600);
+                });
+            });
+        }                              
+        
+        {% if app.request.locale == "fr" %}
+            {% include "MyAppMobileBundle:MobileForfait:changeLinkPaginationFr.js.twig" %}     
+        {% else %}
+            {% include "MyAppMobileBundle:MobileForfait:changeLinkPaginationEn.js.twig" %}     
+        {% endif %}   
+        
+        function activeBtnRecherche(){ return true;}
+  
+        //On force à prendre les listes déroulantes les valeurs choisissez ...
+        if(categorieExiste === "" ){
+            $("#idcategorie-button span").text("{{ choixcategorie }}");
+        }
+        if(provinceExiste === "" ){
+            $("#idprovince-button span").text("{{ choixprovince }}");
+        }
+        if(regionExiste === "" ){
+            $("#idregion-button span").text("{{ choixregion }}");
+        }
+        if(villeExiste === "" ){
+            $("#idville-button span").text("{{ choixville }}");
+        }       
+        
+        $("#idcategorie").on("change", function(){ 
+            $(this).off("change");
+            var paramcategorie = $("#idcategorie").val();   
+            var categorieargu = $("#idcategorie option:selected").attr("id");      
+            idCategorie = paramcategorie;
+            categorieExiste = categorieargu;
+            $("#idcategorie").on("click", function(){ 
+                if( typeof parseInt(paramcategorie) === 'number'){  
+                    var DATA = "paramcategorie=" + paramcategorie; 
+                    desactiveBtnRecherche();
+                    //Stocke dans le navigateur le choix de la province
+                    localStorage.setItem("idCategorie", paramcategorie);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ path('MyAppMobileBundle_filtreListes_ajax_forfait') }}",
+                        data: DATA,
+                        success: function(data){                                                                               
+                            $(".returnregion").html(data);                  
+                            //change le lien
+                            if(typeof(categorieargu) === "string" && idCategorie != "" && language === "fr" ){                        
+                                $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_listes_filtre_forfait',{'categorie':"categorieargu", "page":1 })|replace({'categorieargu':'"+categorieargu+"'})|raw }}' >Rechercher</a>");
+                            }else if(typeof(categorieargu) === "string" && idCategorie != "" && language === "en"){
+                                $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_filterDropDownList_forfait_en',{'categorie':"categorieargu", "page":1 })|replace({'categorieargu':'"+categorieargu+"'})|raw }}' >Search</a>");
+                            }else if(typeof(categorieargu) === "string" && idCategorie == "" && language === "fr" ){                        
+                                $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('_sansCategorieForfaitPaysFr',{ "page":1 })}}' >Rechercher</a>");
+                            }else if(typeof(categorieargu) === "string" && idCategorie == "" && language === "en"){
+                                $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('_notPackageCategoryPaysEn',{"page":1 }) }}' >Search</a>");
+                            }
+                            if($("#idcategorie option").attr("id") == categorieargu)
+                            {
+                                $("#idcategorie option:selected").attr("selected");
+                            }
+                            activeBtnRecherche();
+                        }
+                    });
+                    return false;
+                 } 
+            });                       
+         });  
+               
+        $("#idprovince").on("change", function(){ 
+            $(this).off("change");
+            var paramprovince = $("#idprovince").val();   
+            var provinceargu = $("#idprovince option:selected").attr("id"); 
+            idProvince = paramprovince;
+            $("#idprovince").on("click", function(){            
+                if( typeof parseInt(paramprovince) === 'number'){  
+                    if(idCategorie != ""){
+                        var DATA = "paramcategorie=" + idCategorie + "&paramprovince=" + paramprovince;   
+                    }else{
+                        var DATA = "paramprovince=" + paramprovince;   
+                    }
+                    desactiveBtnRecherche();
+                    //Stocke dans le navigateur le choix de la province
+                    localStorage.setItem("idProvince", paramprovince);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ path('MyAppMobileBundle_provincefiltreListes_ajax_forfait') }}",
+                        data: DATA,
+                        success: function(data){                                                                  
+                            $(".returnregion").html(data);                               
+                            //change le lien
+                            if(idProvince !== "" && categorieExiste !== "" && language == "fr"){                                  
+                                $("a#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_province_listes_filtre_forfait',{'categorie':"categorieExiste", 'province':"provinceargu", "page":1 })|replace({'provinceargu':'"+provinceargu+"', "categorieExiste":'"+categorieExiste+"' })|raw }}' >Rechercher</a>");                    
+                            }else if(typeof(provinceargu) === "string" && categorieExiste !== "" && language == "en"){  
+                                $("a#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_province_filterDropDownList_forfait_en',{'categorie':"categorieExiste", 'province':"provinceargu", "page":1 })|replace({'provinceargu':'"+provinceargu+"', "categorieExiste":'"+categorieExiste+"'})|raw }}' >Search</a>");
+                            }else if(typeof(provinceargu) === "string" && categorieExiste === "" && language == "fr"){ 
+                                $("a#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_forfait_province_fr',{'province':"provinceargu", "page":1 })|replace({'provinceargu':'"+provinceargu+"'})|raw }}' >Rechercher</a>");                                
+                            }else if(typeof(provinceargu) === "string" && categorieExiste === "" && language == "en"){
+                                $("a#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_package_province_en',{'province':"provinceargu", "page":1 })|replace({'provinceargu':'"+provinceargu+"'})|raw }}' >Search</a>");
+                            }
+                            if($("#idprovince option").attr("id") == provinceargu)
+                            {
+                                $("#idprovince option:selected").attr("selected");
+                            }          
+                            activeBtnRecherche();
+                        }
+                    });
+                    return false;
+                 } 
+            });                       
+         });                  
+         
+         $("#idregion").on("change", function(){ 
+                $("span.titleregion").text($("#idregion option:selected").text());
+                var paramregion = $("#idregion").val(); 
+                var regionargu = $("#idregion option:selected").attr("id"); 
+                $("#idregion").on("click", function(){ 
+                    if( typeof parseInt(paramregion) === 'number'){                 
+                        if(idCategorie != ""){
+                             var DATA = "paramcategorie=" + idCategorie + "&paramregion=" + paramregion;   
+                         }else{
+                             var DATA = "paramregion=" + paramregion;   
+                         }
+                        desactiveBtnRecherche();
+                        //Stocke dans le navigateur la région
+                        localStorage.setItem("idRegion", paramregion);                 
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ path('MyAppMobileBundle_regionfiltreListes_ajax_forfait') }}",
+                            data: DATA,
+                            cache:false,
+                            success: function(data){                                                  
+                                 $(".returnregion").html(data);               
+                                 //change le lien
+                                 if(typeof(regionargu) === "string" && idCategorie !== "" && language == "fr"){                        
+                                     $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_region_listes_filtre_forfait',{'categorie':"categorieExiste", 'region':"regionargu",  "page":1 })|replace({"categorieExiste":'"+categorieExiste+"', 'regionargu':'"+regionargu+"'})|raw }}' >Rechercher</a>");
+                                 }else if(typeof(regionargu) === "string" && idCategorie !== "" && language == "en"){ 
+                                     $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_region_filterDropDownList_forfait_en',{'categorie':"categorieExiste", 'region':"regioneargu", "page":1 })|replace({"categorieExiste":'"+categorieExiste+"', 'regionargu':'"+regionargu+"'})|raw }}' >Search</a>");
+                                 }else if(typeof(regionargu) === "string" && idCategorie === "" && language == "fr"){ 
+                                     $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_forfait_region_fr',{'region':"regionargu", "page":1 })|replace({'regionargu':'"+regionargu+"'})|raw }}' >Rechercher</a>");                               
+                                 }else if(typeof(regionargu) === "string" && idCategorie === "" && language == "en"){ 
+                                     $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_package_region_en',{'region':"regionargu", "page":1 })|replace({'regionargu':'"+regionargu+"'})|raw }}' >Search</a>");
+                                 }
+                                 if($("#idregion option").attr("id") == regionargu)
+                                 {
+                                     $("#idregion option:selected").attr("selected");
+                                 }
+                                 activeBtnRecherche();
+                            }
+                        });
+                        return false;
+                    }  
+                });
+         }); 
+         
+        $("#idville").on("change", function(){ 
+            $("span.titleville").text($("#idville option:selected").text());
+                var paramville = $("#idville").val(); 
+                var villeargu = $("#idville option:selected").attr("id"); 
+                villeExiste = villeargu;
+                $("#idville").on("click", function(){ 
+                    if( typeof parseInt(paramville) === 'number'){                 
+                        /*if(idCategorie != ""){
+                             var DATA = "paramcategorie=" + idCategorie + "&paramregion=" + paramregion;   
+                        }else{
+                             var DATA = "paramregion=" + paramregion;   
+                        }*/
+                        desactiveBtnRecherche();
+                        //Stocke dans le navigateur la région
+                       /* localStorage.setItem("idRegion", paramregion);                 
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ path('MyAppMobileBundle_regionfiltreListes_ajax_forfait') }}",
+                            data: DATA,
+                            cache:false,
+                            success: function(data){                                                  
+                                 $(".returnregion").html(data); */              
+                                 //change le lien
+                                 if(typeof(villeargu) === "string" && idCategorie !== "" && language == "fr"){                        
+                                     $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_ville_listes_filtre_forfait',{'categorie':"categorieExiste", 'ville':"villeExiste",  "page":1 })|replace({"categorieExiste":'"+categorieExiste+"', 'villeExiste':'"+villeExiste+"'})|raw }}' >Rechercher</a>");
+                                 }else if(typeof(villeargu) === "string" && idCategorie !== "" && language == "en"){ 
+                                     $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_ville_filterDropDownList_forfait_en',{'categorie':"categorieExiste", 'ville':"villeExiste", "page":1 })|replace({"categorieExiste":'"+categorieExiste+"', 'villeExiste':'"+villeExiste+"'})|raw }}' >Search</a>");
+                                 }else if(typeof(villeargu) === "string" && idCategorie === "" && language == "fr"){ 
+                                     $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_forfait_ville_fr',{'ville':"villeargu", "page":1 })|replace({'villeargu':'"+villeargu+"'})|raw }}' >Rechercher</a>");                               
+                                 }else if(typeof(villeargu) === "string" && idCategorie === "" && language == "en"){ 
+                                     $("#recherche").replaceWith("<a id='recherche' style='margin-top:100px;' href='{{ path('MyAppMobileBundle_package_ville_en',{'ville':"villeargu", "page":1 })|replace({'villeargu':'"+villeargu+"'})|raw }}' >Search</a>");
+                                 }
+                                 if($("#idville option").attr("id") == villeargu)
+                                 {
+                                     $("#idville option:selected").attr("selected");
+                                 }
+                                 activeBtnRecherche();
+                        /*    }
+                        });
+                        return false;*/
+                    }  
+               });
+         }); 
+         
+          
+    });
+</script>    

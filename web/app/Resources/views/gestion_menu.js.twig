@@ -1,0 +1,54 @@
+<script>
+    $(function(){
+       /* var section = "{{ section }}";   
+        //méthode boucler pour cacher les autres div des sections
+        var boucle = function(valeur){
+            valeur = valeur.substring(4);
+            console.log(valeur);
+            for(var i = 0; i < 9; i++){
+                $("#container > div").hide();
+                $("#container #"+valeur).show();                   
+            }
+            return this.section = valeur;
+        }
+        if(section == "menuhome"){
+            boucle(section);            
+        }else if(section == "menuroom"){
+            boucle(section);           
+        }else if(this.section == "menupackage"){
+            boucle(section);
+        }else if(this.section == "menuactivities"){
+            boucle(section);
+        }else if(section == "menucorporate"){
+            boucle(section);
+        }else if(section == "menugallery"){
+            boucle(section);
+        }else if(section == "menusante"){
+            boucle(section);
+        }else if(this.section == "menurestaurant"){
+            boucle(section);
+        }else if(section == "menuinformation"){
+            boucle(section);
+        }else{
+            boucle(section);
+        }*/
+        
+        /*$("ul.menuNavigation li a").on("click", function(){           
+            boucle($(this).attr("id"));
+        });*/
+        
+        //force le rechargement de la carte
+        $("#menudirection").on("click", function(){
+            if(gmap_init == 0){
+                gmap_init = 1;
+                initialize();
+            }
+        });
+        
+       
+        
+       
+        
+        
+    });
+</script>

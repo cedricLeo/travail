@@ -1,0 +1,284 @@
+logout:
+    pattern: /logout
+    defaults: { _controller: MyAppAdminBundle:Security:logout}
+    requirements:
+       _method: GET
+
+#redirection pour les roles
+_redirectionRole:
+    pattern: /
+    defaults: { _controller: MyAppCustomerBundle:Default:redirigeEnFonctionRole }
+    requirements:
+       _method: GET
+
+#Traduction pour la version francaise
+_langue_admin_client:
+    pattern:  /choisir-langue/{langue}/{id}
+    defaults: { _controller: MyAppCustomerBundle:Default:traductionLangueAdmin, langue:langue, id:id}
+#Accueil
+_Dashboard_compteCustomer:
+    pattern:  /compte.html/{id}/{name}/{fiche}/{redirect}/{rechargement}
+    defaults: { _controller: MyAppCustomerBundle:Default:accessCompteCustomer, id:id, name:name, fiche:fiche, redirect:redirect, rechargement:rechargement }
+    requirements:
+       id: \d+
+#Textes de la page attrait        
+MyAppTextAttrait:
+    pattern: /textes_attrait.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:texteAttrait, id:id, name:name, redirect:redirect} 
+    requirements:
+       id: \d+
+#Forfaits du client
+#Texte Promotion
+MyAppPromotion:
+    pattern: /promotion.html/{idclient}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:textpromotion, idclient:idclient, name:name, redirect:redirect} 
+    requirements:
+#       id: \d+
+#       _method: POST
+#Affiche les forfaits
+MyAppForfait:
+    pattern: /forfaits.html/{id}/{name}/{msg}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:forfait, id:id, name:name, msg:msg, redirect:redirect} 
+    requirements:
+       id: \d+
+#ajouter un forfait
+MyAppForfaitAdd:
+    pattern: /ajouter_forfait.html/{idclient}/{name}/{idforfait}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:addforfait, idclient:idclient, name:name, idforfait:idforfait, redirect:redirect} 
+    requirements:
+       idclient: \d+
+#Modifier un forfait
+MyAppForfaitUpdate:
+    pattern: /modifier_forfait.html/{idclient}/{name}/{idforfait}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:addforfait, idclient:idclient, name:name, idforfait:idforfait, redirect:redirect} 
+    requirements:
+#       id: \d+
+#Supprimer un forfait
+MyAppForfaitDelete:
+    pattern: /supprimer_forfait.html/{idclient}/{name}/{idforfait}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:deleteforfait, idclient:idclient, name:name, idforfait:idforfait, redirect:redirect} 
+    requirements:
+       idclient: \d+
+       idforfait: \d+
+#Ajouter les textes politiques pour les forfaits
+MyAppTexteForfait:
+    pattern: /textes_politiques_forfaits.html/{idclient}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:addtexteforfait, idclient:idclient, name:name, redirect:redirect} 
+    requirements:
+       idclient: \d+
+#Tarifs et horaires               
+MyAppTarifHoraire:
+    pattern: /tarifs_horaires.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:tarifHoraire, id:id, name:name, redirect:redirect}   
+    requirements:
+       id: \d+
+#Modes de paiements et devises    
+MyAppPaiementDevise:
+    pattern: /modes_paiements_et_devises.html/{id}/{name}/{msg}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:paiementDeviseCustomer, id:id, name:name, msg:msg, redirect:redirect}
+    requirements:
+        id: \d+
+#Activites et services 
+#Activites hebergements          
+MyAppActiviteHebergement:  
+    pattern: /activites_hebergement.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:activiteHebergement, id:id, name:name, redirect:redirect}
+    requirements:
+       id: \d+
+#Services hebergements
+MyAppServiceHebergement:  
+    pattern: /services_hebergement.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:serviceHebergement, id:id, name:name, redirect:redirect}
+    requirements:
+       id: \d+
+#Activites attraits          
+MyAppActiviteAttrait:  
+    pattern: /activites_attrait.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:activiteAttrait, id:id, name:name, redirect:redirect}
+    requirements:
+       id: \d+
+#Services attraits
+MyAppServiceAttrait:  
+    pattern: /services_attrait.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:serviceAttrait, id:id, name:name, redirect:redirect}
+    requirements:
+       id: \d+
+#Soins sante
+MyAppSoinSanteAttrait:  
+    pattern: /soins_sante.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:soinsanteAttrait, id:id, name:name, redirect:redirect}
+    requirements:
+       id: \d+
+#Soins sante en
+MyAppSoinSanteAttraiten:  
+    pattern: /soins_sante.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:soinsanteAttrait, id:id, name:name, redirect:redirect}
+    requirements:
+       id: \d+
+#Coupons rabais                  
+MyAppCouponRabais:
+    pattern: /coupons.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:rabaisCoupon, id:id, name:name, redirect:redirect}    
+    requirements:
+       id: \d+
+#Ajout des coupons rabais                  
+MyAppAddCouponRabais:
+    pattern: /ajouter_coupons.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:addrabaisCoupon, id:id, name:name, redirect:redirect}    
+    requirements:
+       id: \d+
+#Modifier des coupons rabais                  
+MyAppUpdateCouponRabais:
+    pattern: /modifier_coupons.html/{id}/{name}/{couponid}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:updaterabaisCoupon, id:id, name:name, couponid:id, redirect:redirect}    
+    requirements:
+       id: \d+
+#Supprimer des coupons rabais                  
+MyAppDeleteCouponRabais:
+    pattern: /supprimer_coupons.html/{idcoupon}/{idclient}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:deleterabaisCoupon, idcoupon:idcoupon, idclient:idclient, name:name}    
+    requirements:
+       id: \d+
+#Textes de la page hebergement     
+MyAppTextHebergement:
+    pattern: /textes_hebergement.html/{id}/{name}/{msg}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:texteHebergement, id:id, name:name, msg:msg, redirect:redirect} 
+    requirements:
+       id: \d+
+#Affiche la liste des Chambres     
+MyAppChambre:
+    pattern: /chambre.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:listeChambre, id:id, name:name, redirect:redirect} 
+    requirements:
+       id: \d+
+#Ajouter des Chambres     
+MyAppAddChambre:
+    pattern: /ajouter_chambre.html/{idclient}/{name}/{idchambre}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:addChambre, idclient:idclient, name:name, idchambre:idchambre, redirect:redirect} 
+    requirements:
+       id: \d+
+#Modifier des Chambres     
+MyAppUpdateChambre:
+    pattern: /modifier_chambre.html/{idclient}/{name}/{idchambre}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:addChambre, idclient:idclient, name:name, idchambre:idchambre, redirect:redirect} 
+    requirements:
+       id: \d+
+#Supprimer une chambre     
+MyAppDeleteChambre:
+    pattern: /supprimer_chambre.html/{idclient}/{name}/{idchambre}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:deleteChambre, idclient:idclient, name:name, idchambre:idchambre, redirect:redirect} 
+    requirements:
+       id: \d+
+#Liste les salles corporatives    
+MyAppCorporatif:
+    pattern: /corporatif.html/{id}/{name}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:corporatif, id:id, name:name, redirect:redirect} 
+    requirements:
+       id: \d+
+#Ajouter un corporatif    
+MyAppAddCorporatif:
+    pattern: /ajouter_corporatif.html/{idclient}/{name}/{idcorpo}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:addCorporatif, idclient:idclient, name:name, idcorpo:idcorpo, redirect:redirect} 
+    requirements:
+       id: \d+
+#Modifier un corporatif     
+MyAppUpdateCorporatif:
+    pattern: /modifier_corporatif.html/{idclient}/{name}/{idcorpo}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:addCorporatif, idclient:idclient, name:name, idcorpo:idcorpo, redirect:redirect} 
+    requirements:
+       id: \d+
+#Supprimer un corporatif    
+MyAppDeleteCorporatif:
+    pattern: /supprimer_corporatif.html/{idclient}/{name}/{idcorpo}/{redirect}
+    defaults: { _controller: MyAppCustomerBundle:Default:deleteCorporatif, idclient:idclient, name:name, idcorpo:idcorpo, redirect:redirect} 
+    requirements:
+       idclient: \d+
+       idcorpo: \d+
+#suppression des periodes de haute saison
+_periodedelete:
+    pattern: /suppression_periode
+    defaults: { _controller: MyAppCustomerBundle:Default:getPeriodeDelete} 
+#affichage des vignettes des images de la galerie pour l'hebergement
+_displayvignette:
+    pattern: /affichage_vignette_hebergement
+    defaults: { _controller: MyAppCustomerBundle:Default:getDisplayThumbnail} 
+#suppression des images pour la galerie de l'hebergement
+_galeriehebergementdelete:
+    pattern: /suppression_image_galerie_hebergement
+    defaults: { _controller: MyAppCustomerBundle:Default:getGalerieHebergementDelete} 
+#upload de l'image de la galerie hebergement par ajax
+_galeriehebergementupload:
+    pattern: /upload_image_galerie_hebergement
+    defaults: { _controller: MyAppCustomerBundle:Default:getGalerieHebergementUpload} 
+#affichage des vignettes des images de la galerie pour les chambres
+_displayvignetteroom:
+    pattern: /affichage_vignette_chambre
+    defaults: { _controller: MyAppCustomerBundle:Default:getDisplayThumbnailRoom}    
+#suppression des images pour la galerie des chambres
+_galeriechambredelete:
+    pattern: /suppression_image_galerie_chambre
+    defaults: { _controller: MyAppCustomerBundle:Default:getGalerieChambreDelete}     
+#affichage des vignettes des images de la galerie pour les forfaits
+_displayvignettepackage:
+    pattern: /affichage_vignette_forfait
+    defaults: { _controller: MyAppCustomerBundle:Default:getDisplayThumbnailPackage} 
+#suppression des images pour la galerie des forfaits
+_galeriePackageforfaitdelete:
+    pattern: /suppression_image_galerie_forfait
+    defaults: { _controller: MyAppCustomerBundle:Default:getGaleriePackageDelete} 
+#affichage des vignettes des images de la galerie pour les corporatifs
+_displayvignettecorporatif:
+    pattern: /affichage_vignette_corporatif
+    defaults: { _controller: MyAppCustomerBundle:Default:getDisplayThumbnailCorporate} 
+#suppression des images pour la galerie des corporatifs
+_galeriePackagedelete:
+    pattern: /suppression_image_galerie_corporatif
+    defaults: { _controller: MyAppCustomerBundle:Default:getGalerieCorporateDelete} 
+#affichage des vignettes des images de la galerie pour les attraits
+_displayvignetteattrait:
+    pattern: /affichage_vignette_attrait
+    defaults: { _controller: MyAppCustomerBundle:Default:getDisplayThumbnailAttrait} 
+#suppression des images pour la galerie des attraits
+_galerieAttraitdelete:
+    pattern: /suppression_image_galerie_attrait
+    defaults: { _controller: MyAppCustomerBundle:Default:getGalerieAttraitDelete} 
+#enregistre l'ordre d'affichage des chambres
+_ordreaffichagechambre:
+    pattern: /ordre_affichage
+    defaults: { _controller: MyAppCustomerBundle:Default:getOrdreAffichageChambre} 
+#upoload de l'image principale pour l'attrait
+_uploadimgprincipaleattrait:
+    pattern: /upload_image_principale_attrait.html/{id}/{name}
+    defaults: { _controller: MyAppCustomerBundle:Default:uploadImgMainAttrait, id:id, name:name}
+#upoload de l'image principale pour l'hebergement
+_uploadimgprincipalehebergement:
+    pattern: /upload_image_principale_hebergement.html
+    defaults: { _controller: MyAppCustomerBundle:Default:uploadImgMainHebergement} 
+#upload img categorie pour l'hebergement
+_uploadcategoriehebergement:
+    pattern: /upload_categorie_hebergement.html
+    defaults: { _controller: MyAppCustomerBundle:Default:uploadImgCategoryHebergement}    
+#upload logo pour l'hebergement
+_uploadlogohebergement:
+    pattern: /upload_logo_hebergement.html
+    defaults: { _controller: MyAppCustomerBundle:Default:uploadImgLogoHebergement}    
+#upload de l'image principale pour l'attrait
+_uploadimgprincipaleattrait:
+    pattern: /upload_image_principale_attrait.html
+    defaults: { _controller: MyAppCustomerBundle:Default:uploadImgMainAttrait}       
+#upload de l'image categorie pour l'attrait
+_uploadimgcategorieattrait:
+    pattern: /upload_image_categorie_attrait.html
+    defaults: { _controller: MyAppCustomerBundle:Default:uploadImgCategoryAttrait}   
+#upload logo pour l'attrait
+_uploadlogoattrait:
+    pattern: /upload_logo_attrait.html
+    defaults: { _controller: MyAppCustomerBundle:Default:uploadImgLogoAttrait}     
+#Videos externes                 
+#MyAppVideoExterne:
+#    pattern: /videos_externes/{id}
+ #   defaults: { _controller: MyAppCustomerBundle:Default:movieExterne, id:id}
+#Videos internes               
+#MyAppVideoInterne:
+#    pattern: /videos_interne/{id}
+#    defaults: { _controller: MyAppCustomerBundle:Default:movieInterne, id:id}

@@ -1,0 +1,10 @@
+<meta charset="UTF-8">  
+{# Title et metadescription #}     
+{% if app.request.locale == "fr" %}
+    {% include "::meta_lang_fr.html.twig" %}
+{% else %}
+    {% include "::meta_lang_en.html.twig" %}
+{% endif %}     
+
+             
+                                		

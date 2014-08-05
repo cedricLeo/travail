@@ -1,0 +1,202 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="boiteinfo">
+{% if exist == 0 %}
+	<h1 >Ajouter une chambre</h1>
+{% else %}
+	<h1>Modifier la chambre « {{ name }} »</h1>
+{% endif %}
+		<div class="ouvert">
+			<div class="gris">
+				<form action="" method="post" {{ form_enctype(form) }} class="update_state_form">	
+					{% if exist == 1 %}
+				    <a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une chambre">{{ "supprimer" | trans }}</a><a href="#delete_hide" name="#reset" class="confirm_delete" title="Pour supprimer une chambre"><img src="{{ asset('bundles/myappadmin/images/Stop.png') }}" class="icon_delete"></a>
+				    <div id="delete_hide">
+				    	<p >{{ "supprimer.chambre" | trans }}: {{ name }} ?</p>
+                                            <a href="{{ path('MyAppDeleteChambre', {'idclient':idclient, 'name':repertoire, 'idchambre':idchambre, 'redirect':redirect}) }}" class="detroye_state2" >{{ "supprimer" | trans }}</a>
+                                            <a href="#reset" class="boutonannuler2 ajuste_btn_cancel2">{{ "annuler" | trans }}</a>
+				    </div>	
+				    <p></p>
+				    <br />
+				    {% endif %}     
+				    {{ form_label(form.actif, "active.la.chambre" | trans, {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.actif, {'attr':{'class':'checkbox'}}) }}	
+				    {{ form_errors(form.actif ) }}	
+				    {{ form_label(form.type_chambre_id, "type.de.chambre" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.type_chambre_id, {'attr':{'class':'txt_add_state'}}) }}	
+				    {{ form_errors(form.type_chambre_id ) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.lit_id, "liste.des.lits" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.lit_id, {'attr':{'class':'txt_add_state'}}) }}	
+				    {{ form_errors(form.lit_id ) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.equipement_id, "liste.des.equipements" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.equipement_id, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.equipement_id ) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.quantite, "quantite" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.quantite, {'attr':{'class':'txt_add_state', "maxlength":"4"}}) }}
+				    {{ form_errors(form.quantite ) }}
+                                    {{ form_label(form.nombre_lit, "nombre.lit" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.nombre_lit, {'attr':{'class':'txt_add_state', "maxlength":"4"}}) }}
+				    {{ form_errors(form.nombre_lit ) }}
+				    {{ form_label(form.nom_fr, "titre.fr" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.nom_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.nom_fr ) }}
+				    {{ form_label(form.nom_en, "titre.en" | trans, {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.nom_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.nom_en ) }}
+				    {{ form_label(form.texte_presentation_fr, "texte.presentation.fr" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.texte_presentation_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.texte_presentation_fr ) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.texte_presentation_en, "texte.presentation.en" | trans, {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.texte_presentation_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.texte_presentation_en ) }}	
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.description_fr, "description.fr" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+				    {{ form_widget(form.description_fr, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.description_fr ) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.description_en, "description.en" | trans, {'attr':{'class':'lblnompays flag_en'}}) }}
+				    {{ form_widget(form.description_en, {'attr':{'class':'txt_add_state'}}) }}
+				    {{ form_errors(form.description_en ) }}
+				    <p class="resize_p_form">&nbsp;</p>
+				    {{ form_label(form.max_personne, "nombre.occupants" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.max_personne, {'attr':{'class':'txt_add_state', "maxlength":"2"}}) }}
+				    {{ form_errors(form.max_personne ) }}
+				    {{ form_label(form.tarif_preferentiel, "tarif.preferentiel" | trans, {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.tarif_preferentiel, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_errors(form.tarif_preferentiel ) }}
+				    {% if exist != 0 %}
+					    {% if periodeHauteSaison is not empty %}	   
+						    {% for w in periodeHauteSaison %}
+						    	{% if vide == 1 %}
+						    		{% for p in periodeHauteSaison %}
+						    			{% for w in p.calendrier %}
+									    	{% if app.request.locale == "fr" %}
+									    		<label class="lblnompays"> {% if w.titrehautesaisonfr is defined %} {{ w.titrehautesaisonfr }} {% endif %} {{ "basse.saison.admin.client" | trans }}</label>
+									    	      #	<input type="text" name="prixperiodemin{{ w.id }}" value="{% if w.prixmin is defined %} {{ w.prixmin|number_format(2, '.', ',') }} {% endif %}" class="txt_add_state" />
+									    		<label class="lblnompays"> {% if w.titrehautesaisonfr is defined %} {{ w.titrehautesaisonfr }} {% endif %} {{ "haute.saison.admin.client" | trans }}</label>
+                                                                                      #  <input type="text" name="prixperiodemax{{ w.id }}" value="{% if w.prixmax is defined %} {{ w.prixmax|number_format(2, '.', ',') }} {% endif %}" class="txt_add_state" />
+									    	{% else %}
+									    		<label class="lblnompays"> {% if w.titrehautesaisonen is defined %} {{ w.titrehautesaisonen }} {% endif %} {{ "basse.saison.admin.client" | trans }}</label>
+											<input type="text" name="prixperiodemin{{ w.id }}" value="{% if w.prixmin is defined %} {{ w.prixmin|number_format(2, '.', ',') }} {% endif %}" class="txt_add_state" />
+									    		<label class="lblnompays"> {% if w.titrehautesaisonen is defined %} {{ w.titrehautesaisonen }} {% endif %} {{ "haute.saison.admin.client" | trans }}</label>
+											<input type="text" name="prixperiodemax{{ w.id }}" value="{% if w.prixmax is defined %} {{ w.prixmax|number_format(2, '.', ',') }} {% endif %}" class="txt_add_state" />
+									    	{% endif %} 
+										{% endfor %}
+									{% endfor %}
+								{% else %}
+									{% if app.request.locale == "fr" %}
+							    		<label class="lblnompays"> {{ w.titrehautesaisonfr }} {{ "basse.saison.admin.client" | trans }}</label>
+							    		<input type="text" name="prixperiodemin{{ w.id }}" value="{% if w.prixmin is defined %} {{ w.prixmin|number_format(2, '.', ',') }} {% endif %}" class="txt_add_state" />
+							    		<label class="lblnompays"> {{ w.titrehautesaisonfr }} {{ "haute.saison.admin.cliemt" | trans }}</label>
+                                                                        <input type="text" name="prixperiodemax{{ w.id }}" value="{% if w.prixmax is defined %} {{ w.prixmax|number_format(2, '.', ',') }} {% endif %}" class="txt_add_state" />
+							    	{% else %}
+							    		<label class="lblnompays"> {{ w.titrehautesaisonen }} {{ "basse.saison.admin.client" | trans }}</label>
+									<input type="text" name="prixperiodemin{{ w.id }}" value="{% if w.prixmin is defined %} {{ w.prixmin|number_format(2, '.', ',') }} {% endif %}" class="txt_add_state" />
+							    		<label class="lblnompays"> {{ w.titrehautesaisonen }} {{ "haute.saison.admin.client" | trans }}</label>
+									<input type="text" name="prixperiodemax{{ w.id }}" value="{% if w.prixmax is defined %} {{ w.prixmax|number_format(2, '.', ',') }} {% endif %}" class="txt_add_state" />
+							    	{% endif %} 
+								{% endif %}
+						    {% endfor %}
+						{% endif %}
+					{% else %}
+						{% if periodeHauteSaison is not empty %}	   
+						    {% for w in periodeHauteSaison %}
+						    	{% if app.request.locale == "fr" %}
+						    	<label class="lblnompays">{{ w.titrehautesaisonfr }} {{ "basse.saison.admin.client" | trans }}</label>
+						    	<input type="text" name="prixperiodemin{{ w.id }}" value="" class="txt_add_state " maxlength="7"/>
+						    	<label class="lblnompays">{{ w.titrehautesaisonfr }} {{ "haute.saison.admin.client" | trans }}</label>
+						    	<input type="text" name="prixperiodemax{{ w.id }}" value="" class="txt_add_state " maxlength="7"/>
+						    	{% else %}
+						    	<label class="lblnompays">{{ w.titrehautesaisonen }} {{ "basse.saison.admin.client" | trans }}</label>
+						    	<input type="text" name="prixperiodemin{{ w.id }}" value="" class="txt_add_state " maxlength="7"/>
+						    	<label class="lblnompays">{{ w.titrehautesaisonen }} {{ "haute.saison.admin.client" | trans }}</label>
+						    	<input type="text" name="prixperiodemax{{ w.id }}" value="" class="txt_add_state " maxlength="7"/>
+						    	{% endif %}
+						    {% endfor %}
+						{% endif %}
+					{% endif %}
+					<div id="bottomformchambre">
+				    {{ form_label(form.tarif_min_basse_saison, "tarif.minimum.basse.saison" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_min_basse_saison, {'attr':{'class':'txt_add_state', "maxlength":"7"}}) }}
+				    {{ form_errors(form.tarif_min_basse_saison ) }}
+				    {{ form_label(form.tarif_max_basse_saison, "tarif.maximum.basse.saison" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_max_basse_saison, {'attr':{'class':'txt_add_state', "maxlength":"7"}}) }}
+				    {{ form_errors(form.tarif_max_basse_saison ) }}
+				    {{ form_label(form.tarif_min_haute_saison, "tarif.minimum.haute.saison" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_min_haute_saison, {'attr':{'class':'txt_add_state', "maxlength":"7"}}) }}
+				    {{ form_errors(form.tarif_min_haute_saison ) }}
+				    {{ form_label(form.tarif_max_haute_saison, "tarif.maximum.haute.saison" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.tarif_max_haute_saison, {'attr':{'class':'txt_add_state', "maxlength":"7"}}) }}
+				    {{ form_errors(form.tarif_max_haute_saison ) }}
+				    {{ form_label(form.dejeuner_continental, "dejeuner.continental" | trans, {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.dejeuner_continental, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_errors(form.dejeuner_continental ) }}
+				    {{ form_label(form.dejeuner_americain, "dejeuner.americain" | trans, {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.dejeuner_americain, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_errors(form.dejeuner_americain ) }}
+				    {{ form_label(form.dejeuner_buffet, "dejeuner.buffet" | trans, {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.dejeuner_buffet, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_errors(form.dejeuner_buffet ) }}
+				    {{ form_label(form.dejeuner_non_compris, "dejeuner.non.compris" | trans, {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.dejeuner_non_compris, {'attr':{'class':'checkbox'}}) }}
+				    {{ form_errors(form.dejeuner_non_compris ) }}
+                                    {{ form_label(form.reserver_chambre_en_ligne, "reserver.la.chambre" | trans, {'attr':{'class':'lblnompays lblcheckbox'}}) }}
+				    {{ form_widget(form.reserver_chambre_en_ligne, {'attr':{'class':'checkbox'}}) }}	
+				    {{ form_errors(form.reserver_chambre_en_ligne ) }}	
+				    {{ form_label(form.photo1_doctrine, "image.pour.la.presentation" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.photo1_doctrine, {'attr':{'class':'txt_add_state'}}) }}	
+				    {{ form_errors(form.photo1_doctrine ) }}
+				    {% if infoimg is defined and infoimg != "" %}
+				    	<img src="{{ asset('uploads/chambres') }}/{{ idchambre }}/{{ infoimg }}" style="width:157px; height:101px; position:relative; top:-40px; left:540px;" />
+				    {% endif %}
+				    <p>{{ "affichage.chambre.sur.minisite.client" | trans }}</p>
+				    {{ form_label(form.ordre_affichage, "ordre.affichage" | trans, {'attr':{'class':'lblnompays'}}) }}
+				    {{ form_widget(form.ordre_affichage, {'attr':{'class':'txt_add_state', "maxlength":"3"}}) }}
+				    {{ form_errors(form.ordre_affichage ) }}
+				    {# GALERIE PHOTO #}	
+				    <h3 id="Hour_summer">{{ "galerie.photo" | trans }}</h3>
+					<div id="Open_summer">
+				    	<ul class="tags" data-prototype="{{ form_widget(form.galerie_chambre.vars.prototype)|e }}"> </ul>
+				    	{{ form_errors(form.galerie_chambre ) }}
+						{% include '::galerie_photo.html.twig' %}
+						{# AFFICHAGE ET SUPPRÉSSION DES THUMBNAILS #}
+						{% include 'MyAppCustomerBundle:MiniSite:display_gallery_chambre.xml.twig' %}
+					</div>
+				    <p class="resize_p_form">&nbsp;</p>		
+				    {{ form_rest(form) }}	
+				    <input type="submit" value="{{ "submit.texte.attrait" | trans }}" class="boutonvalidenregistrer2 boutonvalideenregistrerform2"/>
+				    <a href="{{ path('_Dashboard_compteCustomer') }}" class="boutonannuler2 boutonannulerform2">{{ "annuler" | trans }}</a>
+				    </div>
+				</form>
+				<div id="dialog-message" title="{{ "erreur" | trans }}"></div>
+				<script>                                   
+                                        CKEDITOR.replace( 'add_chambre_client_description_fr' );
+                                        CKEDITOR.replace( 'add_chambre_client_description_en' );
+					$(function(){                                                
+						//Ajoute l'action de déroulement pour la galerie
+						$("#Open_summer").hide();
+						$("#Hour_summer").click(function(){
+							$("#Open_summer").slideToggle();
+						});
+						var $gallery = $("#add_chambre_client_galerie_chambre");
+						$("#Open_summer").append($gallery);
+						$("form.update_state_form div").last().remove();
+						//Valeurs des champs prix min et max
+						$prixminhautsaison = $("#add_chambre_client_tarif_min_haute_saison").val();
+						$prixmaxhautsaison = $("#add_chambre_client_tarif_max_haute_saison").val();
+						$prixminbassaison = $("#add_chambre_client_tarif_min_basse_saison").val();
+						$prixmaxbassaison = $("#add_chambre_client_tarif_max_basse_saison").val();		
+						//Ajoute une checkbox pour la suppression des images de la galerie photo
+						$("#add_chambre_client_galerie_chambre > div").append("<input type='checkbox' class='checkboxdeletegalerie'></input> <label class='labeldynamique'> {{ 'supprimer' | trans }}</label>");		
+						$("#add_chambre_client_galerie_chambre > div > label.required").remove();
+					});
+				</script>
+			<br class="clearfloat">
+			</div>
+		</div>
+</div>
+{% endblock %}

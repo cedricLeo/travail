@@ -1,0 +1,112 @@
+Welcome to the Symfony Standard Edition -\/ a fully-\/functional Symfony2 application that you can use as the skeleton for your new app. If you want to learn more about the features included, see the \char`\"{}\-What's Inside?\char`\"{} section.
+
+This document contains information on how to download and start using Symfony. For a more detailed explanation, see the \href{http://symfony.com/doc/current/book/installation.html}{\tt Installation chapter} of the Symfony Documentation.
+
+\section*{1) Download the Standard Edition}
+
+If you've already downloaded the standard edition, and unpacked it somewhere within your web root directory, then move on to the \char`\"{}\-Installation\char`\"{} section.
+
+To download the standard edition, you have two options\-:
+
+\subsection*{Download an archive file ({\itshape recommended})}
+
+The easiest way to get started is to download an archive of the standard edition (\href{http://symfony.com/download}{\tt http\-://symfony.\-com/download}). Unpack it somewhere under your web server root directory and you're done. The web root is wherever your web server (e.\-g. Apache) looks when you access {\ttfamily \href{http://localhost}{\tt http\-://localhost}} in a browser.
+
+\subsection*{Clone the git Repository}
+
+We highly recommend that you download the packaged version of this distribution. But if you still want to use Git, you are on your own.
+
+Run the following commands\-: \begin{DoxyVerb}git clone http://github.com/symfony/symfony-standard.git
+cd symfony-standard
+rm -rf .git
+\end{DoxyVerb}
+
+
+\section*{2) Installation}
+
+Once you've downloaded the standard edition, installation is easy, and basically involves making sure your system is ready for Symfony.
+
+\subsection*{a) Check your System Configuration}
+
+Before you begin, make sure that your local system is properly configured for Symfony. To do this, execute the following\-: \begin{DoxyVerb}php app/check.php
+\end{DoxyVerb}
+
+
+If you get any warnings or recommendations, fix these now before moving on.
+
+\subsection*{b) Install the Vendor Libraries}
+
+If you downloaded the archive \char`\"{}without vendors\char`\"{} or installed via git, then you need to download all of the necessary vendor libraries. If you're not sure if you need to do this, check to see if you have a {\ttfamily vendor/} directory. If you don't, or if that directory is empty, run the following\-: \begin{DoxyVerb}php bin/vendors install
+\end{DoxyVerb}
+
+
+Note that you {\bfseries must} have git installed and be able to execute the {\ttfamily git} command to execute this script. If you don't have git available, either install it or download Symfony with the vendor libraries already included.
+
+\subsection*{c) Access the Application via the Browser}
+
+Congratulations! You're now ready to use Symfony. If you've unzipped Symfony in the web root of your computer, then you should be able to access the web version of the Symfony requirements check via\-: \begin{DoxyVerb}http://localhost/Symfony/web/config.php
+\end{DoxyVerb}
+
+
+If everything looks good, click the \char`\"{}\-Bypass configuration and go to the Welcome page\char`\"{} link to load up your first Symfony page.
+
+You can also use a web-\/based configurator by clicking on the \char`\"{}\-Configure your
+\-Symfony Application online\char`\"{} link of the {\ttfamily config.\-php} page.
+
+To see a real-\/live Symfony page in action, access the following page\-: \begin{DoxyVerb}web/app_dev.php/demo/hello/Fabien
+\end{DoxyVerb}
+
+
+\section*{3) Learn about Symfony!}
+
+This distribution is meant to be the starting point for your application, but it also contains some sample code that you can learn from and play with.
+
+A great way to start learning Symfony is via the \href{http://symfony.com/doc/current/quick_tour/the_big_picture.html}{\tt Quick Tour}, which will take you through all the basic features of Symfony2 and the test pages that are available in the standard edition.
+
+Once you're feeling good, you can move onto reading the official \href{http://symfony.com/doc/current/}{\tt Symfony2 book}.
+
+\section*{Using this Edition as the Base of your Application}
+
+Since the standard edition is fully-\/configured and comes with some examples, you'll need to make a few changes before using it to build your application.
+
+The distribution is configured with the following defaults\-:
+
+
+\begin{DoxyItemize}
+\item Twig is the only configured template engine;
+\item Doctrine O\-R\-M/\-D\-B\-A\-L is configured;
+\item Swiftmailer is configured;
+\item Annotations for everything are enabled.
+\end{DoxyItemize}
+
+A default bundle, {\ttfamily Acme\-Demo\-Bundle}, shows you Symfony2 in action. After playing with it, you can remove it by following these steps\-:
+
+
+\begin{DoxyItemize}
+\item delete the {\ttfamily src/\-Acme} directory;
+\item remove the routing entries referencing Acme\-Bundle in {\ttfamily app/config/routing\-\_\-dev.\-yml};
+\item remove the Acme\-Bundle from the registered bundles in {\ttfamily app/\-App\-Kernel.\-php};
+\end{DoxyItemize}
+
+\section*{What's inside?}
+
+The Symfony Standard Edition comes pre-\/configured with the following bundles\-:
+
+
+\begin{DoxyItemize}
+\item {\bfseries Framework\-Bundle} -\/ The core Symfony framework bundle
+\item {\bfseries Sensio\-Framework\-Extra\-Bundle} -\/ Adds several enhancements, including template and routing annotation capability (\href{http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html}{\tt documentation})
+\item {\bfseries Doctrine\-Bundle} -\/ Adds support for the Doctrine O\-R\-M (\href{http://symfony.com/doc/current/book/doctrine.html}{\tt documentation})
+\item {\bfseries Twig\-Bundle} -\/ Adds support for the Twig templating engine (\href{http://symfony.com/doc/current/book/templating.html}{\tt documentation})
+\item {\bfseries Security\-Bundle} -\/ Adds security by integrating Symfony's security component (\href{http://symfony.com/doc/current/book/security.html}{\tt documentation})
+\item {\bfseries Swiftmailer\-Bundle} -\/ Adds support for Swiftmailer, a library for sending emails (\href{http://symfony.com/doc/2.0/cookbook/email.html}{\tt documentation})
+\item {\bfseries Monolog\-Bundle} -\/ Adds support for Monolog, a logging library (\href{http://symfony.com/doc/2.0/cookbook/logging/monolog.html}{\tt documentation})
+\item {\bfseries Assetic\-Bundle} -\/ Adds support for Assetic, an asset processing library (\href{http://symfony.com/doc/2.0/cookbook/assetic/asset_management.html}{\tt documentation})
+\item {\bfseries J\-M\-S\-Security\-Extra\-Bundle} -\/ Allows security to be added via annotations (\href{http://symfony.com/doc/current/bundles/JMSSecurityExtraBundle/index.html}{\tt documentation})
+\item {\bfseries Web\-Profiler\-Bundle} (in dev/test env) -\/ Adds profiling functionality and the web debug toolbar
+\item {\bfseries Sensio\-Distribution\-Bundle} (in dev/test env) -\/ Adds functionality for configuring and working with Symfony distributions
+\item {\bfseries Sensio\-Generator\-Bundle} (in dev/test env) -\/ Adds code generation capabilities (\href{http://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html}{\tt documentation})
+\item {\bfseries Acme\-Demo\-Bundle} (in dev/test env) -\/ A demo bundle with some example code
+\end{DoxyItemize}
+
+Enjoy! 

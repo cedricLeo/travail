@@ -1,0 +1,25 @@
+{% block navigation %}
+<nav class="menuMain">
+    <ul class="menuNavigation">
+        <li> <a href="" id="menuhome">{{ "presentation" | trans }}</a></li>   
+        {% if typeAcompte == 2 %}
+        <li> <a href="" id="menuroom">{{ "chambre.tarif" | trans }}</a></li>   
+            {% if forfait is not empty %}
+            <li> <a href="" id="menupackage">{{ "forfait.promotion" | trans }}</a></li>
+            {% endif %}
+        {% endif %}
+        <li> <a href="" id="menuactivities">{{ "activite.service" | trans }}</a></li>
+        {% if corporatif == 1 %}
+        <li> <a href="" id="menucorporate">{{ "corporatif.speciaux" | trans }}</a></li>
+        {% endif %}
+        <li> <a href="" id="menugallery">{{ "galerie.photo" | trans }}</a></li>
+        {% if typeAcompte == 10 %}
+        <li> <a href="" id="menusante">{{ "centre.sante.spa" | trans }}</a></li>
+        <li> <a href="" id="menurestaurant">{{ "restaurant" | trans }}</a></li>
+        {% endif %}
+        <li> <a href="" id="menuinformation">{{ "information.reservation" | trans }}</a></li>
+        <li> <a href="" id="menudirection">{{ "direction.routiere" | trans }}</a></li>  
+    </ul>
+</nav>
+{% endblock %}
+{% include '::gestion_menu.js.twig' %}

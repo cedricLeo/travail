@@ -1,0 +1,51 @@
+{% if app.request.locale == "fr" %}
+   <div class="retour2" >
+   		<select id="selectVille">
+   			{% if villeAjax is empty %}
+   			<option>Choisissez une ville </option>
+   			{% endif %}
+    		{% for w in villeAjax %}
+    		{% if loop.index == 1 %}
+    		<option>Choisissez une ville </option>
+    		{% endif %}
+			<option value="{{ w.sallecorporativehebergement.villeid.id }}">{{ w.sallecorporativehebergement.villeid.nomfr }}</option>
+			{% endfor %}
+		</select> <img src="{{ asset('bundles/myappglobal/images/loading.gif') }}" class="loadingVille" />
+   </div>
+{% else %}
+	<div class="retour2" >
+   		<select id="selectVille">
+   			{% if villeAjax is empty %}
+   			<option>Choose a city </option>
+   			{% endif %}
+    		{% for w in villeAjax %}
+    		{% if loop.index == 1 %}
+    		<option>Choose a city </option>
+    		{% endif %}
+			<option value="{{ w.sallecorporativehebergement.villeid.id }}">{{ w.sallecorporativehebergement.villeid.nomen }}</option>
+			{% endfor %}
+		</select>  <img src="{{ asset('bundles/myappglobal/images/loading.gif') }}" class="loadingVille" />
+   </div>
+{% endif %}
+   
+<script>
+		$(".loadingVille").hide();
+		$(".retour2 .retour2 select#selectVille ").change(function(){ 
+		    $(".loadingVille").show();
+		    var ville = $("#selectVille").val();
+		    var DATA = 'ville=' + ville  ;
+		    $.ajax({
+		        type: "post",
+		        url: "{{ path('_formulairevilleappeloffre')}}",
+		        data: DATA,
+		        cache: false,
+		        success: function(data){
+			       // alert(data);
+			       $('#retour3').html(data);
+		           $(".loadingVille").hide();
+		        }
+		    });    
+		    return false;
+		});
+</script>
+

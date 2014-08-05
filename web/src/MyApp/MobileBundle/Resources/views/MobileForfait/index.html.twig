@@ -1,0 +1,45 @@
+{% extends "::base_mobile.html.twig" %}
+
+{% block body %}
+    {# {% include 'MyAppMobileBundle:MobileHebergement:Formulaire_reservation_en_ligne.html.twig' %} #}
+    <div id="menu">       
+            {% if app.request.locale == "fr" %} 
+                <select id="idcategorie" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+                    <option value="0" class="indexListeSelected">{{ choixcategorie }}</option>
+                    {% for p in listeCategorie %}          
+                    <option id="{{ p.forfaitclientid.repertoirefr|lower }}" value="{{ p.forfaitclientid.id }}">{{ p.forfaitclientid.nomfr }}</option>
+                    {% endfor %}
+                </select>
+                <select id="idprovince" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+                    <option value="0" class="indexListeSelected">{{ choixprovince }}</option>
+                    {% for p in listeProvince %}          
+                    <option id="{{ p.hebergementid.provinceid.repertoirefr|lower }}" value="{{ p.hebergementid.provinceid.id }}">{{ p.hebergementid.provinceid.nomfr }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <select id="idcategorie" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+                    <option value="0" class="indexListeSelected">{{ choixcategorie }}</option>
+                    {% for p in listeCategorie %}          
+                    <option id="{{ p.forfaitclientid.repertoireen|lower }}" value="{{ p.forfaitclientid.id }}">{{ p.forfaitclientid.nomen }}</option>
+                    {% endfor %}
+                </select>
+                <select id="idprovince" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow modifSelect">
+                    <option value="0" class="indexListeSelected">{{ choixprovince }}</option>
+                    {% for p in listeProvince %}          
+                    <option id="{{ p.hebergementid.provinceid.repertoireen|lower }}" value="{{ p.hebergementid.provinceid.id }}">{{ p.hebergementid.provinceid.nomen }}</option>
+                    {% endfor %}
+                </select>
+            {% endif %}   
+
+            {% include 'MyAppMobileBundle:MobileForfait:region.js.twig' %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <strong>Warning!</strong> {{ "Patientez svp" | trans }}
+            </div>                
+    </div>         
+    {% if repertoire is defined %}
+        {% include "MyAppMobileBundle:MobileForfait:ResultatCategorie.html.twig" %}
+    {% else %} 
+        {% include "MyAppMobileBundle:MobileForfait:ResultatSansCategorie.html.twig" %}
+    {% endif %}
+{% endblock %}

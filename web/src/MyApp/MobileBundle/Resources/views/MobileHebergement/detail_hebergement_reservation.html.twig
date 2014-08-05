@@ -1,0 +1,162 @@
+{% extends "::base_mobile.html.twig" %}
+
+{% block body %}
+        {% include '::navigation_fiche_client_mobile.html.twig' %}
+
+        <div id="container"> 
+        {% for p in retourDetail %}
+            <h1>{{ p.nomfr }}</h1>                
+                {# affichage des informations et réservation #}
+                <h2>{{ "recherche.enligne" | trans }}</h2>
+                <div class="descriptionReservationminisite">
+                    <p>Faites une réservation en ligne en temps réel et recevez directement votre numéro de confirmation.</p>  
+                    <p>Facile et simple, la réservation en ligne vous permet de procéder rapidement à une réservation dans un établissement de votre choix.</p>
+                    <p> Vous pouvez réserver une chambre dans un hôtel, un motel, un gîte (B&B), un chalet, ou encore réserver un forfait et bien plus dans un établissement d'hébergement au Canada.</p>  
+                    <p> Vous choisissez la ville désirée, la date, le nombre de personnes, le nombre de chambres et de nuitées. </p>
+                    <p> Vous pourrez voir la liste des établissements ayant de la disponibilité. </p>
+                    <p> Vous réservez alors tout simplement en remplissant les formulaires et en donnant votre numéro de carte de crédit pour garantir la réservation. </p>
+                    <p> Chaque établissement a une politique d'annulation, vous pourrez ainsi, si vous le désirez, annuler votre réservation aussi facilement.</p>
+                    <p>La simplicité de la réservation par Internet !</p>
+                </div>
+
+                <h5><span>1</span> {{ "reservation.telephone" | trans }}</h5>
+                    <div class="tel">	    	
+                        <p>Pour rejoindre un agent : <a href="callTo:18777788977">1-877-778-8977</a> / <a href="callTo:0014182662165">001-418-266-2165 </a> / <a href="callTo:14182662165">1-418-266-2165 </a></p>
+                        <p>Courriel : <a href="mailTo:{{ emailGlobalReservation }}">{{ emailGlobalReservation }}</a></p>
+                        <p>Du lundi au vendredi de 8h00 à 16h30</p>
+                        <p>*** N’oubliez pas qu'il n'y a <span class="aucunFrais">AUCUN FRAIS SUPPLÉMENTAIRE</span> en passant par un agent de Global Réservation pour effectuer une réservation dans un établissement d'hébergement.</p> 
+                        <p> Nous travaillons pour vous !</p>	    	
+                    </div>
+                <h5 ><span>2</span> {{ "demande.information.reservation.internet" | trans }}</h5>
+
+                <div class="infoFormDemandeInformation">
+                    <p>Avant de faire une demande, il est important de nous appeler directement ou d'effectuer une réservation en ligne directement, si votre date de réservation est effectuées dans un délai de moins de 24 heures.</p>
+                    <p class="acheminerForm">Pour joindre un agent : <a href="callTo:18777788977">1-877-778-8977</a> / <a href="callTo:0014182662165">001-418-266-2165 </a> / <a href="callTo:14182662165">1-418-266-2165 </a></p>
+                    <p>Pour acheminer votre demande, s.v.p. remplir le formulaire</p>
+                    <p>( * champ obligatoire) :</p>                      
+                </div>
+                <form action="" method="post" {{ form_enctype(form) }} class="renseignements_coorporatif">	
+                        {{ form_label(form.prenom, "prenom" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+                        {{ form_widget(form.prenom, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                        {{ form_label(form.nom, "nom" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+                        {{ form_widget(form.nom, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                        {{ form_label(form.adresse, "adresse" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                        {{ form_widget(form.adresse, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                        {{ form_label(form.ville, "ville" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                        {{ form_widget(form.ville, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                        {#{{ form_label(form.province, "province" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                        {{ form_widget(form.province, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                        {{ form_label(form.pays, "pays" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                        {{ form_widget(form.pays, {'attr':{'class':'input_renseignement_personnel'}}) }}#}
+                        {{ form_label(form.code_postal, "code.postal" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                        {{ form_widget(form.code_postal, {'attr':{'class':'input_renseignement_personnel', 'maxlength' : "7"}}) }}
+                        {{ form_label(form.telephone, "telephone" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+                        {{ form_widget(form.telephone, {'attr':{'class':'input_renseignement_personnel', 'maxlength' : "20"}}) }}
+                        {{ form_label(form.telecopieur, "telecopieur" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                        {{ form_widget(form.telecopieur, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                        {{ form_label(form.courriel, "courriel" | trans, {'attr':{'class':'lblrenseignementpersonnel lbl_email_demande_info obligatoire'}}) }}
+                        {{ form_widget(form.courriel, {'attr':{'class':'input_renseignement_personnel '}}) }}
+                        {{ form_label(form.date_arrive, "date.arrive" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+                        {{ form_widget(form.date_arrive, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                        {{ form_label(form.date_depart, "date.depart" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+                        {{ form_widget(form.date_depart, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                        {{ form_label(form.nombre_adulte, "nombre.adulte" | trans, {'attr':{'class':'lblrenseignementpersonnel obligatoire'}}) }}
+                        {{ form_widget(form.nombre_adulte, {'attr':{'class':'input_renseignement_personnel', 'maxlength' : "2"}}) }}
+                        {{ form_label(form.nombre_enfant, "nombre.enfant" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                        {{ form_widget(form.nombre_enfant, {'attr':{'class':'input_renseignement_personnel', 'maxlength' : "2"}}) }}
+                        {{ form_label(form.age_enfant, "age.enfant" | trans, {'attr':{'class':'lblrenseignementpersonnel'}}) }}
+                        {{ form_widget(form.age_enfant, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                        {{ form_label(form.nombre_chambre, "nombre.chambre" | trans, {'attr':{'class':'lblrenseignementpersonnel lbl_nombre_chambre obligatoire'}}) }}
+                        {{ form_widget(form.nombre_chambre, {'attr':{'class':'input_renseignement_personnel input_nombre_chambre', 'maxlength' : "2"}}) }}
+                        {{ form_label(form.chambre_fumeur, "chambre.fumeur" | trans, {'attr':{'class':'lblrenseignementpersonnel lbl_chambre_fumeur'}}) }}
+                        {{ form_widget(form.chambre_fumeur, {'attr':{'class':'input_renseignement_personnel'}}) }}
+                        {{ form_label(form.demande_specifique, "demande.specifique" | trans, {'attr':{'class':'lblrenseignementpersonnel lbl_demande_specifique'}}) }}
+                        {{ form_widget(form.demande_specifique, {'attr':{'class':'input_renseignement_personnel text_demande_info'}}) }}
+                        {#{% form_theme form 'MyAppGlobalBundle:Hebergement:Captcha.html.twig' %}
+                        {{ form_widget(form.captcha) }}#}
+                        {{ form_rest(form) }}                
+                        <input type="submit" value="{{ "envoyer.la.demande" | trans }}" class="submit_demandeinfo_corpo" />		
+                </form>
+                {% include "MyAppMobileBundle:MobileHebergement:storage_client.js.twig" %}
+                <div class="confirmationreponseDemandeInfo ">
+                    {% if messageEnvoye is defined %} 
+                         <p class="confirm_msg">
+                             <script type='text/javascript'>                                     
+                                 $(function() {
+                                     $( "#dialog-modal" ).dialog({
+                                       height: 140,
+                                       modal: true
+                                     });
+                                   });
+                             </script>
+                             <div id="dialog-modal" title="Global Réservation">
+                                 <p class="confirm_msg">{{ "message.demande.information.corpo.envoye" | trans }}</p>
+                             </div>
+                         </p> 
+                     {% endif %}
+                     <br />
+                     <p>Soyez assuré que l'un de nos agents communiquera avec vous pour vous faire connaître les disponibilités de l'établissement choisi ou des possibilités de réservations dans des établissements en fonction de vos besoins.</p>
+                     <p> <span class="aucunFrais ajusteHauteur">Nous répondons habituellement dans les 3 heures sur les heures de bureau suivant votre demande d'information sur les heures de bureau.</span></p>            	
+                </div>
+                <script>
+                  $(function() {
+                        $( "#add_demande_global_reservation_date_arrive" ).datepicker();//date d'arrivée
+                        $( "#add_demande_global_reservation_date_depart" ).datepicker(); //date départ               
+                  });
+                  jQuery(function($){
+                            $.datepicker.regional['fr'] = {
+                                    closeText: 'Fermer',
+                                    prevText: 'Précédent',
+                                    nextText: 'Suivant',
+                                    currentText: 'Aujourd\'hui',
+                                    monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin',
+                                    'Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+                                    monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin',
+                                    'Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
+                                    dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+                                    dayNamesShort: ['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'],
+                                    dayNamesMin: ['D','L','M','M','J','V','S'],
+                                    weekHeader: 'Sem.',
+                                    dateFormat: 'dd/mm/yy',
+                                    firstDay: 1,
+                                    isRTL: false,
+                                    showMonthAfterYear: false,
+                                    yearSuffix: ''};
+                            $.datepicker.setDefaults($.datepicker.regional['fr']);
+                    });
+                    //Ajax          
+                     var prenom = $("#add_demande_global_reservation_prenom").text();
+                     var nom = $("#add_demande_global_reservation_nom").text();
+                     var tel = $("#add_demande_global_reservation_telephone").text();
+                     var email = $("#add_demande_global_reservation_courriel").text();
+                     var date_arrivee = $("#add_demande_global_reservation_date_arrive").text();
+                     var date_depart = $("#add_demande_global_reservation_date_depart").text();
+                     var nb_adulte = $("#add_demande_global_reservation_nombre_adulte").text();
+                     var nb_chambre = $("#add_demande_global_reservation_nombre_chambre").text();
+
+                     var DATA = "prenom="+prenom+"&nom="+nom+"&tel="+tel+"&email="+email+"&date_arrivee="+date_arrivee+"&date_depart="+date_depart+"&nb_adulte="+nb_adulte+"&nb_chambre"+nb_chambre;
+                     if(prenom != "" && nom != "" && tel != "" && email != "" && date_arrivee != "" && date_depart != "" && nb_adulte != "" && nb_chambre != ""){
+                        $.ajax({
+                            type: "post",
+                            url: "{{ path('MyAppMobileBundle_demande_reservation') }}",
+                            data: DATA,
+                            cache: false,
+                            success: function(data){    
+                                if(data == true){
+                                    $('<div id="dialog-modal" title="Basic modal dialog">La demande a été envoyée.</div>');
+                                    $( "#dialog-modal" ).dialog({
+                                    height: 140,
+                                    modal: true
+                                    });   
+                                }
+                            }
+                        });  
+                        return false;
+                     }
+                </script>
+                {# fin des informations et réservation #}
+        {% endfor %}    
+        </div>
+
+{% endblock %}
+

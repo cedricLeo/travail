@@ -1,0 +1,41 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+	<div class="tabAdmin">
+		<table align="center" width="100%" cellspacing="0" cellpadding="0" border="0" class="recentre">
+			<tbody>
+				<tr class="rowheader">
+				{% for p in hebergementExiste %}
+					<td>
+						{% if app.request.locale == "fr" %}
+							<form method="GET" action="{{path('MyAppAddCorporatif',{'idclient':p.id, 'name':p.repertoirefr, 'redirect':redirect})}}">
+								<input type="submit" value="{{ "ajouter.corpo" | trans }}" class="btnAddFicheClient"/>
+							</form>
+						{% else %}
+							<form method="GET" action="{{path('MyAppAddCorporatif',{'idclient':p.id, 'name':p.repertoireen, 'redirect':redirect})}}">
+								<input type="submit" value="{{ "ajouter.corpo" | trans }}" class="btnAddFicheClient"/>
+							</form>
+						{% endif %}
+						<table align="center" width="550" cellspacing="3" cellpadding="0" border="0">
+							<tbody>
+							<tr class="rowsubheader">
+								<td width="270" colspan=1>{{ "nom.fr" | trans }}</td>
+								<td width="270">{{ "nom.en" | trans }}</td>
+							</tr>	
+							{% for w in corporatif %}
+							<tr>
+								<td colspan=1 title="{{ "modifier.corpo" | trans }}"><a href="{{path('MyAppUpdateCorporatif',{'idclient':p.id, 'name':p.repertoirefr, 'idcorpo':w.id, 'redirect':redirect})}}">{{ w.nomfr }}</a></td>
+								<td colspan=1 title="{{ "modifier.corpo" | trans }}"><a href="{{path('MyAppUpdateCorporatif',{'idclient':p.id, 'name':p.repertoireen, 'idcorpo':w.id, 'redirect':redirect})}}">{{ w.nomen }}</a></td>
+							</tr>
+					    	{% endfor %}
+							{% if corporatif is empty %}
+								<p class="searchnull emptySearch">{{ "aucun.resultat" | trans }}</p>
+							{% endif %}		
+							</tbody>
+						</table>
+					</td>
+				 {% endfor %}
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

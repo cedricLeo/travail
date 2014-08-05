@@ -1,0 +1,238 @@
+{% extends '::base1.html.twig' %}
+
+{% block content %}
+<style>
+	#coldroit {
+	    margin: 20px auto;
+	    min-height: 400px;
+	    width: 1030px;
+	}
+	#map {
+	    float:left;
+	    width:800px;
+	    height:480px;
+	    border:3px solid #000;
+	}
+	#suggest {
+	    float:left;
+	    width:180px;
+	    display:none;
+	    color:#fff;
+	    background-color:#000;
+	    margin-left:10px;    
+	    margin-bottom:10px;    
+	    padding:10px;
+	    font-size:12px;
+	    background: -moz-linear-gradient(center 0px , #3b3b3b, #000000);
+	    border:3px solid #000;
+	    -moz-border-radius:6px;
+	    -webkit-border-radius:6px;
+	    border-radius:6px;
+	}
+	h2 {
+	    margin:0 0 0 5px;
+	    font-size:14px;
+	}
+	#list {
+	    margin:0;
+	    padding:10px 0 0 10px;
+	}
+	#list li {
+	    margin:0;
+	    padding:5px 0;
+	}
+	#list a {
+	    color:#FFF;
+	    text-decoration:none;
+	}
+	#list a:hover {
+	    color:#EF9700;
+	}
+	
+	#coords {
+	    border:3px solid #000;
+	    width:800px;
+	    background-color:#000;
+	    background: -moz-linear-gradient(center top , #666666, #000000) repeat scroll 0 0 transparent;
+	    color:#FFFFFF;
+	    height:28px;
+	    -moz-border-radius:3px 3px 0 0;
+	    -webkit-border-radius:3px 3px 0 0;
+	    border-radius:3px 3px 0 0;  
+	}
+	#coords h2 {
+	    margin-top:6px;
+	}
+	#coords input {
+	    border:0;
+	    -moz-border-radius:3px;
+	    -webkit-border-radius:3px;
+	    border-radius:3px;    
+	    margin-top:3px;
+	    padding:2px;
+	    font-weight:bold;
+	    font-size:16px;
+	}
+	#coords input[type=text] {
+	    text-align:right;
+	    width:150px;
+	    font-family:Verdana;
+	    color:#3C3C3C;
+	    background:-moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
+	}
+	#search_frm {
+	    margin-bottom:10px;
+	}
+	#search_frm input {
+	    font-size:20px;
+	    border:3px solid #3C3C3C;
+	    -moz-border-radius:6px;
+	    -webkit-border-radius:6px;
+	    border-radius:6px;
+	    font-weight:bold;
+	}
+	#search_frm input[type=submit] {
+	    margin-left:10px;
+	    cursor:hand;
+	    cursor:pointer;
+	    padding:5px;
+	    background-color:#000;
+	    background: -moz-linear-gradient(center top , #666666, #000000) repeat scroll 0 0 transparent;
+	    color:#FFF;
+	}
+	#addr {
+	    color:#3C3C3C;
+	    width:630px;
+	    background:url(flag.png) 5px 5px no-repeat, -moz-linear-gradient(center top , #FFFFFF, #EDEDED) repeat scroll 0 0 transparent;
+	    -moz-box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);
+	    text-shadow:0 1px 1px rgba(0, 0, 0, 0.3);
+	    padding:5px 5px 5px 35px;
+	}
+	#reverse_frm input[type=submit] {
+	    background: -moz-linear-gradient(center top , #FAA51A, #F47A20) repeat scroll 0 0 transparent;
+	    color:#000;
+	    cursor:hand;
+	    cursor:pointer;
+	}
+</style>
+
+ <script>	
+ 	window.onload=function() {
+
+    var geocoder = new google.maps.Geocoder();
+    var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP  /* ROADMAP , SATELLITE , HYBRID , TERRAIN  */
+    });
+    var marker = new google.maps.Marker({
+        draggable: true,
+        icon: "{{ asset('bundles/myappadmin/images/marker.png') }}",
+        map: map
+    });
+    var decimals = 8;   // arrondi des coordonnées
+
+    /*
+     * Geocoding
+     */
+    (document.getElementById("search_frm").onsubmit=function(e){
+
+        geocoder.geocode({"address":document.getElementById("addr").value}, function(data, status){
+
+            if (status == google.maps.GeocoderStatus.OK) {
+
+                document.getElementById("addr").value=data[0].formatted_address;
+                refreshMap(data[0].geometry.location);
+
+                // Prépare la liste des suggestions
+                if (data.length > 1) {
+                    var list=document.getElementById("list");
+                    while (list.hasChildNodes()) {
+                        list.removeChild(list.firstChild);
+                    }
+                    for (var i=0; i<data.length; i++) {
+                        var a = document.createElement("a");
+                        a.setAttribute("href", "");
+                        a.setAttribute("title", data[i].formatted_address);
+                        a.onclick=function(){
+                            document.getElementById("addr").value=this.getAttribute("title");
+                            document.getElementById("search_frm").onsubmit(false);
+                            return false;
+                        }
+                        a.appendChild(document.createTextNode(data[i].formatted_address));
+
+                        var li = document.createElement("li");
+                        li.appendChild(a);
+                        list.appendChild(li);
+                    }
+                    document.getElementById("suggest").style.display="block";
+                } else if (e !== false) {   // passer FALSE au lieu d'un Event n'efface pas les suggestions
+                    document.getElementById("suggest").style.display="none";
+                }
+
+            } else {
+                alert("Erreur: "+status);
+            }
+        });
+        return false;
+    })();
+
+    /*
+     * Reverse geocoding
+     */
+    document.getElementById("reverse_frm").onsubmit=function(){
+        var point = new google.maps.LatLng(document.getElementById("lat").value, document.getElementById("lng").value);
+        geocoder.geocode({"latLng": point}, function(data, status) {
+            if (status == google.maps.GeocoderStatus.OK && data[0]) {
+                  document.getElementById("addr").value=data[0].formatted_address;
+                  refreshMap(point);
+            } else {
+                alert("Erreur: " + status);
+            }
+        });
+        return false;
+    }
+
+    /*
+     * Drag & drop du marqueur
+     */
+    google.maps.event.addListener(marker,"dragend",function(e){
+        refreshMap(e.latLng);
+        geocoder.geocode({"latLng": e.latLng}, function(data, status) {
+            if (status == google.maps.GeocoderStatus.OK && data[0]) {
+                document.getElementById("suggest").style.display="none";
+                document.getElementById("addr").value=data=data[0].formatted_address;
+            }
+        });
+    });
+
+    /*
+     * Actualise l'affichage
+     */
+    function refreshMap(point) {
+        var b=Math.pow(10,decimals);
+        document.getElementById("lat").value=Math.round(point.lat()*b)/b;
+        document.getElementById("lng").value=Math.round(point.lng()*b)/b;
+        map.setCenter(point);
+        marker.setPosition(point);
+        marker.setTitle(point.lat()+";"+point.lng());
+    }
+}
+</script>
+ 	<form id="search_frm">
+        <input type="text" id="addr" value="4640 Boulevard Wilfrid-Hamel, Québec, QC G1P, Canada" /><input type="submit" value="Geolocate" />
+    </form>
+    <div id="coords">
+        <form id="reverse_frm" style="float:right;">
+            <label for="lat">latitude :</label> <input id="lat" type="text" value="0" />
+            <label for="lng">longitude :</label> <input id="lng" type="text" value="0" />
+            <input type="submit" value="Reverse" />
+        </form>
+        <h2>Coordonnées</h2>
+    </div>
+    <div id="map"></div>
+    <div id="suggest">
+        <h2>Suggestions</h2>
+        <ul id="list"></ul>
+    </div>
+	
+{% endblock %}

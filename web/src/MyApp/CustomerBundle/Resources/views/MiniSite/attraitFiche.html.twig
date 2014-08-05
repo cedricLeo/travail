@@ -1,0 +1,357 @@
+{% extends '::base1.html.twig' %}
+{% block content %}
+<div class="gris">
+	{% for p in attrait %} 
+		{% if app.request.locale == "fr" %}
+		<h2 style="margin-left:0; border-radius: 10px 10px 0 0; -moz-border-radius: 10px 10px 0 0;">
+			<a id="texte_activite">{{ "text.activite" | trans }} - {{ p.nomfr }}</a>
+		</h2>	
+			<form id="form_txt_attrait" action="{{ path('MyAppTextAttrait',{'id':id, 'name':p.repertoirefr}) }}" method="post" {{ form_enctype(formTexteActivite) }} class="update_state_form form_option_customer">	
+		{% else %}
+		<h2 style="margin-left:0; border-radius: 10px 10px 0 0; -moz-border-radius: 10px 10px 0 0;">
+			<a id="texte_activite">{{ "text.activite" | trans }} - {{ p.nomen }}</a>
+		</h2>	
+			<form id="form_txt_attrait" action="{{ path('MyAppTextAttrait',{'id':id, 'name':p.repertoireen}) }}" method="post" {{ form_enctype(formTexteActivite) }} class="update_state_form form_option_customer">	  	
+		{% endif %}
+                            {{ form_label(formTexteActivite.paiement_id, "modes.de.paiements" | trans, {'attr':{'class':'lblnompays '}}) }}
+			    {{ form_widget(formTexteActivite.paiement_id, {'attr':{'class':'txt_add_state2'}}) }}
+			    {{ form_errors(formTexteActivite.paiement_id ) }} 
+                            <p class="resize_p_form">&nbsp;</p>               
+			    {{ form_label(formTexteActivite.capacite, "capacite" | trans, {'attr':{'class':'lblnompays '}}) }}
+			    {{ form_widget(formTexteActivite.capacite, {'attr':{'class':'txt_add_state2'}}) }}
+			    {{ form_errors(formTexteActivite.capacite ) }}
+			    {{ form_label(formTexteActivite.tarif_attrait, "tarif.a.partir" | trans, {'attr':{'class':'lblnompays '}}) }}
+			    {{ form_widget(formTexteActivite.tarif_attrait, {'attr':{'class':'txt_add_state2'}}) }}
+			    {{ form_errors(formTexteActivite.tarif_attrait ) }}
+			    	{% if p.latitude != 0 and p.longitude != 0 %}
+						<div id="mappopuplocation" title="{% if app.request.locale == "fr" %} Localisation {{ p.nomfr }}  {% else %} Location {{ p.nomen }} {% endif %}">
+							<script>
+								function initCarte(){
+								//Création de la carte
+									  var latLng = new google.maps.LatLng({{ p.latitude }}, {{ p.longitude }}); 
+						    	      var myOptions = {
+						  	    	        zoom      : 14, // Zoom par défaut
+						  	    	        center    : latLng, // Coordonnées de départ de la carte de type latLng 
+						  	    	        mapTypeId : google.maps.MapTypeId.ROADMAP, // Type de carte, différentes valeurs possible HYBRID, ROADMAP, SATELLITE, TERRAIN
+						  	    	       // maxZoom   : 20
+						  	    	      };				  	    	      
+						  	    	      map      = new google.maps.Map(document.getElementById('map'), myOptions);
+						  	    	      panel    = document.getElementById('panel');				  	    	      
+						  	    	      var marker = new google.maps.Marker({
+						  	    	        position : latLng,
+						  	    	        map      : map,
+						  	    	      });	
+						  	    	      {% if app.request.locale == "fr" %}		  	    	      
+						  	    	      var contentMarker = [
+						  	    	          '<div id="containerTabs">',
+						  	    	          '<p style="font-weight:bold;">{{ p.nomfr }}</p>',
+						  	    	          {% if p.logo is not empty %}
+						  	    	          '<img src="{{ asset('uploads/attrait/') }}{{ p.id }}/{{ p.logo }}" alt="{{ p.nomfr }}" style="width:150px; height:100px;"/>',
+						  	    	          {% endif %}
+							  	    	      '</div>'
+						  	    	      ].join('');	
+						  	    	      {% else %}
+						  	    	      var contentMarker = [
+						  	    	          '<div id="containerTabs">',
+						  	    	          '<p style="font-weight:bold;">{{ p.nomen }}</p>',
+						  	    	          {% if p.logo is not empty %}
+						  	    	          '<img src="{{ asset('uploads/attrait/') }}{{ p.id }}/{{ p.logo }}" alt="{{ p.nomen }}" style="width:150px; height:100px;"/>',
+						  	    	          {% endif %}
+						  	    	          '</div>'
+						  	    	      ].join('');	
+						  	    	      {% endif %}	
+						  	    	      var infoWindow = new google.maps.InfoWindow({
+						  	    	        content  : contentMarker,
+						  	    	        position : latLng
+						  	    	      });				  	    	      
+						  	    	      google.maps.event.addListener(marker, 'mouseover', function() {
+						  	    	        infoWindow.open(map,marker);
+						  	    	      });			  	    	      
+						  	    	      google.maps.event.addListener(infoWindow, 'domready', function(){ // infoWindow est biensûr notre info-bulle
+						  	    	        jQuery("#tabs").tabs();
+						  	    	      });
+						  	    	      direction = new google.maps.DirectionsRenderer({
+						  	    	        map   : map,
+						  	    	        panel : panel // Dom element pour afficher les instructions d'itinéraire
+						  	    	      });
+						  	    	    };  
+									google.maps.event.addDomListener(window, 'load', initCarte);
+							</script>
+							{# Carte Google Map #}
+							{% if p.latitude != 0 %}
+							<div id="map" >
+								<p class="load"> 
+									{{ "chargement" | trans }}
+								</p>
+							</div>	
+							{% endif %}
+						</div>
+					{% endif %}	
+			    {{ form_label(formTexteActivite.texte_description_fr, "texte.description.fr" | trans, {'attr':{'class':'lblnompays flag_fr'}}) }}
+			    {{ form_widget(formTexteActivite.texte_description_fr, {'attr':{'class':'txt_add_state2 txt_hidden'}}) }}  
+			    {{ form_errors(formTexteActivite.texte_description_fr ) }}  
+			    <textarea id="editor1" name="editor1"></textarea>
+				<script type="text/javascript">
+					CKEDITOR.replace( 'editor1' );
+				</script>
+				{% if txtAttFr is defined %}
+					<script type="text/javascript">
+						document.getElementById('editor1').innerHTML = "{{ txtAttFr }}";
+					</script>
+				{% endif %}
+			    {{ form_label(formTexteActivite.texte_description_en, "texte.description.en" | trans, {'attr':{'class':'lblnompays flag_en'}}) }}
+			    {{ form_widget(formTexteActivite.texte_description_en, {'attr':{'class':'txt_add_state2 txt_hidden'}}) }}
+			    {{ form_errors(formTexteActivite.texte_description_en ) }}	
+			    <textarea id="editor2" name="editor2"></textarea>
+				<script type="text/javascript">
+					CKEDITOR.replace( 'editor2' );
+				</script>
+				{% if txtAttEn is defined %}
+					<script type="text/javascript">
+						document.getElementById('editor2').innerHTML = "{{ txtAttEn }}";
+					</script>
+				{% endif %}
+				<div class="saisonattrait">
+				{{ form_label(formTexteActivite.date_debut, "date.debut" | trans, {'attr':{'class':'lblnompays'}}) }}
+				{{ form_widget(formTexteActivite.date_debut, {'attr':{'class':'txt_add_state'}}) }}
+			    {{ form_errors(formTexteActivite.date_debut ) }}
+				{{ form_label(formTexteActivite.date_fin, "date.fin" | trans, {'attr':{'class':'lblnompays'}}) }}
+				{{ form_widget(formTexteActivite.date_fin, {'attr':{'class':'txt_add_state'}}) }}
+			    {{ form_errors(formTexteActivite.date_fin ) }}
+				</div>
+			    {% for p in attrait %}
+					{% if p.periodepourattrait is defined and  p.periodepourattrait == 1 %}
+						<script> 
+							$(".saisonattrait").removeClass("saisonattrait") 
+							//Datepicker pour les date de debut et de fin 
+							$("#add_texte_activite_date_debut").click(function(){
+								$(this).datepicker();
+							});
+							$("#add_texte_activite_date_fin").click(function(){
+								$(this).datepicker();
+							});
+						</script>
+					{% endif %}
+				{% endfor %}
+				<div id="imagemainupload">
+				{{ form_label(formTexteActivite.image, "image.principale" | trans, {'attr':{'class':'lblnompays imageprincipaleadminclient'}}) }}
+                                {{ form_widget(formTexteActivite.image, {'attr':{'class':'txt_add_state2 txt_hidden'}}) }}
+                                {{ form_errors(formTexteActivite.image ) }}	
+                                </div>
+			    {% include "MyAppCustomerBundle:MiniSite:FormData_attrait_principale.html.twig" %}
+			    {{ form_label(formTexteActivite.photo_payante, "image.categorie" | trans, {'attr':{'class':'lblnompays imagecategorieadminclient'}}) }}
+			    {{ form_widget(formTexteActivite.photo_payante, {'attr':{'class':'txt_add_state2 txt_hidden'}}) }}
+			    {{ form_errors(formTexteActivite.photo_payante ) }}	
+                            {% include "MyAppCustomerBundle:MiniSite:FormData_attrait_categorie.html.twig" %}
+			    {{ form_label(formTexteActivite.logo, "logo" | trans, {'attr':{'class':'lblnompays imagelococlient'}}) }}
+			    {{ form_widget(formTexteActivite.logo, {'attr':{'class':'txt_add_state2 txt_hidden'}}) }}
+			    {{ form_errors(formTexteActivite.logo ) }}	
+                            {% include "MyAppCustomerBundle:MiniSite:FormData_attrait_logo.html.twig" %}
+			    <p class="resize_p_form">&nbsp;</p>
+			     <h3 id="politiqueattrait">{{ "politiques" | trans }}</h3>
+			     <div class="politiqueattrait">
+					<div class="politique-hebergement-fr">
+				    	{{ form_row(formTexteActivite.politique_attrait_fr, {'attr':{'class':'txt_add_state'}} ) }}
+				    	{{ form_errors(formTexteActivite.politique_attrait_fr ) }}
+				    	 <p class="resize_p_form">&nbsp;</p>
+				    </div>
+				    <div class="politique-hebergement-en">
+				    	{{ form_row(formTexteActivite.politique_attrait_en, {'attr':{'class':'txt_add_state'}} ) }}
+				        {{ form_errors(formTexteActivite.politique_attrait_en ) }}
+				    	 <p class="resize_p_form">&nbsp;</p>
+				    </div>
+				 </div>
+				 <p class="resize_p_form">&nbsp;</p>
+			     <h3 id="textesattrait">{{ "Textes" | trans }}</h3>
+			     <div class="textesattrait">
+				    <div class="politique-attrait-fr">
+				    	{{ form_row(formTexteActivite.description_attrait_fr, {'attr':{'class':'txt_add_state'}} ) }}
+				        {{ form_errors(formTexteActivite.description_attrait_fr ) }}
+				    	 <p class="resize_p_form">&nbsp;</p>
+				    </div>
+				    <div class="politique-attrait-en">
+				    	{{ form_row(formTexteActivite.description_attrait_en, {'attr':{'class':'txt_add_state'}} ) }}
+				        {{ form_errors(formTexteActivite.description_attrait_en ) }}
+				    	 <p class="resize_p_form">&nbsp;</p>
+				    </div>
+				</div>
+				<p class="resize_p_form">&nbsp;</p>
+				 {# SECTION GALERIE PHOTO #}
+				    <h3 id="galleriePhotoAttr">{{ "galerie.photo" | trans }}</h3>
+				  	<div id="galeriePhotoPreview" >
+				    	<ul class="tags" data-prototype="{{ form_widget(formTexteActivite.galerie_attraits.vars.prototype)|e }}"> </ul>
+				    		 {{ form_errors(formTexteActivite.galerie_attraits ) }}
+				 		{% include '::galerie_photo.html.twig' %}
+						{# AFFICHAGE ET SUPPRÉSSION DES THUMBNAILS #}
+						{% include 'MyAppCustomerBundle:MiniSite:display_gallery_attrait_client.xml.twig' %}
+				    </div>
+			     <p class="resize_p_form">&nbsp;</p>
+			     {#<h3 id="attraithoraire">{{ "horaire" | trans }}</h3>
+			     <div class="attraithoraire">
+			    	{{ form_widget(formTexteActivite.lundi_matin_ete, {'attr':{'class':'txt_add_state2'}}) }}
+			    	{{ form_errors(formTexteActivite.lundi_matin_ete ) }}
+			     </div>
+			     <p class="resize_p_form">&nbsp;</p>#}
+			     <h3 id="attraitservice">{{ "service.corporatif" | trans }}</h3>
+			     <div class="attraitservice">
+				{{ form_widget(formTexteActivite.attrait_service_id, {'attr':{'class':'styleserviceattrait'}}) }}  
+				{{ form_errors(formTexteActivite.attrait_service_id ) }}
+			     </div>	
+			     <p class="resize_p_form">&nbsp;</p>
+			     <h3 id="attraitsoins">{{ "soin.sante.attrait" | trans }}</h3>
+			     <div class="attraitsoin">
+				{{ form_widget(formTexteActivite.soins_sante_id, {'attr':{'class':'styleserviceattrait'}}) }}
+			    	{{ form_errors(formTexteActivite.soins_sante_id ) }}
+			     </div>	
+			     <p class="resize_p_form">&nbsp;</p>
+                             <h3 id="attraitcuisine">{{ "type.cuisine" | trans }}</h3>
+			     <div class="attraitcuisine" >
+                                {{ form_widget(formTexteActivite.cuisine_id, {'attr':{'class':'styleserviceattrait labelajustewidth'}}) }}
+                                {{ form_errors(formTexteActivite.cuisine_id ) }}
+			     </div>
+			     <p class="resize_p_form">&nbsp;</p>
+                             <h3 id="attraitactivite">{{ "Activites" | trans }}</h3>
+			     <div class="attraitactivite" >
+                                {{ form_widget(formTexteActivite.attrait_activite_id) }}
+                                {{ form_errors(formTexteActivite.attrait_activite_id ) }}
+			     </div>
+			     <p class="resize_p_form">&nbsp;</p>
+			    {{ form_rest(formTexteActivite) }}
+			    <input class="Btn_form_submit_fixed" type="submit" value="{{"submit.texte.attrait" |trans}}" />
+			    <br />
+			</form> {{ distanceExiste }}
+			
+			<script>
+				$(function(){
+                                    {% for q in tabId %} 
+                                        {% if distanceExiste == 0 %} 
+                                            $("#add_texte_activite_attrait_activite_id input#add_texte_activite_attrait_activite_id_{{ q.id }}").after('<input type="text" value="" id="attrait_distance_activite_id_{{ q.id }}" name="attrait_distance_activite_{{ q.id }}" maxlength="10"/>');
+                                            $("#attrait_distance_activite_id_{{ q.id }}").focusout(function(){
+                                                valuedistance = $(this).val();
+                                                if(valuedistance != ""){
+                                                    $("#add_texte_activite_attrait_activite_id_{{ q.id }}").attr("checked", "checked");
+                                                }else if(valuedistance == ""){
+                                                    $("#add_texte_activite_attrait_activite_id_{{ q.id }}").removeAttr("checked", "checked");
+                                                }
+                                            });
+                                            /*$("#attrait_distance_activite_id_{{ q.id }}").focus(function(){   
+                                                if($(this).val() == "" ){
+                                                    $(this).next( "span" ).css( "display", "inline" ).fadeOut( 1000 );
+                                                }
+                                            });*/
+                                        {% else %}
+                                            $("#add_texte_activite_attrait_activite_id input#add_texte_activite_attrait_activite_id_{{ q.activiteid }}").after('<input type="text" value="{{ q.distance }}" id="attrait_distance_activite_id_{{ q.activiteid }}" name="attrait_distance_activite_{{ q.activiteid }}" maxlength="20"/>');
+                                            $("#attrait_distance_activite_id_{{ q.activiteid }}").focusout(function(){
+                                                valuedistance = $(this).val();
+                                                if(valuedistance != ""){
+                                                    $("#add_texte_activite_attrait_activite_id_{{ q.activiteid }}").attr("checked", "checked");
+                                                }else if(valuedistance == ""){
+                                                    $("#add_texte_activite_attrait_activite_id_{{ q.activiteid }}").removeAttr("checked", "checked");
+                                                }
+                                            });
+                                            /*$("#attrait_distance_activite_id_{{ q.id }}").focus(function(){   
+                                                if($(this).val() == "" ){
+                                                    $(this).next( "span" ).css( "display", "inline" ).fadeOut( 1000 );
+                                                }
+                                            });*/     
+                                            $("#add_texte_activite_attrait_activite_id label#add_texte_activite_attrait_activite_id_{{ q.activiteid }}").after('<input type="text" value="{{ q.distance }}" id="attrait_distance_activite_id_{{ q.activiteid }}" name="attrait_distance_activite_{{ q.activiteid }}" maxlength="6"/>');
+                                        {% endif %}
+                                    {% endfor %} 
+                                        
+                                        //$("#add_texte_activite_attrait_activite_id span").css({"display":"none"});
+                                        
+                                        $("#add_texte_activite_attrait_activite_id > input").attr("placeholder", "ex: 7.5 km");
+                                        
+                                       // $("#add_texte_activite_attrait_activite_id_135").next().remove();
+                                       // $("#add_texte_activite_attrait_activite_id_135").remove();
+                                          
+					//Galerie photo
+					var $gallery = $("#add_texte_activite_galerie_attraits");
+					$("#galeriePhotoPreview").append($gallery);
+					$("form#form_txt_attrait div").last().remove();
+					//cache les labels des formulaires imbriqués
+					$("#add_texte_activite_politique_attrait_fr div label, #add_texte_activite_politique_attrait_en div label, .politique-attrait-fr div label, .politique-attrait-en div label").addClass("lblnompays");
+					$("#add_texte_activite_politique_attrait_fr div textarea, #add_texte_activite_politique_attrait_en div textarea, .politique-attrait-fr div textarea, .politique-attrait-en div textarea").addClass("addTexteClientAttrait");
+					$(".politique-hebergement-fr div label:first, .politique-hebergement-en div label:first, .politique-attrait-fr div label:first, .politique-attrait-en div label:first").css({"display":"none"});
+					//Ajoute une checkbox pour la suppression des images de la galerie photo
+					$("#add_texte_activite_galerie_attraits > div").append("<input type='checkbox' class='checkboxdeletegalerie'></input> <label class='labeldynamique'> {{ 'supprimer' | trans }}</label>");		
+					//Cache les premières label des div de la galerie photo
+					$("#add_texte_activite_galerie_attraits > div > label:first-child").remove();
+					//horaire
+					var $horaire = $("#add_texte_activite_lundi_matin_ete");
+					$(".attraithoraire").append($horaire);
+					//services
+					var $services = $("#add_texte_activite_attrait_service_id");
+					$(".attraitservice").append($services);
+					//ajoute les classes aux label des horaires
+					$("#add_texte_activite_lundi_matin_ete > div > label").addClass("lblnompays");
+					//cache les textes et les politiques
+					$(".textesattrait, .politiqueattrait, .attraitsoin").hide();
+					$("#politiqueattrait").click(function(){	
+						$(".politiqueattrait").slideToggle();
+					});
+					$("#textesattrait").click(function(){
+						$(".textesattrait").slideToggle();
+					});
+					$("#attraitsoins").click(function(){
+						$(".attraitsoin").slideToggle();
+					});
+					//Ajoute les drapeaux aux labels des textes et politiques.
+					$("#add_texte_activite_description_attrait_fr > div > label, #add_texte_activite_politique_attrait_fr > div > label").addClass("flag_fr");
+					$("#add_texte_activite_description_attrait_en > div > label, #add_texte_activite_politique_attrait_en > div > label").addClass("flag_en");
+					//Regarde si on a des soins des santé pour les affichés
+					{% for w in p.soinssanteid %}
+						{% if w.id == 126 %}
+							$("#attraitsoins, .attraitsoin").remove();
+						{% endif %}
+					{% endfor %}
+					//Ajoute les dimensions aux labels des images
+					$("label.imageprincipaleadminclient").append("<br /><span> 594 x 328 pixels</span>").after("<span class='aidehover imgprincipale'>[?]</span>");
+					$("label.imagecategorieadminclient").append("<br /><span> 154 x 105 pixels</span>").after('<span class="aidehover imgcategorie" style="left:200px;">[?]</span>');
+					$("label.imagelogoclient").append("<br /><span> 200 x 280 pixels <br /> maximum</span>").after('<span class="aidehover imglogo">[?]</span>');
+					//Gestion des bulles d'aide pour les [?] 
+					//image principale
+					$("span.imgprincipale").click(function(){
+						$(".dialogueprincipale").css({"display":"block"}).dialog();
+						$(".ui-dialog").css({"width":"700px"});
+					});
+					//image catégorie
+					$("span.imgcategorie").click(function(){
+						$(".dialoguecategorie").css({"display":"block"}).dialog();
+						$(".ui-dialog").css({"width":"700px"});
+					});
+					//image logo
+					$("span.imglogo").click(function(){
+						$(".dialoguelogo").css({"display":"block"}).dialog();
+						$(".ui-dialog").css({"width":"400px"});
+					});
+					$(".jcrop-holder").css({"left":"280px"});
+                                        
+                                        //supprime le message d'erreur dans les cuisines
+					$(".attraitactivite > ul ").remove();
+                                        //activités
+                                       // $("#add_texte_activite_attrait_activite_id").prev().remove();                             
+                                        $(".attraitactivite").append($("#add_texte_activite_attrait_activite_id"));
+				});
+			</script>
+			
+			{# CHARGE LA TRADUCTION DU PLUGINS DATEPICKER SI BESOIN #}
+			{% if app.request.locale == "fr" %}
+				{% include '::datepicker_fr.html.twig' %}
+			{% endif %}
+                        
+                        <div class="dialogueprincipale" title="{{ "photo.principale" | trans }}" style="display:none;">
+                                <img  src='{{ asset("bundles/myappglobal/images/image_principale.jpg") }}' />
+                        </div>	
+
+                        <div class="dialoguecategorie" title="{{ "photo.categorie" | trans }}" style="display:none;">
+                                <img  src='{{ asset("bundles/myappglobal/images/image_categorie.jpg") }}' />
+                        </div>	
+
+                        <div class="dialoguelogo" title="{{ "photo.logo" | trans }}" style="display:none;">
+                                <img  src='{{ asset("bundles/myappglobal/images/image_logo.jpg") }}' />
+                        </div>	
+	
+	{% endfor %}									
+</div>
+{% endblock %}

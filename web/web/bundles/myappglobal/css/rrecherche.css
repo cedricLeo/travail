@@ -1,0 +1,342 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2014-05-13, 14:12:54
+    Author     : leonardc
+*/
+@charset "utf-8";
+
+/* CSS Document */
+#rrecherche {
+	position: absolute;
+	z-index: 25;
+	margin-top: 80px;
+	background-color: #fff;
+	width: 350px;
+	min-height: 265px;
+	left: 0px;
+	top: 0px;
+}
+
+#rrecherche1 {
+	position: absolute;
+	z-index: 25;
+	margin-top: 80px;
+	background-color: #fff;
+	width: 350px;
+	min-height: 265px;
+	left: 0px;
+	top: 0px;
+}
+
+#rrecherche2 {
+	position: absolute;
+	z-index: 25;
+	margin-top: 80px;
+	background-color: #fff;
+	width: 350px;
+	min-height: 265px;
+	left: 0px;
+	top: 0px;
+}
+
+#rrecherche3 { /*position: absolute;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	text-align: center;
+	line-height: 0;*/
+	position: absolute;
+	z-index: 250;
+	margin-top: 80px;
+	background-color: #efefef;
+	border: 2px solid #0073ae;
+	width: 600px;
+	margin: 10% 20% 10% 20%;
+	/*left: 0px; 
+	top: 0px;*/
+}
+
+#rrecherche3 div {
+	padding: 6px;
+	border: 5px solid #fff;
+	min-height: 300px;
+}
+
+#rrecherche3 div select {
+	font-size: 10px;
+}
+
+#rrecherche3 div p {
+	height: 24px;
+	font-size: 12px;
+}
+
+#rrecherche3 div ul {
+	font-size: 12px;
+	text-align: right;
+}
+
+#rrecherche3 div li {
+	display: inline;
+	margin: 0 6px;
+}
+
+#rrecherche3 div li a:link {
+	text-decoration: underline;
+	color: #666;
+}
+
+#rrecherche3 div li a:visited {
+	text-decoration: underline;
+	color: #666;
+}
+
+#rrecherche3 div li a:hover {
+	text-decoration: none;
+	color: #666;
+}
+
+#rrecherche3 div li a:active {
+	text-decoration: underline;
+	color: #666;
+}
+
+#rrecherche3 div h3 {
+	color: #0073ae;
+	font-size: 21px;
+	font-weight: normal;
+	padding: 2px 0 3px 0;
+	border-bottom: 2px solid #fb9f3c;
+	margin-top: 12px;
+}
+
+#rrecherche3 div h4 {
+	font-size: 14px;
+	font-weight: normal;
+	margin: 12px 0 6px 0;
+	background-color: #0073ae;
+	color: #fff;
+}
+
+#rrecherche3 div h5 {
+	font-size: 12px;
+}
+
+#rrecherche3 div td {
+	font-size: 12px;
+	height: 24px;
+}
+
+#rrecherche3 div .dropdownreservit {
+	width: 240px;
+}
+
+#rrecherche3 div .dropdownreservit option {
+	width: 200px;
+}
+
+#rrecherche3 div .inputreservit {
+	width: 20px;
+}
+
+#rrecherche4 {
+	
+}
+
+#rrecherche4 div {
+	padding: 6px;
+	border: 5px solid #fff;
+	min-height: 300px;
+}
+
+#rrecherche4 div select {
+	font-size: 12px;
+}
+
+#rrecherche4 div p {
+	height: 24px;
+	font-size: 12px;
+	margin-left: 90px
+}
+
+#rrecherche4 div ul {
+	font-size: 12px;
+	text-align: right;
+}
+
+#rrecherche4 div li {
+	display: inline;
+	margin: 0 6px;
+}
+
+#rrecherche4 div li a:link {
+	text-decoration: underline;
+	color: #666;
+}
+
+#rrecherche4 div li a:visited {
+	text-decoration: underline;
+	color: #666;
+}
+
+#rrecherche4 div li a:hover {
+	text-decoration: none;
+	color: #666;
+}
+
+#rrecherche4 div li a:active {
+	text-decoration: underline;
+	color: #666;
+}
+
+#rrecherche4 div h3 {
+	color: #0073ae;
+	font-size: 21px;
+	font-weight: normal;
+	padding: 2px 0 3px 0;
+	border-bottom: 2px solid #fb9f3c;
+	margin-top: 12px;
+}
+
+#rrecherche4 div h4 {
+	font-size: 14px;
+	font-weight: bold;
+	margin: 12px 0 6px 0;
+	background-color: #0073ae;
+	color: #fff;
+}
+
+#rrecherche4 div h5 {
+	font-size: 12px;
+	margin-left: 210px;
+}
+
+#rrecherche4 div table {
+	margin-left: 90px
+}
+
+#rrecherche4 div td {
+	font-size: 12px;
+	height: 24px;
+}
+
+#rrecherche4 div .dropdownreservit {
+	width: 240px;
+}
+
+#rrecherche4 div .dropdownreservit option {
+	width: 200px;
+}
+
+#rrecherche4 div .inputreservit {
+	width: 20px;
+}
+
+#rrechercheCarte {
+	margin: 0px;
+}
+
+#rrechercheCarte div {
+	width: 906px;
+	margin: 12px 40px;
+	border-left: 1px solid #999;
+	border-right: 1px solid #999;
+	border-bottom: 1px solid #999;
+}
+
+#rrechercheCarte h1 {
+	color: #0073ae;
+	font-size: 21px;
+	font-weight: normal;
+	padding: 2px 0 3px 0;
+	border-bottom: 2px solid #fb9f3c;
+	margin: 12px 40px;
+}
+
+#rrechercheCarte h2 {
+	background-image: url(../images/degrade_titre.jpg);
+	background-repeat: repeat-x;
+	width: 898px;
+	color: #0073ae;
+	padding-left: 8px;
+	height: 30px;
+	font-size: 21px;
+	padding-top: 4px;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+}
+
+#rrechercheCarte td {
+	padding-left: 6px;
+	font-size: 14px;
+	height: 40px;
+	color: #0073ae;
+}
+
+#rrechercheCarte select {
+	width: 200px
+}
+
+#rrechercheCarte td a:link {
+	text-decoration: none;
+	color: #333;
+}
+
+#rrechercheCarte td a:visited {
+	text-decoration: none;
+	color: #333;
+}
+
+#rrechercheCarte td a:hover {
+	text-decoration: none;
+	color: #999;
+}
+
+#rrechercheCarte td a:active {
+	text-decoration: none;
+	color: #333;
+}
+
+.btrecherchecarte {
+	position: inherit;
+	z-index: 100;
+	width: 156px;
+	height: 21px;
+	float: left;
+	margin: 0px 0 0 0;
+	right: 0px
+}
+
+a.btrecherchecarte {
+	background-image: url(../images/BtRechercheCarte.gif);
+	display: block;
+	width: 156px;
+}
+
+a.btrecherchecarte:hover {
+	background: url(../images/BtRechercheCarte.gif) 0 -21px
+}
+
+.btrecherche {
+	position: inherit;
+	z-index: 100;
+	width: 92px;
+	height: 21px;
+	float: left;
+	margin: 0px 0 0 0;
+	right: 0px
+}
+
+a.btrecherche {
+	background-image: url(../images/BtRecherche.gif);
+	display: block;
+	width: 92px;
+}
+
+a.btrecherche:hover {
+	background: url(../images/BtRecherche.gif) 0 -21px
+}
